@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.jbox2d</groupId>
+	<groupId>de.pirckheimer-gymnasium</groupId>
 	<artifactId>jbox2d-jni-broadphase</artifactId>
 	<name>jbox2d-jni-broadphase</name>
 	<description>desc</description>
@@ -14,13 +14,13 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.jbox2d</groupId>
+			<groupId>de.pirckheimer-gymnasium</groupId>
 			<artifactId>jbox2d-library</artifactId>
 			<version>2.2.1.2-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
-			<groupId>org.jbox2d</groupId>
+			<groupId>de.pirckheimer-gymnasium</groupId>
 			<artifactId>jbox2d-testbed</artifactId>
 			<version>2.2.1.2-SNAPSHOT</version>
 			<type>jar</type>
@@ -45,7 +45,7 @@
 						</descriptorRefs>
 						<archive>
 							<manifest>
-								<mainClass>org.jbox2d.collision.broadphase.TestbedMain</mainClass>
+								<mainClass>de.pirckheimer_gymnasium.jbox2d.collision.broadphase.TestbedMain</mainClass>
 							</manifest>
 						</archive>
 					</configuration>
@@ -71,9 +71,9 @@
 						<library>
 							<type>jni</type>
 
-							<!--This is where the NarSystem.jar class will be generated and is 
+							<!--This is where the NarSystem.jar class will be generated and is
 								also the namespace used for the generated jni header -->
-							<narSystemPackage>org.jbox2d.collision.broadphase</narSystemPackage>
+							<narSystemPackage>de.pirckheimer_gymnasium.jbox2d.collision.broadphase</narSystemPackage>
 							<linkCPP>false</linkCPP>
 						</library>
 					</libraries>

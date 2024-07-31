@@ -3,19 +3,19 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>jbox2d</artifactId>
-		<groupId>org.jbox2d</groupId>
+		<groupId>de.pirckheimer-gymnasium</groupId>
 		<version>2.3.1</version>
 	</parent>
 	<artifactId>jbox2d-testbed-javafx</artifactId>
 	<name>jbox2d-testbed-javafx</name>
 	<packaging>jar</packaging>
-	<url>https://github.com/jbox2d/jbox2d</url>
+	<url>https://github.com/engine-pi/jbox2d</url>
 	<description>The testbed for JBox2D, a 2d java physics engine, ported from the C++ Box2d engine.</description>
-        
+
         <properties>
-            <mainClass>org.jbox2d.testbed.framework.javafx.TestbedMain</mainClass>
+            <mainClass>de.pirckheimer_gymnasium.jbox2d.testbed.framework.javafx.TestbedMain</mainClass>
         </properties>
-        
+
 	<dependencies>
 	  	<dependency>
 	  		<groupId>org.apache.commons</groupId>
@@ -24,21 +24,21 @@
 	  		<scope>compile</scope>
 	  	</dependency>
 		<dependency>
-			<groupId>org.jbox2d</groupId>
+			<groupId>de.pirckheimer-gymnasium</groupId>
 			<artifactId>jbox2d-library</artifactId>
 			<version>2.3.1</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.jbox2d</groupId>
+			<groupId>de.pirckheimer-gymnasium</groupId>
 			<artifactId>jbox2d-serialization</artifactId>
 			<version>2.3.1</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.jbox2d</groupId>
+			<groupId>de.pirckheimer-gymnasium</groupId>
 			<artifactId>jbox2d-testbed</artifactId>
 			<version>2.3.1</version>
 			<type>jar</type>
@@ -55,7 +55,7 @@
                     <version>${maven.compiler.target}</version>
                 </dependency>
 	</dependencies>
-        
+
 	<build>
 		<plugins>
 			<plugin>

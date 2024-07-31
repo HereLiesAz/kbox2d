@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>jbox2d</artifactId>
-		<groupId>org.jbox2d</groupId>
+		<groupId>de.pirckheimer-gymnasium</groupId>
 		<version>2.3.1</version>
 	</parent>
 	<artifactId>jbox2d-testbed-jogl</artifactId>
@@ -12,21 +12,21 @@
 	<description>Project for making a jogl panel for the testbed</description>
 	<dependencies>
 		<dependency>
-			<groupId>org.jbox2d</groupId>
+			<groupId>de.pirckheimer-gymnasium</groupId>
 			<artifactId>jbox2d-library</artifactId>
 			<version>2.3.1</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.jbox2d</groupId>
+			<groupId>de.pirckheimer-gymnasium</groupId>
 			<artifactId>jbox2d-serialization</artifactId>
 			<version>2.3.1</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.jbox2d</groupId>
+			<groupId>de.pirckheimer-gymnasium</groupId>
 			<artifactId>jbox2d-testbed</artifactId>
 			<version>2.3.1</version>
 			<type>jar</type>
@@ -53,7 +53,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>org.jbox2d.testbed.framework.jogl.JoglTestbedMain</mainClass>
+							<mainClass>de.pirckheimer_gymnasium.jbox2d.testbed.framework.jogl.JoglTestbedMain</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -65,7 +65,7 @@
 				<configuration>
 					<programs>
 						<program>
-							<mainClass>org.jbox2d.testbed.framework.jogl.JoglTestbedMain</mainClass>
+							<mainClass>de.pirckheimer_gymnasium.jbox2d.testbed.framework.jogl.JoglTestbedMain</mainClass>
 							<id>jbox2d-testbed-jogl</id>
 						</program>
 					</programs>

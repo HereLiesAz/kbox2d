@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.jbox2d</groupId>
+	<groupId>de.pirckheimer-gymnasium</groupId>
 	<artifactId>jbox2d</artifactId>
 	<version>2.3.1</version>
 	<packaging>pom</packaging>
 	<name>jbox2d</name>
 	<description>JBox2D is a 2d Java physics engine, a port of the C++ Box2d engine.  This is the parent pom for the library and testbed modules.</description>
-	
+
         <properties>
             <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
             <maven.compiler.source>13.0.2</maven.compiler.source>
             <maven.compiler.target>13.0.2</maven.compiler.target>
 	</properties>
-        
+
         <modules>
 		<module>jbox2d-library</module>
 		<module>jbox2d-serialization</module>
@@ -22,15 +22,15 @@
 		<module>jbox2d-testbed-javafx</module>
 	</modules>
 
-	<url>https://github.com/jbox2d/jbox2d</url>
+	<url>https://github.com/engine-pi/jbox2d</url>
 	<issueManagement>
-		<url>https://github.com/jbox2d/jbox2d/issues</url>
+		<url>https://github.com/engine-pi/jbox2d/issues</url>
 	</issueManagement>
 
 	<scm>
-		<url>scm:git:git@github.com:jbox2d/jbox2d.git</url>
-		<connection>scm:git:git@github.com:jbox2d/jbox2d.git</connection>
-		<developerConnection>scm:git:git@github.com:jbox2d/jbox2d.git</developerConnection>
+		<url>scm:git:git@github.com:engine-pi/jbox2d.git</url>
+		<connection>scm:git:git@github.com:engine-pi/jbox2d.git</connection>
+		<developerConnection>scm:git:git@github.com:engine-pi/jbox2d.git</developerConnection>
 	  <tag>jbox2d-2.3.0-BETA</tag>
   </scm>
 
