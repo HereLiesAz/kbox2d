@@ -38,6 +38,12 @@
 
     <developers>
         <developer>
+            <id>josef@friedrich.rocks</id>
+            <name>Josef Friedrich</name>
+            <email>josef@friedrich.rocks</email>
+            <url>https://josef.friedrich.rocks</url>
+        </developer>
+        <developer>
             <id>danielmurphy161@gmail.com</id>
             <name>Daniel Murphy</name>
             <email>danielmurphy161@gmail.com</email>
