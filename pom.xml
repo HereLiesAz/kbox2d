@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.pirckheimer-gymnasium</groupId>
 	<artifactId>jbox2d</artifactId>
@@ -8,13 +10,13 @@
 	<name>jbox2d</name>
 	<description>JBox2D is a 2d Java physics engine, a port of the C++ Box2d engine.  This is the parent pom for the library and testbed modules.</description>
 
-        <properties>
-            <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-            <maven.compiler.source>13.0.2</maven.compiler.source>
-            <maven.compiler.target>13.0.2</maven.compiler.target>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>13.0.2</maven.compiler.source>
+		<maven.compiler.target>13.0.2</maven.compiler.target>
 	</properties>
 
-        <modules>
+	<modules>
 		<module>jbox2d-library</module>
 		<module>jbox2d-serialization</module>
 		<module>jbox2d-testbed</module>
@@ -31,8 +33,8 @@
 		<url>scm:git:git@github.com:engine-pi/jbox2d.git</url>
 		<connection>scm:git:git@github.com:engine-pi/jbox2d.git</connection>
 		<developerConnection>scm:git:git@github.com:engine-pi/jbox2d.git</developerConnection>
-	  <tag>jbox2d-2.3.0-BETA</tag>
-  </scm>
+		<tag>jbox2d-2.3.0-BETA</tag>
+	</scm>
 
 	<developers>
 		<developer>
@@ -119,8 +121,8 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.8.1</version>
 					<configuration>
-                                            <release>13</release>
-                                            <optimise>true</optimise>
+						<release>13</release>
+						<optimise>true</optimise>
 					</configuration>
 				</plugin>
 			</plugins>

@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>jbox2d</artifactId>
@@ -53,7 +55,8 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>de.pirckheimer_gymnasium.jbox2d.testbed.framework.jogl.JoglTestbedMain</mainClass>
+							<mainClass>
+								de.pirckheimer_gymnasium.jbox2d.testbed.framework.jogl.JoglTestbedMain</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -65,7 +68,8 @@
 				<configuration>
 					<programs>
 						<program>
-							<mainClass>de.pirckheimer_gymnasium.jbox2d.testbed.framework.jogl.JoglTestbedMain</mainClass>
+							<mainClass>
+								de.pirckheimer_gymnasium.jbox2d.testbed.framework.jogl.JoglTestbedMain</mainClass>
 							<id>jbox2d-testbed-jogl</id>
 						</program>
 					</programs>
