@@ -3,12 +3,15 @@
 
 # jbox2d
 
+Why this fork:
+
+jbox2d has not been updated on Maven Central for a long time:
+https://central.sonatype.com/artifact/org.jbox2d/jbox2d
+
+However, there have been many commits in the Git repository since the last release: https://github.com/jbox2d/jbox2d
+
 JBox2d is a Java port of the C++ physics engines
 [LiquidFun](http://google.github.io/liquidfun/) and [Box2d](http://box2d.org).
-
-If you're planning on maintaining/customizing your _own copy_ of the code,
-please join our [group](http://groups.google.com/group/jbox2d-announce) so we
-can keep you updated.
 
 If you're looking to deploy on the web, see
 [PlayN](https://github.com/playn/playn), which compiles JBox2d through GWT so

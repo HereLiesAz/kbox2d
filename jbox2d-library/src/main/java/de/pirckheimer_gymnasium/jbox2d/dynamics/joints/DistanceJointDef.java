@@ -54,6 +54,8 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
  * bodies and the non-zero length of the distance joint. The definition uses
  * local anchor points so that the initial configuration can violate the
  * constraint slightly. This helps when saving and loading a game.
+ * 
+ * @author Daniel Murphy
  *
  * @warning Do not use a zero or short length.
  */
