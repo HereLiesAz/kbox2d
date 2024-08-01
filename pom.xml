@@ -126,11 +126,6 @@
                             <head>warning:</head>
                         </tag>
                     </tags>
-                    <!--
-                    https://maven.apache.org/plugins/maven-javadoc-plugin/examples/links-configuration.html -->
-                    <links>
-                        <link>https://javadoc.io/doc/de.pirckheimer-gymnasium/engine-pi/latest</link>
-                    </links>
 
                     <!--
                     https://maven.apache.org/plugins/maven-javadoc-plugin/examples/stylesheet-configuration.html -->
