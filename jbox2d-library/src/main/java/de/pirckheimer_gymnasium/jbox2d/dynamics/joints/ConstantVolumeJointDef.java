@@ -28,48 +28,58 @@ import java.util.ArrayList;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
 
 /**
- * Definition for a {@link ConstantVolumeJoint}, which connects a group a bodies together so they
- * maintain a constant volume within them.
+ * Definition for a {@link ConstantVolumeJoint}, which connects a group a bodies
+ * together so they maintain a constant volume within them.
  */
-public class ConstantVolumeJointDef extends JointDef {
-  public float frequencyHz;
-  public float dampingRatio;
+public class ConstantVolumeJointDef extends JointDef
+{
+    public float frequencyHz;
 
-  ArrayList<Body> bodies;
-  ArrayList<DistanceJoint> joints;
+    public float dampingRatio;
 
-  public ConstantVolumeJointDef() {
-    super(JointType.CONSTANT_VOLUME);
-    bodies = new ArrayList<Body>();
-    joints = null;
-    collideConnected = false;
-    frequencyHz = 0.0f;
-    dampingRatio = 0.0f;
-  }
+    ArrayList<Body> bodies;
 
-  /**
-   * Adds a body to the group
-   *
-   * @param argBody
-   */
-  public void addBody(Body argBody) {
-    bodies.add(argBody);
-    if (bodies.size() == 1) {
-      bodyA = argBody;
+    ArrayList<DistanceJoint> joints;
+
+    public ConstantVolumeJointDef()
+    {
+        super(JointType.CONSTANT_VOLUME);
+        bodies = new ArrayList<Body>();
+        joints = null;
+        collideConnected = false;
+        frequencyHz = 0.0f;
+        dampingRatio = 0.0f;
     }
-    if (bodies.size() == 2) {
-      bodyB = argBody;
-    }
-  }
 
-  /**
-   * Adds a body and the pre-made distance joint. Should only be used for deserialization.
-   */
-  public void addBodyAndJoint(Body argBody, DistanceJoint argJoint) {
-    addBody(argBody);
-    if (joints == null) {
-      joints = new ArrayList<DistanceJoint>();
+    /**
+     * Adds a body to the group
+     *
+     * @param argBody
+     */
+    public void addBody(Body argBody)
+    {
+        bodies.add(argBody);
+        if (bodies.size() == 1)
+        {
+            bodyA = argBody;
+        }
+        if (bodies.size() == 2)
+        {
+            bodyB = argBody;
+        }
     }
-    joints.add(argJoint);
-  }
+
+    /**
+     * Adds a body and the pre-made distance joint. Should only be used for
+     * deserialization.
+     */
+    public void addBodyAndJoint(Body argBody, DistanceJoint argJoint)
+    {
+        addBody(argBody);
+        if (joints == null)
+        {
+            joints = new ArrayList<DistanceJoint>();
+        }
+        joints.add(argJoint);
+    }
 }

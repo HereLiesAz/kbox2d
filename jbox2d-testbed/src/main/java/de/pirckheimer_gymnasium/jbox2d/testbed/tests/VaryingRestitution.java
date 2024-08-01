@@ -38,52 +38,50 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 /**
  * @author Daniel Murphy
  */
-public class VaryingRestitution extends TestbedTest {
-
-  @Override
-  public boolean isSaveLoadEnabled() {
-    return true;
-  }
-
-  @Override
-  public void initTest(boolean deserialized) {
-    if (deserialized) {
-      return;
-    }
+public class VaryingRestitution extends TestbedTest
+{
+    @Override
+    public boolean isSaveLoadEnabled()
     {
-      BodyDef bd = new BodyDef();
-      Body ground = getWorld().createBody(bd);
-
-      EdgeShape shape = new EdgeShape();
-      shape.set(new Vec2(-40.0f, 0.0f), new Vec2(40.0f, 0.0f));
-      ground.createFixture(shape, 0.0f);
+        return true;
     }
 
+    @Override
+    public void initTest(boolean deserialized)
     {
-      CircleShape shape = new CircleShape();
-      shape.m_radius = 1.0f;
-
-      FixtureDef fd = new FixtureDef();
-      fd.shape = shape;
-      fd.density = 1.0f;
-
-      float restitution[] = {0.0f, 0.1f, 0.3f, 0.5f, 0.75f, 0.9f, 1.0f};
-
-      for (int i = 0; i < 7; ++i) {
-        BodyDef bd = new BodyDef();
-        bd.type = BodyType.DYNAMIC;
-        bd.position.set(-10.0f + 3.0f * i, 20.0f);
-
-        Body body = getWorld().createBody(bd);
-
-        fd.restitution = restitution[i];
-        body.createFixture(fd);
-      }
+        if (deserialized)
+        {
+            return;
+        }
+        {
+            BodyDef bd = new BodyDef();
+            Body ground = getWorld().createBody(bd);
+            EdgeShape shape = new EdgeShape();
+            shape.set(new Vec2(-40.0f, 0.0f), new Vec2(40.0f, 0.0f));
+            ground.createFixture(shape, 0.0f);
+        }
+        {
+            CircleShape shape = new CircleShape();
+            shape.m_radius = 1.0f;
+            FixtureDef fd = new FixtureDef();
+            fd.shape = shape;
+            fd.density = 1.0f;
+            float restitution[] = { 0.0f, 0.1f, 0.3f, 0.5f, 0.75f, 0.9f, 1.0f };
+            for (int i = 0; i < 7; ++i)
+            {
+                BodyDef bd = new BodyDef();
+                bd.type = BodyType.DYNAMIC;
+                bd.position.set(-10.0f + 3.0f * i, 20.0f);
+                Body body = getWorld().createBody(bd);
+                fd.restitution = restitution[i];
+                body.createFixture(fd);
+            }
+        }
     }
-  }
 
-  @Override
-  public String getTestName() {
-    return "Varying Restitution";
-  }
+    @Override
+    public String getTestName()
+    {
+        return "Varying Restitution";
+    }
 }

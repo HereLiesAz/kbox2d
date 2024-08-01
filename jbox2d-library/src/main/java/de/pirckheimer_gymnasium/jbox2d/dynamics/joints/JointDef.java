@@ -27,39 +27,42 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
 
 /**
  * Joint definitions are used to construct joints.
+ *
  * @author Daniel Murphy
  */
-public class JointDef {
+public class JointDef
+{
+    public JointDef(JointType type)
+    {
+        this.type = type;
+        userData = null;
+        bodyA = null;
+        bodyB = null;
+        collideConnected = false;
+    }
 
-	public JointDef(JointType type){
-		this.type = type;
-		userData = null;
-		bodyA = null;
-		bodyB = null;
-		collideConnected = false;
-	}
-	/**
-	 * The joint type is set automatically for concrete joint types.
-	 */
-	public JointType type;
+    /**
+     * The joint type is set automatically for concrete joint types.
+     */
+    public JointType type;
 
-	/**
-	 * Use this to attach application specific data to your joints.
-	 */
-	public Object userData;
+    /**
+     * Use this to attach application specific data to your joints.
+     */
+    public Object userData;
 
-	/**
-	 * The first attached body.
-	 */
-	public Body bodyA;
+    /**
+     * The first attached body.
+     */
+    public Body bodyA;
 
-	/**
-	 * The second attached body.
-	 */
-	public Body bodyB;
+    /**
+     * The second attached body.
+     */
+    public Body bodyB;
 
-	/**
-	 * Set this flag to true if the attached bodies should collide.
-	 */
-	public boolean collideConnected;
+    /**
+     * Set this flag to true if the attached bodies should collide.
+     */
+    public boolean collideConnected;
 }

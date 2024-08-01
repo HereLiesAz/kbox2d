@@ -27,23 +27,37 @@ import de.pirckheimer_gymnasium.jbox2d.collision.Manifold.ManifoldType;
 import de.pirckheimer_gymnasium.jbox2d.common.Settings;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 
-public class ContactPositionConstraint {
-  Vec2[] localPoints = new Vec2[Settings.maxManifoldPoints];
-  final Vec2 localNormal = new Vec2();
-  final Vec2 localPoint = new Vec2();
-  int indexA;
-  int indexB;
-  float invMassA, invMassB;
-  final Vec2 localCenterA = new Vec2();
-  final Vec2 localCenterB = new Vec2();
-  float invIA, invIB;
-  ManifoldType type;
-  float radiusA, radiusB;
-  int pointCount;
+public class ContactPositionConstraint
+{
+    Vec2[] localPoints = new Vec2[Settings.maxManifoldPoints];
 
-  public ContactPositionConstraint() {
-    for (int i = 0; i < localPoints.length; i++) {
-      localPoints[i] = new Vec2();
+    final Vec2 localNormal = new Vec2();
+
+    final Vec2 localPoint = new Vec2();
+
+    int indexA;
+
+    int indexB;
+
+    float invMassA, invMassB;
+
+    final Vec2 localCenterA = new Vec2();
+
+    final Vec2 localCenterB = new Vec2();
+
+    float invIA, invIB;
+
+    ManifoldType type;
+
+    float radiusA, radiusB;
+
+    int pointCount;
+
+    public ContactPositionConstraint()
+    {
+        for (int i = 0; i < localPoints.length; i++)
+        {
+            localPoints[i] = new Vec2();
+        }
     }
-  }
 }

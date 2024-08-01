@@ -25,7 +25,9 @@ package de.pirckheimer_gymnasium.jbox2d.dynamics.contacts;
 
 import de.pirckheimer_gymnasium.jbox2d.pooling.IDynamicStack;
 
-public class ContactRegister {
-  public IDynamicStack<Contact> creator;
-  public boolean primary;
+public class ContactRegister
+{
+    public IDynamicStack<Contact> creator;
+
+    public boolean primary;
 }

@@ -36,116 +36,124 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.Fixture;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.contacts.Contact;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
-public class OneSidedTest extends TestbedTest {
-  private static final long PLATFORM_TAG = 10;
-  private static final long CHARACTER_TAG = 11;
+public class OneSidedTest extends TestbedTest
+{
+    private static final long PLATFORM_TAG = 10;
 
-  enum State {
-    e_unknown, e_above, e_below,
-  };
+    private static final long CHARACTER_TAG = 11;
 
-  float m_radius, m_top, m_bottom;
-  State m_state;
-  Fixture m_platform;
-  Fixture m_character;
-
-  @Override
-  public Long getTag(Fixture fixture) {
-    if (fixture == m_platform)
-      return PLATFORM_TAG;
-    if (fixture == m_character)
-      return CHARACTER_TAG;
-    return super.getTag(fixture);
-  }
-
-  @Override
-  public void processFixture(Fixture fixture, Long tag) {
-    if (tag == PLATFORM_TAG) {
-      m_platform = fixture;
-    } else if (tag == CHARACTER_TAG) {
-      m_character = fixture;
-    } else {
-      super.processFixture(fixture, tag);
-    }
-  }
-
-  @Override
-  public boolean isSaveLoadEnabled() {
-    return true;
-  }
-
-  @Override
-  public String getTestName() {
-    return "One Sided";
-  }
-
-  @Override
-  public void initTest(boolean deserialized) {
-    m_state = State.e_unknown;
-    if (deserialized) {
-      return;
-    }
-    // Ground
+    enum State
     {
-      BodyDef bd = new BodyDef();
-      Body ground = getWorld().createBody(bd);
+        e_unknown, e_above, e_below,
+    };
 
-      EdgeShape shape = new EdgeShape();
-      shape.set(new Vec2(-20.0f, 0.0f), new Vec2(20.0f, 0.0f));
-      ground.createFixture(shape, 0.0f);
-    }
+    float m_radius, m_top, m_bottom;
 
-    // Platform
+    State m_state;
+
+    Fixture m_platform;
+
+    Fixture m_character;
+
+    @Override
+    public Long getTag(Fixture fixture)
     {
-      BodyDef bd = new BodyDef();
-      bd.position.set(0.0f, 10.0f);
-      Body body = getWorld().createBody(bd);
-
-      PolygonShape shape = new PolygonShape();
-      shape.setAsBox(3.0f, 0.5f);
-      m_platform = body.createFixture(shape, 0.0f);
-
-      m_bottom = 10.0f - 0.5f;
-      m_top = 10.0f + 0.5f;
+        if (fixture == m_platform)
+            return PLATFORM_TAG;
+        if (fixture == m_character)
+            return CHARACTER_TAG;
+        return super.getTag(fixture);
     }
 
-    // Actor
+    @Override
+    public void processFixture(Fixture fixture, Long tag)
     {
-      BodyDef bd = new BodyDef();
-      bd.type = BodyType.DYNAMIC;
-      bd.position.set(0.0f, 12.0f);
-      Body body = getWorld().createBody(bd);
-
-      m_radius = 0.5f;
-      CircleShape shape = new CircleShape();
-      shape.m_radius = m_radius;
-      m_character = body.createFixture(shape, 20.0f);
-
-      body.setLinearVelocity(new Vec2(0.0f, -50.0f));
-
-      m_state = State.e_unknown;
-    }
-  }
-
-  @Override
-  public void preSolve(Contact contact, Manifold oldManifold) {
-    super.preSolve(contact, oldManifold);
-
-    Fixture fixtureA = contact.getFixtureA();
-    Fixture fixtureB = contact.getFixtureB();
-
-    if (fixtureA != m_platform && fixtureA != m_character) {
-      return;
+        if (tag == PLATFORM_TAG)
+        {
+            m_platform = fixture;
+        }
+        else if (tag == CHARACTER_TAG)
+        {
+            m_character = fixture;
+        }
+        else
+        {
+            super.processFixture(fixture, tag);
+        }
     }
 
-    if (fixtureB != m_character && fixtureB != m_character) {
-      return;
+    @Override
+    public boolean isSaveLoadEnabled()
+    {
+        return true;
     }
 
-    Vec2 position = m_character.getBody().getPosition();
-
-    if (position.y < m_top + m_radius - 3.0f * Settings.linearSlop) {
-      contact.setEnabled(false);
+    @Override
+    public String getTestName()
+    {
+        return "One Sided";
     }
-  }
+
+    @Override
+    public void initTest(boolean deserialized)
+    {
+        m_state = State.e_unknown;
+        if (deserialized)
+        {
+            return;
+        }
+        // Ground
+        {
+            BodyDef bd = new BodyDef();
+            Body ground = getWorld().createBody(bd);
+            EdgeShape shape = new EdgeShape();
+            shape.set(new Vec2(-20.0f, 0.0f), new Vec2(20.0f, 0.0f));
+            ground.createFixture(shape, 0.0f);
+        }
+        // Platform
+        {
+            BodyDef bd = new BodyDef();
+            bd.position.set(0.0f, 10.0f);
+            Body body = getWorld().createBody(bd);
+            PolygonShape shape = new PolygonShape();
+            shape.setAsBox(3.0f, 0.5f);
+            m_platform = body.createFixture(shape, 0.0f);
+            m_bottom = 10.0f - 0.5f;
+            m_top = 10.0f + 0.5f;
+        }
+        // Actor
+        {
+            BodyDef bd = new BodyDef();
+            bd.type = BodyType.DYNAMIC;
+            bd.position.set(0.0f, 12.0f);
+            Body body = getWorld().createBody(bd);
+            m_radius = 0.5f;
+            CircleShape shape = new CircleShape();
+            shape.m_radius = m_radius;
+            m_character = body.createFixture(shape, 20.0f);
+            body.setLinearVelocity(new Vec2(0.0f, -50.0f));
+            m_state = State.e_unknown;
+        }
+    }
+
+    @Override
+    public void preSolve(Contact contact, Manifold oldManifold)
+    {
+        super.preSolve(contact, oldManifold);
+        Fixture fixtureA = contact.getFixtureA();
+        Fixture fixtureB = contact.getFixtureB();
+        if (fixtureA != m_platform && fixtureA != m_character)
+        {
+            return;
+        }
+        if (fixtureB != m_character && fixtureB != m_character)
+        {
+            return;
+        }
+        Vec2 position = m_character.getBody().getPosition();
+        if (position.y < m_top + m_radius - 3.0f * Settings.linearSlop)
+        {
+            contact.setEnabled(false);
+        }
+    }
 }

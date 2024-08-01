@@ -25,7 +25,9 @@ package de.pirckheimer_gymnasium.jbox2d.dynamics.contacts;
 
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 
-public class Velocity {
-  public final Vec2 v = new Vec2();
-  public float w;
+public class Velocity
+{
+    public final Vec2 v = new Vec2();
+
+    public float w;
 }

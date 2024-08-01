@@ -30,9 +30,13 @@ import de.pirckheimer_gymnasium.jbox2d.collision.AABB;
  *
  * @author Daniel
  */
-public class FixtureProxy {
-  final AABB aabb = new AABB();
-  Fixture fixture;
-  int childIndex;
-  int proxyId;
+public class FixtureProxy
+{
+    final AABB aabb = new AABB();
+
+    Fixture fixture;
+
+    int childIndex;
+
+    int proxyId;
 }

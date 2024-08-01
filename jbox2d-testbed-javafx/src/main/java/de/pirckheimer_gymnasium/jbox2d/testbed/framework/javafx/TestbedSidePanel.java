@@ -49,245 +49,267 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-
 /**
  * The testbed side panel. Facilitates test and setting changes.
  *
  * @author Daniel Murphy
  */
 @SuppressWarnings("serial")
-public class TestbedSidePanel extends BorderPane {
+public class TestbedSidePanel extends BorderPane
+{
+    private static final String SETTING_TAG = "settings";
 
-  private static final String SETTING_TAG = "settings";
-  private static final String LABEL_TAG = "label";
+    private static final String LABEL_TAG = "label";
 
-  final TestbedModel model;
-  final AbstractTestbedController controller;
+    final TestbedModel model;
 
-  public ComboBox<ListItem> tests;
+    final AbstractTestbedController controller;
 
-  private Button pauseButton = new Button("Pause");
-  private Button stepButton = new Button("Step");
-  private Button resetButton = new Button("Reset");
-  private Button quitButton = new Button("Quit");
+    public ComboBox<ListItem> tests;
 
-  public Button saveButton = new Button("Save");
-  public Button loadButton = new Button("Load");
+    private Button pauseButton = new Button("Pause");
 
-  public TestbedSidePanel(TestbedModel argModel, AbstractTestbedController argController) {
-    model = argModel;
-    controller = argController;
-    initComponents();
-    addListeners();
+    private Button stepButton = new Button("Step");
 
-    model.addTestChangeListener(new TestbedModel.TestChangedListener() {
-      @Override
-      public void testChanged(TestbedTest argTest, int argIndex) {
-        tests.getSelectionModel().select(argIndex);
-        saveButton.setDisable(!argTest.isSaveLoadEnabled());
-        loadButton.setDisable(!argTest.isSaveLoadEnabled());
-      }
-    });
-  }
+    private Button resetButton = new Button("Reset");
 
-  private void updateTests(ComboBoxModel<ListItem> model) {
-    ObservableList<ListItem> list = tests.itemsProperty().get();
-    list.clear();
-    for (int i = 0; i < model.getSize(); i++) {
-      list.add((ListItem) model.getElementAt(i));
+    private Button quitButton = new Button("Quit");
+
+    public Button saveButton = new Button("Save");
+
+    public Button loadButton = new Button("Load");
+
+    public TestbedSidePanel(TestbedModel argModel,
+            AbstractTestbedController argController)
+    {
+        model = argModel;
+        controller = argController;
+        initComponents();
+        addListeners();
+        model.addTestChangeListener(new TestbedModel.TestChangedListener()
+        {
+            @Override
+            public void testChanged(TestbedTest argTest, int argIndex)
+            {
+                tests.getSelectionModel().select(argIndex);
+                saveButton.setDisable(!argTest.isSaveLoadEnabled());
+                loadButton.setDisable(!argTest.isSaveLoadEnabled());
+            }
+        });
     }
-  }
 
-  public void initComponents() {
-    // setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-
-    TestbedSettings settings = model.getSettings();
-
-    VBox top = new VBox();
-    // top.setLayout(new GridLayout(0, 1));
-    // top.setBorder(BorderFactory.createCompoundBorder(new EtchedBorder(EtchedBorder.LOWERED),
-    // BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-    DefaultComboBoxModel testList = model.getComboModel();
-    testList.addListDataListener(new ListDataListener() {
-      @Override
-      public void intervalRemoved(ListDataEvent e) {
-        updateTests((ComboBoxModel<ListItem>) e.getSource());
-      }
-
-      @Override
-      public void intervalAdded(ListDataEvent e) {
-        updateTests((ComboBoxModel<ListItem>) e.getSource());
-      }
-
-      @Override
-      public void contentsChanged(ListDataEvent e) {
-        updateTests((ComboBoxModel<ListItem>) e.getSource());
-      }
-    });
-
-    tests = new ComboBox<>();
-    updateTests((ComboBoxModel<TestbedModel.ListItem>) testList);
-    tests.setOnAction((actionEvent) -> {
-      testSelected();
-    });
-
-    tests.setCellFactory((ListView<ListItem> param) -> new ListCell<ListItem>() {
-      @Override public void updateItem(ListItem item, boolean empty) {
-        super.updateItem(item, empty);
-        if (item != null) {
-            setText(item.isCategory() ? item.category : item.test.getTestName());
-            setDisable(item.isCategory());
+    private void updateTests(ComboBoxModel<ListItem> model)
+    {
+        ObservableList<ListItem> list = tests.itemsProperty().get();
+        list.clear();
+        for (int i = 0; i < model.getSize(); i++)
+        {
+            list.add((ListItem) model.getElementAt(i));
         }
-      }
-    });
+    }
 
-    top.getChildren().add(new Label("Choose a test:"));
-    top.getChildren().add(tests);
+    public void initComponents()
+    {
+        // setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        TestbedSettings settings = model.getSettings();
+        VBox top = new VBox();
+        // top.setLayout(new GridLayout(0, 1));
+        // top.setBorder(BorderFactory.createCompoundBorder(new
+        // EtchedBorder(EtchedBorder.LOWERED),
+        // BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        DefaultComboBoxModel testList = model.getComboModel();
+        testList.addListDataListener(new ListDataListener()
+        {
+            @Override
+            public void intervalRemoved(ListDataEvent e)
+            {
+                updateTests((ComboBoxModel<ListItem>) e.getSource());
+            }
 
-    addSettings(top, settings, SettingType.DRAWING);
+            @Override
+            public void intervalAdded(ListDataEvent e)
+            {
+                updateTests((ComboBoxModel<ListItem>) e.getSource());
+            }
 
-    setTop(top);
+            @Override
+            public void contentsChanged(ListDataEvent e)
+            {
+                updateTests((ComboBoxModel<ListItem>) e.getSource());
+            }
+        });
+        tests = new ComboBox<>();
+        updateTests((ComboBoxModel<TestbedModel.ListItem>) testList);
+        tests.setOnAction((actionEvent) -> {
+            testSelected();
+        });
+        tests.setCellFactory(
+                (ListView<ListItem> param) -> new ListCell<ListItem>()
+                {
+                    @Override
+                    public void updateItem(ListItem item, boolean empty)
+                    {
+                        super.updateItem(item, empty);
+                        if (item != null)
+                        {
+                            setText(item.isCategory() ? item.category
+                                    : item.test.getTestName());
+                            setDisable(item.isCategory());
+                        }
+                    }
+                });
+        top.getChildren().add(new Label("Choose a test:"));
+        top.getChildren().add(tests);
+        addSettings(top, settings, SettingType.DRAWING);
+        setTop(top);
+        VBox middle = new VBox();
+        // middle.setLayout(new GridLayout(0, 1));
+        // middle.setBorder(BorderFactory.createCompoundBorder(new
+        // EtchedBorder(EtchedBorder.LOWERED),
+        // BorderFactory.createEmptyBorder(5, 10, 5, 10)));
+        addSettings(middle, settings, SettingType.ENGINE);
+        setCenter(middle);
+        pauseButton.setAlignment(Pos.CENTER);
+        stepButton.setAlignment(Pos.CENTER);
+        resetButton.setAlignment(Pos.CENTER);
+        saveButton.setAlignment(Pos.CENTER);
+        loadButton.setAlignment(Pos.CENTER);
+        quitButton.setAlignment(Pos.CENTER);
+        HBox buttonGroups = new HBox();
+        VBox buttons1 = new VBox();
+        buttons1.getChildren().add(resetButton);
+        VBox buttons2 = new VBox();
+        buttons2.getChildren().add(pauseButton);
+        buttons2.getChildren().add(stepButton);
+        VBox buttons3 = new VBox();
+        buttons3.getChildren().add(saveButton);
+        buttons3.getChildren().add(loadButton);
+        buttons3.getChildren().add(quitButton);
+        buttonGroups.getChildren().add(buttons1);
+        buttonGroups.getChildren().add(buttons2);
+        buttonGroups.getChildren().add(buttons3);
+        setBottom(buttonGroups);
+    }
 
-    VBox middle = new VBox();
-    // middle.setLayout(new GridLayout(0, 1));
-    // middle.setBorder(BorderFactory.createCompoundBorder(new EtchedBorder(EtchedBorder.LOWERED),
-    // BorderFactory.createEmptyBorder(5, 10, 5, 10)));
+    protected void testSelected()
+    {
+        int testNum = tests.getSelectionModel().getSelectedIndex();
+        controller.playTest(testNum);
+    }
 
-    addSettings(middle, settings, SettingType.ENGINE);
+    public void addListeners()
+    {
+        pauseButton.setOnAction((e) -> {
+            if (model.getSettings().pause)
+            {
+                model.getSettings().pause = false;
+                pauseButton.setText("Pause");
+            }
+            else
+            {
+                model.getSettings().pause = true;
+                pauseButton.setText("Resume");
+            }
+            model.getPanel().grabFocus();
+        });
+        stepButton.setOnAction((e) -> {
+            model.getSettings().singleStep = true;
+            if (!model.getSettings().pause)
+            {
+                model.getSettings().pause = true;
+                pauseButton.setText("Resume");
+            }
+            model.getPanel().grabFocus();
+        });
+        resetButton.setOnAction((e) -> {
+            controller.reset();
+        });
+        quitButton.setOnAction((e) -> {
+            System.exit(0);
+        });
+        saveButton.setOnAction((e) -> {
+            controller.save();
+        });
+        loadButton.setOnAction((e) -> {
+            controller.load();
+        });
+    }
 
-    setCenter(middle);
+    private void addSettings(Pane argPanel, TestbedSettings argSettings,
+            SettingType argIgnore)
+    {
+        for (TestbedSetting setting : argSettings.getSettings())
+        {
+            if (setting.settingsType == argIgnore)
+            {
+                continue;
+            }
+            switch (setting.constraintType)
+            {
+            case RANGE:
+                Label text = new Label(setting.name + ": " + setting.value);
+                Slider slider = new Slider(setting.min, setting.max,
+                        setting.value);
+                // slider.setMaximumSize(new Dimension(200, 20));
+                slider.valueProperty()
+                        .addListener((prop, oldValue, newValue) -> {
+                            stateChanged(slider);
+                        });
+                putClientProperty(slider, "name", setting.name);
+                putClientProperty(slider, SETTING_TAG, setting);
+                putClientProperty(slider, LABEL_TAG, text);
+                argPanel.getChildren().add(text);
+                argPanel.getChildren().add(slider);
+                break;
 
-    pauseButton.setAlignment(Pos.CENTER);
-    stepButton.setAlignment(Pos.CENTER);
-    resetButton.setAlignment(Pos.CENTER);
-    saveButton.setAlignment(Pos.CENTER);
-    loadButton.setAlignment(Pos.CENTER);
-    quitButton.setAlignment(Pos.CENTER);
+            case BOOLEAN:
+                CheckBox checkbox = new CheckBox(setting.name);
+                checkbox.setSelected(setting.enabled);
+                checkbox.selectedProperty()
+                        .addListener((prop, oldValue, newValue) -> {
+                            stateChanged(checkbox);
+                        });
+                putClientProperty(checkbox, SETTING_TAG, setting);
+                argPanel.getChildren().add(checkbox);
+                break;
+            }
+        }
+    }
 
-    HBox buttonGroups = new HBox();
-    VBox buttons1 = new VBox();
-    buttons1.getChildren().add(resetButton);
+    private <T> T getClientProperty(Control control, String tag)
+    {
+        Map<String, Object> map = (Map<String, Object>) control.getUserData();
+        return (map != null ? (T) map.get(tag) : null);
+    }
 
-    VBox buttons2 = new VBox();
-    buttons2.getChildren().add(pauseButton);
-    buttons2.getChildren().add(stepButton);
+    private void putClientProperty(Control control, String tag, Object o)
+    {
+        Map<String, Object> map = (Map<String, Object>) control.getUserData();
+        if (map == null)
+        {
+            map = new HashMap<>();
+            control.setUserData(map);
+        }
+        map.put(tag, o);
+    }
 
-    VBox buttons3 = new VBox();
-    buttons3.getChildren().add(saveButton);
-    buttons3.getChildren().add(loadButton);
-    buttons3.getChildren().add(quitButton);
-
-    buttonGroups.getChildren().add(buttons1);
-    buttonGroups.getChildren().add(buttons2);
-    buttonGroups.getChildren().add(buttons3);
-
-    setBottom(buttonGroups);
-  }
-
-  protected void testSelected() {
-    int testNum = tests.getSelectionModel().getSelectedIndex();
-    controller.playTest(testNum);
-  }
-
-  public void addListeners() {
-    pauseButton.setOnAction((e) -> {
-      if (model.getSettings().pause) {
-        model.getSettings().pause = false;
-        pauseButton.setText("Pause");
-      } else {
-        model.getSettings().pause = true;
-        pauseButton.setText("Resume");
-      }
-      model.getPanel().grabFocus();
-    });
-
-    stepButton.setOnAction((e) -> {
-      model.getSettings().singleStep = true;
-      if (!model.getSettings().pause) {
-        model.getSettings().pause = true;
-        pauseButton.setText("Resume");
-      }
-      model.getPanel().grabFocus();
-    });
-
-    resetButton.setOnAction((e) -> {
-      controller.reset();
-    });
-
-    quitButton.setOnAction((e) -> {
-      System.exit(0);
-    });
-
-    saveButton.setOnAction((e) -> {
-      controller.save();
-    });
-
-    loadButton.setOnAction((e) -> {
-      controller.load();
-    });
-  }
-
-  private void addSettings(Pane argPanel, TestbedSettings argSettings, SettingType argIgnore) {
-    for (TestbedSetting setting : argSettings.getSettings()) {
-      if (setting.settingsType == argIgnore) {
-        continue;
-      }
-      switch (setting.constraintType) {
-        case RANGE:
-          Label text = new Label(setting.name + ": " + setting.value);
-          Slider slider = new Slider(setting.min, setting.max, setting.value);
-          // slider.setMaximumSize(new Dimension(200, 20));
-          slider.valueProperty().addListener((prop, oldValue, newValue) -> {
-            stateChanged(slider);
-          });
-          putClientProperty(slider, "name", setting.name);
-          putClientProperty(slider, SETTING_TAG, setting);
-          putClientProperty(slider, LABEL_TAG, text);
-          argPanel.getChildren().add(text);
-          argPanel.getChildren().add(slider);
-          break;
+    public void stateChanged(Control control)
+    {
+        TestbedSetting setting = getClientProperty(control, SETTING_TAG);
+        switch (setting.constraintType)
+        {
         case BOOLEAN:
-          CheckBox checkbox = new CheckBox(setting.name);
-          checkbox.setSelected(setting.enabled);
-          checkbox.selectedProperty().addListener((prop, oldValue, newValue) -> {
-            stateChanged(checkbox);
-          });
-          putClientProperty(checkbox, SETTING_TAG, setting);
-          argPanel.getChildren().add(checkbox);
-          break;
-      }
+            CheckBox box = (CheckBox) control;
+            setting.enabled = box.isSelected();
+            break;
+
+        case RANGE:
+            Slider slider = (Slider) control;
+            setting.value = (int) slider.getValue();
+            Label label = getClientProperty(slider, LABEL_TAG);
+            label.setText(setting.name + ": " + setting.value);
+            break;
+        }
+        model.getPanel().grabFocus();
     }
-  }
-
-  private <T> T getClientProperty(Control control, String tag) {
-    Map<String, Object> map = (Map<String, Object>) control.getUserData();
-    return (map != null ? (T) map.get(tag) : null);
-  }
-
-  private void putClientProperty(Control control, String tag, Object o) {
-    Map<String, Object> map = (Map<String, Object>) control.getUserData();
-    if (map == null) {
-      map = new HashMap<>();
-      control.setUserData(map);
-    }
-    map.put(tag, o);
-  }
-
-  public void stateChanged(Control control) {
-    TestbedSetting setting = getClientProperty(control, SETTING_TAG);
-
-    switch (setting.constraintType) {
-      case BOOLEAN:
-        CheckBox box = (CheckBox) control;
-        setting.enabled = box.isSelected();
-        break;
-      case RANGE:
-        Slider slider = (Slider) control;
-        setting.value = (int) slider.getValue();
-        Label label = getClientProperty(slider, LABEL_TAG);
-        label.setText(setting.name + ": " + setting.value);
-        break;
-    }
-    model.getPanel().grabFocus();
-  }
 }

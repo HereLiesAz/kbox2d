@@ -40,48 +40,52 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedErrorHandler;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedModel;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.j2d.TestbedSidePanel;
 
-public class JoglTestbedMain {
-
-  public static void main(String[] args) {
+public class JoglTestbedMain
+{
+    public static void main(String[] args)
+    {
 //    try {
 //      UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
 //    } catch (Exception e) {
 //      // log.warn("Could not set the look and feel to nimbus.  "
 //      // + "Hopefully you're on a mac so the window isn't ugly as crap.");
 //    }
-    TestbedModel model = new TestbedModel();
-    final TestbedController controller =
-        new TestbedController(model, UpdateBehavior.UPDATE_IGNORED, MouseBehavior.FORCE_Y_FLIP,
-            new TestbedErrorHandler() {
-              @Override
-              public void serializationError(Exception e, String message) {
-                JOptionPane.showMessageDialog(null, message, "Serialization Error",
-                    JOptionPane.ERROR_MESSAGE);
-              }
-            });
-    JoglPanel panel = new JoglPanel(model, controller);
-    model.setDebugDraw(new JoglDebugDraw(panel));
-    model.setPanel(panel);
-    TestList.populateModel(model);
-    model.getSettings().getSetting(TestbedSettings.DrawWireframe).enabled = false;
-
-    JFrame testbed = new JFrame();
-    testbed.setTitle("JBox2D Testbed");
-    testbed.setLayout(new BorderLayout());
-    TestbedSidePanel side = new TestbedSidePanel(model, controller);
-    testbed.add((Component) panel, "Center");
-    testbed.add(new JScrollPane(side), "East");
-    testbed.pack();
-    testbed.setVisible(true);
-    testbed.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-    SwingUtilities.invokeLater(new Runnable() {
-      @Override
-      public void run() {
-        controller.playTest(0);
-        controller.start();
-      }
-    });
-  }
-
+        TestbedModel model = new TestbedModel();
+        final TestbedController controller = new TestbedController(model,
+                UpdateBehavior.UPDATE_IGNORED, MouseBehavior.FORCE_Y_FLIP,
+                new TestbedErrorHandler()
+                {
+                    @Override
+                    public void serializationError(Exception e, String message)
+                    {
+                        JOptionPane.showMessageDialog(null, message,
+                                "Serialization Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                });
+        JoglPanel panel = new JoglPanel(model, controller);
+        model.setDebugDraw(new JoglDebugDraw(panel));
+        model.setPanel(panel);
+        TestList.populateModel(model);
+        model.getSettings()
+                .getSetting(TestbedSettings.DrawWireframe).enabled = false;
+        JFrame testbed = new JFrame();
+        testbed.setTitle("JBox2D Testbed");
+        testbed.setLayout(new BorderLayout());
+        TestbedSidePanel side = new TestbedSidePanel(model, controller);
+        testbed.add((Component) panel, "Center");
+        testbed.add(new JScrollPane(side), "East");
+        testbed.pack();
+        testbed.setVisible(true);
+        testbed.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                controller.playTest(0);
+                controller.start();
+            }
+        });
+    }
 }

@@ -28,19 +28,22 @@ package de.pirckheimer_gymnasium.jbox2d.common;
  *
  * @author Daniel
  */
-public class Timer {
+public class Timer
+{
+    private long resetNanos;
 
-  private long resetNanos;
+    public Timer()
+    {
+        reset();
+    }
 
-  public Timer() {
-    reset();
-  }
+    public void reset()
+    {
+        resetNanos = System.nanoTime();
+    }
 
-  public void reset() {
-    resetNanos = System.nanoTime();
-  }
-
-  public float getMilliseconds() {
-    return (System.nanoTime() - resetNanos) / 1000 * 1f / 1000;
-  }
+    public float getMilliseconds()
+    {
+        return (System.nanoTime() - resetNanos) / 1000 * 1f / 1000;
+    }
 }

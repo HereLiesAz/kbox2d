@@ -38,69 +38,84 @@ import javafx.scene.text.Font;
  * @author Daniel Murphy
  */
 @SuppressWarnings("serial")
-public class TestPanelJavaFX extends Canvas implements TestbedPanel {
-  private static final Logger log = LoggerFactory.getLogger(TestPanelJavaFX.class);
+public class TestPanelJavaFX extends Canvas implements TestbedPanel
+{
+    private static final Logger log = LoggerFactory
+            .getLogger(TestPanelJavaFX.class);
 
-  public static final int SCREEN_DRAG_BUTTON = MouseButton.SECONDARY.ordinal();
+    public static final int SCREEN_DRAG_BUTTON = MouseButton.SECONDARY
+            .ordinal();
 
-  public static final int INIT_WIDTH = 600;
-  public static final int INIT_HEIGHT = 600;
+    public static final int INIT_WIDTH = 600;
 
-  private final AbstractTestbedController controller;
+    public static final int INIT_HEIGHT = 600;
 
-  public TestPanelJavaFX(final TestbedModel model, final AbstractTestbedController controller, final BorderPane parent) {
-    this(model, controller);
+    private final AbstractTestbedController controller;
 
-    //bind canvas size to parent
-    widthProperty().bind(parent.widthProperty().subtract(175));
-    heightProperty().bind(parent.heightProperty());
-  }
+    public TestPanelJavaFX(final TestbedModel model,
+            final AbstractTestbedController controller, final BorderPane parent)
+    {
+        this(model, controller);
+        // bind canvas size to parent
+        widthProperty().bind(parent.widthProperty().subtract(175));
+        heightProperty().bind(parent.heightProperty());
+    }
 
-  public TestPanelJavaFX(final TestbedModel model, final AbstractTestbedController controller) {
-    super(INIT_WIDTH, INIT_HEIGHT);
-    this.controller = controller;
-    updateSize(INIT_WIDTH, INIT_HEIGHT);
+    public TestPanelJavaFX(final TestbedModel model,
+            final AbstractTestbedController controller)
+    {
+        super(INIT_WIDTH, INIT_HEIGHT);
+        this.controller = controller;
+        updateSize(INIT_WIDTH, INIT_HEIGHT);
+        JavaFXPanelHelper.addHelpAndPanelListeners(this, model, controller,
+                SCREEN_DRAG_BUTTON);
+        ChangeListener<Number> sizeListener = (prop, oldValue, newValue) -> {
+            updateSize(getWidth(), getHeight());
+        };
+        widthProperty().addListener(sizeListener);
+        heightProperty().addListener(sizeListener);
+        getGraphicsContext2D().setFont(new Font("Courier New", 12));
+    }
 
-    JavaFXPanelHelper.addHelpAndPanelListeners(this, model, controller, SCREEN_DRAG_BUTTON);
-    ChangeListener<Number> sizeListener = (prop, oldValue, newValue) -> {
-      updateSize(getWidth(), getHeight());
-    };
-    widthProperty().addListener(sizeListener);
-    heightProperty().addListener(sizeListener);
+    @Override
+    public double maxWidth(double height)
+    {
+        return Double.MAX_VALUE;
+    }
 
-    getGraphicsContext2D().setFont(new Font("Courier New", 12));
-  }
+    @Override
+    public double maxHeight(double width)
+    {
+        return Double.MAX_VALUE;
+    }
 
-  @Override
-  public double maxWidth(double height) {
-    return Double.MAX_VALUE;
-  }
+    public GraphicsContext getDBGraphics()
+    {
+        return getGraphicsContext2D();
+    }
 
-  @Override
-  public double maxHeight(double width) {
-    return Double.MAX_VALUE;
-  }
+    private void updateSize(double width, double height)
+    {
+        controller.updateExtents((float) width / 2, (float) height / 2);
+    }
 
-  public GraphicsContext getDBGraphics() {
-    return getGraphicsContext2D();
-  }
+    public boolean render()
+    {
+        GraphicsContext dbg = getDBGraphics();
+        dbg.setFill(Color.BLACK);
+        Bounds bounds = getBoundsInLocal();
+        dbg.fillRect(bounds.getMinX(), bounds.getMinX(), bounds.getWidth(),
+                bounds.getHeight());
+        return true;
+    }
 
-  private void updateSize(double width, double height) {
-    controller.updateExtents((float) width / 2, (float) height / 2);
-  }
+    public void paintScreen()
+    {
+    }
 
-  public boolean render() {
-    GraphicsContext dbg = getDBGraphics();
-    dbg.setFill(Color.BLACK);
-    Bounds bounds = getBoundsInLocal();
-    dbg.fillRect(bounds.getMinX(), bounds.getMinX(), bounds.getWidth(), bounds.getHeight());
-    return true;
-  }
-
-  public void paintScreen() {}
-
-  @Override
-  public void grabFocus() {
-    Platform.runLater(this::requestFocus);
-  }
+    @Override
+    public void grabFocus()
+    {
+        Platform.runLater(this::requestFocus);
+    }
 }

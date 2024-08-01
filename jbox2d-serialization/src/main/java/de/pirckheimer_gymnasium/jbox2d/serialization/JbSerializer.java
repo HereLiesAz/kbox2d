@@ -32,103 +32,117 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.World;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.joints.Joint;
 
 /**
- * Serializer for jbox2d, used to
- * serialize any aspect of the physics world
+ * Serializer for jbox2d, used to serialize any aspect of the physics world
+ *
  * @author Daniel
  *
  */
-public interface JbSerializer {
+public interface JbSerializer
+{
+    /**
+     * Sets the object signer for the serializer. This allows the user to
+     * specify an 'tag' for each main physics object, which is then referenced
+     * later at deserialization for the user.
+     *
+     * @param signer
+     */
+    public void setObjectSigner(ObjectSigner signer);
 
-	/**
-	 * Sets the object signer for the serializer.  This allows
-	 * the user to specify an 'tag' for each main physics object,
-	 * which is then referenced later at deserialization for the user.
-	 * @param signer
-	 */
-	public void setObjectSigner(ObjectSigner signer);
+    /**
+     * Sets a listener for unsupported exception instead of stopping the whole
+     * serialization process by throwing and exception.
+     *
+     * @param listener
+     */
+    public void setUnsupportedListener(UnsupportedListener listener);
 
-	/**
-	 * Sets a listener for unsupported exception instead of
-	 * stopping the whole serialization process by throwing
-	 * and exception.
-	 * @param listener
-	 */
-	public void setUnsupportedListener(UnsupportedListener listener);
+    /**
+     * Serializes the world
+     *
+     * @param world * @throws UnsupportedObjectException if a physics object is
+     *              unsupported by this library.
+     * @see #setUnsupportedListener(UnsupportedListener)
+     */
+    public SerializationResult serialize(World world)
+            throws UnsupportedObjectException;
 
-	/**
-	 * Serializes the world
-	 * @param world
-	 *    * @throws UnsupportedObjectException if a physics object is unsupported by this library.
-   * @see #setUnsupportedListener(UnsupportedListener)
-	 */
-	public SerializationResult serialize(World world) throws UnsupportedObjectException;
+    /**
+     * Serializes a body
+     *
+     * @param body * @throws UnsupportedObjectException if a physics object is
+     *             unsupported by this library.
+     * @see #setUnsupportedListener(UnsupportedListener)
+     */
+    public SerializationResult serialize(Body body)
+            throws UnsupportedObjectException;
 
-	/**
-	 * Serializes a body
-	 * @param body
-	 *    * @throws UnsupportedObjectException if a physics object is unsupported by this library.
-   * @see #setUnsupportedListener(UnsupportedListener)
-	 */
-	public SerializationResult serialize(Body body) throws UnsupportedObjectException;
+    /**
+     * Serializes a fixture
+     *
+     * @param fixture * @throws UnsupportedObjectException if a physics object
+     *                is unsupported by this library.
+     * @see #setUnsupportedListener(UnsupportedListener)
+     */
+    public SerializationResult serialize(Fixture fixture)
+            throws UnsupportedObjectException;
 
-	/**
-	 * Serializes a fixture
-	 * @param fixture
-	 * 	 * @throws UnsupportedObjectException if a physics object is unsupported by this library.
-	 * @see #setUnsupportedListener(UnsupportedListener)
-	 */
-	public SerializationResult serialize(Fixture fixture) throws UnsupportedObjectException;
+    /**
+     * Serializes a shape
+     *
+     * @param shape * @throws UnsupportedObjectException if a physics object is
+     *              unsupported by this library.
+     * @see #setUnsupportedListener(UnsupportedListener)
+     */
+    public SerializationResult serialize(Shape shape)
+            throws UnsupportedObjectException;
 
-	/**
-	 * Serializes a shape
-	 * @param shape
-	 *    * @throws UnsupportedObjectException if a physics object is unsupported by this library.
-   * @see #setUnsupportedListener(UnsupportedListener)
-	 */
-	public SerializationResult serialize(Shape shape) throws UnsupportedObjectException;
+    /**
+     * Serializes joints. Joints need to reference bodies and sometimes other
+     * joints.
+     *
+     * @param joint
+     * @param bodyIndexMap
+     * @param jointIndexMap
+     */
+    public SerializationResult serialize(Joint joint,
+            Map<Body, Integer> bodyIndexMap, Map<Joint, Integer> jointIndexMap);
 
-	/**
-	 * Serializes joints.  Joints need to reference bodies
-	 * and sometimes other joints.
-	 * @param joint
-	 * @param bodyIndexMap
-	 * @param jointIndexMap
-	 * 	 */
-	public SerializationResult serialize(Joint joint,
-			Map<Body, Integer> bodyIndexMap,
-			Map<Joint, Integer> jointIndexMap);
+    /**
+     * Interface that allows the serializer to look up tags for each object,
+     * which can be used later during deserializing by the developer.
+     *
+     * @author Daniel
+     */
+    public static interface ObjectSigner
+    {
+        /**
+         * @param world
+         * @return the tag for the world. can be null.
+         */
+        public Long getTag(World world);
 
-	/**
-	 * Interface that allows the serializer to
-	 * look up tags for each object, which can be
-	 * used later during deserializing by the developer.
-	 * @author Daniel
-	 */
-	public static interface ObjectSigner {
-		/**
-		 * @param world
-		 * @return the tag for the world. can be null.
-		 */
-		public Long getTag(World world);
-		/**
-		 * @param body
-		 * @return the tag for the body.  can be null.
-		 */
-		public Long getTag(Body body);
-		/**
-		 * @param shape
-		 * @return the tag for the shape. can be null.
-		 */
-		public Long getTag(Shape shape);
-		/**
-		 * @param fixture
-		 * @return the tag for the fixture. can be null.
-		 */
-		public Long getTag(Fixture fixture);
-		/**
-		 * @param joint
-		 * @return the tag for the joint. can be null.
-		 */
-		public Long getTag(Joint joint);
-	}
+        /**
+         * @param body
+         * @return the tag for the body. can be null.
+         */
+        public Long getTag(Body body);
+
+        /**
+         * @param shape
+         * @return the tag for the shape. can be null.
+         */
+        public Long getTag(Shape shape);
+
+        /**
+         * @param fixture
+         * @return the tag for the fixture. can be null.
+         */
+        public Long getTag(Fixture fixture);
+
+        /**
+         * @param joint
+         * @return the tag for the joint. can be null.
+         */
+        public Long getTag(Joint joint);
+    }
 }

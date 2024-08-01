@@ -26,8 +26,11 @@ package de.pirckheimer_gymnasium.jbox2d.dynamics;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.contacts.Position;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.contacts.Velocity;
 
-public class SolverData {
-  public TimeStep step;
-  public Position[] positions;
-  public Velocity[] velocities;
+public class SolverData
+{
+    public TimeStep step;
+
+    public Position[] positions;
+
+    public Velocity[] velocities;
 }

@@ -23,6 +23,8 @@
  ******************************************************************************/
 package de.pirckheimer_gymnasium.jbox2d.dynamics.joints;
 
-public enum JointType {
-  UNKNOWN, REVOLUTE, PRISMATIC, DISTANCE, PULLEY, MOUSE, GEAR, WHEEL, WELD, FRICTION, ROPE, CONSTANT_VOLUME, MOTOR
+public enum JointType
+{
+    UNKNOWN, REVOLUTE, PRISMATIC, DISTANCE, PULLEY, MOUSE, GEAR, WHEEL, WELD,
+    FRICTION, ROPE, CONSTANT_VOLUME, MOTOR
 }

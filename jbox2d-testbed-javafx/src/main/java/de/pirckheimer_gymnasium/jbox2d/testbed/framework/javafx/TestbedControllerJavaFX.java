@@ -25,41 +25,50 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedModel;
 import javafx.animation.AnimationTimer;
 
 /**
- * This class contains most control logic for the testbed and the update loop. It also watches the
- * model to switch tests and populates the model with some loop statistics.
+ * This class contains most control logic for the testbed and the update loop.
+ * It also watches the model to switch tests and populates the model with some
+ * loop statistics.
  *
  * @author Daniel Murphy
  */
-public class TestbedControllerJavaFX extends AbstractTestbedController {
+public class TestbedControllerJavaFX extends AbstractTestbedController
+{
+    public TestbedControllerJavaFX(TestbedModel argModel,
+            UpdateBehavior behavior, MouseBehavior mouseBehavior,
+            TestbedErrorHandler errorHandler)
+    {
+        super(argModel, behavior, mouseBehavior, errorHandler);
+    }
 
-  public TestbedControllerJavaFX(TestbedModel argModel, UpdateBehavior behavior,
-      MouseBehavior mouseBehavior, TestbedErrorHandler errorHandler) {
-    super(argModel, behavior, mouseBehavior, errorHandler);
-  }
+    private AnimationTimer animator = new AnimationTimer()
+    {
+        long last = -1;
 
-  private AnimationTimer animator = new AnimationTimer() {
-    long last = -1;
+        @Override
+        public void handle(long now)
+        {
+            if (last >= 0)
+            {
+                long dt = (now - last) / 1000000; // convert til millis
+                sleepTime -= dt;
+                if (sleepTime < 0)
+                {
+                    stepAndRender();
+                }
+            }
+            last = now;
+        }
+    };
 
     @Override
-    public void handle(long now) {
-      if (last >= 0) {
-        long dt = (now - last) / 1000000; // convert til millis
-        sleepTime -= dt;
-        if (sleepTime < 0) {
-          stepAndRender();
-        }
-      }
-      last = now;
+    public void startAnimator()
+    {
+        animator.start();
     }
-  };
 
-  @Override
-  public void startAnimator() {
-    animator.start();
-  }
-
-  @Override
-  public void stopAnimator() {
-    animator.stop();
-  }
+    @Override
+    public void stopAnimator()
+    {
+        animator.stop();
+    }
 }

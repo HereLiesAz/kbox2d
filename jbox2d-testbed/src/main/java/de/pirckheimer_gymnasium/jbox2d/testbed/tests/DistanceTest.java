@@ -35,122 +35,129 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedSettings;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
-public class DistanceTest extends TestbedTest {
+public class DistanceTest extends TestbedTest
+{
+    Vec2 m_positionB;
 
-	Vec2 m_positionB;
-	float m_angleB;
+    float m_angleB;
 
-	Transform m_transformA;
-	Transform m_transformB;
-	PolygonShape m_polygonA;
-	PolygonShape m_polygonB;
+    Transform m_transformA;
 
-	@Override
-	public String getTestName() {
-		return "Distance";
-	}
+    Transform m_transformB;
 
-	@Override
-	public void initTest(boolean argDeserialized) {
+    PolygonShape m_polygonA;
 
-		input.transformA = new Transform();
-		input.transformB = new Transform();
-		{
-			m_transformA = new Transform();
-			m_transformA.setIdentity();
-			m_transformA.p.set(0.0f, -0.2f);
-			m_polygonA = new PolygonShape();
-			m_polygonA.setAsBox(10.0f, 0.2f);
-		}
+    PolygonShape m_polygonB;
 
-		{
-			m_positionB = new Vec2();
-			m_positionB.set(12.017401f, 0.13678508f);
-			m_angleB = -0.0109265f;
+    @Override
+    public String getTestName()
+    {
+        return "Distance";
+    }
 
-			m_transformB = new Transform();
-			m_transformB.set(m_positionB, m_angleB);
+    @Override
+    public void initTest(boolean argDeserialized)
+    {
+        input.transformA = new Transform();
+        input.transformB = new Transform();
+        {
+            m_transformA = new Transform();
+            m_transformA.setIdentity();
+            m_transformA.p.set(0.0f, -0.2f);
+            m_polygonA = new PolygonShape();
+            m_polygonA.setAsBox(10.0f, 0.2f);
+        }
+        {
+            m_positionB = new Vec2();
+            m_positionB.set(12.017401f, 0.13678508f);
+            m_angleB = -0.0109265f;
+            m_transformB = new Transform();
+            m_transformB.set(m_positionB, m_angleB);
+            m_polygonB = new PolygonShape();
+            m_polygonB.setAsBox(2.0f, 0.1f);
+        }
+        for (int i = 0; i < v.length; i++)
+        {
+            v[i] = new Vec2();
+        }
+    }
 
-			m_polygonB = new PolygonShape();
-			m_polygonB.setAsBox(2.0f, 0.1f);
-		}
-		for (int i = 0; i < v.length; i++) {
-			v[i] = new Vec2();
-		}
-	}
+    DistanceInput input = new DistanceInput();
 
-	DistanceInput input = new DistanceInput();
-	SimplexCache cache = new SimplexCache();
-	DistanceOutput output = new DistanceOutput();
-	Color3f color = new Color3f(0.9f, 0.9f, 0.9f);
-	Vec2[] v = new Vec2[Settings.maxPolygonVertices];
-	Color3f c1 = new Color3f(1.0f, 0.0f, 0.0f);
-	Color3f c2 = new Color3f(1.0f, 1.0f, 0.0f);
+    SimplexCache cache = new SimplexCache();
 
-	@Override
-	public void step(TestbedSettings settings) {
-		super.step(settings);
+    DistanceOutput output = new DistanceOutput();
 
-		input.proxyA.set(m_polygonA,0);
-		input.proxyB.set(m_polygonB,0);
-		input.transformA.set(m_transformA);
-		input.transformB.set(m_transformB);
-		input.useRadii = true;
-		cache.count = 0;
-		getWorld().getPool().getDistance().distance(output, cache, input);
+    Color3f color = new Color3f(0.9f, 0.9f, 0.9f);
 
-		addTextLine("distance = " + output.distance);
-		addTextLine("iterations = " + output.iterations);
+    Vec2[] v = new Vec2[Settings.maxPolygonVertices];
 
-		{
-			for (int i = 0; i < m_polygonA.m_count; ++i) {
-				Transform.mulToOutUnsafe(m_transformA, m_polygonA.m_vertices[i], v[i]);
-			}
-			getDebugDraw().drawPolygon(v, m_polygonA.m_count, color);
+    Color3f c1 = new Color3f(1.0f, 0.0f, 0.0f);
 
-			for (int i = 0; i < m_polygonB.m_count; ++i) {
-				Transform.mulToOutUnsafe(m_transformB, m_polygonB.m_vertices[i], v[i]);
-			}
-			getDebugDraw().drawPolygon(v, m_polygonB.m_count, color);
-		}
+    Color3f c2 = new Color3f(1.0f, 1.0f, 0.0f);
 
-		Vec2 x1 = output.pointA;
-		Vec2 x2 = output.pointB;
+    @Override
+    public void step(TestbedSettings settings)
+    {
+        super.step(settings);
+        input.proxyA.set(m_polygonA, 0);
+        input.proxyB.set(m_polygonB, 0);
+        input.transformA.set(m_transformA);
+        input.transformB.set(m_transformB);
+        input.useRadii = true;
+        cache.count = 0;
+        getWorld().getPool().getDistance().distance(output, cache, input);
+        addTextLine("distance = " + output.distance);
+        addTextLine("iterations = " + output.iterations);
+        {
+            for (int i = 0; i < m_polygonA.m_count; ++i)
+            {
+                Transform.mulToOutUnsafe(m_transformA, m_polygonA.m_vertices[i],
+                        v[i]);
+            }
+            getDebugDraw().drawPolygon(v, m_polygonA.m_count, color);
+            for (int i = 0; i < m_polygonB.m_count; ++i)
+            {
+                Transform.mulToOutUnsafe(m_transformB, m_polygonB.m_vertices[i],
+                        v[i]);
+            }
+            getDebugDraw().drawPolygon(v, m_polygonB.m_count, color);
+        }
+        Vec2 x1 = output.pointA;
+        Vec2 x2 = output.pointB;
+        getDebugDraw().drawPoint(x1, 4.0f, c1);
+        getDebugDraw().drawPoint(x2, 4.0f, c2);
+    }
 
-		getDebugDraw().drawPoint(x1, 4.0f, c1);
+    @Override
+    public void keyPressed(char argKeyChar, int argKeyCode)
+    {
+        switch (argKeyChar)
+        {
+        case 'a':
+            m_positionB.x -= 0.1f;
+            break;
 
-		getDebugDraw().drawPoint(x2, 4.0f, c2);
-	}
+        case 'd':
+            m_positionB.x += 0.1f;
+            break;
 
-	@Override
-	public void keyPressed(char argKeyChar, int argKeyCode) {
+        case 's':
+            m_positionB.y -= 0.1f;
+            break;
 
-		switch (argKeyChar) {
-			case 'a' :
-				m_positionB.x -= 0.1f;
-				break;
+        case 'w':
+            m_positionB.y += 0.1f;
+            break;
 
-			case 'd' :
-				m_positionB.x += 0.1f;
-				break;
+        case 'q':
+            m_angleB += 0.1f * MathUtils.PI;
+            break;
 
-			case 's' :
-				m_positionB.y -= 0.1f;
-				break;
-
-			case 'w' :
-				m_positionB.y += 0.1f;
-				break;
-
-			case 'q' :
-				m_angleB += 0.1f * MathUtils.PI;
-				break;
-
-			case 'e' :
-				m_angleB -= 0.1f * MathUtils.PI;
-				break;
-		}
-
-		m_transformB.set(m_positionB, m_angleB);
-	}
+        case 'e':
+            m_angleB -= 0.1f * MathUtils.PI;
+            break;
+        }
+        m_transformB.set(m_positionB, m_angleB);
+    }
 }

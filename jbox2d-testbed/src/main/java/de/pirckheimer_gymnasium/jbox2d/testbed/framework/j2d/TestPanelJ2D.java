@@ -41,77 +41,97 @@ import org.slf4j.LoggerFactory;
  * @author Daniel Murphy
  */
 @SuppressWarnings("serial")
-public class TestPanelJ2D extends JPanel implements TestbedPanel {
-  private static final Logger log = LoggerFactory.getLogger(TestPanelJ2D.class);
+public class TestPanelJ2D extends JPanel implements TestbedPanel
+{
+    private static final Logger log = LoggerFactory
+            .getLogger(TestPanelJ2D.class);
 
-  public static final int SCREEN_DRAG_BUTTON = 3;
+    public static final int SCREEN_DRAG_BUTTON = 3;
 
-  public static final int INIT_WIDTH = 600;
-  public static final int INIT_HEIGHT = 600;
+    public static final int INIT_WIDTH = 600;
 
-  private Graphics2D dbg = null;
-  private Image dbImage = null;
+    public static final int INIT_HEIGHT = 600;
 
-  private int panelWidth;
-  private int panelHeight;
+    private Graphics2D dbg = null;
 
-  private final AbstractTestbedController controller;
+    private Image dbImage = null;
 
-  public TestPanelJ2D(final TestbedModel model, final AbstractTestbedController controller) {
-    this.controller = controller;
-    setBackground(Color.black);
-    setPreferredSize(new Dimension(INIT_WIDTH, INIT_HEIGHT));
-    updateSize(INIT_WIDTH, INIT_HEIGHT);
+    private int panelWidth;
 
-    AWTPanelHelper.addHelpAndPanelListeners(this, model, controller, SCREEN_DRAG_BUTTON);
-    addComponentListener(new ComponentAdapter() {
-      @Override
-      public void componentResized(ComponentEvent e) {
-        updateSize(getWidth(), getHeight());
-        dbImage = null;
-      }
-    });
-  }
+    private int panelHeight;
 
-  public Graphics2D getDBGraphics() {
-    return dbg;
-  }
+    private final AbstractTestbedController controller;
 
-  private void updateSize(int width, int height) {
-    panelWidth = width;
-    panelHeight = height;
-    controller.updateExtents(width / 2, height / 2);
-  }
-
-  public boolean render() {
-    if (dbImage == null) {
-      log.debug("dbImage is null, creating a new one");
-      if (panelWidth <= 0 || panelHeight <= 0) {
-        return false;
-      }
-      dbImage = createImage(panelWidth, panelHeight);
-      if (dbImage == null) {
-        log.error("dbImage is still null, ignoring render call");
-        return false;
-      }
-      dbg = (Graphics2D) dbImage.getGraphics();
-      dbg.setFont(new Font("Courier New", Font.PLAIN, 12));
+    public TestPanelJ2D(final TestbedModel model,
+            final AbstractTestbedController controller)
+    {
+        this.controller = controller;
+        setBackground(Color.black);
+        setPreferredSize(new Dimension(INIT_WIDTH, INIT_HEIGHT));
+        updateSize(INIT_WIDTH, INIT_HEIGHT);
+        AWTPanelHelper.addHelpAndPanelListeners(this, model, controller,
+                SCREEN_DRAG_BUTTON);
+        addComponentListener(new ComponentAdapter()
+        {
+            @Override
+            public void componentResized(ComponentEvent e)
+            {
+                updateSize(getWidth(), getHeight());
+                dbImage = null;
+            }
+        });
     }
-    dbg.setColor(Color.black);
-    dbg.fillRect(0, 0, panelWidth, panelHeight);
-    return true;
-  }
 
-  public void paintScreen() {
-    try {
-      Graphics g = this.getGraphics();
-      if ((g != null) && dbImage != null) {
-        g.drawImage(dbImage, 0, 0, null);
-        Toolkit.getDefaultToolkit().sync();
-        g.dispose();
-      }
-    } catch (AWTError e) {
-      log.error("Graphics context error", e);
+    public Graphics2D getDBGraphics()
+    {
+        return dbg;
     }
-  }
+
+    private void updateSize(int width, int height)
+    {
+        panelWidth = width;
+        panelHeight = height;
+        controller.updateExtents(width / 2, height / 2);
+    }
+
+    public boolean render()
+    {
+        if (dbImage == null)
+        {
+            log.debug("dbImage is null, creating a new one");
+            if (panelWidth <= 0 || panelHeight <= 0)
+            {
+                return false;
+            }
+            dbImage = createImage(panelWidth, panelHeight);
+            if (dbImage == null)
+            {
+                log.error("dbImage is still null, ignoring render call");
+                return false;
+            }
+            dbg = (Graphics2D) dbImage.getGraphics();
+            dbg.setFont(new Font("Courier New", Font.PLAIN, 12));
+        }
+        dbg.setColor(Color.black);
+        dbg.fillRect(0, 0, panelWidth, panelHeight);
+        return true;
+    }
+
+    public void paintScreen()
+    {
+        try
+        {
+            Graphics g = this.getGraphics();
+            if ((g != null) && dbImage != null)
+            {
+                g.drawImage(dbImage, 0, 0, null);
+                Toolkit.getDefaultToolkit().sync();
+                g.dispose();
+            }
+        }
+        catch (AWTError e)
+        {
+            log.error("Graphics context error", e);
+        }
+    }
 }

@@ -25,11 +25,15 @@ package de.pirckheimer_gymnasium.jbox2d.serialization;
 
 import de.pirckheimer_gymnasium.jbox2d.dynamics.joints.JointType;
 
-public final class SerializationHelper {
+public final class SerializationHelper
+{
+    private SerializationHelper()
+    {
+    }
 
-	private SerializationHelper(){}
-
-	public static boolean isIndependentJoint(JointType argType){
-		return argType != JointType.GEAR && argType != JointType.CONSTANT_VOLUME;
-	}
+    public static boolean isIndependentJoint(JointType argType)
+    {
+        return argType != JointType.GEAR
+                && argType != JointType.CONSTANT_VOLUME;
+    }
 }

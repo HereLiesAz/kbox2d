@@ -40,180 +40,160 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 /**
  * @author Daniel Murphy
  */
-public class Cantilever extends TestbedTest {
+public class Cantilever extends TestbedTest
+{
+    int e_count = 8;
 
-  int e_count = 8;
-
-  @Override
-  public boolean isSaveLoadEnabled() {
-    return true;
-  }
-
-  @Override
-  public void initTest(boolean argDeserialized) {
-    if (argDeserialized) {
-      return;
-    }
-    Body ground = null;
+    @Override
+    public boolean isSaveLoadEnabled()
     {
-      BodyDef bd = new BodyDef();
-      ground = getWorld().createBody(bd);
-
-      EdgeShape shape = new EdgeShape();
-      shape.set(new Vec2(-40.0f, 0.0f), new Vec2(40.0f, 0.0f));
-      ground.createFixture(shape, 0.0f);
+        return true;
     }
 
+    @Override
+    public void initTest(boolean argDeserialized)
     {
-      PolygonShape shape = new PolygonShape();
-      shape.setAsBox(0.5f, 0.125f);
-
-      FixtureDef fd = new FixtureDef();
-      fd.shape = shape;
-      fd.density = 20.0f;
-
-      WeldJointDef jd = new WeldJointDef();
-
-      Body prevBody = ground;
-      for (int i = 0; i < e_count; ++i) {
-        BodyDef bd = new BodyDef();
-        bd.type = BodyType.DYNAMIC;
-        bd.position.set(-14.5f + 1.0f * i, 5.0f);
-        Body body = getWorld().createBody(bd);
-        body.createFixture(fd);
-
-        Vec2 anchor = new Vec2(-15.0f + 1.0f * i, 5.0f);
-        jd.initialize(prevBody, body, anchor);
-        getWorld().createJoint(jd);
-
-        prevBody = body;
-      }
-    }
-
-    {
-      PolygonShape shape = new PolygonShape();
-      shape.setAsBox(1f, 0.125f);
-
-      FixtureDef fd = new FixtureDef();
-      fd.shape = shape;
-      fd.density = 20.0f;
-
-      WeldJointDef jd = new WeldJointDef();
-      jd.frequencyHz = 5f;
-      jd.dampingRatio = .7f;
-
-      Body prevBody = ground;
-      for (int i = 0; i < 3; ++i) {
-        BodyDef bd = new BodyDef();
-        bd.type = BodyType.DYNAMIC;
-        bd.position.set(-14.0f + 2.0f * i, 15.0f);
-        Body body = getWorld().createBody(bd);
-        body.createFixture(fd);
-
-        Vec2 anchor = new Vec2(-15.0f + 2.0f * i, 15.0f);
-        jd.initialize(prevBody, body, anchor);
-        getWorld().createJoint(jd);
-
-        prevBody = body;
-      }
-    }
-
-    {
-      PolygonShape shape = new PolygonShape();
-      shape.setAsBox(0.5f, 0.125f);
-
-      FixtureDef fd = new FixtureDef();
-      fd.shape = shape;
-      fd.density = 20.0f;
-
-      WeldJointDef jd = new WeldJointDef();
-
-      Body prevBody = ground;
-      for (int i = 0; i < e_count; ++i) {
-        BodyDef bd = new BodyDef();
-        bd.type = BodyType.DYNAMIC;
-        bd.position.set(-4.5f + 1.0f * i, 5.0f);
-        Body body = getWorld().createBody(bd);
-        body.createFixture(fd);
-
-        if (i > 0) {
-          Vec2 anchor = new Vec2(-5.0f + 1.0f * i, 5.0f);
-          jd.initialize(prevBody, body, anchor);
-          getWorld().createJoint(jd);
+        if (argDeserialized)
+        {
+            return;
         }
-
-        prevBody = body;
-      }
-    }
-
-    {
-      PolygonShape shape = new PolygonShape();
-      shape.setAsBox(0.5f, 0.125f);
-
-      FixtureDef fd = new FixtureDef();
-      fd.shape = shape;
-      fd.density = 20.0f;
-
-      WeldJointDef jd = new WeldJointDef();
-      jd.frequencyHz = 8f;
-      jd.dampingRatio = .7f;
-
-      Body prevBody = ground;
-      for (int i = 0; i < e_count; ++i) {
-        BodyDef bd = new BodyDef();
-        bd.type = BodyType.DYNAMIC;
-        bd.position.set(5.5f + 1.0f * i, 10.0f);
-        Body body = getWorld().createBody(bd);
-        body.createFixture(fd);
-
-        if (i > 0) {
-          Vec2 anchor = new Vec2(5.0f + 1.0f * i, 10.0f);
-          jd.initialize(prevBody, body, anchor);
-          getWorld().createJoint(jd);
+        Body ground = null;
+        {
+            BodyDef bd = new BodyDef();
+            ground = getWorld().createBody(bd);
+            EdgeShape shape = new EdgeShape();
+            shape.set(new Vec2(-40.0f, 0.0f), new Vec2(40.0f, 0.0f));
+            ground.createFixture(shape, 0.0f);
         }
-
-        prevBody = body;
-      }
+        {
+            PolygonShape shape = new PolygonShape();
+            shape.setAsBox(0.5f, 0.125f);
+            FixtureDef fd = new FixtureDef();
+            fd.shape = shape;
+            fd.density = 20.0f;
+            WeldJointDef jd = new WeldJointDef();
+            Body prevBody = ground;
+            for (int i = 0; i < e_count; ++i)
+            {
+                BodyDef bd = new BodyDef();
+                bd.type = BodyType.DYNAMIC;
+                bd.position.set(-14.5f + 1.0f * i, 5.0f);
+                Body body = getWorld().createBody(bd);
+                body.createFixture(fd);
+                Vec2 anchor = new Vec2(-15.0f + 1.0f * i, 5.0f);
+                jd.initialize(prevBody, body, anchor);
+                getWorld().createJoint(jd);
+                prevBody = body;
+            }
+        }
+        {
+            PolygonShape shape = new PolygonShape();
+            shape.setAsBox(1f, 0.125f);
+            FixtureDef fd = new FixtureDef();
+            fd.shape = shape;
+            fd.density = 20.0f;
+            WeldJointDef jd = new WeldJointDef();
+            jd.frequencyHz = 5f;
+            jd.dampingRatio = .7f;
+            Body prevBody = ground;
+            for (int i = 0; i < 3; ++i)
+            {
+                BodyDef bd = new BodyDef();
+                bd.type = BodyType.DYNAMIC;
+                bd.position.set(-14.0f + 2.0f * i, 15.0f);
+                Body body = getWorld().createBody(bd);
+                body.createFixture(fd);
+                Vec2 anchor = new Vec2(-15.0f + 2.0f * i, 15.0f);
+                jd.initialize(prevBody, body, anchor);
+                getWorld().createJoint(jd);
+                prevBody = body;
+            }
+        }
+        {
+            PolygonShape shape = new PolygonShape();
+            shape.setAsBox(0.5f, 0.125f);
+            FixtureDef fd = new FixtureDef();
+            fd.shape = shape;
+            fd.density = 20.0f;
+            WeldJointDef jd = new WeldJointDef();
+            Body prevBody = ground;
+            for (int i = 0; i < e_count; ++i)
+            {
+                BodyDef bd = new BodyDef();
+                bd.type = BodyType.DYNAMIC;
+                bd.position.set(-4.5f + 1.0f * i, 5.0f);
+                Body body = getWorld().createBody(bd);
+                body.createFixture(fd);
+                if (i > 0)
+                {
+                    Vec2 anchor = new Vec2(-5.0f + 1.0f * i, 5.0f);
+                    jd.initialize(prevBody, body, anchor);
+                    getWorld().createJoint(jd);
+                }
+                prevBody = body;
+            }
+        }
+        {
+            PolygonShape shape = new PolygonShape();
+            shape.setAsBox(0.5f, 0.125f);
+            FixtureDef fd = new FixtureDef();
+            fd.shape = shape;
+            fd.density = 20.0f;
+            WeldJointDef jd = new WeldJointDef();
+            jd.frequencyHz = 8f;
+            jd.dampingRatio = .7f;
+            Body prevBody = ground;
+            for (int i = 0; i < e_count; ++i)
+            {
+                BodyDef bd = new BodyDef();
+                bd.type = BodyType.DYNAMIC;
+                bd.position.set(5.5f + 1.0f * i, 10.0f);
+                Body body = getWorld().createBody(bd);
+                body.createFixture(fd);
+                if (i > 0)
+                {
+                    Vec2 anchor = new Vec2(5.0f + 1.0f * i, 10.0f);
+                    jd.initialize(prevBody, body, anchor);
+                    getWorld().createJoint(jd);
+                }
+                prevBody = body;
+            }
+        }
+        for (int i = 0; i < 2; ++i)
+        {
+            Vec2 vertices[] = new Vec2[3];
+            vertices[0] = new Vec2(-0.5f, 0.0f);
+            vertices[1] = new Vec2(0.5f, 0.0f);
+            vertices[2] = new Vec2(0.0f, 1.5f);
+            PolygonShape shape = new PolygonShape();
+            shape.set(vertices, 3);
+            FixtureDef fd = new FixtureDef();
+            fd.shape = shape;
+            fd.density = 1.0f;
+            BodyDef bd = new BodyDef();
+            bd.type = BodyType.DYNAMIC;
+            bd.position.set(-8.0f + 8.0f * i, 12.0f);
+            Body body = getWorld().createBody(bd);
+            body.createFixture(fd);
+        }
+        for (int i = 0; i < 2; ++i)
+        {
+            CircleShape shape = new CircleShape();
+            shape.m_radius = 0.5f;
+            FixtureDef fd = new FixtureDef();
+            fd.shape = shape;
+            fd.density = 1.0f;
+            BodyDef bd = new BodyDef();
+            bd.type = BodyType.DYNAMIC;
+            bd.position.set(-6.0f + 6.0f * i, 10.0f);
+            Body body = getWorld().createBody(bd);
+            body.createFixture(fd);
+        }
     }
 
-    for (int i = 0; i < 2; ++i) {
-      Vec2 vertices[] = new Vec2[3];
-      vertices[0] = new Vec2(-0.5f, 0.0f);
-      vertices[1] = new Vec2(0.5f, 0.0f);
-      vertices[2] = new Vec2(0.0f, 1.5f);
-
-      PolygonShape shape = new PolygonShape();
-      shape.set(vertices, 3);
-
-      FixtureDef fd = new FixtureDef();
-      fd.shape = shape;
-      fd.density = 1.0f;
-
-      BodyDef bd = new BodyDef();
-      bd.type = BodyType.DYNAMIC;
-      bd.position.set(-8.0f + 8.0f * i, 12.0f);
-      Body body = getWorld().createBody(bd);
-      body.createFixture(fd);
+    @Override
+    public String getTestName()
+    {
+        return "Cantilever";
     }
-
-    for (int i = 0; i < 2; ++i) {
-      CircleShape shape = new CircleShape();
-      shape.m_radius = 0.5f;
-
-      FixtureDef fd = new FixtureDef();
-      fd.shape = shape;
-      fd.density = 1.0f;
-
-      BodyDef bd = new BodyDef();
-      bd.type = BodyType.DYNAMIC;
-      bd.position.set(-6.0f + 6.0f * i, 10.0f);
-      Body body = getWorld().createBody(bd);
-      body.createFixture(fd);
-    }
-  }
-
-  @Override
-  public String getTestName() {
-    return "Cantilever";
-  }
 }

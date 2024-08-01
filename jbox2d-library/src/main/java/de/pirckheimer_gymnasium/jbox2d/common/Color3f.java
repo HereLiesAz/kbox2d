@@ -43,46 +43,56 @@
  * misrepresented as being the original software.
  * 3. This notice may not be removed or altered from any source distribution.
  */
-
 package de.pirckheimer_gymnasium.jbox2d.common;
 
 // updated to rev 100
 /**
  * Similar to javax.vecmath.Color3f holder
+ *
  * @author ewjordan
  *
  */
-public class Color3f {
+public class Color3f
+{
+    public static final Color3f WHITE = new Color3f(1, 1, 1);
 
-	public static final Color3f WHITE = new Color3f(1, 1, 1);
-	public static final Color3f BLACK = new Color3f(0, 0, 0);
-	public static final Color3f BLUE = new Color3f(0, 0, 1);
-	public static final Color3f GREEN = new Color3f(0, 1, 0);
-	public static final Color3f RED = new Color3f(1, 0, 0);
+    public static final Color3f BLACK = new Color3f(0, 0, 0);
 
-	public float x;
-	public float y;
-	public float z;
+    public static final Color3f BLUE = new Color3f(0, 0, 1);
 
+    public static final Color3f GREEN = new Color3f(0, 1, 0);
 
-	public Color3f(){
-		x = y = z = 0;
-	}
-	public Color3f(float r, float g, float b) {
-		x = r;
-		y = g;
-		z = b;
-	}
+    public static final Color3f RED = new Color3f(1, 0, 0);
 
-	public void set(float r, float g, float b){
-		x = r;
-		y = g;
-		z = b;
-	}
+    public float x;
 
-	public void set(Color3f argColor){
-		x = argColor.x;
-		y = argColor.y;
-		z = argColor.z;
-	}
+    public float y;
+
+    public float z;
+
+    public Color3f()
+    {
+        x = y = z = 0;
+    }
+
+    public Color3f(float r, float g, float b)
+    {
+        x = r;
+        y = g;
+        z = b;
+    }
+
+    public void set(float r, float g, float b)
+    {
+        x = r;
+        y = g;
+        z = b;
+    }
+
+    public void set(Color3f argColor)
+    {
+        x = argColor.x;
+        y = argColor.y;
+        z = argColor.z;
+    }
 }

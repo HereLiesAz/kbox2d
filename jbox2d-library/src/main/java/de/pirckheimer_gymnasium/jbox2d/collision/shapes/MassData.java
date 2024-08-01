@@ -43,50 +43,54 @@
  * misrepresented as being the original software.
  * 3. This notice may not be removed or altered from any source distribution.
  */
-
 package de.pirckheimer_gymnasium.jbox2d.collision.shapes;
 
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
-
 // Updated to rev 100
 
 /** This holds the mass data computed for a shape. */
-public class MassData {
-	/** The mass of the shape, usually in kilograms. */
-	public float mass;
-	/** The position of the shape's centroid relative to the shape's origin. */
-	public final Vec2 center;
-	/** The rotational inertia of the shape about the local origin. */
-	public float I;
+public class MassData
+{
+    /** The mass of the shape, usually in kilograms. */
+    public float mass;
 
-	/**
-	 * Blank mass data
-	 */
-	public MassData() {
-		mass = I = 0f;
-		center = new Vec2();
-	}
+    /** The position of the shape's centroid relative to the shape's origin. */
+    public final Vec2 center;
 
-	/**
-	 * Copies from the given mass data
-	 *
-	 * @param md
-	 *            mass data to copy from
-	 */
-	public MassData(MassData md) {
-		mass = md.mass;
-		I = md.I;
-		center = md.center.clone();
-	}
+    /** The rotational inertia of the shape about the local origin. */
+    public float I;
 
-	public void set(MassData md) {
-		mass = md.mass;
-		I = md.I;
-		center.set(md.center);
-	}
+    /**
+     * Blank mass data
+     */
+    public MassData()
+    {
+        mass = I = 0f;
+        center = new Vec2();
+    }
 
-	/** Return a copy of this object. */
-	public MassData clone() {
-		return new MassData(this);
-	}
+    /**
+     * Copies from the given mass data
+     *
+     * @param md mass data to copy from
+     */
+    public MassData(MassData md)
+    {
+        mass = md.mass;
+        I = md.I;
+        center = md.center.clone();
+    }
+
+    public void set(MassData md)
+    {
+        mass = md.mass;
+        I = md.I;
+        center.set(md.center);
+    }
+
+    /** Return a copy of this object. */
+    public MassData clone()
+    {
+        return new MassData(this);
+    }
 }

@@ -27,20 +27,20 @@ package de.pirckheimer_gymnasium.jbox2d.dynamics;
 /**
  * This is an internal structure.
  */
-public class TimeStep {
+public class TimeStep
+{
+    /** time step */
+    public float dt;
 
-	/** time step */
-	public float dt;
+    /** inverse time step (0 if dt == 0). */
+    public float inv_dt;
 
-	/** inverse time step (0 if dt == 0). */
-	public float inv_dt;
+    /** dt * inv_dt0 */
+    public float dtRatio;
 
-	/** dt * inv_dt0 */
-	public float dtRatio;
+    public int velocityIterations;
 
-	public int velocityIterations;
+    public int positionIterations;
 
-	public int positionIterations;
-
-	public boolean warmStarting;
+    public boolean warmStarting;
 }

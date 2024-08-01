@@ -23,6 +23,7 @@
  ******************************************************************************/
 package de.pirckheimer_gymnasium.jbox2d.testbed.framework;
 
-public interface TestbedErrorHandler {
-  void serializationError(Exception e, String message);
+public interface TestbedErrorHandler
+{
+    void serializationError(Exception e, String message);
 }

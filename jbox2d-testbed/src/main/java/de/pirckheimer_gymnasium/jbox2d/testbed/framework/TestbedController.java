@@ -22,55 +22,70 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This class contains most control logic for the testbed and the update loop. It also watches the
- * model to switch tests and populates the model with some loop statistics.
+ * This class contains most control logic for the testbed and the update loop.
+ * It also watches the model to switch tests and populates the model with some
+ * loop statistics.
  *
  * @author Daniel Murphy
  */
-public class TestbedController extends AbstractTestbedController implements Runnable {
-  private static final Logger log = LoggerFactory.getLogger(TestbedController.class);
+public class TestbedController extends AbstractTestbedController
+        implements Runnable
+{
+    private static final Logger log = LoggerFactory
+            .getLogger(TestbedController.class);
 
-  private Thread animator;
+    private Thread animator;
 
-  public TestbedController(TestbedModel argModel, UpdateBehavior behavior,
-      MouseBehavior mouseBehavior, TestbedErrorHandler errorHandler) {
-    super(argModel, behavior, mouseBehavior, errorHandler);
-    animator = new Thread(this, "Testbed");
-  }
-
-  @Override
-  public void startAnimator() {
-    super.startAnimator();
-    if (!animator.isAlive()) {
-      animator.start();
+    public TestbedController(TestbedModel argModel, UpdateBehavior behavior,
+            MouseBehavior mouseBehavior, TestbedErrorHandler errorHandler)
+    {
+        super(argModel, behavior, mouseBehavior, errorHandler);
+        animator = new Thread(this, "Testbed");
     }
-  }
 
-  @Override
-  public void stopAnimator() {
-    super.stopAnimator();
-    animator.stop();
-  }
-
-  @Override
-  public void run() {
-    beforeTime = startTime = updateTime = System.nanoTime();
-    sleepTime = 0;
-    startAnimator();
-    loopInit();
-    while (isAnimating()) {
-      stepAndRender();
+    @Override
+    public void startAnimator()
+    {
+        super.startAnimator();
+        if (!animator.isAlive())
+        {
+            animator.start();
+        }
     }
-  }
 
-  @Override
-  protected void stepAndRender() {
-    super.stepAndRender();
-    if (sleepTime > 0) {
-      try {
-        Thread.sleep(sleepTime);
-      } catch (InterruptedException ex) {
-      }
+    @Override
+    public void stopAnimator()
+    {
+        super.stopAnimator();
+        animator.stop();
     }
-  }
+
+    @Override
+    public void run()
+    {
+        beforeTime = startTime = updateTime = System.nanoTime();
+        sleepTime = 0;
+        startAnimator();
+        loopInit();
+        while (isAnimating())
+        {
+            stepAndRender();
+        }
+    }
+
+    @Override
+    protected void stepAndRender()
+    {
+        super.stepAndRender();
+        if (sleepTime > 0)
+        {
+            try
+            {
+                Thread.sleep(sleepTime);
+            }
+            catch (InterruptedException ex)
+            {
+            }
+        }
+    }
 }

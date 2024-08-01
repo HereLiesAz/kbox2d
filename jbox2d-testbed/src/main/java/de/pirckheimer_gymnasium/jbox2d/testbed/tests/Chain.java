@@ -39,61 +39,58 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 /**
  * @author Daniel Murphy
  */
-public class Chain extends TestbedTest {
-
-  @Override
-  public boolean isSaveLoadEnabled() {
-    return true;
-  }
-
-  @Override
-  public void initTest(boolean deserialized) {
-    if (deserialized) {
-      return;
-    }
-
-    Body ground = null;
+public class Chain extends TestbedTest
+{
+    @Override
+    public boolean isSaveLoadEnabled()
     {
-      BodyDef bd = new BodyDef();
-      ground = getWorld().createBody(bd);
-
-      EdgeShape shape = new EdgeShape();
-      shape.set(new Vec2(-40.0f, 0.0f), new Vec2(40.0f, 0.0f));
-      ground.createFixture(shape, 0.0f);
+        return true;
     }
 
+    @Override
+    public void initTest(boolean deserialized)
     {
-      PolygonShape shape = new PolygonShape();
-      shape.setAsBox(0.6f, 0.125f);
-
-      FixtureDef fd = new FixtureDef();
-      fd.shape = shape;
-      fd.density = 20.0f;
-      fd.friction = 0.2f;
-
-      RevoluteJointDef jd = new RevoluteJointDef();
-      jd.collideConnected = false;
-
-      final float y = 25.0f;
-      Body prevBody = ground;
-      for (int i = 0; i < 30; ++i) {
-        BodyDef bd = new BodyDef();
-        bd.type = BodyType.DYNAMIC;
-        bd.position.set(0.5f + i, y);
-        Body body = getWorld().createBody(bd);
-        body.createFixture(fd);
-
-        Vec2 anchor = new Vec2(i, y);
-        jd.initialize(prevBody, body, anchor);
-        getWorld().createJoint(jd);
-
-        prevBody = body;
-      }
+        if (deserialized)
+        {
+            return;
+        }
+        Body ground = null;
+        {
+            BodyDef bd = new BodyDef();
+            ground = getWorld().createBody(bd);
+            EdgeShape shape = new EdgeShape();
+            shape.set(new Vec2(-40.0f, 0.0f), new Vec2(40.0f, 0.0f));
+            ground.createFixture(shape, 0.0f);
+        }
+        {
+            PolygonShape shape = new PolygonShape();
+            shape.setAsBox(0.6f, 0.125f);
+            FixtureDef fd = new FixtureDef();
+            fd.shape = shape;
+            fd.density = 20.0f;
+            fd.friction = 0.2f;
+            RevoluteJointDef jd = new RevoluteJointDef();
+            jd.collideConnected = false;
+            final float y = 25.0f;
+            Body prevBody = ground;
+            for (int i = 0; i < 30; ++i)
+            {
+                BodyDef bd = new BodyDef();
+                bd.type = BodyType.DYNAMIC;
+                bd.position.set(0.5f + i, y);
+                Body body = getWorld().createBody(bd);
+                body.createFixture(fd);
+                Vec2 anchor = new Vec2(i, y);
+                jd.initialize(prevBody, body, anchor);
+                getWorld().createJoint(jd);
+                prevBody = body;
+            }
+        }
     }
-  }
 
-  @Override
-  public String getTestName() {
-    return "Chain";
-  }
+    @Override
+    public String getTestName()
+    {
+        return "Chain";
+    }
 }

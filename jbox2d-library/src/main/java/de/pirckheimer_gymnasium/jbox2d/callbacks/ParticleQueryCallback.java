@@ -9,11 +9,12 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.World;
  * @author dmurph
  *
  */
-public interface ParticleQueryCallback {
-  /**
-   * Called for each particle found in the query AABB.
-   *
-   * @return false to terminate the query.
-   */
-  boolean reportParticle(int index);
+public interface ParticleQueryCallback
+{
+    /**
+     * Called for each particle found in the query AABB.
+     *
+     * @return false to terminate the query.
+     */
+    boolean reportParticle(int index);
 }

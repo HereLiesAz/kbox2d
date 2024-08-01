@@ -43,62 +43,71 @@
  * misrepresented as being the original software.
  * 3. This notice may not be removed or altered from any source distribution.
  */
-
 package de.pirckheimer_gymnasium.jbox2d.collision;
 
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 
 // updated to rev 100
 /**
- * A manifold point is a contact point belonging to a contact
- * manifold. It holds details related to the geometry and dynamics
- * of the contact points.
- * The local point usage depends on the manifold type:
- * <ul><li>e_circles: the local center of circleB</li>
+ * A manifold point is a contact point belonging to a contact manifold. It holds
+ * details related to the geometry and dynamics of the contact points. The local
+ * point usage depends on the manifold type:
+ * <ul>
+ * <li>e_circles: the local center of circleB</li>
  * <li>e_faceA: the local center of cirlceB or the clip point of polygonB</li>
- * <li>e_faceB: the clip point of polygonA</li></ul>
+ * <li>e_faceB: the clip point of polygonA</li>
+ * </ul>
  * This structure is stored across time steps, so we keep it small.<br/>
- * Note: the impulses are used for internal caching and may not
- * provide reliable contact forces, especially for high speed collisions.
+ * Note: the impulses are used for internal caching and may not provide reliable
+ * contact forces, especially for high speed collisions.
  */
-public class ManifoldPoint {
-	/** usage depends on manifold type */
-	public final Vec2 localPoint;
-	/** the non-penetration impulse */
-	public float normalImpulse;
-	/** the friction impulse */
-	public float tangentImpulse;
-	/** uniquely identifies a contact point between two shapes */
-	public final ContactID id;
+public class ManifoldPoint
+{
+    /** usage depends on manifold type */
+    public final Vec2 localPoint;
 
-	/**
-	 * Blank manifold point with everything zeroed out.
-	 */
-	public ManifoldPoint() {
-		localPoint = new Vec2();
-		normalImpulse = tangentImpulse = 0f;
-		id = new ContactID();
-	}
+    /** the non-penetration impulse */
+    public float normalImpulse;
 
-	/**
-	 * Creates a manifold point as a copy of the given point
-	 * @param cp point to copy from
-	 */
-	public ManifoldPoint(final ManifoldPoint cp) {
-		localPoint = cp.localPoint.clone();
-		normalImpulse = cp.normalImpulse;
-		tangentImpulse = cp.tangentImpulse;
-		id = new ContactID(cp.id);
-	}
+    /** the friction impulse */
+    public float tangentImpulse;
 
-	/**
-	 * Sets this manifold point form the given one
-	 * @param cp the point to copy from
-	 */
-	public void set(final ManifoldPoint cp){
-		localPoint.set(cp.localPoint);
-		normalImpulse = cp.normalImpulse;
-		tangentImpulse = cp.tangentImpulse;
-		id.set(cp.id);
-	}
+    /** uniquely identifies a contact point between two shapes */
+    public final ContactID id;
+
+    /**
+     * Blank manifold point with everything zeroed out.
+     */
+    public ManifoldPoint()
+    {
+        localPoint = new Vec2();
+        normalImpulse = tangentImpulse = 0f;
+        id = new ContactID();
+    }
+
+    /**
+     * Creates a manifold point as a copy of the given point
+     *
+     * @param cp point to copy from
+     */
+    public ManifoldPoint(final ManifoldPoint cp)
+    {
+        localPoint = cp.localPoint.clone();
+        normalImpulse = cp.normalImpulse;
+        tangentImpulse = cp.tangentImpulse;
+        id = new ContactID(cp.id);
+    }
+
+    /**
+     * Sets this manifold point form the given one
+     *
+     * @param cp the point to copy from
+     */
+    public void set(final ManifoldPoint cp)
+    {
+        localPoint.set(cp.localPoint);
+        normalImpulse = cp.normalImpulse;
+        tangentImpulse = cp.tangentImpulse;
+        id.set(cp.id);
+    }
 }

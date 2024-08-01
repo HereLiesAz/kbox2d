@@ -31,75 +31,82 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedSettings;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
-public class ConvexHull extends TestbedTest {
+public class ConvexHull extends TestbedTest
+{
+    private final int e_count = Settings.maxPolygonVertices;
 
-  private final int e_count = Settings.maxPolygonVertices;
+    private boolean m_auto = false;
 
-  private boolean m_auto = false;
-  private Vec2[] m_points = new Vec2[Settings.maxPolygonVertices];
-  private int m_count;
+    private Vec2[] m_points = new Vec2[Settings.maxPolygonVertices];
 
-  @Override
-  public void initTest(boolean deserialized) {
-    if (deserialized) {
-      return;
-    }
-    generate();
-  }
+    private int m_count;
 
-  void generate() {
-    Vec2 lowerBound = new Vec2(-8f, -8f);
-    Vec2 upperBound = new Vec2(8f, 8f);
-
-    for (int i = 0; i < e_count; i++) {
-      float x = MathUtils.randomFloat(-8, 8);
-      float y = MathUtils.randomFloat(-8, 8);
-
-      Vec2 v = new Vec2(x, y);
-      MathUtils.clampToOut(v, lowerBound, upperBound, v);
-      m_points[i] = v;
-    }
-    m_count = e_count;
-  }
-
-  public void keyPressed(char argKeyChar, int argKeyCode) {
-    if (argKeyChar == 'g') {
-      generate();
-    } else if (argKeyChar == 'a') {
-      m_auto = !m_auto;
-    }
-  }
-
-  PolygonShape shape = new PolygonShape();
-  Color3f color = new Color3f(.9f, .9f, .9f);
-  Color3f color2 = new Color3f(.9f, .5f, .5f);
-
-  @Override
-  public synchronized void step(TestbedSettings settings) {
-    super.step(settings);
-
-    shape.set(m_points, m_count);
-
-    addTextLine("Press g to generate a new random convex hull");
-
-    getDebugDraw().drawPolygon(shape.m_vertices, shape.m_count, color);
-
-    for (int i = 0; i < m_count; ++i) {
-      getDebugDraw().drawPoint(m_points[i], 2.0f, color2);
-      getDebugDraw().drawString(m_points[i].add(new Vec2(0.05f, 0.05f)), i + "", Color3f.WHITE);
+    @Override
+    public void initTest(boolean deserialized)
+    {
+        if (deserialized)
+        {
+            return;
+        }
+        generate();
     }
 
-    assert (shape.validate());
-
-
-    if (m_auto) {
-      generate();
+    void generate()
+    {
+        Vec2 lowerBound = new Vec2(-8f, -8f);
+        Vec2 upperBound = new Vec2(8f, 8f);
+        for (int i = 0; i < e_count; i++)
+        {
+            float x = MathUtils.randomFloat(-8, 8);
+            float y = MathUtils.randomFloat(-8, 8);
+            Vec2 v = new Vec2(x, y);
+            MathUtils.clampToOut(v, lowerBound, upperBound, v);
+            m_points[i] = v;
+        }
+        m_count = e_count;
     }
-  }
 
-  @Override
-  public String getTestName() {
-    return "Convex Hull";
-  }
+    public void keyPressed(char argKeyChar, int argKeyCode)
+    {
+        if (argKeyChar == 'g')
+        {
+            generate();
+        }
+        else if (argKeyChar == 'a')
+        {
+            m_auto = !m_auto;
+        }
+    }
 
+    PolygonShape shape = new PolygonShape();
+
+    Color3f color = new Color3f(.9f, .9f, .9f);
+
+    Color3f color2 = new Color3f(.9f, .5f, .5f);
+
+    @Override
+    public synchronized void step(TestbedSettings settings)
+    {
+        super.step(settings);
+        shape.set(m_points, m_count);
+        addTextLine("Press g to generate a new random convex hull");
+        getDebugDraw().drawPolygon(shape.m_vertices, shape.m_count, color);
+        for (int i = 0; i < m_count; ++i)
+        {
+            getDebugDraw().drawPoint(m_points[i], 2.0f, color2);
+            getDebugDraw().drawString(m_points[i].add(new Vec2(0.05f, 0.05f)),
+                    i + "", Color3f.WHITE);
+        }
+        assert (shape.validate());
+        if (m_auto)
+        {
+            generate();
+        }
+    }
+
+    @Override
+    public String getTestName()
+    {
+        return "Convex Hull";
+    }
 }

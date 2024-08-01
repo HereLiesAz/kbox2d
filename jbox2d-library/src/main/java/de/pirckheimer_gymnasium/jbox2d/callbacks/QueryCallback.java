@@ -30,16 +30,18 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.Fixture;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.World;
 
 /**
- * Callback class for AABB queries.
- * See {@link World#queryAABB(QueryCallback, de.pirckheimer_gymnasium.jbox2d.collision.AABB)}.
+ * Callback class for AABB queries. See
+ * {@link World#queryAABB(QueryCallback, de.pirckheimer_gymnasium.jbox2d.collision.AABB)}.
+ *
  * @author Daniel Murphy
  */
-public interface QueryCallback {
-
-	/**
-	 * Called for each fixture found in the query AABB.
-	 * @param fixture
-	 * @return false to terminate the query.
-	 */
-	public boolean reportFixture(Fixture fixture);
+public interface QueryCallback
+{
+    /**
+     * Called for each fixture found in the query AABB.
+     *
+     * @param fixture
+     * @return false to terminate the query.
+     */
+    public boolean reportFixture(Fixture fixture);
 }
