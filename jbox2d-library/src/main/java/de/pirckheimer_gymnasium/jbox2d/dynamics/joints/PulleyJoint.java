@@ -52,18 +52,18 @@ public class PulleyJoint extends Joint
 
     private final Vec2 m_groundAnchorB = new Vec2();
 
-    private float m_lengthA;
+    private final float m_lengthA;
 
-    private float m_lengthB;
+    private final float m_lengthB;
 
     // Solver shared
     private final Vec2 m_localAnchorA = new Vec2();
 
     private final Vec2 m_localAnchorB = new Vec2();
 
-    private float m_constant;
+    private final float m_constant;
 
-    private float m_ratio;
+    private final float m_ratio;
 
     private float m_impulse;
 
@@ -329,6 +329,9 @@ public class PulleyJoint extends Joint
         pool.pushVec2(4);
     }
 
+    /**
+     * https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_pulley_joint.cpp#L194-L264
+     */
     @Override
     public boolean solvePositionConstraints(final SolverData data)
     {
