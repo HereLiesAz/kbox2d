@@ -24,6 +24,9 @@
 package de.pirckheimer_gymnasium.jbox2d.common;
 
 // updated to rev 100
+/**
+ * @author Daniel Murphy
+ */
 public class RaycastResult
 {
     public float lambda = 0.0f;

@@ -29,6 +29,8 @@ import java.io.Serializable;
 /**
  * A transform contains translation and rotation. It is used to represent the
  * position and orientation of rigid frames.
+ *
+ * @author Daniel Murphy
  */
 public class Transform implements Serializable
 {

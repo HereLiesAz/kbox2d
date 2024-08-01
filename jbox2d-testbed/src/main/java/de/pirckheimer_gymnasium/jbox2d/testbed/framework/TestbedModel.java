@@ -34,7 +34,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.IViewportTransform;
 /**
  * Model for the testbed
  *
- * @author Daniel
+ * @author Daniel Murphy
  */
 public class TestbedModel
 {

@@ -115,7 +115,7 @@ public interface JbDeserializer
     /**
      * Called for each physics object with a tag defined.
      *
-     * @author dmurph
+     * @author Daniel Murphy
      *
      */
     public static interface ObjectListener

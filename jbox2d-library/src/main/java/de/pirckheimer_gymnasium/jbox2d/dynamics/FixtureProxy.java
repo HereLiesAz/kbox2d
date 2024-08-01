@@ -28,7 +28,7 @@ import de.pirckheimer_gymnasium.jbox2d.collision.AABB;
 /**
  * This proxy is used internally to connect fixtures to the broad-phase.
  *
- * @author Daniel
+ * @author Daniel Murphy
  */
 public class FixtureProxy
 {

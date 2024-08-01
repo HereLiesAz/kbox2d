@@ -49,6 +49,8 @@ import java.util.Random;
 
 /**
  * A few math methods that don't fit very well anywhere else.
+ *
+ * @author Daniel Murphy
  */
 public class MathUtils extends PlatformMathUtils
 {

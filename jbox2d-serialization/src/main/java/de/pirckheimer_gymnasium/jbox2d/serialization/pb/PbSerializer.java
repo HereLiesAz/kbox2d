@@ -71,7 +71,7 @@ import de.pirckheimer_gymnasium.jbox2d.serialization.UnsupportedObjectException.
 /**
  * Protobuffer serializer implementation.
  *
- * @author Daniel
+ * @author Daniel Murphy
  *
  */
 public class PbSerializer implements JbSerializer

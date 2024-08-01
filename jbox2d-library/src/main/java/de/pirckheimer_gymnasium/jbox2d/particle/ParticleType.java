@@ -3,7 +3,7 @@ package de.pirckheimer_gymnasium.jbox2d.particle;
 /**
  * The particle type. Can be combined with | operator. Zero means liquid.
  *
- * @author dmurph
+ * @author Daniel Murphy
  */
 public class ParticleType
 {

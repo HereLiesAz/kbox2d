@@ -39,7 +39,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
  *
  * https://github.com/erincatto/box2d/blob/main/src/collision/b2_edge_shape.cpp
  *
- * @author Daniel
+ * @author Daniel Murphy
  */
 public class EdgeShape extends Shape
 {

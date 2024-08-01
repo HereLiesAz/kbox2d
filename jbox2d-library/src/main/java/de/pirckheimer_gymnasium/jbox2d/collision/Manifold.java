@@ -49,6 +49,8 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
  * movement, which is critical for continuous physics. All contact scenarios
  * must be expressed in one of these types. This structure is stored across time
  * steps, so we keep it small.
+ *
+ * @author Daniel Murphy
  */
 public class Manifold
 {

@@ -30,7 +30,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 /**
  * not thread safe Vec2[] pool
  *
- * @author dmurph
+ * @author Daniel Murphy
  *
  */
 public class Vec2Array

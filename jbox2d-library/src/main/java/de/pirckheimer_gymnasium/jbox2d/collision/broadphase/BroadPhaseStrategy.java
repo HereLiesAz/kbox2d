@@ -7,6 +7,9 @@ import de.pirckheimer_gymnasium.jbox2d.collision.AABB;
 import de.pirckheimer_gymnasium.jbox2d.collision.RayCastInput;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 
+/**
+ * @author Daniel Murphy
+ */
 public interface BroadPhaseStrategy
 {
     /**

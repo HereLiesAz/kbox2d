@@ -26,7 +26,7 @@ package de.pirckheimer_gymnasium.jbox2d.common;
 /**
  * Timer for profiling
  *
- * @author Daniel
+ * @author Daniel Murphy
  */
 public class Timer
 {

@@ -32,7 +32,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 /**
  * This is used to compute the current state of a contact manifold.
  *
- * @author daniel
+ * @author Daniel Murphy
  */
 public class WorldManifold
 {

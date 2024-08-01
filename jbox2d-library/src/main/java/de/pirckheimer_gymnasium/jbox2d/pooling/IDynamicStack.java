@@ -27,7 +27,7 @@ package de.pirckheimer_gymnasium.jbox2d.pooling;
  * Same functionality of a regular java.util stack. Object return order does not
  * matter.
  *
- * @author Daniel
+ * @author Daniel Murphy
  *
  * @param <E>
  */

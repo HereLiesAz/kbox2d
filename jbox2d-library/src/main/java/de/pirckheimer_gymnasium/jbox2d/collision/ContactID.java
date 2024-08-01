@@ -48,6 +48,8 @@ package de.pirckheimer_gymnasium.jbox2d.collision;
 /**
  * Contact ids to facilitate warm starting. Note: the ContactFeatures class is
  * just embedded in here
+ *
+ * @author Daniel Murphy
  */
 public class ContactID implements Comparable<ContactID>
 {

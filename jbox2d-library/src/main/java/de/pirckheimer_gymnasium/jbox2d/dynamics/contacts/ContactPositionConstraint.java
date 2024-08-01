@@ -27,6 +27,9 @@ import de.pirckheimer_gymnasium.jbox2d.collision.Manifold.ManifoldType;
 import de.pirckheimer_gymnasium.jbox2d.common.Settings;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 
+/**
+ * @author Daniel Murphy
+ */
 public class ContactPositionConstraint
 {
     Vec2[] localPoints = new Vec2[Settings.maxManifoldPoints];

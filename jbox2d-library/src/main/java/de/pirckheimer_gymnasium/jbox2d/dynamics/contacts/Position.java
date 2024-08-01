@@ -25,6 +25,9 @@ package de.pirckheimer_gymnasium.jbox2d.dynamics.contacts;
 
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 
+/**
+ * @author Daniel Murphy
+ */
 public class Position
 {
     public final Vec2 c = new Vec2();

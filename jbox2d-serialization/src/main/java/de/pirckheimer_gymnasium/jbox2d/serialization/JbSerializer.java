@@ -34,7 +34,7 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.joints.Joint;
 /**
  * Serializer for jbox2d, used to serialize any aspect of the physics world
  *
- * @author Daniel
+ * @author Daniel Murphy
  *
  */
 public interface JbSerializer
@@ -111,7 +111,7 @@ public interface JbSerializer
      * Interface that allows the serializer to look up tags for each object,
      * which can be used later during deserializing by the developer.
      *
-     * @author Daniel
+     * @author Daniel Murphy
      */
     public static interface ObjectSigner
     {

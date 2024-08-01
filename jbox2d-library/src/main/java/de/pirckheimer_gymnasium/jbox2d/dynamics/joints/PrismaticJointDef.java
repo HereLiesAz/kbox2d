@@ -35,7 +35,7 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
  * game.
  *
  * @warning at least one body should by dynamic with a non-fixed rotation.
- * @author Daniel
+ * @author Daniel Murphy
  *
  */
 public class PrismaticJointDef extends JointDef

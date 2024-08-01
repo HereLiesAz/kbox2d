@@ -28,7 +28,7 @@ import java.util.HashMap;
 /**
  * Not thread safe float[] pooling.
  *
- * @author Daniel
+ * @author Daniel Murphy
  */
 public class FloatArray
 {

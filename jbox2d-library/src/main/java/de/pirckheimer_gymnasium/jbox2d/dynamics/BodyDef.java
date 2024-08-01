@@ -30,7 +30,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
  * can safely re-use body definitions. Shapes are added to a body after
  * construction.
  *
- * @author daniel
+ * @author Daniel Murphy
  */
 public class BodyDef
 {

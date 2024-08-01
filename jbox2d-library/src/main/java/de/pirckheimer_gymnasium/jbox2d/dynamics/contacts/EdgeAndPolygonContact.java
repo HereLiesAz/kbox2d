@@ -31,6 +31,9 @@ import de.pirckheimer_gymnasium.jbox2d.common.Transform;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.Fixture;
 import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
 
+/**
+ * @author Daniel Murphy
+ */
 public class EdgeAndPolygonContact extends Contact
 {
     public EdgeAndPolygonContact(IWorldPool argPool)

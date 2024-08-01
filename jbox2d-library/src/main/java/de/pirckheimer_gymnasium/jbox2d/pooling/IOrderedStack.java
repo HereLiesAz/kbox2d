@@ -27,7 +27,7 @@ package de.pirckheimer_gymnasium.jbox2d.pooling;
  * This stack assumes that when you push 'n' items back, you're pushing back the
  * last 'n' items popped.
  *
- * @author Daniel
+ * @author Daniel Murphy
  *
  * @param <E>
  */

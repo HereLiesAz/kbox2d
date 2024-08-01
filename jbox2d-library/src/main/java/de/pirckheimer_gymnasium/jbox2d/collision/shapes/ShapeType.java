@@ -26,7 +26,7 @@ package de.pirckheimer_gymnasium.jbox2d.collision.shapes;
 /**
  * Types of shapes
  *
- * @author Daniel
+ * @author Daniel Murphy
  */
 public enum ShapeType
 {

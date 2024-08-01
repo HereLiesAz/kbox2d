@@ -29,6 +29,8 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 /**
  * Ray-cast output data. The ray hits at p1 + fraction * (p2 - p1), where p1 and
  * p2 come from b2RayCastInput.
+ *
+ * @author Daniel Murphy
  */
 public class RayCastOutput
 {

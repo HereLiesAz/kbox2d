@@ -26,6 +26,8 @@ package de.pirckheimer_gymnasium.jbox2d.dynamics;
 //updated to rev 100
 /**
  * This is an internal structure.
+ *
+ * @author Daniel Murphy
  */
 public class TimeStep
 {

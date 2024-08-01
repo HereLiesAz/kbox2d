@@ -27,6 +27,8 @@ package de.pirckheimer_gymnasium.jbox2d.common;
  * Contains methods from MathUtils that rely on JVM features. These are
  * separated out from MathUtils so that they can be overridden when compiling
  * for GWT.
+ *
+ * @author Daniel Murphy
  */
 class PlatformMathUtils
 {

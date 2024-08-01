@@ -40,6 +40,8 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.arrays.Vec2Array;
  * convex polygon.
  *
  * https://github.com/erincatto/box2d/blob/main/src/collision/b2_polygon_shape.cpp
+ *
+ * @author Daniel Murphy
  */
 public class PolygonShape extends Shape
 {

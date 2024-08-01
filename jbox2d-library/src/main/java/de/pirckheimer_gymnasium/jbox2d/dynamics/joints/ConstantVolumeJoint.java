@@ -32,6 +32,9 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.World;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.contacts.Position;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.contacts.Velocity;
 
+/**
+ * @author Daniel Murphy
+ */
 public class ConstantVolumeJoint extends Joint
 {
     private final Body[] bodies;

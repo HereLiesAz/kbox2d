@@ -24,6 +24,8 @@
 // package java.lang;
 /**
  * GWT doesn't support strict math, so we "emulate" it with non-strict math.
+ *
+ * @author Daniel Murphy
  */
 public class StrictMath
 {

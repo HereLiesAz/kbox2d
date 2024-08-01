@@ -34,6 +34,9 @@ import de.pirckheimer_gymnasium.jbox2d.common.MathUtils;
 import de.pirckheimer_gymnasium.jbox2d.common.Settings;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 
+/**
+ * @author Daniel Murphy
+ */
 public class DynamicTreeFlatNodes implements BroadPhaseStrategy
 {
     public static final int MAX_STACK_SIZE = 64;

@@ -25,6 +25,9 @@ package de.pirckheimer_gymnasium.jbox2d.collision.broadphase;
 
 import de.pirckheimer_gymnasium.jbox2d.collision.AABB;
 
+/**
+ * @author Daniel Murphy
+ */
 public class DynamicTreeNode
 {
     /**

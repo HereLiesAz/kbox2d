@@ -27,6 +27,8 @@ import java.io.Serializable;
 
 /**
  * A 2D column vector
+ *
+ * @author Daniel Murphy
  */
 public class Vec2 implements Serializable
 {

@@ -37,7 +37,7 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.contacts.Contact;
 /**
  * World pool interface
  *
- * @author Daniel
+ * @author Daniel Murphy
  *
  */
 public interface IWorldPool

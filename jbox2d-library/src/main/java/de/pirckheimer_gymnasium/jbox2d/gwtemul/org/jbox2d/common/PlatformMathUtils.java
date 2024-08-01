@@ -25,6 +25,8 @@ package de.pirckheimer_gymnasium.jbox2d.common;
 
 /**
  * A GWT-compatible implementation of the platform math utilities.
+ *
+ * @author Daniel Murphy
  */
 class PlatformMathUtils
 {

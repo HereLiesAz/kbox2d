@@ -23,6 +23,9 @@
  ******************************************************************************/
 package de.pirckheimer_gymnasium.jbox2d.dynamics.joints;
 
+/**
+ * @author Daniel Murphy
+ */
 public enum LimitState
 {
     INACTIVE, AT_LOWER, AT_UPPER, EQUAL

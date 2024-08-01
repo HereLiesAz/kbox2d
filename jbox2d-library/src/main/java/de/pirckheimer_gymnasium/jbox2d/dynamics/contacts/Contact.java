@@ -40,7 +40,7 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
  * overlapping AABB in the broad-phase (except if filtered). Therefore a contact
  * object may exist that has no contact points.
  *
- * @author daniel
+ * @author Daniel Murphy
  */
 public abstract class Contact
 {

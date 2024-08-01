@@ -26,6 +26,8 @@ package de.pirckheimer_gymnasium.jbox2d.common;
 /**
  * Global tuning constants based on MKS units and various integer maximums
  * (vertices per shape, pairs, etc.).
+ *
+ * @author Daniel Murphy
  */
 public class Settings
 {

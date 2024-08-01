@@ -102,7 +102,7 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
  * joint limit to restrict the range of motion and a joint motor to drive the
  * motion or to model joint friction.
  *
- * @author Daniel
+ * @author Daniel Murphy
  */
 public class PrismaticJoint extends Joint
 {

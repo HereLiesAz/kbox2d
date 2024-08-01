@@ -30,6 +30,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Transform;
  * Input for Distance. You have to option to use the shape radii in the
  * computation.
  *
+ * @author Daniel Murphy
  */
 public class DistanceInput
 {

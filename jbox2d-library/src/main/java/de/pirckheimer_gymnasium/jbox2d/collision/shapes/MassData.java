@@ -48,7 +48,11 @@ package de.pirckheimer_gymnasium.jbox2d.collision.shapes;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 // Updated to rev 100
 
-/** This holds the mass data computed for a shape. */
+/**
+ * This holds the mass data computed for a shape.
+ *
+ * @author Daniel Murphy
+ */
 public class MassData
 {
     /** The mass of the shape, usually in kilograms. */

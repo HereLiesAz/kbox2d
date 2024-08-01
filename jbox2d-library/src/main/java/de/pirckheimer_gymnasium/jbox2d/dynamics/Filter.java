@@ -27,7 +27,7 @@ package de.pirckheimer_gymnasium.jbox2d.dynamics;
 /**
  * This holds contact filtering data.
  *
- * @author daniel
+ * @author Daniel Murphy
  */
 public class Filter
 {

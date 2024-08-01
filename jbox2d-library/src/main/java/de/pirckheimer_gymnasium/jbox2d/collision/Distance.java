@@ -82,7 +82,7 @@ public class Distance
     /**
      * Used to warm start Distance. Set count to zero on first call.
      *
-     * @author daniel
+     * @author Daniel Murphy
      */
     public static class SimplexCache
     {
@@ -512,7 +512,7 @@ public class Distance
      * TODO: see if we can just do assignments with m_vertices, instead of
      * copying stuff over
      *
-     * @author daniel
+     * @author Daniel Murphy
      */
     public static class DistanceProxy
     {

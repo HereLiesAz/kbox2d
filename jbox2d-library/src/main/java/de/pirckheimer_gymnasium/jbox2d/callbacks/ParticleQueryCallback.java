@@ -6,8 +6,7 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.World;
  * Callback class for AABB queries. See
  * {@link World#queryAABB(QueryCallback, de.pirckheimer_gymnasium.jbox2d.collision.AABB)}.
  *
- * @author dmurph
- *
+ * @author Daniel Murphy
  */
 public interface ParticleQueryCallback
 {

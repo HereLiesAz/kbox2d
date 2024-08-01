@@ -50,7 +50,6 @@ package de.pirckheimer_gymnasium.jbox2d.common;
  * Similar to javax.vecmath.Color3f holder
  *
  * @author ewjordan
- *
  */
 public class Color3f
 {

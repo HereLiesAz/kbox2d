@@ -31,7 +31,7 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
  * a doubly linked list maintained in each attached body. Each joint has two
  * joint nodes, one for each attached body.
  *
- * @author Daniel
+ * @author Daniel Murphy
  */
 public class JointEdge
 {

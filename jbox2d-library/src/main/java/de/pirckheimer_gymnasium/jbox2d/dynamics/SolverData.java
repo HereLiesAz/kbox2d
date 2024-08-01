@@ -26,6 +26,9 @@ package de.pirckheimer_gymnasium.jbox2d.dynamics;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.contacts.Position;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.contacts.Velocity;
 
+/**
+ * @author Daniel Murphy
+ */
 public class SolverData
 {
     public TimeStep step;

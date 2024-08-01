@@ -27,6 +27,9 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.Fixture;
 import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
 
 // updated to rev 100
+/**
+ * @author Daniel Murphy
+ */
 public interface ContactCreator
 {
     public Contact contactCreateFcn(IWorldPool argPool, Fixture fixtureA,

@@ -27,6 +27,9 @@ import de.pirckheimer_gymnasium.jbox2d.common.Mat22;
 import de.pirckheimer_gymnasium.jbox2d.common.Settings;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 
+/**
+ * @author Daniel Murphy
+ */
 public class ContactVelocityConstraint
 {
     public VelocityConstraintPoint[] points = new VelocityConstraintPoint[Settings.maxManifoldPoints];

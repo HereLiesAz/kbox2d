@@ -39,7 +39,7 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.TimeStep;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.contacts.ContactVelocityConstraint.VelocityConstraintPoint;
 
 /**
- * @author Daniel
+ * @author Daniel Murphy
  */
 public class ContactSolver
 {

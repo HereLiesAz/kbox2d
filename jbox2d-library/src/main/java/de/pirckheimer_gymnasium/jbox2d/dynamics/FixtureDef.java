@@ -29,7 +29,7 @@ import de.pirckheimer_gymnasium.jbox2d.collision.shapes.Shape;
  * A fixture definition is used to create a fixture. This class defines an
  * abstract fixture definition. You can reuse fixture definitions safely.
  *
- * @author daniel
+ * @author Daniel Murphy
  */
 public class FixtureDef
 {

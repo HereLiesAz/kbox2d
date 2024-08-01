@@ -22,7 +22,7 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
  * typical usage is to control the movement of a dynamic body with respect to
  * the ground.
  *
- * @author dmurph
+ * @author Daniel Murphy
  */
 public class MotorJoint extends Joint
 {

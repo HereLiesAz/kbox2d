@@ -38,7 +38,6 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.contacts.Contact;
  *
  * @warning You cannot create/destroy Box2D entities inside these callbacks.
  * @author Daniel Murphy
- *
  */
 public interface ContactListener
 {

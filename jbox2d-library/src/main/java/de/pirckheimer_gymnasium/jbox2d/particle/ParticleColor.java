@@ -5,7 +5,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Color3f;
 /**
  * Small color object for each particle
  *
- * @author dmurph
+ * @author Daniel Murphy
  */
 public class ParticleColor
 {

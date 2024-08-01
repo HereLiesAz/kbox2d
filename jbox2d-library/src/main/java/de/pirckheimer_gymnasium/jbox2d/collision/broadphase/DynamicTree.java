@@ -40,7 +40,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
  * the client object. This allows the client object to move by small amounts
  * without triggering a tree update.
  *
- * @author daniel
+ * @author Daniel Murphy
  */
 public class DynamicTree implements BroadPhaseStrategy
 {

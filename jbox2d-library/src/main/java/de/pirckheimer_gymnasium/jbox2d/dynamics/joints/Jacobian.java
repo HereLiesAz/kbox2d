@@ -25,6 +25,9 @@ package de.pirckheimer_gymnasium.jbox2d.dynamics.joints;
 
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 
+/**
+ * @author Daniel Murphy
+ */
 public class Jacobian
 {
     public final Vec2 linearA = new Vec2();

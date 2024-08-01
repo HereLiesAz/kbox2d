@@ -38,7 +38,7 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
  * constructed usually, just retrieve from the
  * {@link IWorldPool#getTimeOfImpact()}.
  *
- * @author daniel
+ * @author Daniel Murphy
  */
 public class TimeOfImpact
 {
@@ -85,7 +85,7 @@ public class TimeOfImpact
     /**
      * Output parameters for TimeOfImpact
      *
-     * @author daniel
+     * @author Daniel Murphy
      */
     public static class TOIOutput
     {

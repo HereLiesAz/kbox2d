@@ -29,7 +29,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
  * Mouse joint definition. This requires a world target point, tuning
  * parameters, and the time step.
  *
- * @author Daniel
+ * @author Daniel Murphy
  */
 public class MouseJointDef extends JointDef
 {

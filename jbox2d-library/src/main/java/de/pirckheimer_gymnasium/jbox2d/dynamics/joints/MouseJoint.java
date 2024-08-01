@@ -40,7 +40,7 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
  * testbed. If you want to learn how to use the mouse joint, look at the
  * testbed.
  *
- * @author Daniel
+ * @author Daniel Murphy
  */
 public class MouseJoint extends Joint
 {

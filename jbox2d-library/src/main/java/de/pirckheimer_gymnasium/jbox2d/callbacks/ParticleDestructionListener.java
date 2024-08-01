@@ -3,6 +3,9 @@ package de.pirckheimer_gymnasium.jbox2d.callbacks;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.World;
 import de.pirckheimer_gymnasium.jbox2d.particle.ParticleGroup;
 
+/**
+ * @author Daniel Murphy
+ */
 public interface ParticleDestructionListener
 {
     /**

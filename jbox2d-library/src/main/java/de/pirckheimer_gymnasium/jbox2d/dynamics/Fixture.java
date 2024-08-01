@@ -44,7 +44,7 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.contacts.ContactEdge;
  *
  * @warning you cannot reuse fixtures.
  *
- * @author daniel
+ * @author Daniel Murphy
  */
 public class Fixture
 {

@@ -60,6 +60,8 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
  * <li>if you add/remove shapes from a body and recompute the mass, the joints
  * will be broken.</li>
  * </ul>
+ *
+ * @author Daniel Murphy
  */
 public class RevoluteJointDef extends JointDef
 {

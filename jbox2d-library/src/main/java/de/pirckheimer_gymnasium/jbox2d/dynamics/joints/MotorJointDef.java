@@ -6,7 +6,7 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
 /**
  * Motor joint definition.
  *
- * @author dmurph
+ * @author Daniel Murphy
  */
 public class MotorJointDef extends JointDef
 {

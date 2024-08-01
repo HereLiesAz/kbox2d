@@ -28,7 +28,7 @@ import java.io.Serializable;
 /**
  * Represents a rotation
  *
- * @author Daniel
+ * @author Daniel Murphy
  */
 public class Rot implements Serializable
 {

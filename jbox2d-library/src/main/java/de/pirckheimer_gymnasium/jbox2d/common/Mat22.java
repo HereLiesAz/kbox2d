@@ -27,6 +27,8 @@ import java.io.Serializable;
 
 /**
  * A 2-by-2 matrix. Stored in column-major order.
+ *
+ * @author Daniel Murphy
  */
 public class Mat22 implements Serializable
 {

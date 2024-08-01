@@ -60,6 +60,8 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
  * This structure is stored across time steps, so we keep it small.<br/>
  * Note: the impulses are used for internal caching and may not provide reliable
  * contact forces, especially for high speed collisions.
+ *
+ * @author Daniel Murphy
  */
 public class ManifoldPoint
 {

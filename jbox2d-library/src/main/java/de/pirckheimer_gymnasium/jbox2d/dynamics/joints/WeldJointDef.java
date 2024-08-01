@@ -25,12 +25,7 @@ package de.pirckheimer_gymnasium.jbox2d.dynamics.joints;
 
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
-import de.pirckheimer_gymnasium.jbox2d.dynamics.joints.JointDef;
-import de.pirckheimer_gymnasium.jbox2d.dynamics.joints.JointType;
 
-/**
- * Created at 3:38:52 AM Jan 15, 2011
- */
 /**
  * @author Daniel Murphy
  */

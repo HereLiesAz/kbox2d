@@ -31,7 +31,7 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
  * belongs to a doubly linked list maintained in each attached body. Each
  * contact has two contact nodes, one for each attached body.
  *
- * @author daniel
+ * @author Daniel Murphy
  */
 public class ContactEdge
 {

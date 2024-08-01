@@ -32,7 +32,7 @@ package de.pirckheimer_gymnasium.jbox2d.dynamics;
  * kinematic: zero mass, non-zero velocity set by user, moved by solver dynamic:
  * positive mass, non-zero velocity determined by forces, moved by solver
  *
- * @author daniel
+ * @author Daniel Murphy
  */
 public enum BodyType
 {

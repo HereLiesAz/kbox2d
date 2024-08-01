@@ -24,6 +24,9 @@
 package de.pirckheimer_gymnasium.jbox2d.callbacks;
 
 // updated to rev 100
+/**
+ * @author Daniel Murphy
+ */
 public interface PairCallback
 {
     public void addPair(Object userDataA, Object userDataB);

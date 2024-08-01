@@ -2,6 +2,9 @@ package de.pirckheimer_gymnasium.jbox2d.common;
 
 import java.lang.reflect.Array;
 
+/**
+ * @author Daniel Murphy
+ */
 public class BufferUtils
 {
     /** Reallocate a buffer. */

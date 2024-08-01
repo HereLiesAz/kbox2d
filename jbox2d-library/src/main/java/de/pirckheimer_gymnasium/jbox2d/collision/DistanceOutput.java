@@ -28,7 +28,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 /**
  * Output for Distance.
  *
- * @author Daniel
+ * @author Daniel Murphy
  */
 public class DistanceOutput
 {

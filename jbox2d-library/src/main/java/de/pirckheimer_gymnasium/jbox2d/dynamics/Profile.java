@@ -27,6 +27,9 @@ import java.util.List;
 
 import de.pirckheimer_gymnasium.jbox2d.common.MathUtils;
 
+/**
+ * @author Daniel Murphy
+ */
 public class Profile
 {
     private static final int LONG_AVG_NUMS = 20;

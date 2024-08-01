@@ -37,6 +37,8 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
  * A circle shape.
  *
  * https://github.com/erincatto/box2d/blob/main/src/collision/b2_collide_circle.cpp
+ *
+ * @author Daniel Murphy
  */
 public class CircleShape extends Shape
 {

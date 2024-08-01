@@ -23,6 +23,9 @@
  ******************************************************************************/
 package de.pirckheimer_gymnasium.jbox2d.dynamics.joints;
 
+/**
+ * @author Daniel Murphy
+ */
 public enum JointType
 {
     UNKNOWN, REVOLUTE, PRISMATIC, DISTANCE, PULLEY, MOUSE, GEAR, WHEEL, WELD,

@@ -29,7 +29,11 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
 import de.pirckheimer_gymnasium.jbox2d.pooling.normal.DefaultWorldPool;
 
-/** An axis-aligned bounding box. */
+/**
+ * An axis-aligned bounding box.
+ *
+ * @author Daniel Murphy
+ */
 public class AABB
 {
     /** Bottom left vertex of bounding box. */
