@@ -90,7 +90,7 @@ public class ConvexHull extends TestbedTest
         super.step(settings);
         shape.set(m_points, m_count);
         addTextLine("Press g to generate a new random convex hull");
-        getDebugDraw().drawPolygon(shape.m_vertices, shape.m_count, color);
+        getDebugDraw().drawPolygon(shape.vertices, shape.m_count, color);
         for (int i = 0; i < m_count; ++i)
         {
             getDebugDraw().drawPoint(m_points[i], 2.0f, color2);

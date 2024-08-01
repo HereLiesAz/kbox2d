@@ -119,7 +119,7 @@ public class RayCastTest extends TestbedTest
         }
         {
             m_circle = new CircleShape();
-            m_circle.m_radius = 0.5f;
+            m_circle.radius = 0.5f;
         }
         {
             m_edge = new EdgeShape();

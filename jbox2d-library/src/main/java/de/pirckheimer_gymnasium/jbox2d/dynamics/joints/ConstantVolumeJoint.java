@@ -43,13 +43,13 @@ public class ConstantVolumeJoint extends Joint
 
     private float targetVolume;
 
-    private Vec2[] normals;
+    private final Vec2[] normals;
 
-    private float m_impulse = 0.0f;
+    private float impulse = 0.0f;
 
-    private World world;
+    private final World world;
 
-    private DistanceJoint[] distanceJoints;
+    private final DistanceJoint[] distanceJoints;
 
     public Body[] getBodies()
     {
@@ -222,7 +222,7 @@ public class ConstantVolumeJoint extends Joint
         }
         if (step.step.warmStarting)
         {
-            m_impulse *= step.step.dtRatio;
+            impulse *= step.step.dtRatio;
             // float lambda = -2.0f * crossMassSum / dotMassSum;
             // System.out.println(crossMassSum + " " +dotMassSum);
             // lambda = MathUtils.clamp(lambda, -Settings.maxLinearCorrection,
@@ -231,14 +231,14 @@ public class ConstantVolumeJoint extends Joint
             for (int i = 0; i < bodies.length; ++i)
             {
                 velocities[bodies[i].m_islandIndex].v.x += bodies[i].m_invMass
-                        * d[i].y * .5f * m_impulse;
+                        * d[i].y * .5f * impulse;
                 velocities[bodies[i].m_islandIndex].v.y += bodies[i].m_invMass
-                        * -d[i].x * .5f * m_impulse;
+                        * -d[i].x * .5f * impulse;
             }
         }
         else
         {
-            m_impulse = 0.0f;
+            impulse = 0.0f;
         }
     }
 
@@ -270,7 +270,7 @@ public class ConstantVolumeJoint extends Joint
         // System.out.println(crossMassSum + " " +dotMassSum);
         // lambda = MathUtils.clamp(lambda, -Settings.maxLinearCorrection,
         // Settings.maxLinearCorrection);
-        m_impulse += lambda;
+        impulse += lambda;
         // System.out.println(m_impulse);
         for (int i = 0; i < bodies.length; ++i)
         {

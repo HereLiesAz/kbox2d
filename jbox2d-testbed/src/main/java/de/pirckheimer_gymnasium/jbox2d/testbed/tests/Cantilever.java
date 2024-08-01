@@ -179,7 +179,7 @@ public class Cantilever extends TestbedTest
         for (int i = 0; i < 2; ++i)
         {
             CircleShape shape = new CircleShape();
-            shape.m_radius = 0.5f;
+            shape.radius = 0.5f;
             FixtureDef fd = new FixtureDef();
             fd.shape = shape;
             fd.density = 1.0f;

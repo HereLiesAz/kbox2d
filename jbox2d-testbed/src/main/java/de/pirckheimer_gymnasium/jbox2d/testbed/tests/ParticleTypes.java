@@ -63,7 +63,7 @@ public class ParticleTypes extends TestbedTest
             circle = body;
             CircleShape shape = new CircleShape();
             shape.m_p.set(0, 5);
-            shape.m_radius = 1;
+            shape.radius = 1;
             body.createFixture(shape, 0.1f);
             body.setLinearVelocity(new Vec2(-6, 0.0f));
         }

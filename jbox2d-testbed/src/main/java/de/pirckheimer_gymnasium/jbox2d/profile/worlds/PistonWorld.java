@@ -71,7 +71,7 @@ public class PistonWorld implements PerformanceTestWorld
             for (int i = 0; i < numPieces; i++)
             {
                 cd = new CircleShape();
-                cd.m_radius = .5f;
+                cd.radius = .5f;
                 fd.shape = cd;
                 fd.density = 25;
                 fd.friction = .1f;
@@ -168,7 +168,7 @@ public class PistonWorld implements PerformanceTestWorld
                     body.createFixture(fixture);
                 }
                 CircleShape cd = new CircleShape();
-                cd.m_radius = 0.36f;
+                cd.radius = 0.36f;
                 for (int i = 0; i < 100; ++i)
                 {
                     bd.position.set(1.0f, 23.0f + i);

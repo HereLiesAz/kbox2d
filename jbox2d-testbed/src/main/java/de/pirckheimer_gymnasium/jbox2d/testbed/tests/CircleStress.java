@@ -148,7 +148,7 @@ public class CircleStress extends TestbedTest
         for (int i = 0; i < numPieces; i++)
         {
             cd = new CircleShape();
-            cd.m_radius = 1.2f;
+            cd.radius = 1.2f;
             fd.shape = cd;
             fd.density = 25;
             fd.friction = .1f;
@@ -176,11 +176,11 @@ public class CircleStress extends TestbedTest
                     CircleShape circ = new CircleShape();
                     BodyDef bod = new BodyDef();
                     bod.type = BodyType.DYNAMIC;
-                    circ.m_radius = 1.0f + (i % 2 == 0 ? 1.0f : -1.0f) * .5f
+                    circ.radius = 1.0f + (i % 2 == 0 ? 1.0f : -1.0f) * .5f
                             * MathUtils.randomFloat(.5f, 1f);
                     FixtureDef fd2 = new FixtureDef();
                     fd2.shape = circ;
-                    fd2.density = circ.m_radius * 1.5f;
+                    fd2.density = circ.radius * 1.5f;
                     fd2.friction = 0.5f;
                     fd2.restitution = 0.7f;
                     float xPos = -39f + 2 * i;

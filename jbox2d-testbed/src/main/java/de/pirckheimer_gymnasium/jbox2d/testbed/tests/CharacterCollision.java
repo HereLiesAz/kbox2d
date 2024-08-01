@@ -97,7 +97,7 @@ public class CharacterCollision extends TestbedTest
             BodyDef bd = new BodyDef();
             Body ground = getWorld().createBody(bd);
             EdgeShape shape = new EdgeShape();
-            shape.m_radius = 0.0f;
+            shape.radius = 0.0f;
             shape.set(new Vec2(-8.0f, 1.0f), new Vec2(-6.0f, 1.0f));
             ground.createFixture(shape, 0.0f);
             shape.set(new Vec2(-6.0f, 1.0f), new Vec2(-4.0f, 1.0f));
@@ -229,7 +229,7 @@ public class CharacterCollision extends TestbedTest
             bd.allowSleep = false;
             Body body = getWorld().createBody(bd);
             CircleShape shape = new CircleShape();
-            shape.m_radius = 0.5f;
+            shape.radius = 0.5f;
             FixtureDef fd = new FixtureDef();
             fd.shape = shape;
             fd.density = 20.0f;
@@ -243,7 +243,7 @@ public class CharacterCollision extends TestbedTest
             bd.allowSleep = false;
             m_character = getWorld().createBody(bd);
             CircleShape shape = new CircleShape();
-            shape.m_radius = 0.25f;
+            shape.radius = 0.25f;
             FixtureDef fd = new FixtureDef();
             fd.shape = shape;
             fd.density = 20.0f;

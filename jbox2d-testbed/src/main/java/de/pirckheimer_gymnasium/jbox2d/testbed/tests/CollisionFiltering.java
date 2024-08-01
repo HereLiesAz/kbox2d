@@ -159,7 +159,7 @@ public class CollisionFiltering extends TestbedTest
         body4.createFixture(boxShapeDef);
         // Small circle
         CircleShape circle = new CircleShape();
-        circle.m_radius = 1.0f;
+        circle.radius = 1.0f;
         FixtureDef circleShapeDef = new FixtureDef();
         circleShapeDef.shape = circle;
         circleShapeDef.density = 1.0f;
@@ -172,7 +172,7 @@ public class CollisionFiltering extends TestbedTest
         Body body5 = getWorld().createBody(circleBodyDef);
         body5.createFixture(circleShapeDef);
         // Large circle
-        circle.m_radius *= 2.0f;
+        circle.radius *= 2.0f;
         circleShapeDef.filter.groupIndex = k_largeGroup;
         circleBodyDef.position.set(5.0f, 6.0f);
         Body body6 = getWorld().createBody(circleBodyDef);

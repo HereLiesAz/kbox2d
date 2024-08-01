@@ -77,7 +77,7 @@ public class ShapeEditing extends TestbedTest
             if (m_fixture2 == null)
             {
                 CircleShape shape = new CircleShape();
-                shape.m_radius = 3.0f;
+                shape.radius = 3.0f;
                 shape.m_p.set(0.5f, -4.0f);
                 m_fixture2 = m_body.createFixture(shape, 10.0f);
                 m_body.setAwake(true);

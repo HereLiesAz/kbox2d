@@ -283,7 +283,7 @@ public class Car extends TestbedTest
             vertices[5] = new Vec2(-1.5f, 0.2f);
             chassis.set(vertices, 6);
             CircleShape circle = new CircleShape();
-            circle.m_radius = 0.4f;
+            circle.radius = 0.4f;
             BodyDef bd = new BodyDef();
             bd.type = BodyType.DYNAMIC;
             bd.position.set(0.0f, 1.0f);

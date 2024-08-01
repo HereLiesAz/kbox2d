@@ -38,13 +38,13 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
  */
 public abstract class Shape
 {
-    public final ShapeType m_type;
+    public final ShapeType type;
 
-    public float m_radius;
+    public float radius;
 
     public Shape(ShapeType type)
     {
-        this.m_type = type;
+        this.type = type;
     }
 
     /**
@@ -55,7 +55,7 @@ public abstract class Shape
      */
     public ShapeType getType()
     {
-        return m_type;
+        return type;
     }
 
     /**
@@ -64,7 +64,7 @@ public abstract class Shape
      */
     public float getRadius()
     {
-        return m_radius;
+        return radius;
     }
 
     /**
@@ -73,7 +73,7 @@ public abstract class Shape
      */
     public void setRadius(float radius)
     {
-        this.m_radius = radius;
+        this.radius = radius;
     }
 
     /**

@@ -171,7 +171,7 @@ public class PbSerializer implements JbSerializer
                 joints.put(cjoint, cnt);
                 cnt++;
             }
-            cjoint = cjoint.m_next;
+            cjoint = cjoint.next;
         }
         // second pass for dependent joints
         cjoint = argWorld.getJointList();
@@ -183,7 +183,7 @@ public class PbSerializer implements JbSerializer
                 joints.put(cjoint, cnt);
                 cnt++;
             }
-            cjoint = cjoint.m_next;
+            cjoint = cjoint.next;
         }
         return builder;
     }
@@ -263,7 +263,7 @@ public class PbSerializer implements JbSerializer
         while (curr != null)
         {
             builder.addFixtures(serializeFixture(curr));
-            curr = curr.m_next;
+            curr = curr.next;
         }
         return builder;
     }
@@ -299,12 +299,12 @@ public class PbSerializer implements JbSerializer
                 builder.setTag(tag);
             }
         }
-        builder.setDensity(argFixture.m_density);
-        builder.setFriction(argFixture.m_friction);
-        builder.setRestitution(argFixture.m_restitution);
+        builder.setDensity(argFixture.density);
+        builder.setFriction(argFixture.friction);
+        builder.setRestitution(argFixture.restitution);
         builder.setSensor(argFixture.m_isSensor);
-        builder.setShape(serializeShape(argFixture.m_shape));
-        builder.setFilter(serializeFilter(argFixture.m_filter));
+        builder.setShape(serializeShape(argFixture.shape));
+        builder.setFilter(serializeFilter(argFixture.filter));
         return builder;
     }
 
@@ -345,8 +345,8 @@ public class PbSerializer implements JbSerializer
                 builder.setTag(tag);
             }
         }
-        builder.setRadius(argShape.m_radius);
-        switch (argShape.m_type)
+        builder.setRadius(argShape.radius);
+        switch (argShape.type)
         {
         case CIRCLE:
             CircleShape c = (CircleShape) argShape;
@@ -357,11 +357,11 @@ public class PbSerializer implements JbSerializer
         case POLYGON:
             PolygonShape p = (PolygonShape) argShape;
             builder.setType(PbShapeType.POLYGON);
-            builder.setCentroid(vecToPb(p.m_centroid));
+            builder.setCentroid(vecToPb(p.centroid));
             for (int i = 0; i < p.m_count; i++)
             {
-                builder.addPoints(vecToPb(p.m_vertices[i]));
-                builder.addNormals(vecToPb(p.m_normals[i]));
+                builder.addPoints(vecToPb(p.vertices[i]));
+                builder.addNormals(vecToPb(p.normals[i]));
             }
             break;
 

@@ -129,7 +129,7 @@ public class OneSidedTest extends TestbedTest
             Body body = getWorld().createBody(bd);
             m_radius = 0.5f;
             CircleShape shape = new CircleShape();
-            shape.m_radius = m_radius;
+            shape.radius = m_radius;
             m_character = body.createFixture(shape, 20.0f);
             body.setLinearVelocity(new Vec2(0.0f, -50.0f));
             m_state = State.e_unknown;

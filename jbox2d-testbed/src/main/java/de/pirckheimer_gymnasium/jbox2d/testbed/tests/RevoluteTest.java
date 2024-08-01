@@ -97,7 +97,7 @@ public class RevoluteTest extends TestbedTest
         }
         {
             CircleShape shape = new CircleShape();
-            shape.m_radius = 0.5f;
+            shape.radius = 0.5f;
             BodyDef bd = new BodyDef();
             bd.type = BodyType.DYNAMIC;
             RevoluteJointDef rjd = new RevoluteJointDef();
@@ -119,7 +119,7 @@ public class RevoluteTest extends TestbedTest
         }
         {
             CircleShape circle_shape = new CircleShape();
-            circle_shape.m_radius = 3.0f;
+            circle_shape.radius = 3.0f;
             BodyDef circle_bd = new BodyDef();
             circle_bd.type = BodyType.DYNAMIC;
             circle_bd.position.set(5.0f, 30.0f);

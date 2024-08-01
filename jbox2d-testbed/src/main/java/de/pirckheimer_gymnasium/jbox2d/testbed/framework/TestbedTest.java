@@ -612,7 +612,7 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
             mouseTracerPosition.x += timeStep * mouseTracerVelocity.x;
             mouseTracerPosition.y += timeStep * mouseTracerVelocity.y;
             pshape.m_p.set(mouseTracerPosition);
-            pshape.m_radius = 2;
+            pshape.radius = 2;
             pcallback.init(m_world, pshape, mouseTracerVelocity);
             pshape.computeAABB(paabb, identity, 0);
             m_world.queryAABB(pcallback, paabb);
@@ -803,7 +803,7 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
         bomb = m_world.createBody(bd);
         bomb.setLinearVelocity(velocity);
         CircleShape circle = new CircleShape();
-        circle.m_radius = 0.3f;
+        circle.radius = 0.3f;
         FixtureDef fd = new FixtureDef();
         fd.shape = circle;
         fd.density = 20f;

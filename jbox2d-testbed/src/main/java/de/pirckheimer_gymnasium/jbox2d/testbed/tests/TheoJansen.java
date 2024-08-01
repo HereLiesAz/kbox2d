@@ -145,7 +145,7 @@ public class TheoJansen extends TestbedTest
         for (int i = 0; i < 40; ++i)
         {
             CircleShape shape = new CircleShape();
-            shape.m_radius = 0.25f;
+            shape.radius = 0.25f;
             BodyDef bd = new BodyDef();
             bd.type = BodyType.DYNAMIC;
             bd.position.set(-40.0f + 2.0f * i, 0.5f);
@@ -168,7 +168,7 @@ public class TheoJansen extends TestbedTest
         }
         {
             CircleShape shape = new CircleShape();
-            shape.m_radius = 1.6f;
+            shape.radius = 1.6f;
             FixtureDef sd = new FixtureDef();
             sd.density = 1.0f;
             sd.shape = shape;

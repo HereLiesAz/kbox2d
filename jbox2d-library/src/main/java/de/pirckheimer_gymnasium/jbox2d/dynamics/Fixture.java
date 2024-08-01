@@ -48,23 +48,23 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.contacts.ContactEdge;
  */
 public class Fixture
 {
-    public float m_density;
+    public float density;
 
-    public Fixture m_next;
+    public Fixture next;
 
-    public Body m_body;
+    public Body body;
 
-    public Shape m_shape;
+    public Shape shape;
 
-    public float m_friction;
+    public float friction;
 
-    public float m_restitution;
+    public float restitution;
 
-    public FixtureProxy[] m_proxies;
+    public FixtureProxy[] proxies;
 
-    public int m_proxyCount;
+    public int proxyCount;
 
-    public final Filter m_filter;
+    public final Filter filter;
 
     public boolean m_isSensor;
 
@@ -73,12 +73,12 @@ public class Fixture
     public Fixture()
     {
         m_userData = null;
-        m_body = null;
-        m_next = null;
-        m_proxies = null;
-        m_proxyCount = 0;
-        m_shape = null;
-        m_filter = new Filter();
+        body = null;
+        next = null;
+        proxies = null;
+        proxyCount = 0;
+        shape = null;
+        filter = new Filter();
     }
 
     /**
@@ -89,7 +89,7 @@ public class Fixture
      */
     public ShapeType getType()
     {
-        return m_shape.getType();
+        return shape.getType();
     }
 
     /**
@@ -99,7 +99,7 @@ public class Fixture
      */
     public Shape getShape()
     {
-        return m_shape;
+        return shape;
     }
 
     /**
@@ -119,7 +119,7 @@ public class Fixture
     {
         if (sensor != m_isSensor)
         {
-            m_body.setAwake(true);
+            body.setAwake(true);
             m_isSensor = sensor;
         }
     }
@@ -132,7 +132,7 @@ public class Fixture
      */
     public void setFilterData(final Filter filter)
     {
-        m_filter.set(filter);
+        this.filter.set(filter);
         refilter();
     }
 
@@ -141,7 +141,7 @@ public class Fixture
      */
     public Filter getFilterData()
     {
-        return m_filter;
+        return filter;
     }
 
     /**
@@ -150,12 +150,12 @@ public class Fixture
      */
     public void refilter()
     {
-        if (m_body == null)
+        if (body == null)
         {
             return;
         }
         // Flag associated contacts for filtering.
-        ContactEdge edge = m_body.getContactList();
+        ContactEdge edge = body.getContactList();
         while (edge != null)
         {
             Contact contact = edge.contact;
@@ -167,16 +167,16 @@ public class Fixture
             }
             edge = edge.next;
         }
-        World world = m_body.getWorld();
+        World world = body.getWorld();
         if (world == null)
         {
             return;
         }
         // Touch each proxy so that new pairs may be created
-        BroadPhase broadPhase = world.m_contactManager.m_broadPhase;
-        for (int i = 0; i < m_proxyCount; ++i)
+        BroadPhase broadPhase = world.contactManager.broadPhase;
+        for (int i = 0; i < proxyCount; ++i)
         {
-            broadPhase.touchProxy(m_proxies[i].proxyId);
+            broadPhase.touchProxy(proxies[i].proxyId);
         }
     }
 
@@ -188,7 +188,7 @@ public class Fixture
      */
     public Body getBody()
     {
-        return m_body;
+        return body;
     }
 
     /**
@@ -198,18 +198,18 @@ public class Fixture
      */
     public Fixture getNext()
     {
-        return m_next;
+        return next;
     }
 
     public void setDensity(float density)
     {
         assert (density >= 0f);
-        m_density = density;
+        this.density = density;
     }
 
     public float getDensity()
     {
-        return m_density;
+        return density;
     }
 
     /**
@@ -237,7 +237,7 @@ public class Fixture
      */
     public boolean testPoint(final Vec2 p)
     {
-        return m_shape.testPoint(m_body.m_xf, p);
+        return shape.testPoint(body.m_xf, p);
     }
 
     /**
@@ -249,7 +249,7 @@ public class Fixture
     public boolean raycast(RayCastOutput output, RayCastInput input,
             int childIndex)
     {
-        return m_shape.raycast(output, input, m_body.m_xf, childIndex);
+        return shape.raycast(output, input, body.m_xf, childIndex);
     }
 
     /**
@@ -258,7 +258,7 @@ public class Fixture
      */
     public void getMassData(MassData massData)
     {
-        m_shape.computeMass(massData, m_density);
+        shape.computeMass(massData, density);
     }
 
     /**
@@ -266,7 +266,7 @@ public class Fixture
      */
     public float getFriction()
     {
-        return m_friction;
+        return friction;
     }
 
     /**
@@ -275,7 +275,7 @@ public class Fixture
      */
     public void setFriction(float friction)
     {
-        m_friction = friction;
+        this.friction = friction;
     }
 
     /**
@@ -283,7 +283,7 @@ public class Fixture
      */
     public float getRestitution()
     {
-        return m_restitution;
+        return restitution;
     }
 
     /**
@@ -292,7 +292,7 @@ public class Fixture
      */
     public void setRestitution(float restitution)
     {
-        m_restitution = restitution;
+        this.restitution = restitution;
     }
 
     /**
@@ -302,8 +302,8 @@ public class Fixture
      */
     public AABB getAABB(int childIndex)
     {
-        assert (childIndex >= 0 && childIndex < m_proxyCount);
-        return m_proxies[childIndex].aabb;
+        assert (childIndex >= 0 && childIndex < proxyCount);
+        return proxies[childIndex].aabb;
     }
 
     /**
@@ -314,8 +314,8 @@ public class Fixture
      */
     public float computeDistance(Vec2 p, int childIndex, Vec2 normalOut)
     {
-        return m_shape.computeDistanceToOut(m_body.getTransform(), p,
-                childIndex, normalOut);
+        return shape.computeDistanceToOut(body.getTransform(), p, childIndex,
+                normalOut);
     }
     // We need separation create/destroy functions from the
     // constructor/destructor because
@@ -325,53 +325,53 @@ public class Fixture
     public void create(Body body, FixtureDef def)
     {
         m_userData = def.userData;
-        m_friction = def.friction;
-        m_restitution = def.restitution;
-        m_body = body;
-        m_next = null;
-        m_filter.set(def.filter);
+        friction = def.friction;
+        restitution = def.restitution;
+        this.body = body;
+        next = null;
+        filter.set(def.filter);
         m_isSensor = def.isSensor;
-        m_shape = def.shape.clone();
+        shape = def.shape.clone();
         // Reserve proxy space
-        int childCount = m_shape.getChildCount();
-        if (m_proxies == null)
+        int childCount = shape.getChildCount();
+        if (proxies == null)
         {
-            m_proxies = new FixtureProxy[childCount];
+            proxies = new FixtureProxy[childCount];
             for (int i = 0; i < childCount; i++)
             {
-                m_proxies[i] = new FixtureProxy();
-                m_proxies[i].fixture = null;
-                m_proxies[i].proxyId = BroadPhase.NULL_PROXY;
+                proxies[i] = new FixtureProxy();
+                proxies[i].fixture = null;
+                proxies[i].proxyId = BroadPhase.NULL_PROXY;
             }
         }
-        if (m_proxies.length < childCount)
+        if (proxies.length < childCount)
         {
-            FixtureProxy[] old = m_proxies;
+            FixtureProxy[] old = proxies;
             int newLen = MathUtils.max(old.length * 2, childCount);
-            m_proxies = new FixtureProxy[newLen];
-            System.arraycopy(old, 0, m_proxies, 0, old.length);
+            proxies = new FixtureProxy[newLen];
+            System.arraycopy(old, 0, proxies, 0, old.length);
             for (int i = 0; i < newLen; i++)
             {
                 if (i >= old.length)
                 {
-                    m_proxies[i] = new FixtureProxy();
+                    proxies[i] = new FixtureProxy();
                 }
-                m_proxies[i].fixture = null;
-                m_proxies[i].proxyId = BroadPhase.NULL_PROXY;
+                proxies[i].fixture = null;
+                proxies[i].proxyId = BroadPhase.NULL_PROXY;
             }
         }
-        m_proxyCount = 0;
-        m_density = def.density;
+        proxyCount = 0;
+        density = def.density;
     }
 
     public void destroy()
     {
         // The proxies must be destroyed before calling this.
-        assert (m_proxyCount == 0);
+        assert (proxyCount == 0);
         // Free the child shape.
-        m_shape = null;
-        m_proxies = null;
-        m_next = null;
+        shape = null;
+        proxies = null;
+        next = null;
         // TODO pool shapes
         // TODO pool fixtures
     }
@@ -379,13 +379,13 @@ public class Fixture
     // These support body activation/deactivation.
     public void createProxies(BroadPhase broadPhase, final Transform xf)
     {
-        assert (m_proxyCount == 0);
+        assert (proxyCount == 0);
         // Create proxies in the broad-phase.
-        m_proxyCount = m_shape.getChildCount();
-        for (int i = 0; i < m_proxyCount; ++i)
+        proxyCount = shape.getChildCount();
+        for (int i = 0; i < proxyCount; ++i)
         {
-            FixtureProxy proxy = m_proxies[i];
-            m_shape.computeAABB(proxy.aabb, xf, i);
+            FixtureProxy proxy = proxies[i];
+            shape.computeAABB(proxy.aabb, xf, i);
             proxy.proxyId = broadPhase.createProxy(proxy.aabb, proxy);
             proxy.fixture = this;
             proxy.childIndex = i;
@@ -400,13 +400,13 @@ public class Fixture
     public void destroyProxies(BroadPhase broadPhase)
     {
         // Destroy proxies in the broad-phase.
-        for (int i = 0; i < m_proxyCount; ++i)
+        for (int i = 0; i < proxyCount; ++i)
         {
-            FixtureProxy proxy = m_proxies[i];
+            FixtureProxy proxy = proxies[i];
             broadPhase.destroyProxy(proxy.proxyId);
             proxy.proxyId = BroadPhase.NULL_PROXY;
         }
-        m_proxyCount = 0;
+        proxyCount = 0;
     }
 
     private final AABB pool1 = new AABB();
@@ -421,19 +421,19 @@ public class Fixture
     protected void synchronize(BroadPhase broadPhase,
             final Transform transform1, final Transform transform2)
     {
-        if (m_proxyCount == 0)
+        if (proxyCount == 0)
         {
             return;
         }
-        for (int i = 0; i < m_proxyCount; ++i)
+        for (int i = 0; i < proxyCount; ++i)
         {
-            FixtureProxy proxy = m_proxies[i];
+            FixtureProxy proxy = proxies[i];
             // Compute an AABB that covers the swept shape (may miss some
             // rotation effect).
             final AABB aabb1 = pool1;
             final AABB aab = pool2;
-            m_shape.computeAABB(aabb1, transform1, proxy.childIndex);
-            m_shape.computeAABB(aab, transform2, proxy.childIndex);
+            shape.computeAABB(aabb1, transform1, proxy.childIndex);
+            shape.computeAABB(aab, transform2, proxy.childIndex);
             proxy.aabb.lowerBound.x = aabb1.lowerBound.x < aab.lowerBound.x
                     ? aabb1.lowerBound.x
                     : aab.lowerBound.x;

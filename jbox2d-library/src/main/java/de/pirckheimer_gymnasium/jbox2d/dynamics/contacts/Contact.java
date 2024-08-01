@@ -126,9 +126,8 @@ public abstract class Contact
         m_nodeB.next = null;
         m_nodeB.other = null;
         m_toiCount = 0;
-        m_friction = Contact.mixFriction(fA.m_friction, fB.m_friction);
-        m_restitution = Contact.mixRestitution(fA.m_restitution,
-                fB.m_restitution);
+        m_friction = Contact.mixFriction(fA.friction, fB.friction);
+        m_restitution = Contact.mixRestitution(fA.restitution, fB.restitution);
         m_tangentSpeed = 0;
     }
 
@@ -151,7 +150,7 @@ public abstract class Contact
         final Shape shapeA = m_fixtureA.getShape();
         final Shape shapeB = m_fixtureB.getShape();
         worldManifold.initialize(m_manifold, bodyA.getTransform(),
-                shapeA.m_radius, bodyB.getTransform(), shapeB.m_radius);
+                shapeA.radius, bodyB.getTransform(), shapeB.radius);
     }
 
     /**
@@ -240,8 +239,8 @@ public abstract class Contact
 
     public void resetFriction()
     {
-        m_friction = Contact.mixFriction(m_fixtureA.m_friction,
-                m_fixtureB.m_friction);
+        m_friction = Contact.mixFriction(m_fixtureA.friction,
+                m_fixtureB.friction);
     }
 
     public void setRestitution(float restitution)
@@ -256,8 +255,8 @@ public abstract class Contact
 
     public void resetRestitution()
     {
-        m_restitution = Contact.mixRestitution(m_fixtureA.m_restitution,
-                m_fixtureB.m_restitution);
+        m_restitution = Contact.mixRestitution(m_fixtureA.restitution,
+                m_fixtureB.restitution);
     }
 
     public void setTangentSpeed(float speed)

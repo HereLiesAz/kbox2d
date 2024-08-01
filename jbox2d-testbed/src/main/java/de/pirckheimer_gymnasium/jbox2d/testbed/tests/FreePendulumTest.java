@@ -60,7 +60,7 @@ public class FreePendulumTest extends TestbedTest
         Body ground;
         {
             CircleShape circleShape = new CircleShape();
-            circleShape.m_radius = 1;
+            circleShape.radius = 1;
             Shape shape = circleShape;
             BodyDef bodyDef = new BodyDef();
             bodyDef.type = BodyType.DYNAMIC;

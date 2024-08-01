@@ -61,7 +61,7 @@ public class EdgeTest extends TestbedTest
             bd.allowSleep = false;
             Body body = m_world.createBody(bd);
             CircleShape shape = new CircleShape();
-            shape.m_radius = 0.5f;
+            shape.radius = 0.5f;
             body.createFixture(shape, 1.0f);
         }
         {

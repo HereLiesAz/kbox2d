@@ -94,7 +94,7 @@ public class Pulleys extends TestbedTest
             shape.set(new Vec2(-40.0f, 0.0f), new Vec2(40.0f, 0.0f));
             ground.createFixture(shape, 0.0f);
             CircleShape circle = new CircleShape();
-            circle.m_radius = 2.0f;
+            circle.radius = 2.0f;
             circle.m_p.set(-10.0f, y + b + L);
             ground.createFixture(circle, 0.0f);
             circle.m_p.set(10.0f, y + b + L);

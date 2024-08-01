@@ -48,7 +48,7 @@ public class CircleShape extends Shape
     {
         super(ShapeType.CIRCLE);
         m_p = new Vec2();
-        m_radius = 0;
+        radius = 0;
     }
 
     public final Shape clone()
@@ -56,7 +56,7 @@ public class CircleShape extends Shape
         CircleShape shape = new CircleShape();
         shape.m_p.x = m_p.x;
         shape.m_p.y = m_p.y;
-        shape.m_radius = m_radius;
+        shape.radius = radius;
         return shape;
     }
 
@@ -117,7 +117,7 @@ public class CircleShape extends Shape
         final Vec2 tp = transform.p;
         float centerx = -(q.c * m_p.x - q.s * m_p.y + tp.x - p.x);
         float centery = -(q.s * m_p.x + q.c * m_p.y + tp.y - p.y);
-        return centerx * centerx + centery * centery <= m_radius * m_radius;
+        return centerx * centerx + centery * centery <= radius * radius;
     }
 
     @Override
@@ -132,7 +132,7 @@ public class CircleShape extends Shape
         float d1 = MathUtils.sqrt(dx * dx + dy * dy);
         normalOut.x = dx * 1 / d1;
         normalOut.y = dy * 1 / d1;
-        return d1 - m_radius;
+        return d1 - radius;
     }
 
     // Collision Detection in Interactive 3D Environments by Gino van den Bergen
@@ -154,7 +154,7 @@ public class CircleShape extends Shape
         final float sx = inputp1.x - positionx;
         final float sy = inputp1.y - positiony;
         // final float b = Vec2.dot(s, s) - m_radius * m_radius;
-        final float b = sx * sx + sy * sy - m_radius * m_radius;
+        final float b = sx * sx + sy * sy - radius * radius;
         // Solve quadratic equation.
         final float rx = inputp2.x - inputp1.x;
         final float ry = inputp2.y - inputp1.y;
@@ -191,22 +191,22 @@ public class CircleShape extends Shape
         final Vec2 tp = transform.p;
         final float px = tq.c * m_p.x - tq.s * m_p.y + tp.x;
         final float py = tq.s * m_p.x + tq.c * m_p.y + tp.y;
-        aabb.lowerBound.x = px - m_radius;
-        aabb.lowerBound.y = py - m_radius;
-        aabb.upperBound.x = px + m_radius;
-        aabb.upperBound.y = py + m_radius;
+        aabb.lowerBound.x = px - radius;
+        aabb.lowerBound.y = py - radius;
+        aabb.upperBound.x = px + radius;
+        aabb.upperBound.y = py + radius;
     }
 
     @Override
     public final void computeMass(final MassData massData, final float density)
     {
-        massData.mass = density * Settings.PI * m_radius * m_radius;
+        massData.mass = density * Settings.PI * radius * radius;
         massData.center.x = m_p.x;
         massData.center.y = m_p.y;
         // inertia about the local origin
         // massData.I = massData.mass * (0.5f * m_radius * m_radius +
         // Vec2.dot(m_p, m_p));
-        massData.I = massData.mass * (0.5f * m_radius * m_radius
-                + (m_p.x * m_p.x + m_p.y * m_p.y));
+        massData.I = massData.mass
+                * (0.5f * radius * radius + (m_p.x * m_p.x + m_p.y * m_p.y));
     }
 }

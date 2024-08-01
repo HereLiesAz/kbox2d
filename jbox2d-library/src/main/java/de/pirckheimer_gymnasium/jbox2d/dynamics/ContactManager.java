@@ -37,25 +37,25 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.contacts.ContactEdge;
  */
 public class ContactManager implements PairCallback
 {
-    public BroadPhase m_broadPhase;
+    public BroadPhase broadPhase;
 
-    public Contact m_contactList;
+    public Contact contactList;
 
-    public int m_contactCount;
+    public int contactCount;
 
-    public ContactFilter m_contactFilter;
+    public ContactFilter contactFilter;
 
-    public ContactListener m_contactListener;
+    public ContactListener contactListener;
 
     private final World pool;
 
     public ContactManager(World argPool, BroadPhase broadPhase)
     {
-        m_contactList = null;
-        m_contactCount = 0;
-        m_contactFilter = new ContactFilter();
-        m_contactListener = null;
-        m_broadPhase = broadPhase;
+        contactList = null;
+        contactCount = 0;
+        contactFilter = new ContactFilter();
+        contactListener = null;
+        this.broadPhase = broadPhase;
         pool = argPool;
     }
 
@@ -113,8 +113,8 @@ public class ContactManager implements PairCallback
             return;
         }
         // Check user filtering.
-        if (m_contactFilter != null
-                && m_contactFilter.shouldCollide(fixtureA, fixtureB) == false)
+        if (contactFilter != null
+                && contactFilter.shouldCollide(fixtureA, fixtureB) == false)
         {
             return;
         }
@@ -133,12 +133,12 @@ public class ContactManager implements PairCallback
         bodyB = fixtureB.getBody();
         // Insert into the world.
         c.m_prev = null;
-        c.m_next = m_contactList;
-        if (m_contactList != null)
+        c.m_next = contactList;
+        if (contactList != null)
         {
-            m_contactList.m_prev = c;
+            contactList.m_prev = c;
         }
-        m_contactList = c;
+        contactList = c;
         // Connect to island graph.
         // Connect to body A
         c.m_nodeA.contact = c;
@@ -166,12 +166,12 @@ public class ContactManager implements PairCallback
             bodyA.setAwake(true);
             bodyB.setAwake(true);
         }
-        ++m_contactCount;
+        ++contactCount;
     }
 
     public void findNewContacts()
     {
-        m_broadPhase.updatePairs(this);
+        broadPhase.updatePairs(this);
     }
 
     public void destroy(Contact c)
@@ -180,9 +180,9 @@ public class ContactManager implements PairCallback
         Fixture fixtureB = c.getFixtureB();
         Body bodyA = fixtureA.getBody();
         Body bodyB = fixtureB.getBody();
-        if (m_contactListener != null && c.isTouching())
+        if (contactListener != null && c.isTouching())
         {
-            m_contactListener.endContact(c);
+            contactListener.endContact(c);
         }
         // Remove from the world.
         if (c.m_prev != null)
@@ -193,9 +193,9 @@ public class ContactManager implements PairCallback
         {
             c.m_next.m_prev = c.m_prev;
         }
-        if (c == m_contactList)
+        if (c == contactList)
         {
-            m_contactList = c.m_next;
+            contactList = c.m_next;
         }
         // Remove from body 1
         if (c.m_nodeA.prev != null)
@@ -225,7 +225,7 @@ public class ContactManager implements PairCallback
         }
         // Call the factory.
         pool.pushContact(c);
-        --m_contactCount;
+        --contactCount;
     }
 
     /**
@@ -235,7 +235,7 @@ public class ContactManager implements PairCallback
     public void collide()
     {
         // Update awake contacts.
-        Contact c = m_contactList;
+        Contact c = contactList;
         while (c != null)
         {
             Fixture fixtureA = c.getFixtureA();
@@ -256,7 +256,7 @@ public class ContactManager implements PairCallback
                     continue;
                 }
                 // Check user filtering.
-                if (m_contactFilter != null && m_contactFilter
+                if (contactFilter != null && contactFilter
                         .shouldCollide(fixtureA, fixtureB) == false)
                 {
                     Contact cNuke = c;
@@ -278,9 +278,9 @@ public class ContactManager implements PairCallback
                 c = c.getNext();
                 continue;
             }
-            int proxyIdA = fixtureA.m_proxies[indexA].proxyId;
-            int proxyIdB = fixtureB.m_proxies[indexB].proxyId;
-            boolean overlap = m_broadPhase.testOverlap(proxyIdA, proxyIdB);
+            int proxyIdA = fixtureA.proxies[indexA].proxyId;
+            int proxyIdB = fixtureB.proxies[indexB].proxyId;
+            boolean overlap = broadPhase.testOverlap(proxyIdA, proxyIdB);
             // Here we destroy contacts that cease to overlap in the
             // broad-phase.
             if (overlap == false)
@@ -291,7 +291,7 @@ public class ContactManager implements PairCallback
                 continue;
             }
             // The contact persists.
-            c.update(m_contactListener);
+            c.update(contactListener);
             c = c.getNext();
         }
     }

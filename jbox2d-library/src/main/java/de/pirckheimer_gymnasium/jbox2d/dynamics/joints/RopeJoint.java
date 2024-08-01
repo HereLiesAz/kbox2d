@@ -72,14 +72,14 @@ public class RopeJoint extends Joint
     @Override
     public void initVelocityConstraints(final SolverData data)
     {
-        m_indexA = m_bodyA.m_islandIndex;
-        m_indexB = m_bodyB.m_islandIndex;
-        m_localCenterA.set(m_bodyA.m_sweep.localCenter);
-        m_localCenterB.set(m_bodyB.m_sweep.localCenter);
-        m_invMassA = m_bodyA.m_invMass;
-        m_invMassB = m_bodyB.m_invMass;
-        m_invIA = m_bodyA.m_invI;
-        m_invIB = m_bodyB.m_invI;
+        m_indexA = bodyA.m_islandIndex;
+        m_indexB = bodyB.m_islandIndex;
+        m_localCenterA.set(bodyA.m_sweep.localCenter);
+        m_localCenterB.set(bodyB.m_sweep.localCenter);
+        m_invMassA = bodyA.m_invMass;
+        m_invMassB = bodyB.m_invMass;
+        m_invIA = bodyA.m_invI;
+        m_invIB = bodyB.m_invI;
         Vec2 cA = data.positions[m_indexA].c;
         float aA = data.positions[m_indexA].a;
         Vec2 vA = data.velocities[m_indexA].v;
@@ -239,13 +239,13 @@ public class RopeJoint extends Joint
     @Override
     public void getAnchorA(Vec2 argOut)
     {
-        m_bodyA.getWorldPointToOut(m_localAnchorA, argOut);
+        bodyA.getWorldPointToOut(m_localAnchorA, argOut);
     }
 
     @Override
     public void getAnchorB(Vec2 argOut)
     {
-        m_bodyB.getWorldPointToOut(m_localAnchorB, argOut);
+        bodyB.getWorldPointToOut(m_localAnchorB, argOut);
     }
 
     @Override

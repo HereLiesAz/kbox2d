@@ -88,7 +88,7 @@ public class Collision
      * transition from manifold1 to manifold2. So state1 is either persist or
      * remove while state2 is either add or persist.
      */
-    public static final void getPointStates(final PointState[] state1,
+    public static void getPointStates(final PointState[] state1,
             final PointState[] state2, final Manifold manifold1,
             final Manifold manifold2)
     {
@@ -130,7 +130,7 @@ public class Collision
     /**
      * Clipping for contact manifolds. Sutherland-Hodgman clipping.
      */
-    public static final int clipSegmentToLine(final ClipVertex[] vOut,
+    public static int clipSegmentToLine(final ClipVertex[] vOut,
             final ClipVertex[] vIn, final Vec2 normal, float offset,
             int vertexIndexA)
     {
@@ -199,7 +199,7 @@ public class Collision
         float dy = pBy - pAy;
         float distSqr = dx * dx + dy * dy;
         // end inline
-        final float radius = circle1.m_radius + circle2.m_radius;
+        final float radius = circle1.radius + circle2.radius;
         if (distSqr > radius * radius)
         {
             return;
@@ -242,11 +242,11 @@ public class Collision
         // Find the min separating edge.
         int normalIndex = 0;
         float separation = -Float.MAX_VALUE;
-        final float radius = polygon.m_radius + circle.m_radius;
+        final float radius = polygon.radius + circle.radius;
         final int vertexCount = polygon.m_count;
         float s;
-        final Vec2[] vertices = polygon.m_vertices;
-        final Vec2[] normals = polygon.m_normals;
+        final Vec2[] vertices = polygon.vertices;
+        final Vec2[] normals = polygon.normals;
         for (int i = 0; i < vertexCount; i++)
         {
             // before inline
@@ -413,9 +413,9 @@ public class Collision
     {
         int count1 = poly1.m_count;
         int count2 = poly2.m_count;
-        Vec2[] n1s = poly1.m_normals;
-        Vec2[] v1s = poly1.m_vertices;
-        Vec2[] v2s = poly2.m_vertices;
+        Vec2[] n1s = poly1.normals;
+        Vec2[] v1s = poly1.vertices;
+        Vec2[] v2s = poly2.vertices;
         Transform.mulTransToOutUnsafe(xf2, xf1, xf);
         final Rot xfq = xf.q;
         int bestIndex = 0;
@@ -451,10 +451,10 @@ public class Collision
             final PolygonShape poly2, final Transform xf2)
     {
         int count1 = poly1.m_count;
-        final Vec2[] normals1 = poly1.m_normals;
+        final Vec2[] normals1 = poly1.normals;
         int count2 = poly2.m_count;
-        final Vec2[] vertices2 = poly2.m_vertices;
-        final Vec2[] normals2 = poly2.m_normals;
+        final Vec2[] vertices2 = poly2.vertices;
+        final Vec2[] normals2 = poly2.normals;
         assert (0 <= edge1 && edge1 < count1);
         final ClipVertex c0 = c[0];
         final ClipVertex c1 = c[1];
@@ -546,7 +546,7 @@ public class Collision
         // Clip
         // The normal points from 1 to 2
         manifold.pointCount = 0;
-        float totalRadius = polyA.m_radius + polyB.m_radius;
+        float totalRadius = polyA.radius + polyB.radius;
         findMaxSeparation(results1, polyA, xfA, polyB, xfB);
         if (results1.separation > totalRadius)
         {
@@ -586,7 +586,7 @@ public class Collision
         final Rot xf1q = xf1.q;
         findIncidentEdge(incidentEdge, poly1, xf1, edge1, poly2, xf2);
         int count1 = poly1.m_count;
-        final Vec2[] vertices1 = poly1.m_vertices;
+        final Vec2[] vertices1 = poly1.vertices;
         final int iv1 = edge1;
         final int iv2 = edge1 + 1 < count1 ? edge1 + 1 : 0;
         v11.set(vertices1[iv1]);
@@ -698,7 +698,7 @@ public class Collision
         // Barycentric coordinates
         float u = Vec2.dot(e, temp.set(B).subLocal(Q));
         float v = Vec2.dot(e, temp.set(Q).subLocal(A));
-        float radius = edgeA.m_radius + circleB.m_radius;
+        float radius = edgeA.radius + circleB.radius;
         // ContactFeature cf;
         cf.indexB = 0;
         cf.typeB = (byte) ContactID.Type.VERTEX.ordinal();
@@ -1011,7 +1011,7 @@ public class Collision
                 final Transform xfB)
         {
             Transform.mulTransToOutUnsafe(xfA, xfB, m_xf);
-            Transform.mulToOutUnsafe(m_xf, polygonB.m_centroid, m_centroidB);
+            Transform.mulToOutUnsafe(m_xf, polygonB.centroid, m_centroidB);
             m_v0 = edgeA.m_vertex0;
             m_v1 = edgeA.m_vertex1;
             m_v2 = edgeA.m_vertex2;
@@ -1262,9 +1262,9 @@ public class Collision
             m_polygonB.count = polygonB.m_count;
             for (int i = 0; i < polygonB.m_count; ++i)
             {
-                Transform.mulToOutUnsafe(m_xf, polygonB.m_vertices[i],
+                Transform.mulToOutUnsafe(m_xf, polygonB.vertices[i],
                         m_polygonB.vertices[i]);
-                Rot.mulToOutUnsafe(m_xf.q, polygonB.m_normals[i],
+                Rot.mulToOutUnsafe(m_xf.q, polygonB.normals[i],
                         m_polygonB.normals[i]);
             }
             m_radius = 2.0f * Settings.polygonRadius;
@@ -1397,8 +1397,8 @@ public class Collision
             }
             else
             {
-                manifold.localNormal.set(polygonB.m_normals[rf.i1]);
-                manifold.localPoint.set(polygonB.m_vertices[rf.i1]);
+                manifold.localNormal.set(polygonB.normals[rf.i1]);
+                manifold.localPoint.set(polygonB.vertices[rf.i1]);
             }
             int pointCount = 0;
             for (int i = 0; i < Settings.maxManifoldPoints; ++i)

@@ -133,7 +133,7 @@ public class VerticalStack extends TestbedTest
             }
         {
             CircleShape shape = new CircleShape();
-            shape.m_radius = 0.25f;
+            shape.radius = 0.25f;
             FixtureDef fd = new FixtureDef();
             fd.shape = shape;
             fd.density = 20.0f;

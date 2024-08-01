@@ -74,7 +74,7 @@ public class SensorTest extends TestbedTest
             }
             {
                 CircleShape shape = new CircleShape();
-                shape.m_radius = 5.0f;
+                shape.radius = 5.0f;
                 shape.m_p.set(0.0f, 10.0f);
                 FixtureDef fd = new FixtureDef();
                 fd.shape = shape;
@@ -84,7 +84,7 @@ public class SensorTest extends TestbedTest
         }
         {
             CircleShape shape = new CircleShape();
-            shape.m_radius = 1.0f;
+            shape.radius = 1.0f;
             for (int i = 0; i < e_count; ++i)
             {
                 BodyDef bd = new BodyDef();

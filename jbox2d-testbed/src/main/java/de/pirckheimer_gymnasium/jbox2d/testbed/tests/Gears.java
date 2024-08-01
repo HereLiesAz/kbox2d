@@ -71,11 +71,11 @@ public class Gears extends TestbedTest
         }
         {
             CircleShape circle1 = new CircleShape();
-            circle1.m_radius = 1.0f;
+            circle1.radius = 1.0f;
             PolygonShape box = new PolygonShape();
             box.setAsBox(0.5f, 5.0f);
             CircleShape circle2 = new CircleShape();
-            circle2.m_radius = 2.0f;
+            circle2.radius = 2.0f;
             BodyDef bd1 = new BodyDef();
             bd1.type = BodyType.STATIC;
             bd1.position.set(10.0f, 9.0f);
@@ -102,14 +102,14 @@ public class Gears extends TestbedTest
             jd4.bodyB = body3;
             jd4.joint1 = joint1;
             jd4.joint2 = joint2;
-            jd4.ratio = circle2.m_radius / circle1.m_radius;
+            jd4.ratio = circle2.radius / circle1.radius;
             m_world.createJoint(jd4);
         }
         {
             CircleShape circle1 = new CircleShape();
-            circle1.m_radius = 1.0f;
+            circle1.radius = 1.0f;
             CircleShape circle2 = new CircleShape();
-            circle2.m_radius = 2.0f;
+            circle2.radius = 2.0f;
             PolygonShape box = new PolygonShape();
             box.setAsBox(0.5f, 5.0f);
             BodyDef bd1 = new BodyDef();
@@ -148,14 +148,14 @@ public class Gears extends TestbedTest
             jd4.bodyB = body2;
             jd4.joint1 = m_joint1;
             jd4.joint2 = m_joint2;
-            jd4.ratio = circle2.m_radius / circle1.m_radius;
+            jd4.ratio = circle2.radius / circle1.radius;
             m_joint4 = (GearJoint) m_world.createJoint(jd4);
             GearJointDef jd5 = new GearJointDef();
             jd5.bodyA = body2;
             jd5.bodyB = body3;
             jd5.joint1 = m_joint2;
             jd5.joint2 = m_joint3;
-            jd5.ratio = 1f / circle2.m_radius;
+            jd5.ratio = 1f / circle2.radius;
             m_joint5 = (GearJoint) m_world.createJoint(jd5);
         }
     }

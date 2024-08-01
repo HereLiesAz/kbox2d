@@ -277,12 +277,12 @@ public class PbDeserializer implements JbDeserializer
 
         case POLYGON:
             PolygonShape p = new PolygonShape();
-            p.m_centroid.set(pbToVec(s.getCentroid()));
+            p.centroid.set(pbToVec(s.getCentroid()));
             p.m_count = s.getPointsCount();
             for (int i = 0; i < p.m_count; i++)
             {
-                p.m_vertices[i].set(pbToVec(s.getPoints(i)));
-                p.m_normals[i].set(pbToVec(s.getNormals(i)));
+                p.vertices[i].set(pbToVec(s.getPoints(i)));
+                p.normals[i].set(pbToVec(s.getNormals(i)));
             }
             shape = p;
             break;
@@ -326,7 +326,7 @@ public class PbDeserializer implements JbDeserializer
             return null;
         }
         }
-        shape.m_radius = s.getRadius();
+        shape.radius = s.getRadius();
         if (listener != null && s.hasTag())
         {
             listener.processShape(shape, s.getTag());

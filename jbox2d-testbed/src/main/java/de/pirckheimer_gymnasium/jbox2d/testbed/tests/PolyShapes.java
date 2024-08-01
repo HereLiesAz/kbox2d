@@ -111,7 +111,7 @@ public class PolyShapes extends TestbedTest
         }
         {
             m_circle = new CircleShape();
-            m_circle.m_radius = 0.5f;
+            m_circle.radius = 0.5f;
         }
         m_bodyIndex = 0;
     }
@@ -199,7 +199,7 @@ public class PolyShapes extends TestbedTest
         super.step(settings);
         PolyShapesCallback callback = new PolyShapesCallback(
                 getWorld().getPool());
-        callback.m_circle.m_radius = 2.0f;
+        callback.m_circle.radius = 2.0f;
         callback.m_circle.m_p.set(0.0f, 2.1f);
         callback.m_transform.setIdentity();
         callback.debugDraw = getDebugDraw();
@@ -208,7 +208,7 @@ public class PolyShapes extends TestbedTest
         getWorld().queryAABB(callback, aabb);
         Color3f color = new Color3f(0.4f, 0.7f, 0.8f);
         getDebugDraw().drawCircle(callback.m_circle.m_p,
-                callback.m_circle.m_radius, color);
+                callback.m_circle.radius, color);
         addTextLine("Press 1-5 to drop stuff");
         addTextLine("Press 'a' to (de)activate some bodies");
         addTextLine("Press 'd' to destroy a body");
@@ -263,7 +263,7 @@ class PolyShapesCallback implements QueryCallback
         {
             CircleShape circle = (CircleShape) fixture.getShape();
             Vec2 center = Transform.mul(xf, circle.m_p);
-            float radius = circle.m_radius;
+            float radius = circle.radius;
             debugDraw.drawCircle(center, radius, color);
         }
             break;
@@ -276,7 +276,7 @@ class PolyShapesCallback implements QueryCallback
             Vec2 vertices[] = new Vec2[Settings.maxPolygonVertices];
             for (int i = 0; i < vertexCount; ++i)
             {
-                vertices[i] = Transform.mul(xf, poly.m_vertices[i]);
+                vertices[i] = Transform.mul(xf, poly.vertices[i]);
             }
             debugDraw.drawPolygon(vertices, vertexCount, color);
         }

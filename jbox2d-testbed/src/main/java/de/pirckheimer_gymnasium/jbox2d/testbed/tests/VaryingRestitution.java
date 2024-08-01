@@ -62,7 +62,7 @@ public class VaryingRestitution extends TestbedTest
         }
         {
             CircleShape shape = new CircleShape();
-            shape.m_radius = 1.0f;
+            shape.radius = 1.0f;
             FixtureDef fd = new FixtureDef();
             fd.shape = shape;
             fd.density = 1.0f;

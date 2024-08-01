@@ -49,7 +49,7 @@ public class Particles extends TestbedTest
         {
             CircleShape shape = new CircleShape();
             shape.m_p.set(0, 30);
-            shape.m_radius = 20;
+            shape.radius = 20;
             ParticleGroupDef pd = new ParticleGroupDef();
             pd.flags = ParticleType.b2_waterParticle;
             pd.shape = shape;
@@ -61,7 +61,7 @@ public class Particles extends TestbedTest
             Body body = m_world.createBody(bd);
             CircleShape shape = new CircleShape();
             shape.m_p.set(0, 80);
-            shape.m_radius = 5;
+            shape.radius = 5;
             body.createFixture(shape, 0.5f);
         }
     }

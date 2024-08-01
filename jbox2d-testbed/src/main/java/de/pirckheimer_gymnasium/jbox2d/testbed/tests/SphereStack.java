@@ -64,7 +64,7 @@ public class SphereStack extends TestbedTest
         }
         {
             CircleShape shape = new CircleShape();
-            shape.m_radius = 1.0f;
+            shape.radius = 1.0f;
             for (int i = 0; i < e_count; ++i)
             {
                 BodyDef bd = new BodyDef();

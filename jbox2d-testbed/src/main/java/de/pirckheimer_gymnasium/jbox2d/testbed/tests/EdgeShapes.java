@@ -120,7 +120,7 @@ public class EdgeShapes extends TestbedTest
         }
         {
             m_circle = new CircleShape();
-            m_circle.m_radius = 0.5f;
+            m_circle.radius = 0.5f;
         }
         m_bodyIndex = 0;
         m_angle = 0.0f;

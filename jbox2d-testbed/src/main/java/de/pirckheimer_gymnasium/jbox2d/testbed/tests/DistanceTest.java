@@ -112,13 +112,13 @@ public class DistanceTest extends TestbedTest
         {
             for (int i = 0; i < m_polygonA.m_count; ++i)
             {
-                Transform.mulToOutUnsafe(m_transformA, m_polygonA.m_vertices[i],
+                Transform.mulToOutUnsafe(m_transformA, m_polygonA.vertices[i],
                         v[i]);
             }
             getDebugDraw().drawPolygon(v, m_polygonA.m_count, color);
             for (int i = 0; i < m_polygonB.m_count; ++i)
             {
-                Transform.mulToOutUnsafe(m_transformB, m_polygonB.m_vertices[i],
+                Transform.mulToOutUnsafe(m_transformB, m_polygonB.vertices[i],
                         v[i]);
             }
             getDebugDraw().drawPolygon(v, m_polygonB.m_count, color);

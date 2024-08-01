@@ -202,22 +202,22 @@ public class Body
         fixture.create(this, def);
         if ((m_flags & e_activeFlag) == e_activeFlag)
         {
-            BroadPhase broadPhase = m_world.m_contactManager.m_broadPhase;
+            BroadPhase broadPhase = m_world.contactManager.broadPhase;
             fixture.createProxies(broadPhase, m_xf);
         }
-        fixture.m_next = m_fixtureList;
+        fixture.next = m_fixtureList;
         m_fixtureList = fixture;
         ++m_fixtureCount;
-        fixture.m_body = this;
+        fixture.body = this;
         // Adjust mass properties if needed.
-        if (fixture.m_density > 0.0f)
+        if (fixture.density > 0.0f)
         {
             resetMassData();
         }
         // Let the world know we have a new fixture. This will cause new
         // contacts
         // to be created at the beginning of the next time step.
-        m_world.m_flags |= World.NEW_FIXTURE;
+        m_world.flags |= World.NEW_FIXTURE;
         return fixture;
     }
 
@@ -257,7 +257,7 @@ public class Body
         {
             return;
         }
-        assert (fixture.m_body == this);
+        assert (fixture.body == this);
         // Remove the fixture from this body's singly linked list.
         assert (m_fixtureCount > 0);
         Fixture node = m_fixtureList;
@@ -267,23 +267,23 @@ public class Body
         {
             if (node == fixture)
             {
-                node = fixture.m_next;
+                node = fixture.next;
                 found = true;
                 break;
             }
             last = node;
-            node = node.m_next;
+            node = node.next;
         }
         // You tried to remove a shape that is not attached to this body.
         assert (found);
         // java change, remove it from the list
         if (last == null)
         {
-            m_fixtureList = fixture.m_next;
+            m_fixtureList = fixture.next;
         }
         else
         {
-            last.m_next = fixture.m_next;
+            last.next = fixture.next;
         }
         // Destroy any contacts associated with the fixture.
         ContactEdge edge = m_contactList;
@@ -297,17 +297,17 @@ public class Body
             {
                 // This destroys the contact and removes it from
                 // this body's contact list.
-                m_world.m_contactManager.destroy(c);
+                m_world.contactManager.destroy(c);
             }
         }
         if ((m_flags & e_activeFlag) == e_activeFlag)
         {
-            BroadPhase broadPhase = m_world.m_contactManager.m_broadPhase;
+            BroadPhase broadPhase = m_world.contactManager.broadPhase;
             fixture.destroyProxies(broadPhase);
         }
         fixture.destroy();
-        fixture.m_body = null;
-        fixture.m_next = null;
+        fixture.body = null;
+        fixture.next = null;
         fixture = null;
         --m_fixtureCount;
         // Reset the mass data.
@@ -337,8 +337,8 @@ public class Body
         m_sweep.a = angle;
         m_sweep.c0.set(m_sweep.c);
         m_sweep.a0 = m_sweep.a;
-        BroadPhase broadPhase = m_world.m_contactManager.m_broadPhase;
-        for (Fixture f = m_fixtureList; f != null; f = f.m_next)
+        BroadPhase broadPhase = m_world.contactManager.broadPhase;
+        for (Fixture f = m_fixtureList; f != null; f = f.next)
         {
             f.synchronize(broadPhase, m_xf, m_xf);
         }
@@ -704,9 +704,9 @@ public class Body
         localCenter.setZero();
         final Vec2 temp = m_world.getPool().popVec2();
         final MassData massData = pmd;
-        for (Fixture f = m_fixtureList; f != null; f = f.m_next)
+        for (Fixture f = m_fixtureList; f != null; f = f.next)
         {
-            if (f.m_density == 0.0f)
+            if (f.density == 0.0f)
             {
                 continue;
             }
@@ -946,18 +946,18 @@ public class Body
         {
             ContactEdge ce0 = ce;
             ce = ce.next;
-            m_world.m_contactManager.destroy(ce0.contact);
+            m_world.contactManager.destroy(ce0.contact);
         }
         m_contactList = null;
         // Touch the proxies so that new contacts will be created (when
         // appropriate)
-        BroadPhase broadPhase = m_world.m_contactManager.m_broadPhase;
-        for (Fixture f = m_fixtureList; f != null; f = f.m_next)
+        BroadPhase broadPhase = m_world.contactManager.broadPhase;
+        for (Fixture f = m_fixtureList; f != null; f = f.next)
         {
-            int proxyCount = f.m_proxyCount;
+            int proxyCount = f.proxyCount;
             for (int i = 0; i < proxyCount; ++i)
             {
-                broadPhase.touchProxy(f.m_proxies[i].proxyId);
+                broadPhase.touchProxy(f.proxies[i].proxyId);
             }
         }
     }
@@ -1072,8 +1072,8 @@ public class Body
         {
             m_flags |= e_activeFlag;
             // Create all proxies.
-            BroadPhase broadPhase = m_world.m_contactManager.m_broadPhase;
-            for (Fixture f = m_fixtureList; f != null; f = f.m_next)
+            BroadPhase broadPhase = m_world.contactManager.broadPhase;
+            for (Fixture f = m_fixtureList; f != null; f = f.next)
             {
                 f.createProxies(broadPhase, m_xf);
             }
@@ -1083,8 +1083,8 @@ public class Body
         {
             m_flags &= ~e_activeFlag;
             // Destroy all proxies.
-            BroadPhase broadPhase = m_world.m_contactManager.m_broadPhase;
-            for (Fixture f = m_fixtureList; f != null; f = f.m_next)
+            BroadPhase broadPhase = m_world.contactManager.broadPhase;
+            for (Fixture f = m_fixtureList; f != null; f = f.next)
             {
                 f.destroyProxies(broadPhase);
             }
@@ -1094,7 +1094,7 @@ public class Body
             {
                 ContactEdge ce0 = ce;
                 ce = ce.next;
-                m_world.m_contactManager.destroy(ce0.contact);
+                m_world.contactManager.destroy(ce0.contact);
             }
             m_contactList = null;
         }
@@ -1203,9 +1203,9 @@ public class Body
         xf1.p.y = m_sweep.c0.y - xf1.q.s * m_sweep.localCenter.x
                 - xf1.q.c * m_sweep.localCenter.y;
         // end inline
-        for (Fixture f = m_fixtureList; f != null; f = f.m_next)
+        for (Fixture f = m_fixtureList; f != null; f = f.next)
         {
-            f.synchronize(m_world.m_contactManager.m_broadPhase, xf1, m_xf);
+            f.synchronize(m_world.contactManager.broadPhase, xf1, m_xf);
         }
     }
 

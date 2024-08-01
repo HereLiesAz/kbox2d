@@ -100,28 +100,28 @@ public class World
 
     public int contactPoolCount = 0;
 
-    protected int m_flags;
+    protected int flags;
 
-    protected ContactManager m_contactManager;
+    protected ContactManager contactManager;
 
-    private Body m_bodyList;
+    private Body bodyList;
 
-    private Joint m_jointList;
+    private Joint jointList;
 
-    private int m_bodyCount;
+    private int bodyCount;
 
-    private int m_jointCount;
+    private int jointCount;
 
-    private final Vec2 m_gravity = new Vec2();
+    private final Vec2 gravity = new Vec2();
 
-    private boolean m_allowSleep;
+    private boolean allowSleep;
     // private Body m_groundBody;
 
-    private DestructionListener m_destructionListener;
+    private DestructionListener destructionListener;
 
-    private ParticleDestructionListener m_particleDestructionListener;
+    private ParticleDestructionListener particleDestructionListener;
 
-    private DebugDraw m_debugDraw;
+    private DebugDraw debugDraw;
 
     private final IWorldPool pool;
 
@@ -129,22 +129,22 @@ public class World
      * This is used to compute the time step ratio to support a variable time
      * step.
      */
-    private float m_inv_dt0;
+    private float invDt0;
 
     // these are for debugging the solver
-    private boolean m_warmStarting;
+    private boolean warmStarting;
 
-    private boolean m_continuousPhysics;
+    private boolean continuousPhysics;
 
-    private boolean m_subStepping;
+    private boolean subStepping;
 
-    private boolean m_stepComplete;
+    private boolean stepComplete;
 
-    private Profile m_profile;
+    private final Profile profile;
 
-    private ParticleSystem m_particleSystem;
+    private final ParticleSystem particleSystem;
 
-    private ContactRegister[][] contactStacks = new ContactRegister[ShapeType
+    private final ContactRegister[][] contactStacks = new ContactRegister[ShapeType
             .values().length][ShapeType.values().length];
 
     /**
@@ -176,36 +176,36 @@ public class World
     public World(Vec2 gravity, IWorldPool pool, BroadPhase broadPhase)
     {
         this.pool = pool;
-        m_destructionListener = null;
-        m_debugDraw = null;
-        m_bodyList = null;
-        m_jointList = null;
-        m_bodyCount = 0;
-        m_jointCount = 0;
-        m_warmStarting = true;
-        m_continuousPhysics = true;
-        m_subStepping = false;
-        m_stepComplete = true;
-        m_allowSleep = true;
-        m_gravity.set(gravity);
-        m_flags = CLEAR_FORCES;
-        m_inv_dt0 = 0f;
-        m_contactManager = new ContactManager(this, broadPhase);
-        m_profile = new Profile();
-        m_particleSystem = new ParticleSystem(this);
+        destructionListener = null;
+        debugDraw = null;
+        bodyList = null;
+        jointList = null;
+        bodyCount = 0;
+        jointCount = 0;
+        warmStarting = true;
+        continuousPhysics = true;
+        subStepping = false;
+        stepComplete = true;
+        allowSleep = true;
+        this.gravity.set(gravity);
+        flags = CLEAR_FORCES;
+        invDt0 = 0f;
+        contactManager = new ContactManager(this, broadPhase);
+        profile = new Profile();
+        particleSystem = new ParticleSystem(this);
         initializeRegisters();
     }
 
     public void setAllowSleep(boolean flag)
     {
-        if (flag == m_allowSleep)
+        if (flag == allowSleep)
         {
             return;
         }
-        m_allowSleep = flag;
-        if (m_allowSleep == false)
+        allowSleep = flag;
+        if (allowSleep == false)
         {
-            for (Body b = m_bodyList; b != null; b = b.m_next)
+            for (Body b = bodyList; b != null; b = b.m_next)
             {
                 b.setAwake(true);
             }
@@ -214,17 +214,17 @@ public class World
 
     public void setSubStepping(boolean subStepping)
     {
-        this.m_subStepping = subStepping;
+        this.subStepping = subStepping;
     }
 
     public boolean isSubStepping()
     {
-        return m_subStepping;
+        return subStepping;
     }
 
     public boolean isAllowSleep()
     {
-        return m_allowSleep;
+        return allowSleep;
     }
 
     private void addType(IDynamicStack<Contact> creator, ShapeType type1,
@@ -263,18 +263,18 @@ public class World
 
     public DestructionListener getDestructionListener()
     {
-        return m_destructionListener;
+        return destructionListener;
     }
 
     public ParticleDestructionListener getParticleDestructionListener()
     {
-        return m_particleDestructionListener;
+        return particleDestructionListener;
     }
 
     public void setParticleDestructionListener(
             ParticleDestructionListener listener)
     {
-        m_particleDestructionListener = listener;
+        particleDestructionListener = listener;
     }
 
     public Contact popContact(Fixture fixtureA, int indexA, Fixture fixtureB,
@@ -333,7 +333,7 @@ public class World
      */
     public void setDestructionListener(DestructionListener listener)
     {
-        m_destructionListener = listener;
+        destructionListener = listener;
     }
 
     /**
@@ -343,7 +343,7 @@ public class World
      */
     public void setContactFilter(ContactFilter filter)
     {
-        m_contactManager.m_contactFilter = filter;
+        contactManager.contactFilter = filter;
     }
 
     /**
@@ -352,7 +352,7 @@ public class World
      */
     public void setContactListener(ContactListener listener)
     {
-        m_contactManager.m_contactListener = listener;
+        contactManager.contactListener = listener;
     }
 
     /**
@@ -362,7 +362,7 @@ public class World
      */
     public void setDebugDraw(DebugDraw debugDraw)
     {
-        m_debugDraw = debugDraw;
+        this.debugDraw = debugDraw;
     }
 
     /**
@@ -382,13 +382,13 @@ public class World
         Body b = new Body(def, this);
         // add to world doubly linked list
         b.m_prev = null;
-        b.m_next = m_bodyList;
-        if (m_bodyList != null)
+        b.m_next = bodyList;
+        if (bodyList != null)
         {
-            m_bodyList.m_prev = b;
+            bodyList.m_prev = b;
         }
-        m_bodyList = b;
-        ++m_bodyCount;
+        bodyList = b;
+        ++bodyCount;
         return b;
     }
 
@@ -401,7 +401,7 @@ public class World
      */
     public void destroyBody(Body body)
     {
-        assert (m_bodyCount > 0);
+        assert (bodyCount > 0);
         assert (isLocked() == false);
         if (isLocked())
         {
@@ -413,9 +413,9 @@ public class World
         {
             JointEdge je0 = je;
             je = je.next;
-            if (m_destructionListener != null)
+            if (destructionListener != null)
             {
-                m_destructionListener.sayGoodbye(je0.joint);
+                destructionListener.sayGoodbye(je0.joint);
             }
             destroyJoint(je0.joint);
             body.m_jointList = je;
@@ -427,19 +427,19 @@ public class World
         {
             ContactEdge ce0 = ce;
             ce = ce.next;
-            m_contactManager.destroy(ce0.contact);
+            contactManager.destroy(ce0.contact);
         }
         body.m_contactList = null;
         Fixture f = body.m_fixtureList;
         while (f != null)
         {
             Fixture f0 = f;
-            f = f.m_next;
-            if (m_destructionListener != null)
+            f = f.next;
+            if (destructionListener != null)
             {
-                m_destructionListener.sayGoodbye(f0);
+                destructionListener.sayGoodbye(f0);
             }
-            f0.destroyProxies(m_contactManager.m_broadPhase);
+            f0.destroyProxies(contactManager.broadPhase);
             f0.destroy();
             // TODO djm recycle fixtures (here or in that destroy method)
             body.m_fixtureList = f;
@@ -456,11 +456,11 @@ public class World
         {
             body.m_next.m_prev = body.m_prev;
         }
-        if (body == m_bodyList)
+        if (body == bodyList)
         {
-            m_bodyList = body.m_next;
+            bodyList = body.m_next;
         }
-        --m_bodyCount;
+        --bodyCount;
         // TODO djm recycle body
     }
 
@@ -480,33 +480,33 @@ public class World
         }
         Joint j = Joint.create(this, def);
         // Connect to the world list.
-        j.m_prev = null;
-        j.m_next = m_jointList;
-        if (m_jointList != null)
+        j.prev = null;
+        j.next = jointList;
+        if (jointList != null)
         {
-            m_jointList.m_prev = j;
+            jointList.prev = j;
         }
-        m_jointList = j;
-        ++m_jointCount;
+        jointList = j;
+        ++jointCount;
         // Connect to the bodies' doubly linked lists.
-        j.m_edgeA.joint = j;
-        j.m_edgeA.other = j.getBodyB();
-        j.m_edgeA.prev = null;
-        j.m_edgeA.next = j.getBodyA().m_jointList;
+        j.edgeA.joint = j;
+        j.edgeA.other = j.getBodyB();
+        j.edgeA.prev = null;
+        j.edgeA.next = j.getBodyA().m_jointList;
         if (j.getBodyA().m_jointList != null)
         {
-            j.getBodyA().m_jointList.prev = j.m_edgeA;
+            j.getBodyA().m_jointList.prev = j.edgeA;
         }
-        j.getBodyA().m_jointList = j.m_edgeA;
-        j.m_edgeB.joint = j;
-        j.m_edgeB.other = j.getBodyA();
-        j.m_edgeB.prev = null;
-        j.m_edgeB.next = j.getBodyB().m_jointList;
+        j.getBodyA().m_jointList = j.edgeA;
+        j.edgeB.joint = j;
+        j.edgeB.other = j.getBodyA();
+        j.edgeB.prev = null;
+        j.edgeB.next = j.getBodyB().m_jointList;
         if (j.getBodyB().m_jointList != null)
         {
-            j.getBodyB().m_jointList.prev = j.m_edgeB;
+            j.getBodyB().m_jointList.prev = j.edgeB;
         }
-        j.getBodyB().m_jointList = j.m_edgeB;
+        j.getBodyB().m_jointList = j.edgeB;
         Body bodyA = def.bodyA;
         Body bodyB = def.bodyB;
         // If the joint prevents collisions, then flag any contacts for
@@ -544,17 +544,17 @@ public class World
         }
         boolean collideConnected = j.getCollideConnected();
         // Remove from the doubly linked list.
-        if (j.m_prev != null)
+        if (j.prev != null)
         {
-            j.m_prev.m_next = j.m_next;
+            j.prev.next = j.next;
         }
-        if (j.m_next != null)
+        if (j.next != null)
         {
-            j.m_next.m_prev = j.m_prev;
+            j.next.prev = j.prev;
         }
-        if (j == m_jointList)
+        if (j == jointList)
         {
-            m_jointList = j.m_next;
+            jointList = j.next;
         }
         // Disconnect from island graph.
         Body bodyA = j.getBodyA();
@@ -563,38 +563,38 @@ public class World
         bodyA.setAwake(true);
         bodyB.setAwake(true);
         // Remove from body 1.
-        if (j.m_edgeA.prev != null)
+        if (j.edgeA.prev != null)
         {
-            j.m_edgeA.prev.next = j.m_edgeA.next;
+            j.edgeA.prev.next = j.edgeA.next;
         }
-        if (j.m_edgeA.next != null)
+        if (j.edgeA.next != null)
         {
-            j.m_edgeA.next.prev = j.m_edgeA.prev;
+            j.edgeA.next.prev = j.edgeA.prev;
         }
-        if (j.m_edgeA == bodyA.m_jointList)
+        if (j.edgeA == bodyA.m_jointList)
         {
-            bodyA.m_jointList = j.m_edgeA.next;
+            bodyA.m_jointList = j.edgeA.next;
         }
-        j.m_edgeA.prev = null;
-        j.m_edgeA.next = null;
+        j.edgeA.prev = null;
+        j.edgeA.next = null;
         // Remove from body 2
-        if (j.m_edgeB.prev != null)
+        if (j.edgeB.prev != null)
         {
-            j.m_edgeB.prev.next = j.m_edgeB.next;
+            j.edgeB.prev.next = j.edgeB.next;
         }
-        if (j.m_edgeB.next != null)
+        if (j.edgeB.next != null)
         {
-            j.m_edgeB.next.prev = j.m_edgeB.prev;
+            j.edgeB.next.prev = j.edgeB.prev;
         }
-        if (j.m_edgeB == bodyB.m_jointList)
+        if (j.edgeB == bodyB.m_jointList)
         {
-            bodyB.m_jointList = j.m_edgeB.next;
+            bodyB.m_jointList = j.edgeB.next;
         }
-        j.m_edgeB.prev = null;
-        j.m_edgeB.next = null;
+        j.edgeB.prev = null;
+        j.edgeB.next = null;
         Joint.destroy(j);
-        assert (m_jointCount > 0);
-        --m_jointCount;
+        assert (jointCount > 0);
+        --jointCount;
         // If the joint prevents collisions, then flag any contacts for
         // filtering.
         if (collideConnected == false)
@@ -636,13 +636,13 @@ public class World
         tempTimer.reset();
         // log.debug("Starting step");
         // If new fixtures were added, we need to find the new contacts.
-        if ((m_flags & NEW_FIXTURE) == NEW_FIXTURE)
+        if ((flags & NEW_FIXTURE) == NEW_FIXTURE)
         {
             // log.debug("There's a new fixture, lets look for new contacts");
-            m_contactManager.findNewContacts();
-            m_flags &= ~NEW_FIXTURE;
+            contactManager.findNewContacts();
+            flags &= ~NEW_FIXTURE;
         }
-        m_flags |= LOCKED;
+        flags |= LOCKED;
         step.dt = dt;
         step.velocityIterations = velocityIterations;
         step.positionIterations = positionIterations;
@@ -654,42 +654,42 @@ public class World
         {
             step.inv_dt = 0.0f;
         }
-        step.dtRatio = m_inv_dt0 * dt;
-        step.warmStarting = m_warmStarting;
-        m_profile.stepInit.record(tempTimer.getMilliseconds());
+        step.dtRatio = invDt0 * dt;
+        step.warmStarting = warmStarting;
+        profile.stepInit.record(tempTimer.getMilliseconds());
         // Update contacts. This is where some contacts are destroyed.
         tempTimer.reset();
-        m_contactManager.collide();
-        m_profile.collide.record(tempTimer.getMilliseconds());
+        contactManager.collide();
+        profile.collide.record(tempTimer.getMilliseconds());
         // Integrate velocities, solve velocity constraints, and integrate
         // positions.
-        if (m_stepComplete && step.dt > 0.0f)
+        if (stepComplete && step.dt > 0.0f)
         {
             tempTimer.reset();
-            m_particleSystem.solve(step); // Particle Simulation
-            m_profile.solveParticleSystem.record(tempTimer.getMilliseconds());
+            particleSystem.solve(step); // Particle Simulation
+            profile.solveParticleSystem.record(tempTimer.getMilliseconds());
             tempTimer.reset();
             solve(step);
-            m_profile.solve.record(tempTimer.getMilliseconds());
+            profile.solve.record(tempTimer.getMilliseconds());
         }
         // Handle TOI events.
-        if (m_continuousPhysics && step.dt > 0.0f)
+        if (continuousPhysics && step.dt > 0.0f)
         {
             tempTimer.reset();
             solveTOI(step);
-            m_profile.solveTOI.record(tempTimer.getMilliseconds());
+            profile.solveTOI.record(tempTimer.getMilliseconds());
         }
         if (step.dt > 0.0f)
         {
-            m_inv_dt0 = step.inv_dt;
+            invDt0 = step.inv_dt;
         }
-        if ((m_flags & CLEAR_FORCES) == CLEAR_FORCES)
+        if ((flags & CLEAR_FORCES) == CLEAR_FORCES)
         {
             clearForces();
         }
-        m_flags &= ~LOCKED;
+        flags &= ~LOCKED;
         // log.debug("ending step");
-        m_profile.step.record(stepTimer.getMilliseconds());
+        profile.step.record(stepTimer.getMilliseconds());
     }
 
     /**
@@ -702,7 +702,7 @@ public class World
      */
     public void clearForces()
     {
-        for (Body body = m_bodyList; body != null; body = body.getNext())
+        for (Body body = bodyList; body != null; body = body.getNext())
         {
             body.m_force.setZero();
             body.m_torque = 0.0f;
@@ -724,15 +724,15 @@ public class World
      */
     public void drawDebugData()
     {
-        if (m_debugDraw == null)
+        if (debugDraw == null)
         {
             return;
         }
-        int flags = m_debugDraw.getFlags();
+        int flags = debugDraw.getFlags();
         boolean wireframe = (flags & DebugDraw.e_wireframeDrawingBit) != 0;
         if ((flags & DebugDraw.e_shapeBit) != 0)
         {
-            for (Body b = m_bodyList; b != null; b = b.getNext())
+            for (Body b = bodyList; b != null; b = b.getNext())
             {
                 xf.set(b.getTransform());
                 for (Fixture f = b.getFixtureList(); f != null; f = f.getNext())
@@ -764,11 +764,11 @@ public class World
                     }
                 }
             }
-            drawParticleSystem(m_particleSystem);
+            drawParticleSystem(particleSystem);
         }
         if ((flags & DebugDraw.e_jointBit) != 0)
         {
-            for (Joint j = m_jointList; j != null; j = j.getNext())
+            for (Joint j = jointList; j != null; j = j.getNext())
             {
                 drawJoint(j);
             }
@@ -776,20 +776,20 @@ public class World
         if ((flags & DebugDraw.e_pairBit) != 0)
         {
             color.set(0.3f, 0.9f, 0.9f);
-            for (Contact c = m_contactManager.m_contactList; c != null; c = c
+            for (Contact c = contactManager.contactList; c != null; c = c
                     .getNext())
             {
                 Fixture fixtureA = c.getFixtureA();
                 Fixture fixtureB = c.getFixtureB();
                 fixtureA.getAABB(c.getChildIndexA()).getCenterToOut(cA);
                 fixtureB.getAABB(c.getChildIndexB()).getCenterToOut(cB);
-                m_debugDraw.drawSegment(cA, cB, color);
+                debugDraw.drawSegment(cA, cB, color);
             }
         }
         if ((flags & DebugDraw.e_aabbBit) != 0)
         {
             color.set(0.9f, 0.3f, 0.9f);
-            for (Body b = m_bodyList; b != null; b = b.getNext())
+            for (Body b = bodyList; b != null; b = b.getNext())
             {
                 if (b.isActive() == false)
                 {
@@ -797,10 +797,10 @@ public class World
                 }
                 for (Fixture f = b.getFixtureList(); f != null; f = f.getNext())
                 {
-                    for (int i = 0; i < f.m_proxyCount; ++i)
+                    for (int i = 0; i < f.proxyCount; ++i)
                     {
-                        FixtureProxy proxy = f.m_proxies[i];
-                        AABB aabb = m_contactManager.m_broadPhase
+                        FixtureProxy proxy = f.proxies[i];
+                        AABB aabb = contactManager.broadPhase
                                 .getFatAABB(proxy.proxyId);
                         if (aabb != null)
                         {
@@ -809,7 +809,7 @@ public class World
                             vs[1].set(aabb.upperBound.x, aabb.lowerBound.y);
                             vs[2].set(aabb.upperBound.x, aabb.upperBound.y);
                             vs[3].set(aabb.lowerBound.x, aabb.upperBound.y);
-                            m_debugDraw.drawPolygon(vs, 4, color);
+                            debugDraw.drawPolygon(vs, 4, color);
                         }
                     }
                 }
@@ -817,18 +817,18 @@ public class World
         }
         if ((flags & DebugDraw.e_centerOfMassBit) != 0)
         {
-            for (Body b = m_bodyList; b != null; b = b.getNext())
+            for (Body b = bodyList; b != null; b = b.getNext())
             {
                 xf.set(b.getTransform());
                 xf.p.set(b.getWorldCenter());
-                m_debugDraw.drawTransform(xf);
+                debugDraw.drawTransform(xf);
             }
         }
         if ((flags & DebugDraw.e_dynamicTreeBit) != 0)
         {
-            m_contactManager.m_broadPhase.drawTree(m_debugDraw);
+            contactManager.broadPhase.drawTree(debugDraw);
         }
-        m_debugDraw.flush();
+        debugDraw.flush();
     }
 
     private final WorldQueryWrapper wqwrapper = new WorldQueryWrapper();
@@ -842,9 +842,9 @@ public class World
      */
     public void queryAABB(QueryCallback callback, AABB aabb)
     {
-        wqwrapper.broadPhase = m_contactManager.m_broadPhase;
+        wqwrapper.broadPhase = contactManager.broadPhase;
         wqwrapper.callback = callback;
-        m_contactManager.m_broadPhase.query(wqwrapper, aabb);
+        contactManager.broadPhase.query(wqwrapper, aabb);
     }
 
     /**
@@ -858,10 +858,10 @@ public class World
     public void queryAABB(QueryCallback callback,
             ParticleQueryCallback particleCallback, AABB aabb)
     {
-        wqwrapper.broadPhase = m_contactManager.m_broadPhase;
+        wqwrapper.broadPhase = contactManager.broadPhase;
         wqwrapper.callback = callback;
-        m_contactManager.m_broadPhase.query(wqwrapper, aabb);
-        m_particleSystem.queryAABB(particleCallback, aabb);
+        contactManager.broadPhase.query(wqwrapper, aabb);
+        particleSystem.queryAABB(particleCallback, aabb);
     }
 
     /**
@@ -873,7 +873,7 @@ public class World
      */
     public void queryAABB(ParticleQueryCallback particleCallback, AABB aabb)
     {
-        m_particleSystem.queryAABB(particleCallback, aabb);
+        particleSystem.queryAABB(particleCallback, aabb);
     }
 
     private final WorldRayCastWrapper wrcwrapper = new WorldRayCastWrapper();
@@ -891,12 +891,12 @@ public class World
      */
     public void raycast(RayCastCallback callback, Vec2 point1, Vec2 point2)
     {
-        wrcwrapper.broadPhase = m_contactManager.m_broadPhase;
+        wrcwrapper.broadPhase = contactManager.broadPhase;
         wrcwrapper.callback = callback;
         input.maxFraction = 1.0f;
         input.p1.set(point1);
         input.p2.set(point2);
-        m_contactManager.m_broadPhase.raycast(wrcwrapper, input);
+        contactManager.broadPhase.raycast(wrcwrapper, input);
     }
 
     /**
@@ -912,13 +912,13 @@ public class World
     public void raycast(RayCastCallback callback,
             ParticleRaycastCallback particleCallback, Vec2 point1, Vec2 point2)
     {
-        wrcwrapper.broadPhase = m_contactManager.m_broadPhase;
+        wrcwrapper.broadPhase = contactManager.broadPhase;
         wrcwrapper.callback = callback;
         input.maxFraction = 1.0f;
         input.p1.set(point1);
         input.p2.set(point2);
-        m_contactManager.m_broadPhase.raycast(wrcwrapper, input);
-        m_particleSystem.raycast(particleCallback, point1, point2);
+        contactManager.broadPhase.raycast(wrcwrapper, input);
+        particleSystem.raycast(particleCallback, point1, point2);
     }
 
     /**
@@ -933,7 +933,7 @@ public class World
     public void raycast(ParticleRaycastCallback particleCallback, Vec2 point1,
             Vec2 point2)
     {
-        m_particleSystem.raycast(particleCallback, point1, point2);
+        particleSystem.raycast(particleCallback, point1, point2);
     }
 
     /**
@@ -945,7 +945,7 @@ public class World
      */
     public Body getBodyList()
     {
-        return m_bodyList;
+        return bodyList;
     }
 
     /**
@@ -957,7 +957,7 @@ public class World
      */
     public Joint getJointList()
     {
-        return m_jointList;
+        return jointList;
     }
 
     /**
@@ -971,17 +971,17 @@ public class World
      */
     public Contact getContactList()
     {
-        return m_contactManager.m_contactList;
+        return contactManager.contactList;
     }
 
     public boolean isSleepingAllowed()
     {
-        return m_allowSleep;
+        return allowSleep;
     }
 
     public void setSleepingAllowed(boolean sleepingAllowed)
     {
-        m_allowSleep = sleepingAllowed;
+        allowSleep = sleepingAllowed;
     }
 
     /**
@@ -989,12 +989,12 @@ public class World
      */
     public void setWarmStarting(boolean flag)
     {
-        m_warmStarting = flag;
+        warmStarting = flag;
     }
 
     public boolean isWarmStarting()
     {
-        return m_warmStarting;
+        return warmStarting;
     }
 
     /**
@@ -1002,12 +1002,12 @@ public class World
      */
     public void setContinuousPhysics(boolean flag)
     {
-        m_continuousPhysics = flag;
+        continuousPhysics = flag;
     }
 
     public boolean isContinuousPhysics()
     {
-        return m_continuousPhysics;
+        return continuousPhysics;
     }
 
     /**
@@ -1015,7 +1015,7 @@ public class World
      */
     public int getProxyCount()
     {
-        return m_contactManager.m_broadPhase.getProxyCount();
+        return contactManager.broadPhase.getProxyCount();
     }
 
     /**
@@ -1023,7 +1023,7 @@ public class World
      */
     public int getBodyCount()
     {
-        return m_bodyCount;
+        return bodyCount;
     }
 
     /**
@@ -1031,7 +1031,7 @@ public class World
      */
     public int getJointCount()
     {
-        return m_jointCount;
+        return jointCount;
     }
 
     /**
@@ -1039,7 +1039,7 @@ public class World
      */
     public int getContactCount()
     {
-        return m_contactManager.m_contactCount;
+        return contactManager.contactCount;
     }
 
     /**
@@ -1047,7 +1047,7 @@ public class World
      */
     public int getTreeHeight()
     {
-        return m_contactManager.m_broadPhase.getTreeHeight();
+        return contactManager.broadPhase.getTreeHeight();
     }
 
     /**
@@ -1055,7 +1055,7 @@ public class World
      */
     public int getTreeBalance()
     {
-        return m_contactManager.m_broadPhase.getTreeBalance();
+        return contactManager.broadPhase.getTreeBalance();
     }
 
     /**
@@ -1063,7 +1063,7 @@ public class World
      */
     public float getTreeQuality()
     {
-        return m_contactManager.m_broadPhase.getTreeQuality();
+        return contactManager.broadPhase.getTreeQuality();
     }
 
     /**
@@ -1071,7 +1071,7 @@ public class World
      */
     public void setGravity(Vec2 gravity)
     {
-        m_gravity.set(gravity);
+        this.gravity.set(gravity);
     }
 
     /**
@@ -1079,7 +1079,7 @@ public class World
      */
     public Vec2 getGravity()
     {
-        return m_gravity;
+        return gravity;
     }
 
     /**
@@ -1087,7 +1087,7 @@ public class World
      */
     public boolean isLocked()
     {
-        return (m_flags & LOCKED) == LOCKED;
+        return (flags & LOCKED) == LOCKED;
     }
 
     /**
@@ -1097,11 +1097,11 @@ public class World
     {
         if (flag)
         {
-            m_flags |= CLEAR_FORCES;
+            flags |= CLEAR_FORCES;
         }
         else
         {
-            m_flags &= ~CLEAR_FORCES;
+            flags &= ~CLEAR_FORCES;
         }
     }
 
@@ -1111,7 +1111,7 @@ public class World
      */
     public boolean getAutoClearForces()
     {
-        return (m_flags & CLEAR_FORCES) == CLEAR_FORCES;
+        return (flags & CLEAR_FORCES) == CLEAR_FORCES;
     }
 
     /**
@@ -1119,12 +1119,12 @@ public class World
      */
     public ContactManager getContactManager()
     {
-        return m_contactManager;
+        return contactManager;
     }
 
     public Profile getProfile()
     {
-        return m_profile;
+        return profile;
     }
 
     private final Island island = new Island();
@@ -1136,37 +1136,37 @@ public class World
 
     private void solve(TimeStep step)
     {
-        m_profile.solveInit.startAccum();
-        m_profile.solveVelocity.startAccum();
-        m_profile.solvePosition.startAccum();
+        profile.solveInit.startAccum();
+        profile.solveVelocity.startAccum();
+        profile.solvePosition.startAccum();
         // update previous transforms
-        for (Body b = m_bodyList; b != null; b = b.m_next)
+        for (Body b = bodyList; b != null; b = b.m_next)
         {
             b.m_xf0.set(b.m_xf);
         }
         // Size the island for the worst case.
-        island.init(m_bodyCount, m_contactManager.m_contactCount, m_jointCount,
-                m_contactManager.m_contactListener);
+        island.init(bodyCount, contactManager.contactCount, jointCount,
+                contactManager.contactListener);
         // Clear all the island flags.
-        for (Body b = m_bodyList; b != null; b = b.m_next)
+        for (Body b = bodyList; b != null; b = b.m_next)
         {
             b.m_flags &= ~Body.e_islandFlag;
         }
-        for (Contact c = m_contactManager.m_contactList; c != null; c = c.m_next)
+        for (Contact c = contactManager.contactList; c != null; c = c.m_next)
         {
             c.m_flags &= ~Contact.ISLAND_FLAG;
         }
-        for (Joint j = m_jointList; j != null; j = j.m_next)
+        for (Joint j = jointList; j != null; j = j.next)
         {
-            j.m_islandFlag = false;
+            j.islandFlag = false;
         }
         // Build and simulate all awake islands.
-        int stackSize = m_bodyCount;
+        int stackSize = bodyCount;
         if (stack.length < stackSize)
         {
             stack = new Body[stackSize];
         }
-        for (Body seed = m_bodyList; seed != null; seed = seed.m_next)
+        for (Body seed = bodyList; seed != null; seed = seed.m_next)
         {
             if ((seed.m_flags & Body.e_islandFlag) == Body.e_islandFlag)
             {
@@ -1240,7 +1240,7 @@ public class World
                 // Search all joints connect to this body.
                 for (JointEdge je = b.m_jointList; je != null; je = je.next)
                 {
-                    if (je.joint.m_islandFlag == true)
+                    if (je.joint.islandFlag == true)
                     {
                         continue;
                     }
@@ -1251,7 +1251,7 @@ public class World
                         continue;
                     }
                     island.add(je.joint);
-                    je.joint.m_islandFlag = true;
+                    je.joint.islandFlag = true;
                     if ((other.m_flags
                             & Body.e_islandFlag) == Body.e_islandFlag)
                     {
@@ -1262,24 +1262,24 @@ public class World
                     other.m_flags |= Body.e_islandFlag;
                 }
             }
-            island.solve(m_profile, step, m_gravity, m_allowSleep);
+            island.solve(profile, step, gravity, allowSleep);
             // Post solve cleanup.
-            for (int i = 0; i < island.m_bodyCount; ++i)
+            for (int i = 0; i < island.bodyCount; ++i)
             {
                 // Allow static bodies to participate in other islands.
-                Body b = island.m_bodies[i];
+                Body b = island.bodies[i];
                 if (b.getType() == BodyType.STATIC)
                 {
                     b.m_flags &= ~Body.e_islandFlag;
                 }
             }
         }
-        m_profile.solveInit.endAccum();
-        m_profile.solveVelocity.endAccum();
-        m_profile.solvePosition.endAccum();
+        profile.solveInit.endAccum();
+        profile.solveVelocity.endAccum();
+        profile.solvePosition.endAccum();
         broadphaseTimer.reset();
         // Synchronize fixtures, check for out of range bodies.
-        for (Body b = m_bodyList; b != null; b = b.getNext())
+        for (Body b = bodyList; b != null; b = b.getNext())
         {
             // If a body was not in an island then it did not move.
             if ((b.m_flags & Body.e_islandFlag) == 0)
@@ -1294,8 +1294,8 @@ public class World
             b.synchronizeFixtures();
         }
         // Look for new contacts.
-        m_contactManager.findNewContacts();
-        m_profile.broadphase.record(broadphaseTimer.getMilliseconds());
+        contactManager.findNewContacts();
+        profile.broadphase.record(broadphaseTimer.getMilliseconds());
     }
 
     private final Island toiIsland = new Island();
@@ -1316,15 +1316,15 @@ public class World
     {
         final Island island = toiIsland;
         island.init(2 * Settings.maxTOIContacts, Settings.maxTOIContacts, 0,
-                m_contactManager.m_contactListener);
-        if (m_stepComplete)
+                contactManager.contactListener);
+        if (stepComplete)
         {
-            for (Body b = m_bodyList; b != null; b = b.m_next)
+            for (Body b = bodyList; b != null; b = b.m_next)
             {
                 b.m_flags &= ~Body.e_islandFlag;
                 b.m_sweep.alpha0 = 0.0f;
             }
-            for (Contact c = m_contactManager.m_contactList; c != null; c = c.m_next)
+            for (Contact c = contactManager.contactList; c != null; c = c.m_next)
             {
                 // Invalidate TOI
                 c.m_flags &= ~(Contact.TOI_FLAG | Contact.ISLAND_FLAG);
@@ -1338,7 +1338,7 @@ public class World
             // Find the first TOI.
             Contact minContact = null;
             float minAlpha = 1.0f;
-            for (Contact c = m_contactManager.m_contactList; c != null; c = c.m_next)
+            for (Contact c = contactManager.contactList; c != null; c = c.m_next)
             {
                 // Is this contact disabled?
                 if (c.isEnabled() == false)
@@ -1437,7 +1437,7 @@ public class World
                     || 1.0f - 10.0f * Settings.EPSILON < minAlpha)
             {
                 // No more TOI events. Done!
-                m_stepComplete = true;
+                stepComplete = true;
                 break;
             }
             // Advance the bodies to the TOI.
@@ -1450,7 +1450,7 @@ public class World
             bA.advance(minAlpha);
             bB.advance(minAlpha);
             // The TOI contact likely has some new contact points.
-            minContact.update(m_contactManager.m_contactListener);
+            minContact.update(contactManager.contactListener);
             minContact.m_flags &= ~Contact.TOI_FLAG;
             ++minContact.m_toiCount;
             // Is the contact solid?
@@ -1485,11 +1485,11 @@ public class World
                 {
                     for (ContactEdge ce = body.m_contactList; ce != null; ce = ce.next)
                     {
-                        if (island.m_bodyCount == island.m_bodyCapacity)
+                        if (island.bodyCount == island.bodyCapacity)
                         {
                             break;
                         }
-                        if (island.m_contactCount == island.m_contactCapacity)
+                        if (island.contactCount == island.contactCapacity)
                         {
                             break;
                         }
@@ -1521,7 +1521,7 @@ public class World
                             other.advance(minAlpha);
                         }
                         // Update the contact points
-                        contact.update(m_contactManager.m_contactListener);
+                        contact.update(contactManager.contactListener);
                         // Was the contact disabled by the user?
                         if (contact.isEnabled() == false)
                         {
@@ -1562,9 +1562,9 @@ public class World
             subStep.warmStarting = false;
             island.solveTOI(subStep, bA.m_islandIndex, bB.m_islandIndex);
             // Reset island flags and synchronize broad-phase proxies.
-            for (int i = 0; i < island.m_bodyCount; ++i)
+            for (int i = 0; i < island.bodyCount; ++i)
             {
-                Body body = island.m_bodies[i];
+                Body body = island.bodies[i];
                 body.m_flags &= ~Body.e_islandFlag;
                 if (body.m_type != BodyType.DYNAMIC)
                 {
@@ -1581,10 +1581,10 @@ public class World
             // Commit fixture proxy movements to the broad-phase so that new
             // contacts are created.
             // Also, some contacts can be destroyed.
-            m_contactManager.findNewContacts();
-            if (m_subStepping)
+            contactManager.findNewContacts();
+            if (subStepping)
             {
-                m_stepComplete = false;
+                stepComplete = false;
                 break;
             }
         }
@@ -1607,7 +1607,7 @@ public class World
         {
         // TODO djm write after writing joints
         case DISTANCE:
-            m_debugDraw.drawSegment(p1, p2, color);
+            debugDraw.drawSegment(p1, p2, color);
             break;
 
         case PULLEY:
@@ -1615,9 +1615,9 @@ public class World
             PulleyJoint pulley = (PulleyJoint) joint;
             Vec2 s1 = pulley.getGroundAnchorA();
             Vec2 s2 = pulley.getGroundAnchorB();
-            m_debugDraw.drawSegment(s1, p1, color);
-            m_debugDraw.drawSegment(s2, p2, color);
-            m_debugDraw.drawSegment(s1, s2, color);
+            debugDraw.drawSegment(s1, p1, color);
+            debugDraw.drawSegment(s2, p2, color);
+            debugDraw.drawSegment(s1, s2, color);
         }
             break;
 
@@ -1627,9 +1627,9 @@ public class World
             break;
 
         default:
-            m_debugDraw.drawSegment(x1, p1, color);
-            m_debugDraw.drawSegment(p1, p2, color);
-            m_debugDraw.drawSegment(x2, p2, color);
+            debugDraw.drawSegment(x1, p1, color);
+            debugDraw.drawSegment(p1, p2, color);
+            debugDraw.drawSegment(x2, p2, color);
         }
         pool.pushVec2(2);
     }
@@ -1668,7 +1668,7 @@ public class World
             CircleShape circle = (CircleShape) fixture.getShape();
             // Vec2 center = Mul(xf, circle.m_p);
             Transform.mulToOutUnsafe(xf, circle.m_p, center);
-            float radius = circle.m_radius;
+            float radius = circle.radius;
             xf.q.getXAxis(axis);
             if (fixture.getUserData() != null
                     && fixture.getUserData().equals(LIQUID_INT))
@@ -1688,16 +1688,16 @@ public class World
                 liquidOffset.mulLocal(liquidLength / averageLinearVel / 2);
                 circCenterMoved.set(center).addLocal(liquidOffset);
                 center.subLocal(liquidOffset);
-                m_debugDraw.drawSegment(center, circCenterMoved, liquidColor);
+                debugDraw.drawSegment(center, circCenterMoved, liquidColor);
                 return;
             }
             if (wireframe)
             {
-                m_debugDraw.drawCircle(center, radius, axis, color);
+                debugDraw.drawCircle(center, radius, axis, color);
             }
             else
             {
-                m_debugDraw.drawSolidCircle(center, radius, axis, color);
+                debugDraw.drawSolidCircle(center, radius, axis, color);
             }
         }
             break;
@@ -1711,15 +1711,15 @@ public class World
             for (int i = 0; i < vertexCount; ++i)
             {
                 // vertices[i] = Mul(xf, poly.m_vertices[i]);
-                Transform.mulToOutUnsafe(xf, poly.m_vertices[i], vertices[i]);
+                Transform.mulToOutUnsafe(xf, poly.vertices[i], vertices[i]);
             }
             if (wireframe)
             {
-                m_debugDraw.drawPolygon(vertices, vertexCount, color);
+                debugDraw.drawPolygon(vertices, vertexCount, color);
             }
             else
             {
-                m_debugDraw.drawSolidPolygon(vertices, vertexCount, color);
+                debugDraw.drawSolidPolygon(vertices, vertexCount, color);
             }
         }
             break;
@@ -1729,7 +1729,7 @@ public class World
             EdgeShape edge = (EdgeShape) fixture.getShape();
             Transform.mulToOutUnsafe(xf, edge.m_vertex1, v1);
             Transform.mulToOutUnsafe(xf, edge.m_vertex2, v2);
-            m_debugDraw.drawSegment(v1, v2, color);
+            debugDraw.drawSegment(v1, v2, color);
         }
             break;
 
@@ -1742,8 +1742,8 @@ public class World
             for (int i = 1; i < count; ++i)
             {
                 Transform.mulToOutUnsafe(xf, vertices[i], v2);
-                m_debugDraw.drawSegment(v1, v2, color);
-                m_debugDraw.drawCircle(v1, 0.05f, color);
+                debugDraw.drawSegment(v1, v2, color);
+                debugDraw.drawCircle(v1, 0.05f, color);
                 v1.set(v2);
             }
         }
@@ -1756,7 +1756,7 @@ public class World
 
     private void drawParticleSystem(ParticleSystem system)
     {
-        boolean wireframe = (m_debugDraw.getFlags()
+        boolean wireframe = (debugDraw.getFlags()
                 & DebugDraw.e_wireframeDrawingBit) != 0;
         int particleCount = system.getParticleCount();
         if (particleCount != 0)
@@ -1770,12 +1770,12 @@ public class World
             }
             if (wireframe)
             {
-                m_debugDraw.drawParticlesWireframe(positionBuffer,
-                        particleRadius, colorBuffer, particleCount);
+                debugDraw.drawParticlesWireframe(positionBuffer, particleRadius,
+                        colorBuffer, particleCount);
             }
             else
             {
-                m_debugDraw.drawParticles(positionBuffer, particleRadius,
+                debugDraw.drawParticles(positionBuffer, particleRadius,
                         colorBuffer, particleCount);
             }
         }
@@ -1798,7 +1798,7 @@ public class World
         {
             return 0;
         }
-        int p = m_particleSystem.createParticle(def);
+        int p = particleSystem.createParticle(def);
         return p;
     }
 
@@ -1819,7 +1819,7 @@ public class World
      */
     public void destroyParticle(int index, boolean callDestructionListener)
     {
-        m_particleSystem.destroyParticle(index, callDestructionListener);
+        particleSystem.destroyParticle(index, callDestructionListener);
     }
 
     /**
@@ -1861,7 +1861,7 @@ public class World
         {
             return 0;
         }
-        return m_particleSystem.destroyParticlesInShape(shape, xf,
+        return particleSystem.destroyParticlesInShape(shape, xf,
                 callDestructionListener);
     }
 
@@ -1878,7 +1878,7 @@ public class World
         {
             return null;
         }
-        ParticleGroup g = m_particleSystem.createParticleGroup(def);
+        ParticleGroup g = particleSystem.createParticleGroup(def);
         return g;
     }
 
@@ -1896,7 +1896,7 @@ public class World
         {
             return;
         }
-        m_particleSystem.joinParticleGroups(groupA, groupB);
+        particleSystem.joinParticleGroups(groupA, groupB);
     }
 
     /**
@@ -1916,8 +1916,7 @@ public class World
         {
             return;
         }
-        m_particleSystem.destroyParticlesInGroup(group,
-                callDestructionListener);
+        particleSystem.destroyParticlesInGroup(group, callDestructionListener);
     }
 
     /**
@@ -1941,7 +1940,7 @@ public class World
      */
     public ParticleGroup[] getParticleGroupList()
     {
-        return m_particleSystem.getParticleGroupList();
+        return particleSystem.getParticleGroupList();
     }
 
     /**
@@ -1949,7 +1948,7 @@ public class World
      */
     public int getParticleGroupCount()
     {
-        return m_particleSystem.getParticleGroupCount();
+        return particleSystem.getParticleGroupCount();
     }
 
     /**
@@ -1957,7 +1956,7 @@ public class World
      */
     public int getParticleCount()
     {
-        return m_particleSystem.getParticleCount();
+        return particleSystem.getParticleCount();
     }
 
     /**
@@ -1965,7 +1964,7 @@ public class World
      */
     public int getParticleMaxCount()
     {
-        return m_particleSystem.getParticleMaxCount();
+        return particleSystem.getParticleMaxCount();
     }
 
     /**
@@ -1973,7 +1972,7 @@ public class World
      */
     public void setParticleMaxCount(int count)
     {
-        m_particleSystem.setParticleMaxCount(count);
+        particleSystem.setParticleMaxCount(count);
     }
 
     /**
@@ -1981,7 +1980,7 @@ public class World
      */
     public void setParticleDensity(float density)
     {
-        m_particleSystem.setParticleDensity(density);
+        particleSystem.setParticleDensity(density);
     }
 
     /**
@@ -1989,7 +1988,7 @@ public class World
      */
     public float getParticleDensity()
     {
-        return m_particleSystem.getParticleDensity();
+        return particleSystem.getParticleDensity();
     }
 
     /**
@@ -1998,7 +1997,7 @@ public class World
      */
     public void setParticleGravityScale(float gravityScale)
     {
-        m_particleSystem.setParticleGravityScale(gravityScale);
+        particleSystem.setParticleGravityScale(gravityScale);
     }
 
     /**
@@ -2006,7 +2005,7 @@ public class World
      */
     public float getParticleGravityScale()
     {
-        return m_particleSystem.getParticleGravityScale();
+        return particleSystem.getParticleGravityScale();
     }
 
     /**
@@ -2016,7 +2015,7 @@ public class World
      */
     public void setParticleDamping(float damping)
     {
-        m_particleSystem.setParticleDamping(damping);
+        particleSystem.setParticleDamping(damping);
     }
 
     /**
@@ -2024,7 +2023,7 @@ public class World
      */
     public float getParticleDamping()
     {
-        return m_particleSystem.getParticleDamping();
+        return particleSystem.getParticleDamping();
     }
 
     /**
@@ -2034,7 +2033,7 @@ public class World
      */
     public void setParticleRadius(float radius)
     {
-        m_particleSystem.setParticleRadius(radius);
+        particleSystem.setParticleRadius(radius);
     }
 
     /**
@@ -2042,7 +2041,7 @@ public class World
      */
     public float getParticleRadius()
     {
-        return m_particleSystem.getParticleRadius();
+        return particleSystem.getParticleRadius();
     }
 
     /**
@@ -2052,32 +2051,32 @@ public class World
      */
     public int[] getParticleFlagsBuffer()
     {
-        return m_particleSystem.getParticleFlagsBuffer();
+        return particleSystem.getParticleFlagsBuffer();
     }
 
     public Vec2[] getParticlePositionBuffer()
     {
-        return m_particleSystem.getParticlePositionBuffer();
+        return particleSystem.getParticlePositionBuffer();
     }
 
     public Vec2[] getParticleVelocityBuffer()
     {
-        return m_particleSystem.getParticleVelocityBuffer();
+        return particleSystem.getParticleVelocityBuffer();
     }
 
     public ParticleColor[] getParticleColorBuffer()
     {
-        return m_particleSystem.getParticleColorBuffer();
+        return particleSystem.getParticleColorBuffer();
     }
 
     public ParticleGroup[] getParticleGroupBuffer()
     {
-        return m_particleSystem.getParticleGroupBuffer();
+        return particleSystem.getParticleGroupBuffer();
     }
 
     public Object[] getParticleUserDataBuffer()
     {
-        return m_particleSystem.getParticleUserDataBuffer();
+        return particleSystem.getParticleUserDataBuffer();
     }
 
     /**
@@ -2088,27 +2087,27 @@ public class World
      */
     public void setParticleFlagsBuffer(int[] buffer, int capacity)
     {
-        m_particleSystem.setParticleFlagsBuffer(buffer, capacity);
+        particleSystem.setParticleFlagsBuffer(buffer, capacity);
     }
 
     public void setParticlePositionBuffer(Vec2[] buffer, int capacity)
     {
-        m_particleSystem.setParticlePositionBuffer(buffer, capacity);
+        particleSystem.setParticlePositionBuffer(buffer, capacity);
     }
 
     public void setParticleVelocityBuffer(Vec2[] buffer, int capacity)
     {
-        m_particleSystem.setParticleVelocityBuffer(buffer, capacity);
+        particleSystem.setParticleVelocityBuffer(buffer, capacity);
     }
 
     public void setParticleColorBuffer(ParticleColor[] buffer, int capacity)
     {
-        m_particleSystem.setParticleColorBuffer(buffer, capacity);
+        particleSystem.setParticleColorBuffer(buffer, capacity);
     }
 
     public void setParticleUserDataBuffer(Object[] buffer, int capacity)
     {
-        m_particleSystem.setParticleUserDataBuffer(buffer, capacity);
+        particleSystem.setParticleUserDataBuffer(buffer, capacity);
     }
 
     /**
@@ -2117,12 +2116,12 @@ public class World
      */
     public ParticleContact[] getParticleContacts()
     {
-        return m_particleSystem.m_contactBuffer;
+        return particleSystem.m_contactBuffer;
     }
 
     public int getParticleContactCount()
     {
-        return m_particleSystem.m_contactCount;
+        return particleSystem.m_contactCount;
     }
 
     /**
@@ -2131,12 +2130,12 @@ public class World
      */
     public ParticleBodyContact[] getParticleBodyContacts()
     {
-        return m_particleSystem.m_bodyContactBuffer;
+        return particleSystem.m_bodyContactBuffer;
     }
 
     public int getParticleBodyContactCount()
     {
-        return m_particleSystem.m_bodyContactCount;
+        return particleSystem.m_bodyContactCount;
     }
 
     /**
@@ -2145,7 +2144,7 @@ public class World
      */
     public float computeParticleCollisionEnergy()
     {
-        return m_particleSystem.computeParticleCollisionEnergy();
+        return particleSystem.computeParticleCollisionEnergy();
     }
 }
 

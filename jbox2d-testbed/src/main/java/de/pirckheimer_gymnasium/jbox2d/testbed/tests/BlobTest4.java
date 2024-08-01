@@ -110,7 +110,7 @@ public class BlobTest4 extends TestbedTest
             Body body = getWorld().createBody(bd);
             FixtureDef fd = new FixtureDef();
             CircleShape cd = new CircleShape();
-            cd.m_radius = bodyRadius;
+            cd.radius = bodyRadius;
             fd.shape = cd;
             fd.density = 1.0f;
             body.createFixture(fd);
