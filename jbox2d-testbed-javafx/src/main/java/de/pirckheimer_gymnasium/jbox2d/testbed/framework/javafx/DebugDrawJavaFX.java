@@ -35,7 +35,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 
 /**
- * Implementation of {@link DebugDraw} that uses JavaFX! Hooray!</br>
+ * Implementation of {@link DebugDraw} that uses JavaFX! Hooray!<br>
  *
  * @author Daniel Murphy Initial Java 2D implementation
  * @author Hallvard Traetteberg JavaFX port

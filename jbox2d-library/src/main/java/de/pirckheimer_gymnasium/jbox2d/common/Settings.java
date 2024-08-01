@@ -47,7 +47,7 @@ public class Settings {
   /**
    * smaller the precision, the larger the table. If a small table is used (eg, precision is .006 or
    * greater), make sure you set the table to lerp it's results. Accuracy chart is in the MathUtils
-   * source. Or, run the tests yourself in {@link SinCosTest}.</br> </br> Good lerp precision
+   * source. Or, run the tests yourself in {@code SinCosTest}.<br> <br> Good lerp precision
    * values:
    * <ul>
    * <li>.0092</li>
@@ -73,7 +73,7 @@ public class Settings {
   /**
    * Use if the table's precision is large (eg .006 or greater). Although it is more expensive, it
    * greatly increases accuracy. Look in the MathUtils source for some test results on the accuracy
-   * and speed of lerp vs non lerp. Or, run the tests yourself in {@link SinCosTest}.
+   * and speed of lerp vs non lerp. Or, run the tests yourself in {@code SinCosTest}.
    */
   public static boolean SINCOS_LUT_LERP = false;
 
@@ -224,10 +224,6 @@ public class Settings {
 
   /**
    * Friction mixing law. Feel free to customize this. TODO djm: add customization
-   *
-   * @param friction1
-   * @param friction2
-   * @return
    */
   public static float mixFriction(float friction1, float friction2) {
     return MathUtils.sqrt(friction1 * friction2);
@@ -235,10 +231,6 @@ public class Settings {
 
   /**
    * Restitution mixing law. Feel free to customize this. TODO djm: add customization
-   *
-   * @param restitution1
-   * @param restitution2
-   * @return
    */
   public static float mixRestitution(float restitution1, float restitution2) {
     return restitution1 > restitution2 ? restitution1 : restitution2;

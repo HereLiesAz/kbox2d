@@ -41,7 +41,7 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.pooling.ColorPool;
 
 // pooling local, not thread-safe
 /**
- * Implementation of {@link DebugDraw} that uses Java2D! Hooray!</br>
+ * Implementation of {@link DebugDraw} that uses Java2D! Hooray!<br>
  *
  * @author Daniel Murphy
  */
