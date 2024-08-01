@@ -58,8 +58,7 @@ public interface JbSerializer {
 	/**
 	 * Serializes the world
 	 * @param world
-	 * @return
-   * @throws UnsupportedObjectException if a physics object is unsupported by this library.
+	 *    * @throws UnsupportedObjectException if a physics object is unsupported by this library.
    * @see #setUnsupportedListener(UnsupportedListener)
 	 */
 	public SerializationResult serialize(World world) throws UnsupportedObjectException;
@@ -67,8 +66,7 @@ public interface JbSerializer {
 	/**
 	 * Serializes a body
 	 * @param body
-	 * @return
-   * @throws UnsupportedObjectException if a physics object is unsupported by this library.
+	 *    * @throws UnsupportedObjectException if a physics object is unsupported by this library.
    * @see #setUnsupportedListener(UnsupportedListener)
 	 */
 	public SerializationResult serialize(Body body) throws UnsupportedObjectException;
@@ -76,8 +74,7 @@ public interface JbSerializer {
 	/**
 	 * Serializes a fixture
 	 * @param fixture
-	 * @return
-	 * @throws UnsupportedObjectException if a physics object is unsupported by this library.
+	 * 	 * @throws UnsupportedObjectException if a physics object is unsupported by this library.
 	 * @see #setUnsupportedListener(UnsupportedListener)
 	 */
 	public SerializationResult serialize(Fixture fixture) throws UnsupportedObjectException;
@@ -85,8 +82,7 @@ public interface JbSerializer {
 	/**
 	 * Serializes a shape
 	 * @param shape
-	 * @return
-   * @throws UnsupportedObjectException if a physics object is unsupported by this library.
+	 *    * @throws UnsupportedObjectException if a physics object is unsupported by this library.
    * @see #setUnsupportedListener(UnsupportedListener)
 	 */
 	public SerializationResult serialize(Shape shape) throws UnsupportedObjectException;
@@ -97,8 +93,7 @@ public interface JbSerializer {
 	 * @param joint
 	 * @param bodyIndexMap
 	 * @param jointIndexMap
-	 * @return
-	 */
+	 * 	 */
 	public SerializationResult serialize(Joint joint,
 			Map<Body, Integer> bodyIndexMap,
 			Map<Joint, Integer> jointIndexMap);

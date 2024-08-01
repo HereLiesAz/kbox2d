@@ -407,7 +407,7 @@ public class Body {
   /**
    * Set the angular velocity.
    *
-   * @param omega the new angular velocity in radians/second.
+   * @param w the new angular velocity in radians/second.
    */
   public final void setAngularVelocity(float w) {
     if (m_type == BodyType.STATIC) {
@@ -433,8 +433,7 @@ public class Body {
   /**
    * Get the gravity scale of the body.
    *
-   * @return
-   */
+   *    */
   public float getGravityScale() {
     return m_gravityScale;
   }
@@ -580,8 +579,6 @@ public class Body {
 
   /**
    * Get the mass data of the body. The rotational inertia is relative to the center of mass.
-   *
-   * @return a struct containing the mass, inertia and center of the body.
    */
   public final void getMassData(MassData data) {
     // data.mass = m_mass;
@@ -772,7 +769,7 @@ public class Body {
   /**
    * Gets a local point relative to the body's origin given a world point.
    *
-   * @param a point in world coordinates.
+   * @param worldPoint point in world coordinates.
    * @return the corresponding local point relative to the body's origin.
    */
   public final Vec2 getLocalPoint(Vec2 worldPoint) {
@@ -788,7 +785,7 @@ public class Body {
   /**
    * Gets a local vector given a world vector.
    *
-   * @param a vector in world coordinates.
+   * @param worldVector a vector in world coordinates.
    * @return the corresponding local vector.
    */
   public final Vec2 getLocalVector(Vec2 worldVector) {
@@ -808,7 +805,7 @@ public class Body {
   /**
    * Get the world linear velocity of a world point attached to this body.
    *
-   * @param a point in world coordinates.
+   * @param worldPoint a point in world coordinates.
    * @return the world velocity of a point.
    */
   public final Vec2 getLinearVelocityFromWorldPoint(Vec2 worldPoint) {
@@ -827,7 +824,7 @@ public class Body {
   /**
    * Get the world velocity of a local point.
    *
-   * @param a point in local coordinates.
+   * @param localPoint a point in local coordinates.
    * @return the world velocity of a point.
    */
   public final Vec2 getLinearVelocityFromLocalPoint(Vec2 localPoint) {
@@ -932,8 +929,6 @@ public class Body {
 
   /**
    * You can disable sleeping on this body. If you disable sleeping, the body will be woken.
-   *
-   * @param flag
    */
   public void setSleepingAllowed(boolean flag) {
     if (flag) {
@@ -947,8 +942,7 @@ public class Body {
   /**
    * Is this body allowed to sleep
    *
-   * @return
-   */
+   *    */
   public boolean isSleepingAllowed() {
     return (m_flags & e_autoSleepFlag) == e_autoSleepFlag;
   }
@@ -993,8 +987,6 @@ public class Body {
    * and will not participate in collisions, ray-casts, or queries. Joints connected to an inactive
    * body are implicitly inactive. An inactive body is still owned by a World object and remains in
    * the body list.
-   *
-   * @param flag
    */
   public void setActive(boolean flag) {
     assert (m_world.isLocked() == false);
@@ -1036,16 +1028,13 @@ public class Body {
   /**
    * Get the active state of the body.
    *
-   * @return
-   */
+   *    */
   public boolean isActive() {
     return (m_flags & e_activeFlag) == e_activeFlag;
   }
 
   /**
    * Set this body to have fixed rotation. This causes the mass to be reset.
-   *
-   * @param flag
    */
   public void setFixedRotation(boolean flag) {
     if (flag) {
@@ -1060,8 +1049,7 @@ public class Body {
   /**
    * Does this body have fixed rotation?
    *
-   * @return
-   */
+   *    */
   public boolean isFixedRotation() {
     return (m_flags & e_fixedRotationFlag) == e_fixedRotationFlag;
   }
@@ -1150,10 +1138,7 @@ public class Body {
   /**
    * This is used to prevent connected bodies from colliding. It may lie, depending on the
    * collideConnected flag.
-   *
-   * @param other
-   * @return
-   */
+   *    */
   public boolean shouldCollide(Body other) {
     // At least one body should be dynamic.
     if (m_type != BodyType.DYNAMIC && other.m_type != BodyType.DYNAMIC) {

@@ -88,8 +88,6 @@ public class Fixture {
   /**
    * Get the child shape. You can modify the child shape, however you should not change the number
    * of vertices because this will crash some collision caching mechanisms.
-   *
-   * @return
    */
   public Shape getShape() {
     return m_shape;
@@ -99,7 +97,6 @@ public class Fixture {
    * Is this fixture a sensor (non-solid)?
    *
    * @return the true if the shape is a sensor.
-   * @return
    */
   public boolean isSensor() {
     return m_isSensor;
@@ -107,8 +104,6 @@ public class Fixture {
 
   /**
    * Set if this fixture is a sensor.
-   *
-   * @param sensor
    */
   public void setSensor(boolean sensor) {
     if (sensor != m_isSensor) {
@@ -121,8 +116,6 @@ public class Fixture {
    * Set the contact filtering data. This is an expensive operation and should not be called
    * frequently. This will not update contacts until the next time step when either parent body is
    * awake. This automatically calls refilter.
-   *
-   * @param filter
    */
   public void setFilterData(final Filter filter) {
     m_filter.set(filter);
@@ -132,8 +125,6 @@ public class Fixture {
 
   /**
    * Get the contact filtering data.
-   *
-   * @return
    */
   public Filter getFilterData() {
     return m_filter;
@@ -177,7 +168,6 @@ public class Fixture {
    * Get the parent body of this fixture. This is NULL if the fixture is not attached.
    *
    * @return the parent body.
-   * @return
    */
   public Body getBody() {
     return m_body;
@@ -187,7 +177,6 @@ public class Fixture {
    * Get the next fixture in the parent body's fixture list.
    *
    * @return the next shape.
-   * @return
    */
   public Fixture getNext() {
     return m_next;
@@ -205,8 +194,6 @@ public class Fixture {
   /**
    * Get the user data that was assigned in the fixture definition. Use this to store your
    * application specific data.
-   *
-   * @return
    */
   public Object getUserData() {
     return m_userData;
@@ -214,8 +201,6 @@ public class Fixture {
 
   /**
    * Set the user data. Use this to store your application specific data.
-   *
-   * @param data
    */
   public void setUserData(Object data) {
     m_userData = data;
@@ -225,7 +210,6 @@ public class Fixture {
    * Test a point for containment in this fixture. This only works for convex shapes.
    *
    * @param p a point in world coordinates.
-   * @return
    */
   public boolean testPoint(final Vec2 p) {
     return m_shape.testPoint(m_body.m_xf, p);
@@ -236,8 +220,6 @@ public class Fixture {
    *
    * @param output the ray-cast results.
    * @param input the ray-cast input parameters.
-   * @param output
-   * @param input
    */
   public boolean raycast(RayCastOutput output, RayCastInput input, int childIndex) {
     return m_shape.raycast(output, input, m_body.m_xf, childIndex);
@@ -246,8 +228,6 @@ public class Fixture {
   /**
    * Get the mass data for this fixture. The mass data is based on the density and the shape. The
    * rotational inertia is about the shape's origin.
-   *
-   * @return
    */
   public void getMassData(MassData massData) {
     m_shape.computeMass(massData, m_density);
@@ -255,8 +235,6 @@ public class Fixture {
 
   /**
    * Get the coefficient of friction.
-   *
-   * @return
    */
   public float getFriction() {
     return m_friction;
@@ -264,8 +242,6 @@ public class Fixture {
 
   /**
    * Set the coefficient of friction. This will _not_ change the friction of existing contacts.
-   *
-   * @param friction
    */
   public void setFriction(float friction) {
     m_friction = friction;
@@ -273,8 +249,6 @@ public class Fixture {
 
   /**
    * Get the coefficient of restitution.
-   *
-   * @return
    */
   public float getRestitution() {
     return m_restitution;
@@ -283,8 +257,6 @@ public class Fixture {
   /**
    * Set the coefficient of restitution. This will _not_ change the restitution of existing
    * contacts.
-   *
-   * @param restitution
    */
   public void setRestitution(float restitution) {
     m_restitution = restitution;
@@ -293,8 +265,6 @@ public class Fixture {
   /**
    * Get the fixture's AABB. This AABB may be enlarge and/or stale. If you need a more accurate
    * AABB, compute it using the shape and the body transform.
-   *
-   * @return
    */
   public AABB getAABB(int childIndex) {
     assert (childIndex >= 0 && childIndex < m_proxyCount);
@@ -409,10 +379,6 @@ public class Fixture {
 
   /**
    * Internal method
-   *
-   * @param broadPhase
-   * @param xf1
-   * @param xf2
    */
   protected void synchronize(BroadPhase broadPhase, final Transform transform1,
       final Transform transform2) {

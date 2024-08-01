@@ -34,8 +34,7 @@ public interface IDynamicStack<E> {
 
 	/**
 	 * Pops an item off the stack
-	 * @return
-	 */
+	 * 	 */
 	public E pop();
 
 	/**

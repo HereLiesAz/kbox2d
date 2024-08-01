@@ -127,8 +127,7 @@ public abstract class Joint {
   /**
    * get the type of the concrete joint.
    *
-   * @return
-   */
+   *    */
   public JointType getType() {
     return m_type;
   }
@@ -143,8 +142,7 @@ public abstract class Joint {
   /**
    * get the second body attached to this joint.
    *
-   * @return
-   */
+   *    */
   public final Body getBodyB() {
     return m_bodyB;
   }
@@ -152,31 +150,27 @@ public abstract class Joint {
   /**
    * get the anchor point on bodyA in world coordinates.
    *
-   * @return
-   */
+   *    */
   public abstract void getAnchorA(Vec2 out);
 
   /**
    * get the anchor point on bodyB in world coordinates.
    *
-   * @return
-   */
+   *    */
   public abstract void getAnchorB(Vec2 out);
 
   /**
    * get the reaction force on body2 at the joint anchor in Newtons.
    *
    * @param inv_dt
-   * @return
-   */
+   *    */
   public abstract void getReactionForce(float inv_dt, Vec2 out);
 
   /**
    * get the reaction torque on body2 in N*m.
    *
    * @param inv_dt
-   * @return
-   */
+   *    */
   public abstract float getReactionTorque(float inv_dt);
 
   /**
@@ -211,8 +205,7 @@ public abstract class Joint {
   /**
    * Short-cut function to determine if either body is inactive.
    *
-   * @return
-   */
+   *    */
   public boolean isActive() {
     return m_bodyA.isActive() && m_bodyB.isActive();
   }

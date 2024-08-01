@@ -35,9 +35,9 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
 
 /**
  * The pulley joint is connected to two bodies and two fixed ground points. The pulley supports a
- * ratio such that: length1 + ratio * length2 <= constant Yes, the force transmitted is scaled by
+ * ratio such that: {@code length1 + ratio * length2 <= constant} Yes, the force transmitted is scaled by
  * the ratio. Warning: the pulley joint can get a bit squirrelly by itself. They often work better
- * when combined with prismatic joints. You should also cover the the anchor points with static
+ * when combined with prismatic joints. You should also cover the anchor points with static
  * shapes to prevent one side from going to zero length.
  *
  * @author Daniel Murphy

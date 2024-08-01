@@ -104,8 +104,7 @@ public class TestbedModel {
   /**
    * Gets the array of keys, index corresponding to the char value.
    *
-   * @return
-   */
+   *    */
   public boolean[] getKeys() {
     return keys;
   }
@@ -113,8 +112,7 @@ public class TestbedModel {
   /**
    * Gets the array of coded keys, index corresponding to the coded key value.
    *
-   * @return
-   */
+   *    */
   public boolean[] getCodedKeys() {
     return codedKeys;
   }

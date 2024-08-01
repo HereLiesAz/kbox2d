@@ -1903,8 +1903,7 @@ public class World {
   /**
    * Get contacts between particles
    *
-   * @return
-   */
+   *    */
   public ParticleContact[] getParticleContacts() {
     return m_particleSystem.m_contactBuffer;
   }
@@ -1916,8 +1915,7 @@ public class World {
   /**
    * Get contacts between particles and bodies
    *
-   * @return
-   */
+   *    */
   public ParticleBodyContact[] getParticleBodyContacts() {
     return m_particleSystem.m_bodyContactBuffer;
   }
@@ -1929,8 +1927,7 @@ public class World {
   /**
    * Compute the kinetic energy that can be lost by damping force
    *
-   * @return
-   */
+   *    */
   public float computeParticleCollisionEnergy() {
     return m_particleSystem.computeParticleCollisionEnergy();
   }

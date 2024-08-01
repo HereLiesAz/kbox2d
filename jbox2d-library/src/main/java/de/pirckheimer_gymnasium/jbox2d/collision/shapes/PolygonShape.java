@@ -356,8 +356,7 @@ public class PolygonShape extends Shape {
   /**
    * Get the vertex count.
    *
-   * @return
-   */
+   *    */
   public final int getVertexCount() {
     return m_count;
   }
@@ -366,8 +365,7 @@ public class PolygonShape extends Shape {
    * Get a vertex by index.
    *
    * @param index
-   * @return
-   */
+   *    */
   public final Vec2 getVertex(final int index) {
     assert (0 <= index && index < m_count);
     return m_vertices[index];
@@ -634,8 +632,7 @@ public class PolygonShape extends Shape {
   /**
    * Validate convexity. This is a very time consuming operation.
    *
-   * @return
-   */
+   *    */
   public boolean validate() {
     for (int i = 0; i < m_count; ++i) {
       int i1 = i;

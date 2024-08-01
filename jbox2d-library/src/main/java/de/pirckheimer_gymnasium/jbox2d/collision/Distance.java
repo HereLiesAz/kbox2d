@@ -36,7 +36,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Transform;
 
 // updated to rev 100
 /**
- * This is non-static for faster pooling. To get an instance, use the {@link SingletonPool}, don't
+ * This is non-static for faster pooling. To get an instance, use the {@code SingletonPool}, don't
  * construct a distance object.
  *
  * @author Daniel Murphy
@@ -199,8 +199,7 @@ public class Distance {
     /**
      * this returns pooled objects. don't keep or modify them
      *
-     * @return
-     */
+     *      */
     public void getClosestPoint(final Vec2 out) {
       switch (m_count) {
         case 0:
@@ -542,8 +541,7 @@ public class Distance {
      * Get the supporting vertex index in the given direction.
      *
      * @param d
-     * @return
-     */
+     *      */
     public final int getSupport(final Vec2 d) {
       int bestIndex = 0;
       float bestValue = Vec2.dot(m_vertices[0], d);
@@ -562,8 +560,7 @@ public class Distance {
      * Get the supporting vertex in the given direction.
      *
      * @param d
-     * @return
-     */
+     *      */
     public final Vec2 getSupportVertex(final Vec2 d) {
       int bestIndex = 0;
       float bestValue = Vec2.dot(m_vertices[0], d);
@@ -581,8 +578,7 @@ public class Distance {
     /**
      * Get the vertex count.
      *
-     * @return
-     */
+     *      */
     public final int getVertexCount() {
       return m_count;
     }
@@ -591,8 +587,7 @@ public class Distance {
      * Get a vertex by index. Used by Distance.
      *
      * @param index
-     * @return
-     */
+     *      */
     public final Vec2 getVertex(int index) {
       assert (0 <= index && index < m_count);
       return m_vertices[index];

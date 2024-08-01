@@ -54,8 +54,7 @@ public interface JbDeserializer {
 	/**
 	 * Deserializes a world
 	 * @param input
-	 * @return
-	 * @throws IOException
+	 * 	 * @throws IOException
 	 * @throws UnsupportedObjectException if a read physics object is unsupported by this library
 	 * @see #setUnsupportedListener(UnsupportedListener)
 	 */
@@ -65,8 +64,7 @@ public interface JbDeserializer {
    * Deserializes a body
    * @param world
    * @param input
-   * @return
-   * @throws IOException
+   *    * @throws IOException
    * @throws UnsupportedObjectException if a read physics object is unsupported by this library
    * @see #setUnsupportedListener(UnsupportedListener)
    */
@@ -76,8 +74,7 @@ public interface JbDeserializer {
    * Deserializes a fixture
    * @param body
    * @param input
-   * @return
-   * @throws IOException
+   *    * @throws IOException
    * @throws UnsupportedObjectException if a read physics object is unsupported by this library
    * @see #setUnsupportedListener(UnsupportedListener)
    */
@@ -86,8 +83,7 @@ public interface JbDeserializer {
 	/**
    * Deserializes a shape
    * @param input
-   * @return
-   * @throws IOException
+   *    * @throws IOException
    * @throws UnsupportedObjectException if a read physics object is unsupported by this library
    * @see #setUnsupportedListener(UnsupportedListener)
    */
@@ -99,8 +95,7 @@ public interface JbDeserializer {
    * @param input
    * @param bodyMap
    * @param jointMap
-   * @return
-   * @throws IOException
+   *    * @throws IOException
    * @throws UnsupportedObjectException if a read physics object is unsupported by this library
    * @see #setUnsupportedListener(UnsupportedListener)
    */

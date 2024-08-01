@@ -151,8 +151,7 @@ public abstract class Contact {
   /**
    * Is this contact touching
    *
-   * @return
-   */
+   *    */
   public boolean isTouching() {
     return (m_flags & TOUCHING_FLAG) == TOUCHING_FLAG;
   }
@@ -174,8 +173,7 @@ public abstract class Contact {
   /**
    * Has this contact been disabled?
    *
-   * @return
-   */
+   *    */
   public boolean isEnabled() {
     return (m_flags & ENABLED_FLAG) == ENABLED_FLAG;
   }
@@ -183,8 +181,7 @@ public abstract class Contact {
   /**
    * Get the next contact in the world's contact list.
    *
-   * @return
-   */
+   *    */
   public Contact getNext() {
     return m_next;
   }
@@ -192,8 +189,7 @@ public abstract class Contact {
   /**
    * Get the first fixture in this contact.
    *
-   * @return
-   */
+   *    */
   public Fixture getFixtureA() {
     return m_fixtureA;
   }
@@ -205,8 +201,7 @@ public abstract class Contact {
   /**
    * Get the second fixture in this contact.
    *
-   * @return
-   */
+   *    */
   public Fixture getFixtureB() {
     return m_fixtureB;
   }
@@ -345,8 +340,7 @@ public abstract class Contact {
    *
    * @param friction1
    * @param friction2
-   * @return
-   */
+   *    */
   public static final float mixFriction(float friction1, float friction2) {
     return MathUtils.sqrt(friction1 * friction2);
   }
@@ -357,8 +351,7 @@ public abstract class Contact {
    *
    * @param restitution1
    * @param restitution2
-   * @return
-   */
+   *    */
   public static final float mixRestitution(float restitution1, float restitution2) {
     return restitution1 > restitution2 ? restitution1 : restitution2;
   }

@@ -57,7 +57,7 @@ public class AABB {
    * Creates an AABB object using the given bounding vertices.
    *
    * @param lowerVertex the bottom left vertex of the bounding box
-   * @param maxVertex the top right vertex of the bounding box
+   * @param upperVertex the top right vertex of the bounding box
    */
   public AABB(final Vec2 lowerVertex, final Vec2 upperVertex) {
     this.lowerBound = lowerVertex.clone(); // clone to be safe
@@ -94,8 +94,7 @@ public class AABB {
   /**
    * Get the center of the AABB
    *
-   * @return
-   */
+   *    */
   public final Vec2 getCenter() {
     final Vec2 center = new Vec2(lowerBound);
     center.addLocal(upperBound);
@@ -111,8 +110,7 @@ public class AABB {
   /**
    * Get the extents of the AABB (half-widths).
    *
-   * @return
-   */
+   *    */
   public final Vec2 getExtents() {
     final Vec2 center = new Vec2(upperBound);
     center.subLocal(lowerBound);
@@ -150,8 +148,7 @@ public class AABB {
   /**
    * Gets the perimeter length
    *
-   * @return
-   */
+   *    */
   public final float getPerimeter() {
     return 2.0f * (upperBound.x - lowerBound.x + upperBound.y - lowerBound.y);
   }
@@ -171,8 +168,7 @@ public class AABB {
   /**
    * Does this aabb contain the provided AABB.
    *
-   * @return
-   */
+   *    */
   public final boolean contains(final AABB aabb) {
     /*
      * boolean result = true; result = result && lowerBound.x <= aabb.lowerBound.x; result = result
@@ -190,8 +186,7 @@ public class AABB {
    *             performance
    * @param output
    * @param input
-   * @return
-   */
+   *    */
   public final boolean raycast(final RayCastOutput output, final RayCastInput input) {
     return raycast(output, input, new DefaultWorldPool(4, 4));
   }

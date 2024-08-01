@@ -110,8 +110,7 @@ public class TestbedSettings {
 
   /**
    * Returns an unmodifiable list of settings
-   * @return
-   */
+   *    */
   public List<TestbedSetting> getSettings() {
     return Collections.unmodifiableList(settings);
   }
@@ -119,8 +118,7 @@ public class TestbedSettings {
   /**
    * Gets a setting by name.
    * @param argName
-   * @return
-   */
+   *    */
   public TestbedSetting getSetting(String argName) {
     return settingsMap.get(argName);
   }

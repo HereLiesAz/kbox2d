@@ -260,8 +260,7 @@ public class PrismaticJoint extends Joint {
   /**
    * Is the joint limit enabled?
    *
-   * @return
-   */
+   *    */
   public boolean isLimitEnabled() {
     return m_enableLimit;
   }
@@ -283,8 +282,7 @@ public class PrismaticJoint extends Joint {
   /**
    * Get the lower joint limit, usually in meters.
    *
-   * @return
-   */
+   *    */
   public float getLowerLimit() {
     return m_lowerTranslation;
   }
@@ -292,8 +290,7 @@ public class PrismaticJoint extends Joint {
   /**
    * Get the upper joint limit, usually in meters.
    *
-   * @return
-   */
+   *    */
   public float getUpperLimit() {
     return m_upperTranslation;
   }
@@ -318,8 +315,7 @@ public class PrismaticJoint extends Joint {
   /**
    * Is the joint motor enabled?
    *
-   * @return
-   */
+   *    */
   public boolean isMotorEnabled() {
     return m_enableMotor;
   }
@@ -349,8 +345,7 @@ public class PrismaticJoint extends Joint {
   /**
    * Get the motor speed, usually in meters per second.
    *
-   * @return
-   */
+   *    */
   public float getMotorSpeed() {
     return m_motorSpeed;
   }
@@ -370,8 +365,7 @@ public class PrismaticJoint extends Joint {
    * Get the current motor force, usually in N.
    *
    * @param inv_dt
-   * @return
-   */
+   *    */
   public float getMotorForce(float inv_dt) {
     return m_motorImpulse * inv_dt;
   }

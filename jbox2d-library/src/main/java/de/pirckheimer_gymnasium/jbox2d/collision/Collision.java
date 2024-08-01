@@ -38,7 +38,7 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
 
 /**
  * Functions used for computing contact points, distance queries, and TOI queries. Collision methods
- * are non-static for pooling speed, retrieve a collision object from the {@link SingletonPool}.
+ * are non-static for pooling speed, retrieve a collision object from the {@code SingletonPool}.
  * Should not be finalructed.
  *
  * @author Daniel Murphy
@@ -64,13 +64,7 @@ public class Collision {
 
   /**
    * Determine if two generic shapes overlap.
-   *
-   * @param shapeA
-   * @param shapeB
-   * @param xfA
-   * @param xfB
-   * @return
-   */
+   *    */
   public final boolean testOverlap(Shape shapeA, int indexA, Shape shapeB, int indexB,
       Transform xfA, Transform xfB) {
     input.proxyA.set(shapeA, indexA);
@@ -90,11 +84,6 @@ public class Collision {
    * Compute the point states given two manifolds. The states pertain to the transition from
    * manifold1 to manifold2. So state1 is either persist or remove while state2 is either add or
    * persist.
-   *
-   * @param state1
-   * @param state2
-   * @param manifold1
-   * @param manifold2
    */
   public static final void getPointStates(final PointState[] state1, final PointState[] state2,
       final Manifold manifold1, final Manifold manifold2) {
@@ -135,12 +124,6 @@ public class Collision {
 
   /**
    * Clipping for contact manifolds. Sutherland-Hodgman clipping.
-   *
-   * @param vOut
-   * @param vIn
-   * @param normal
-   * @param offset
-   * @return
    */
   public static final int clipSegmentToLine(final ClipVertex[] vOut, final ClipVertex[] vIn,
       final Vec2 normal, float offset, int vertexIndexA) {
@@ -192,12 +175,6 @@ public class Collision {
 
   /**
    * Compute the collision manifold between two circles.
-   *
-   * @param manifold
-   * @param circle1
-   * @param xfA
-   * @param circle2
-   * @param xfB
    */
   public final void collideCircles(Manifold manifold, final CircleShape circle1,
       final Transform xfA, final CircleShape circle2, final Transform xfB) {
@@ -238,12 +215,6 @@ public class Collision {
 
   /**
    * Compute the collision manifold between a polygon and a circle.
-   *
-   * @param manifold
-   * @param polygon
-   * @param xfA
-   * @param circle
-   * @param xfB
    */
   public final void collidePolygonAndCircle(Manifold manifold, final PolygonShape polygon,
       final Transform xfA, final CircleShape circle, final Transform xfB) {
@@ -433,13 +404,6 @@ public class Collision {
 
   /**
    * Find the max separation between poly1 and poly2 using edge normals from poly1.
-   *
-   * @param edgeIndex
-   * @param poly1
-   * @param xf1
-   * @param poly2
-   * @param xf2
-   * @return
    */
   public final void findMaxSeparation(EdgeResults results, final PolygonShape poly1,
       final Transform xf1, final PolygonShape poly2, final Transform xf2) {
@@ -560,12 +524,6 @@ public class Collision {
 
   /**
    * Compute the collision manifold between two polygons.
-   *
-   * @param manifold
-   * @param polygon1
-   * @param xf1
-   * @param polygon2
-   * @param xf2
    */
   public final void collidePolygons(Manifold manifold, final PolygonShape polyA,
       final Transform xfA, final PolygonShape polyB, final Transform xfB) {

@@ -34,8 +34,7 @@ public interface IOrderedStack<E> {
 
 	/**
 	 * Returns the next object in the pool
-	 * @return
-	 */
+	 * 	 */
 	public E pop();
 
 	/**

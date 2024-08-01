@@ -42,8 +42,7 @@ public class ContactFilter {
 	 * @warning for performance reasons this is only called when the AABBs begin to overlap.
 	 * @param fixtureA
 	 * @param fixtureB
-	 * @return
-	 */
+	 * 	 */
 	public boolean shouldCollide(Fixture fixtureA, Fixture fixtureB){
 		Filter filterA = fixtureA.getFilterData();
 		Filter filterB = fixtureB.getFilterData();

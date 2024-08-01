@@ -18,8 +18,7 @@ public interface BroadPhase {
    *
    * @param aabb
    * @param userData
-   * @return
-   */
+   *    */
   int createProxy(AABB aabb, Object userData);
 
   /**
@@ -46,8 +45,7 @@ public interface BroadPhase {
   /**
    * Get the number of proxies.
    *
-   * @return
-   */
+   *    */
   int getProxyCount();
 
   void drawTree(DebugDraw argDraw);
@@ -82,8 +80,7 @@ public interface BroadPhase {
   /**
    * Get the height of the embedded tree.
    *
-   * @return
-   */
+   *    */
   int getTreeHeight();
 
   int getTreeBalance();

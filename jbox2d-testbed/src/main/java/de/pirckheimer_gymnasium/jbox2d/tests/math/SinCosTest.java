@@ -102,8 +102,7 @@ public class SinCosTest {
    * accuracy test from the static parameters, the tables array needs to be constructed as well,
    * returns double[tables][0-3 (no lerp, lerp, then the difference)]
    *
-   * @return
-   */
+   *    */
   public static final double[][] doAccuracyTest(boolean print) {
 
     System.out.println("doing accuracy tests");
@@ -143,8 +142,7 @@ public class SinCosTest {
    * speed test from the static parameters the tables array needs to be constructed as well, returns
    * double[tables][0-3 (no lerp, lerp, then the difference)]
    *
-   * @return
-   */
+   *    */
   public static final double[][] doSpeedTest(boolean print) {
     System.out.println("\nDoing speed tests");
     double[][] speedResults = new double[numTables][4];
