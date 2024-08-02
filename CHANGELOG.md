@@ -11,7 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
-- Remove the `m_` (member?) `e_` (element?) `k_` (konstant?) attribute prefixes hungarian notation ([ddd3705](ddd3705893772e2cbad370c601e8c3dcf66dd577), [b1f4084](b1f408448543bc0a2232695cf5e3439814e6b18b), [5792d64](5792d640ed8f32843709894a919917fe47fe3e70) and [89fee5c](89fee5c75e48577efe20153eda19a37b280cb42f) by Josef Friedrich).
+- Remove the `m_` (member?) `e_` (element?) `k_` (konstant?) attribute prefixes hungarian notation ([ddd3705](ddd3705893772e2cbad370c601e8c3dcf66dd577),
+  [b1f4084](b1f408448543bc0a2232695cf5e3439814e6b18b),
+  [5792d64](5792d640ed8f32843709894a919917fe47fe3e70),
+  [89fee5c](89fee5c75e48577efe20153eda19a37b280cb42f) and
+  [d0a6926](d0a6926adc41a4cc0743cbea1f14ca24b37037f9) by Josef Friedrich).
 
 ## [v2.3.1](https://github.com/engine-pi/jbox2d/releases/tag/v2.3.1) - 2024-08-01
 
