@@ -106,7 +106,7 @@
         </pluginManagement>
 
         <plugins>
-           <!-- https://www.mojohaus.org/versions/versions-maven-plugin/-->
+            <!-- https://www.mojohaus.org/versions/versions-maven-plugin/-->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
@@ -120,7 +120,7 @@
                 <configuration>
                     <!-- to disable the "missing" warnings -->
                     <doclint>all,-missing</doclint>
-           <!--
+                    <!--
                     https://maven.apache.org/plugins/maven-javadoc-plugin/examples/tag-configuration.html -->
                     <tags>
                         <tag>
@@ -130,7 +130,8 @@
                         </tag>
                     </tags>
 
-                    <!-- https://maven.apache.org/plugins/maven-javadoc-plugin/examples/taglet-configuration.html -->
+                    <!--
+                    https://maven.apache.org/plugins/maven-javadoc-plugin/examples/taglet-configuration.html -->
                     <taglet>de.pirckheimer_gymnasium.jbox2d.testbed.framework.GitHubTaglet</taglet>
 
                     <tagletArtifact>
@@ -214,7 +215,7 @@
             </plugin>
             <!--
 https://code.revelc.net/formatter-maven-plugin/
-https://code.revelc.net/formatter-maven-plugin/examples.html#basic-configuration-using-external-resource -->
+            https://code.revelc.net/formatter-maven-plugin/examples.html#basic-configuration-using-external-resource -->
             <plugin>
                 <groupId>net.revelc.code.formatter</groupId>
                 <artifactId>formatter-maven-plugin</artifactId>
@@ -239,16 +240,5 @@ https://code.revelc.net/formatter-maven-plugin/examples.html#basic-configuration
             </plugin>
         </plugins>
     </build>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
 
 </project>
