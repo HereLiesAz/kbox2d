@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2013, Daniel Murphy
  * All rights reserved.
  *
@@ -20,7 +20,7 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- ******************************************************************************/
+ */
 /**
  * Created at 6:00:03 AM Jan 12, 2011
  */

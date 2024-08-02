@@ -1,3 +1,26 @@
+/*
+ * Copyright (c) 2013, Daniel Murphy
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 	* Redistributions of source code must retain the above copyright notice,
+ * 	  this list of conditions and the following disclaimer.
+ * 	* Redistributions in binary form must reproduce the above copyright notice,
+ * 	  this list of conditions and the following disclaimer in the documentation
+ * 	  and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
 package de.pirckheimer_gymnasium.jbox2d.particle;
 
 import java.lang.reflect.Array;
@@ -804,14 +827,14 @@ public class ParticleSystem
             final float p1y = p1.y;
             final float p2x = p1x + step.dt * v.x;
             final float p2y = p1y + step.dt * v.y;
-            final float bx = p1x < p2x ? p1x : p2x;
-            final float by = p1y < p2y ? p1y : p2y;
-            lowerBound.x = lowerBound.x < bx ? lowerBound.x : bx;
-            lowerBound.y = lowerBound.y < by ? lowerBound.y : by;
-            final float b1x = p1x > p2x ? p1x : p2x;
-            final float b1y = p1y > p2y ? p1y : p2y;
-            upperBound.x = upperBound.x > b1x ? upperBound.x : b1x;
-            upperBound.y = upperBound.y > b1y ? upperBound.y : b1y;
+            final float bx = Math.min(p1x, p2x);
+            final float by = Math.min(p1y, p2y);
+            lowerBound.x = Math.min(lowerBound.x, bx);
+            lowerBound.y = Math.min(lowerBound.y, by);
+            final float b1x = Math.max(p1x, p2x);
+            final float b1y = Math.max(p1y, p2y);
+            upperBound.x = Math.max(upperBound.x, b1x);
+            upperBound.y = Math.max(upperBound.y, b1y);
         }
         sccallback.step = step;
         sccallback.system = this;
