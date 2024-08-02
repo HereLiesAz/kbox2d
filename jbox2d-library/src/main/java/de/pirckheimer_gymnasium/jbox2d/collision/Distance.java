@@ -546,7 +546,7 @@ public class Distance
             {
             case CIRCLE:
                 final CircleShape circle = (CircleShape) shape;
-                m_vertices[0].set(circle.m_p);
+                m_vertices[0].set(circle.p);
                 m_count = 1;
                 m_radius = circle.radius;
                 break;

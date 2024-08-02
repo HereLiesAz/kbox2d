@@ -15,9 +15,9 @@ public class Tumbler extends TestbedTest
 {
     private static final int MAX_NUM = 800;
 
-    RevoluteJoint m_joint;
+    RevoluteJoint joint;
 
-    int m_count;
+    int count;
 
     @Override
     public void initTest(boolean deserialized)
@@ -27,7 +27,7 @@ public class Tumbler extends TestbedTest
             bd.type = BodyType.DYNAMIC;
             bd.allowSleep = false;
             bd.position.set(0.0f, 10.0f);
-            Body body = m_world.createBody(bd);
+            Body body = world.createBody(bd);
             PolygonShape shape = new PolygonShape();
             shape.setAsBox(0.5f, 10.0f, new Vec2(10.0f, 0.0f), 0.0f);
             body.createFixture(shape, 5.0f);
@@ -46,25 +46,25 @@ public class Tumbler extends TestbedTest
             jd.motorSpeed = 0.05f * MathUtils.PI;
             jd.maxMotorTorque = 1e8f;
             jd.enableMotor = true;
-            m_joint = (RevoluteJoint) m_world.createJoint(jd);
+            joint = (RevoluteJoint) world.createJoint(jd);
         }
-        m_count = 0;
+        count = 0;
     }
 
     @Override
     public synchronized void step(TestbedSettings settings)
     {
         super.step(settings);
-        if (m_count < MAX_NUM)
+        if (count < MAX_NUM)
         {
             BodyDef bd = new BodyDef();
             bd.type = BodyType.DYNAMIC;
             bd.position.set(0.0f, 10.0f);
-            Body body = m_world.createBody(bd);
+            Body body = world.createBody(bd);
             PolygonShape shape = new PolygonShape();
             shape.setAsBox(0.125f, 0.125f);
             body.createFixture(shape, 1.0f);
-            ++m_count;
+            ++count;
         }
     }
 

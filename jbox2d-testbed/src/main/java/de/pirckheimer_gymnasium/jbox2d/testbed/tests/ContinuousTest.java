@@ -95,7 +95,7 @@ public class ContinuousTest extends TestbedTest
         m_poly = new PolygonShape();
         m_poly.setAsBox(2.0f, 0.1f);
         m_circle = new CircleShape();
-        m_circle.m_p.setZero();
+        m_circle.p.setZero();
         m_circle.radius = 0.5f;
         BodyDef bd = new BodyDef();
         bd.type = BodyType.DYNAMIC;

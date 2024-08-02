@@ -95,7 +95,7 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
     /**
      * Only visible for compatibility. Should use {@link #getWorld()} instead.
      */
-    protected World m_world;
+    protected World world;
 
     protected Body groundBody;
 
@@ -129,7 +129,7 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
 
     private String title = null;
 
-    protected int m_textLine;
+    protected int textLine;
 
     private final LinkedList<String> textList = new LinkedList<String>();
 
@@ -256,22 +256,22 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
     {
         this.model = model;
         Vec2 gravity = new Vec2(0, -10f);
-        m_world = model.getWorldCreator().createWorld(gravity);
-        m_world.setParticleGravityScale(0.4f);
-        m_world.setParticleDensity(1.2f);
+        world = model.getWorldCreator().createWorld(gravity);
+        world.setParticleGravityScale(0.4f);
+        world.setParticleDensity(1.2f);
         bomb = null;
         mouseJoint = null;
         mouseTracing = false;
         mouseTracerPosition.setZero();
         mouseTracerVelocity.setZero();
         BodyDef bodyDef = new BodyDef();
-        groundBody = m_world.createBody(bodyDef);
-        init(m_world, false);
+        groundBody = world.createBody(bodyDef);
+        init(world, false);
     }
 
     public void init(World world, boolean deserialized)
     {
-        m_world = world;
+        this.world = world;
         pointCount = 0;
         stepCount = 0;
         bombSpawning = false;
@@ -299,7 +299,7 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
      */
     public World getWorld()
     {
-        return m_world;
+        return world;
     }
 
     /**
@@ -485,12 +485,12 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
             settings.pause = true;
         }
         final DebugDraw debugDraw = model.getDebugDraw();
-        m_textLine = 20;
+        textLine = 20;
         if (title != null)
         {
             debugDraw.drawString(camera.getTransform().getExtents().x, 15,
                     title, Color3f.WHITE);
-            m_textLine += TEXT_LINE_SPACE;
+            textLine += TEXT_LINE_SPACE;
         }
         if (settings.pause)
         {
@@ -502,9 +502,8 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
             {
                 timeStep = 0;
             }
-            debugDraw.drawString(5, m_textLine, "****PAUSED****",
-                    Color3f.WHITE);
-            m_textLine += TEXT_LINE_SPACE;
+            debugDraw.drawString(5, textLine, "****PAUSED****", Color3f.WHITE);
+            textLine += TEXT_LINE_SPACE;
         }
         int flags = 0;
         flags += settings.getSetting(TestbedSettings.DrawShapes).enabled
@@ -526,75 +525,75 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
                 ? DebugDraw.e_wireframeDrawingBit
                 : 0;
         debugDraw.setFlags(flags);
-        m_world.setAllowSleep(
+        world.setAllowSleep(
                 settings.getSetting(TestbedSettings.AllowSleep).enabled);
-        m_world.setWarmStarting(
+        world.setWarmStarting(
                 settings.getSetting(TestbedSettings.WarmStarting).enabled);
-        m_world.setSubStepping(
+        world.setSubStepping(
                 settings.getSetting(TestbedSettings.SubStepping).enabled);
-        m_world.setContinuousPhysics(settings
+        world.setContinuousPhysics(settings
                 .getSetting(TestbedSettings.ContinuousCollision).enabled);
         pointCount = 0;
-        m_world.step(timeStep,
+        world.step(timeStep,
                 settings.getSetting(TestbedSettings.VelocityIterations).value,
                 settings.getSetting(TestbedSettings.PositionIterations).value);
-        m_world.drawDebugData();
+        world.drawDebugData();
         if (timeStep > 0f)
         {
             ++stepCount;
         }
-        debugDraw.drawString(5, m_textLine, "Engine Info", color4);
-        m_textLine += TEXT_LINE_SPACE;
-        debugDraw.drawString(5, m_textLine,
+        debugDraw.drawString(5, textLine, "Engine Info", color4);
+        textLine += TEXT_LINE_SPACE;
+        debugDraw.drawString(5, textLine,
                 "Framerate: " + (int) model.getCalculatedFps(), Color3f.WHITE);
-        m_textLine += TEXT_LINE_SPACE;
+        textLine += TEXT_LINE_SPACE;
         if (settings.getSetting(TestbedSettings.DrawStats).enabled)
         {
-            int particleCount = m_world.getParticleCount();
-            int groupCount = m_world.getParticleGroupCount();
-            debugDraw.drawString(5, m_textLine,
+            int particleCount = world.getParticleCount();
+            int groupCount = world.getParticleGroupCount();
+            debugDraw.drawString(5, textLine,
                     "bodies/contacts/joints/proxies/particles/groups = "
-                            + m_world.getBodyCount() + "/"
-                            + m_world.getContactCount() + "/"
-                            + m_world.getJointCount() + "/"
-                            + m_world.getProxyCount() + "/" + particleCount
-                            + "/" + groupCount,
+                            + world.getBodyCount() + "/"
+                            + world.getContactCount() + "/"
+                            + world.getJointCount() + "/"
+                            + world.getProxyCount() + "/" + particleCount + "/"
+                            + groupCount,
                     Color3f.WHITE);
-            m_textLine += TEXT_LINE_SPACE;
-            debugDraw.drawString(5, m_textLine,
+            textLine += TEXT_LINE_SPACE;
+            debugDraw.drawString(5, textLine,
                     "World mouse position: " + mouseWorld.toString(),
                     Color3f.WHITE);
-            m_textLine += TEXT_LINE_SPACE;
+            textLine += TEXT_LINE_SPACE;
             statsList.clear();
             Profile p = getWorld().getProfile();
             p.toDebugStrings(statsList);
             for (String s : statsList)
             {
-                debugDraw.drawString(5, m_textLine, s, Color3f.WHITE);
-                m_textLine += TEXT_LINE_SPACE;
+                debugDraw.drawString(5, textLine, s, Color3f.WHITE);
+                textLine += TEXT_LINE_SPACE;
             }
-            m_textLine += TEXT_SECTION_SPACE;
+            textLine += TEXT_SECTION_SPACE;
         }
         if (settings.getSetting(TestbedSettings.DrawHelp).enabled)
         {
-            debugDraw.drawString(5, m_textLine, "Help", color4);
-            m_textLine += TEXT_LINE_SPACE;
+            debugDraw.drawString(5, textLine, "Help", color4);
+            textLine += TEXT_LINE_SPACE;
             List<String> help = model.getImplSpecificHelp();
             for (String string : help)
             {
-                debugDraw.drawString(5, m_textLine, string, Color3f.WHITE);
-                m_textLine += TEXT_LINE_SPACE;
+                debugDraw.drawString(5, textLine, string, Color3f.WHITE);
+                textLine += TEXT_LINE_SPACE;
             }
-            m_textLine += TEXT_SECTION_SPACE;
+            textLine += TEXT_SECTION_SPACE;
         }
         if (!textList.isEmpty())
         {
-            debugDraw.drawString(5, m_textLine, "Test Info", color4);
-            m_textLine += TEXT_LINE_SPACE;
+            debugDraw.drawString(5, textLine, "Test Info", color4);
+            textLine += TEXT_LINE_SPACE;
             for (String s : textList)
             {
-                debugDraw.drawString(5, m_textLine, s, Color3f.WHITE);
-                m_textLine += TEXT_LINE_SPACE;
+                debugDraw.drawString(5, textLine, s, Color3f.WHITE);
+                textLine += TEXT_LINE_SPACE;
             }
             textList.clear();
         }
@@ -611,11 +610,11 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
             mouseTracerVelocity.y += timeStep * acceleration.y;
             mouseTracerPosition.x += timeStep * mouseTracerVelocity.x;
             mouseTracerPosition.y += timeStep * mouseTracerVelocity.y;
-            pshape.m_p.set(mouseTracerPosition);
+            pshape.p.set(mouseTracerPosition);
             pshape.radius = 2;
-            pcallback.init(m_world, pshape, mouseTracerVelocity);
+            pcallback.init(world, pshape, mouseTracerVelocity);
             pshape.computeAABB(paabb, identity, 0);
-            m_world.queryAABB(pcallback, paabb);
+            world.queryAABB(pcallback, paabb);
         }
         if (mouseJoint != null)
         {
@@ -742,7 +741,7 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
         queryAABB.upperBound.set(p.x + .001f, p.y + .001f);
         callback.point.set(p);
         callback.fixture = null;
-        m_world.queryAABB(callback, queryAABB);
+        world.queryAABB(callback, queryAABB);
         if (callback.fixture != null)
         {
             Body body = callback.fixture.getBody();
@@ -752,7 +751,7 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
             def.collideConnected = true;
             def.target.set(p);
             def.maxForce = 1000f * body.getMass();
-            mouseJoint = (MouseJoint) m_world.createJoint(def);
+            mouseJoint = (MouseJoint) world.createJoint(def);
             body.setAwake(true);
         }
     }
@@ -769,7 +768,7 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
     {
         if (mouseJoint != null)
         {
-            m_world.destroyJoint(mouseJoint);
+            world.destroyJoint(mouseJoint);
             mouseJoint = null;
         }
     }
@@ -792,7 +791,7 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
     {
         if (bomb != null)
         {
-            m_world.destroyBody(bomb);
+            world.destroyBody(bomb);
             bomb = null;
         }
         // todo optimize this
@@ -800,7 +799,7 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
         bd.type = BodyType.DYNAMIC;
         bd.position.set(position);
         bd.bullet = true;
-        bomb = m_world.createBody(bd);
+        bomb = world.createBody(bd);
         bomb.setLinearVelocity(velocity);
         CircleShape circle = new CircleShape();
         circle.radius = 0.3f;

@@ -16,11 +16,11 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
 public class MotorTest extends TestbedTest
 {
-    MotorJoint m_joint;
+    MotorJoint joint;
 
-    float m_time;
+    float time;
 
-    boolean m_go;
+    boolean go;
 
     @Override
     public void initTest(boolean deserialized)
@@ -49,10 +49,10 @@ public class MotorTest extends TestbedTest
             mjd.initialize(getGroundBody(), body);
             mjd.maxForce = 1000.0f;
             mjd.maxTorque = 1000.0f;
-            m_joint = (MotorJoint) m_world.createJoint(mjd);
+            joint = (MotorJoint) world.createJoint(mjd);
         }
-        m_go = false;
-        m_time = 0.0f;
+        go = false;
+        time = 0.0f;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class MotorTest extends TestbedTest
         switch (keyCar)
         {
         case 's':
-            m_go = !m_go;
+            go = !go;
         }
     }
 
@@ -75,15 +75,15 @@ public class MotorTest extends TestbedTest
     public void step(TestbedSettings settings)
     {
         float hz = settings.getSetting(TestbedSettings.Hz).value;
-        if (m_go && hz > 0.0f)
+        if (go && hz > 0.0f)
         {
-            m_time += 1.0f / hz;
+            time += 1.0f / hz;
         }
-        linearOffset.x = 6.0f * MathUtils.sin(2.0f * m_time);
-        linearOffset.y = 8.0f + 4.0f * MathUtils.sin(1.0f * m_time);
-        float angularOffset = 4.0f * m_time;
-        m_joint.setLinearOffset(linearOffset);
-        m_joint.setAngularOffset(angularOffset);
+        linearOffset.x = 6.0f * MathUtils.sin(2.0f * time);
+        linearOffset.y = 8.0f + 4.0f * MathUtils.sin(1.0f * time);
+        float angularOffset = 4.0f * time;
+        joint.setLinearOffset(linearOffset);
+        joint.setAngularOffset(angularOffset);
         getDebugDraw().drawPoint(linearOffset, 4.0f, color);
         super.step(settings);
         addTextLine("Keys: (s) pause");

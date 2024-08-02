@@ -47,7 +47,7 @@ public class ApplyForce extends TestbedTest
 {
     private static final long BODY_TAG = 12;
 
-    Body m_body;
+    Body body;
 
     @Override
     public void initTest(boolean deserialized)
@@ -112,9 +112,9 @@ public class ApplyForce extends TestbedTest
             bd.position.set(0.0f, 2.0f);
             bd.angle = MathUtils.PI;
             bd.allowSleep = false;
-            m_body = getWorld().createBody(bd);
-            m_body.createFixture(sd1);
-            m_body.createFixture(sd2);
+            body = getWorld().createBody(bd);
+            body.createFixture(sd1);
+            body.createFixture(sd2);
         }
         {
             PolygonShape shape = new PolygonShape();
@@ -162,38 +162,38 @@ public class ApplyForce extends TestbedTest
         addTextLine("Use 'wasd' to move, 'e' and 's' drift.");
         if (getModel().getKeys()['w'])
         {
-            Vec2 f = m_body.getWorldVector(new Vec2(0.0f, -30.0f));
-            Vec2 p = m_body.getWorldPoint(
-                    m_body.getLocalCenter().add(new Vec2(0.0f, 2.0f)));
-            m_body.applyForce(f, p);
+            Vec2 f = body.getWorldVector(new Vec2(0.0f, -30.0f));
+            Vec2 p = body.getWorldPoint(
+                    body.getLocalCenter().add(new Vec2(0.0f, 2.0f)));
+            body.applyForce(f, p);
         }
         else if (getModel().getKeys()['q'])
         {
-            Vec2 f = m_body.getWorldVector(new Vec2(0.0f, -30.0f));
-            Vec2 p = m_body.getWorldPoint(
-                    m_body.getLocalCenter().add(new Vec2(-.2f, 0f)));
-            m_body.applyForce(f, p);
+            Vec2 f = body.getWorldVector(new Vec2(0.0f, -30.0f));
+            Vec2 p = body.getWorldPoint(
+                    body.getLocalCenter().add(new Vec2(-.2f, 0f)));
+            body.applyForce(f, p);
         }
         else if (getModel().getKeys()['e'])
         {
-            Vec2 f = m_body.getWorldVector(new Vec2(0.0f, -30.0f));
-            Vec2 p = m_body.getWorldPoint(
-                    m_body.getLocalCenter().add(new Vec2(.2f, 0f)));
-            m_body.applyForce(f, p);
+            Vec2 f = body.getWorldVector(new Vec2(0.0f, -30.0f));
+            Vec2 p = body.getWorldPoint(
+                    body.getLocalCenter().add(new Vec2(.2f, 0f)));
+            body.applyForce(f, p);
         }
         else if (getModel().getKeys()['s'])
         {
-            Vec2 f = m_body.getWorldVector(new Vec2(0.0f, 30.0f));
-            Vec2 p = m_body.getWorldCenter();
-            m_body.applyForce(f, p);
+            Vec2 f = body.getWorldVector(new Vec2(0.0f, 30.0f));
+            Vec2 p = body.getWorldCenter();
+            body.applyForce(f, p);
         }
         if (getModel().getKeys()['a'])
         {
-            m_body.applyTorque(20.0f);
+            body.applyTorque(20.0f);
         }
         if (getModel().getKeys()['d'])
         {
-            m_body.applyTorque(-20.0f);
+            body.applyTorque(-20.0f);
         }
     }
 
@@ -206,7 +206,7 @@ public class ApplyForce extends TestbedTest
     @Override
     public Long getTag(Body body)
     {
-        if (body == m_body)
+        if (body == this.body)
         {
             return BODY_TAG;
         }
@@ -218,7 +218,7 @@ public class ApplyForce extends TestbedTest
     {
         if (tag == BODY_TAG)
         {
-            m_body = body;
+            this.body = body;
         }
         super.processBody(body, tag);
     }

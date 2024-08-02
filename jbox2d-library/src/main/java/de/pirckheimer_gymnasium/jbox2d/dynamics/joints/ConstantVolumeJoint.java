@@ -147,10 +147,10 @@ public class ConstantVolumeJoint extends Joint
         for (int i = 0; i < bodies.length; ++i)
         {
             final int next = (i == bodies.length - 1) ? 0 : i + 1;
-            area += positions[bodies[i].m_islandIndex].c.x
-                    * positions[bodies[next].m_islandIndex].c.y
-                    - positions[bodies[next].m_islandIndex].c.x
-                            * positions[bodies[i].m_islandIndex].c.y;
+            area += positions[bodies[i].islandIndex].c.x
+                    * positions[bodies[next].islandIndex].c.y
+                    - positions[bodies[next].islandIndex].c.x
+                            * positions[bodies[i].islandIndex].c.y;
         }
         area *= .5f;
         return area;
@@ -162,10 +162,10 @@ public class ConstantVolumeJoint extends Joint
         for (int i = 0; i < bodies.length; ++i)
         {
             final int next = (i == bodies.length - 1) ? 0 : i + 1;
-            float dx = positions[bodies[next].m_islandIndex].c.x
-                    - positions[bodies[i].m_islandIndex].c.x;
-            float dy = positions[bodies[next].m_islandIndex].c.y
-                    - positions[bodies[i].m_islandIndex].c.y;
+            float dx = positions[bodies[next].islandIndex].c.x
+                    - positions[bodies[i].islandIndex].c.x;
+            float dy = positions[bodies[next].islandIndex].c.y
+                    - positions[bodies[i].islandIndex].c.y;
             float dist = MathUtils.sqrt(dx * dx + dy * dy);
             if (dist < Settings.EPSILON)
             {
@@ -197,8 +197,8 @@ public class ConstantVolumeJoint extends Joint
             {
                 done = false;
             }
-            positions[bodies[next].m_islandIndex].c.x += delta.x;
-            positions[bodies[next].m_islandIndex].c.y += delta.y;
+            positions[bodies[next].islandIndex].c.x += delta.x;
+            positions[bodies[next].islandIndex].c.y += delta.y;
             // bodies[next].m_linearVelocity.x += delta.x * step.inv_dt;
             // bodies[next].m_linearVelocity.y += delta.y * step.inv_dt;
         }
@@ -217,8 +217,8 @@ public class ConstantVolumeJoint extends Joint
         {
             final int prev = (i == 0) ? bodies.length - 1 : i - 1;
             final int next = (i == bodies.length - 1) ? 0 : i + 1;
-            d[i].set(positions[bodies[next].m_islandIndex].c);
-            d[i].subLocal(positions[bodies[prev].m_islandIndex].c);
+            d[i].set(positions[bodies[next].islandIndex].c);
+            d[i].subLocal(positions[bodies[prev].islandIndex].c);
         }
         if (step.step.warmStarting)
         {
@@ -230,9 +230,9 @@ public class ConstantVolumeJoint extends Joint
             // m_impulse = lambda;
             for (int i = 0; i < bodies.length; ++i)
             {
-                velocities[bodies[i].m_islandIndex].v.x += bodies[i].m_invMass
+                velocities[bodies[i].islandIndex].v.x += bodies[i].invMass
                         * d[i].y * .5f * impulse;
-                velocities[bodies[i].m_islandIndex].v.y += bodies[i].m_invMass
+                velocities[bodies[i].islandIndex].v.y += bodies[i].invMass
                         * -d[i].x * .5f * impulse;
             }
         }
@@ -260,10 +260,10 @@ public class ConstantVolumeJoint extends Joint
         {
             final int prev = (i == 0) ? bodies.length - 1 : i - 1;
             final int next = (i == bodies.length - 1) ? 0 : i + 1;
-            d[i].set(positions[bodies[next].m_islandIndex].c);
-            d[i].subLocal(positions[bodies[prev].m_islandIndex].c);
+            d[i].set(positions[bodies[next].islandIndex].c);
+            d[i].subLocal(positions[bodies[prev].islandIndex].c);
             dotMassSum += (d[i].lengthSquared()) / bodies[i].getMass();
-            crossMassSum += Vec2.cross(velocities[bodies[i].m_islandIndex].v,
+            crossMassSum += Vec2.cross(velocities[bodies[i].islandIndex].v,
                     d[i]);
         }
         float lambda = -2.0f * crossMassSum / dotMassSum;
@@ -274,10 +274,10 @@ public class ConstantVolumeJoint extends Joint
         // System.out.println(m_impulse);
         for (int i = 0; i < bodies.length; ++i)
         {
-            velocities[bodies[i].m_islandIndex].v.x += bodies[i].m_invMass
-                    * d[i].y * .5f * lambda;
-            velocities[bodies[i].m_islandIndex].v.y += bodies[i].m_invMass
-                    * -d[i].x * .5f * lambda;
+            velocities[bodies[i].islandIndex].v.x += bodies[i].invMass * d[i].y
+                    * .5f * lambda;
+            velocities[bodies[i].islandIndex].v.y += bodies[i].invMass * -d[i].x
+                    * .5f * lambda;
         }
     }
 

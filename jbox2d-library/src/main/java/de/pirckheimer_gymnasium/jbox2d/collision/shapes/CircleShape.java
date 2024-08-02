@@ -42,20 +42,20 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
  */
 public class CircleShape extends Shape
 {
-    public final Vec2 m_p;
+    public final Vec2 p;
 
     public CircleShape()
     {
         super(ShapeType.CIRCLE);
-        m_p = new Vec2();
+        p = new Vec2();
         radius = 0;
     }
 
     public final Shape clone()
     {
         CircleShape shape = new CircleShape();
-        shape.m_p.x = m_p.x;
-        shape.m_p.y = m_p.y;
+        shape.p.x = p.x;
+        shape.p.y = p.y;
         shape.radius = radius;
         return shape;
     }
@@ -82,7 +82,7 @@ public class CircleShape extends Shape
      */
     public final Vec2 getSupportVertex(final Vec2 d)
     {
-        return m_p;
+        return p;
     }
 
     /**
@@ -102,7 +102,7 @@ public class CircleShape extends Shape
     public final Vec2 getVertex(final int index)
     {
         assert (index == 0);
-        return m_p;
+        return p;
     }
 
     @Override
@@ -115,8 +115,8 @@ public class CircleShape extends Shape
         // return Vec2.dot(d, d) <= m_radius * m_radius;
         final Rot q = transform.q;
         final Vec2 tp = transform.p;
-        float centerx = -(q.c * m_p.x - q.s * m_p.y + tp.x - p.x);
-        float centery = -(q.s * m_p.x + q.c * m_p.y + tp.y - p.y);
+        float centerx = -(q.c * this.p.x - q.s * this.p.y + tp.x - p.x);
+        float centery = -(q.s * this.p.x + q.c * this.p.y + tp.y - p.y);
         return centerx * centerx + centery * centery <= radius * radius;
     }
 
@@ -125,8 +125,8 @@ public class CircleShape extends Shape
             Vec2 normalOut)
     {
         final Rot xfq = xf.q;
-        float centerx = xfq.c * m_p.x - xfq.s * m_p.y + xf.p.x;
-        float centery = xfq.s * m_p.x + xfq.c * m_p.y + xf.p.y;
+        float centerx = xfq.c * this.p.x - xfq.s * this.p.y + xf.p.x;
+        float centery = xfq.s * this.p.x + xfq.c * this.p.y + xf.p.y;
         float dx = p.x - centerx;
         float dy = p.y - centery;
         float d1 = MathUtils.sqrt(dx * dx + dy * dy);
@@ -149,8 +149,8 @@ public class CircleShape extends Shape
         final Vec2 tp = transform.p;
         // Rot.mulToOutUnsafe(transform.q, m_p, position);
         // position.addLocal(transform.p);
-        final float positionx = tq.c * m_p.x - tq.s * m_p.y + tp.x;
-        final float positiony = tq.s * m_p.x + tq.c * m_p.y + tp.y;
+        final float positionx = tq.c * p.x - tq.s * p.y + tp.x;
+        final float positiony = tq.s * p.x + tq.c * p.y + tp.y;
         final float sx = inputp1.x - positionx;
         final float sy = inputp1.y - positiony;
         // final float b = Vec2.dot(s, s) - m_radius * m_radius;
@@ -189,8 +189,8 @@ public class CircleShape extends Shape
     {
         final Rot tq = transform.q;
         final Vec2 tp = transform.p;
-        final float px = tq.c * m_p.x - tq.s * m_p.y + tp.x;
-        final float py = tq.s * m_p.x + tq.c * m_p.y + tp.y;
+        final float px = tq.c * p.x - tq.s * p.y + tp.x;
+        final float py = tq.s * p.x + tq.c * p.y + tp.y;
         aabb.lowerBound.x = px - radius;
         aabb.lowerBound.y = py - radius;
         aabb.upperBound.x = px + radius;
@@ -201,12 +201,12 @@ public class CircleShape extends Shape
     public final void computeMass(final MassData massData, final float density)
     {
         massData.mass = density * Settings.PI * radius * radius;
-        massData.center.x = m_p.x;
-        massData.center.y = m_p.y;
+        massData.center.x = p.x;
+        massData.center.y = p.y;
         // inertia about the local origin
         // massData.I = massData.mass * (0.5f * m_radius * m_radius +
         // Vec2.dot(m_p, m_p));
         massData.I = massData.mass
-                * (0.5f * radius * radius + (m_p.x * m_p.x + m_p.y * m_p.y));
+                * (0.5f * radius * radius + (p.x * p.x + p.y * p.y));
     }
 }

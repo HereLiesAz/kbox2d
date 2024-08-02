@@ -46,24 +46,24 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
  */
 public class EdgeShapes extends TestbedTest
 {
-    int e_maxBodies = 256;
+    int maxBodies = 256;
 
-    int m_bodyIndex;
+    int bodyIndex;
 
-    Body m_bodies[] = new Body[e_maxBodies];
+    Body bodies[] = new Body[maxBodies];
 
-    PolygonShape m_polygons[] = new PolygonShape[4];
+    PolygonShape polygons[] = new PolygonShape[4];
 
-    CircleShape m_circle;
+    CircleShape circle;
 
-    float m_angle;
+    float angle;
 
     @Override
     public void initTest(boolean argDeserialized)
     {
-        for (int i = 0; i < m_bodies.length; i++)
+        for (int i = 0; i < bodies.length; i++)
         {
-            m_bodies[i] = null;
+            bodies[i] = null;
         }
         // Ground body
         {
@@ -87,16 +87,16 @@ public class EdgeShapes extends TestbedTest
             vertices[0] = new Vec2(-0.5f, 0.0f);
             vertices[1] = new Vec2(0.5f, 0.0f);
             vertices[2] = new Vec2(0.0f, 1.5f);
-            m_polygons[0] = new PolygonShape();
-            m_polygons[0].set(vertices, 3);
+            polygons[0] = new PolygonShape();
+            polygons[0].set(vertices, 3);
         }
         {
             Vec2 vertices[] = new Vec2[3];
             vertices[0] = new Vec2(-0.1f, 0.0f);
             vertices[1] = new Vec2(0.1f, 0.0f);
             vertices[2] = new Vec2(0.0f, 1.5f);
-            m_polygons[1] = new PolygonShape();
-            m_polygons[1].set(vertices, 3);
+            polygons[1] = new PolygonShape();
+            polygons[1].set(vertices, 3);
         }
         {
             float w = 1.0f;
@@ -111,27 +111,27 @@ public class EdgeShapes extends TestbedTest
             vertices[5] = new Vec2(-0.5f * w, b + s);
             vertices[6] = new Vec2(-0.5f * w, b);
             vertices[7] = new Vec2(-0.5f * s, 0.0f);
-            m_polygons[2] = new PolygonShape();
-            m_polygons[2].set(vertices, 8);
+            polygons[2] = new PolygonShape();
+            polygons[2].set(vertices, 8);
         }
         {
-            m_polygons[3] = new PolygonShape();
-            m_polygons[3].setAsBox(0.5f, 0.5f);
+            polygons[3] = new PolygonShape();
+            polygons[3].setAsBox(0.5f, 0.5f);
         }
         {
-            m_circle = new CircleShape();
-            m_circle.radius = 0.5f;
+            circle = new CircleShape();
+            circle.radius = 0.5f;
         }
-        m_bodyIndex = 0;
-        m_angle = 0.0f;
+        bodyIndex = 0;
+        angle = 0.0f;
     }
 
     void Create(int index)
     {
-        if (m_bodies[m_bodyIndex] != null)
+        if (bodies[bodyIndex] != null)
         {
-            getWorld().destroyBody(m_bodies[m_bodyIndex]);
-            m_bodies[m_bodyIndex] = null;
+            getWorld().destroyBody(bodies[bodyIndex]);
+            bodies[bodyIndex] = null;
         }
         BodyDef bd = new BodyDef();
         float x = MathUtils.randomFloat(-10.0f, 10.0f);
@@ -143,34 +143,34 @@ public class EdgeShapes extends TestbedTest
         {
             bd.angularDamping = 0.02f;
         }
-        m_bodies[m_bodyIndex] = getWorld().createBody(bd);
+        bodies[bodyIndex] = getWorld().createBody(bd);
         if (index < 4)
         {
             FixtureDef fd = new FixtureDef();
-            fd.shape = m_polygons[index];
+            fd.shape = polygons[index];
             fd.friction = 0.3f;
             fd.density = 20.0f;
-            m_bodies[m_bodyIndex].createFixture(fd);
+            bodies[bodyIndex].createFixture(fd);
         }
         else
         {
             FixtureDef fd = new FixtureDef();
-            fd.shape = m_circle;
+            fd.shape = circle;
             fd.friction = 0.3f;
             fd.density = 20.0f;
-            m_bodies[m_bodyIndex].createFixture(fd);
+            bodies[bodyIndex].createFixture(fd);
         }
-        m_bodyIndex = (m_bodyIndex + 1) % e_maxBodies;
+        bodyIndex = (bodyIndex + 1) % maxBodies;
     }
 
     void DestroyBody()
     {
-        for (int i = 0; i < e_maxBodies; ++i)
+        for (int i = 0; i < maxBodies; ++i)
         {
-            if (m_bodies[i] != null)
+            if (bodies[i] != null)
             {
-                getWorld().destroyBody(m_bodies[i]);
-                m_bodies[i] = null;
+                getWorld().destroyBody(bodies[i]);
+                bodies[i] = null;
                 return;
             }
         }
@@ -205,8 +205,8 @@ public class EdgeShapes extends TestbedTest
         addTextLine("Press 1-5 to drop stuff");
         float L = 25.0f;
         Vec2 point1 = new Vec2(0.0f, 10.0f);
-        Vec2 d = new Vec2(L * MathUtils.cos(m_angle),
-                -L * MathUtils.abs(MathUtils.sin(m_angle)));
+        Vec2 d = new Vec2(L * MathUtils.cos(angle),
+                -L * MathUtils.abs(MathUtils.sin(angle)));
         Vec2 point2 = point1.add(d);
         callback.m_fixture = null;
         getWorld().raycast(callback, point1, point2);
@@ -227,7 +227,7 @@ public class EdgeShapes extends TestbedTest
         }
         if (advanceRay)
         {
-            m_angle += 0.25f * MathUtils.PI / 180.0f;
+            angle += 0.25f * MathUtils.PI / 180.0f;
         }
     }
 

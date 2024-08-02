@@ -14,9 +14,9 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
 public class WaveMachine extends TestbedTest
 {
-    RevoluteJoint m_joint;
+    RevoluteJoint joint;
 
-    float m_time;
+    float time;
 
     @Override
     public void step(TestbedSettings settings)
@@ -25,9 +25,9 @@ public class WaveMachine extends TestbedTest
         float hz = settings.getSetting(TestbedSettings.Hz).value;
         if (hz > 0)
         {
-            m_time += 1 / hz;
+            time += 1 / hz;
         }
-        m_joint.setMotorSpeed(0.05f * MathUtils.cos(m_time) * MathUtils.PI);
+        joint.setMotorSpeed(0.05f * MathUtils.cos(time) * MathUtils.PI);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class WaveMachine extends TestbedTest
             bd.type = BodyType.DYNAMIC;
             bd.allowSleep = false;
             bd.position.set(0.0f, 10.0f);
-            Body body = m_world.createBody(bd);
+            Body body = world.createBody(bd);
             PolygonShape shape = new PolygonShape();
             shape.setAsBox(0.5f, 10.0f, new Vec2(20.0f, 0.0f), 0.0f);
             body.createFixture(shape, 5.0f);
@@ -57,19 +57,19 @@ public class WaveMachine extends TestbedTest
             jd.motorSpeed = 0.05f * MathUtils.PI;
             jd.maxMotorTorque = 1e7f;
             jd.enableMotor = true;
-            m_joint = (RevoluteJoint) m_world.createJoint(jd);
+            joint = (RevoluteJoint) world.createJoint(jd);
         }
-        m_world.setParticleRadius(0.15f);
-        m_world.setParticleDamping(0.2f);
+        world.setParticleRadius(0.15f);
+        world.setParticleDamping(0.2f);
         {
             ParticleGroupDef pd = new ParticleGroupDef();
             pd.flags = 0;
             PolygonShape shape = new PolygonShape();
             shape.setAsBox(9.0f, 9.0f, new Vec2(0.0f, 10.0f), 0.0f);
             pd.shape = shape;
-            m_world.createParticleGroup(pd);
+            world.createParticleGroup(pd);
         }
-        m_time = 0;
+        time = 0;
     }
 
     @Override

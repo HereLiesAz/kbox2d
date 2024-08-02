@@ -168,10 +168,10 @@ public class MouseJoint extends Joint
     @Override
     public void initVelocityConstraints(final SolverData data)
     {
-        indexB = bodyB.m_islandIndex;
-        localCenterB.set(bodyB.m_sweep.localCenter);
-        invMassB = bodyB.m_invMass;
-        invIB = bodyB.m_invI;
+        indexB = bodyB.islandIndex;
+        localCenterB.set(bodyB.sweep.localCenter);
+        invMassB = bodyB.invMass;
+        invIB = bodyB.invI;
         Vec2 cB = data.positions[indexB].c;
         float aB = data.positions[indexB].a;
         Vec2 vB = data.velocities[indexB].v;

@@ -44,23 +44,23 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
  */
 public class Breakable extends TestbedTest
 {
-    Body m_body1;
+    Body body1;
 
-    Vec2 m_velocity = new Vec2();
+    Vec2 velocity = new Vec2();
 
-    float m_angularVelocity;
+    float angularVelocity;
 
-    PolygonShape m_shape1;
+    PolygonShape shape1;
 
-    PolygonShape m_shape2;
+    PolygonShape shape2;
 
-    Fixture m_piece1;
+    Fixture piece1;
 
-    Fixture m_piece2;
+    Fixture piece2;
 
-    boolean m_broke;
+    boolean broke;
 
-    boolean m_break;
+    boolean doBreak;
 
     @Override
     public void initTest(boolean argDeserialized)
@@ -79,22 +79,22 @@ public class Breakable extends TestbedTest
             bd.type = BodyType.DYNAMIC;
             bd.position.set(0.0f, 40.0f);
             bd.angle = 0.25f * MathUtils.PI;
-            m_body1 = getWorld().createBody(bd);
-            m_shape1 = new PolygonShape();
-            m_shape1.setAsBox(0.5f, 0.5f, new Vec2(-0.5f, 0.0f), 0.0f);
-            m_piece1 = m_body1.createFixture(m_shape1, 1.0f);
-            m_shape2 = new PolygonShape();
-            m_shape2.setAsBox(0.5f, 0.5f, new Vec2(0.5f, 0.0f), 0.0f);
-            m_piece2 = m_body1.createFixture(m_shape2, 1.0f);
+            body1 = getWorld().createBody(bd);
+            shape1 = new PolygonShape();
+            shape1.setAsBox(0.5f, 0.5f, new Vec2(-0.5f, 0.0f), 0.0f);
+            piece1 = body1.createFixture(shape1, 1.0f);
+            shape2 = new PolygonShape();
+            shape2.setAsBox(0.5f, 0.5f, new Vec2(0.5f, 0.0f), 0.0f);
+            piece2 = body1.createFixture(shape2, 1.0f);
         }
-        m_break = false;
-        m_broke = false;
+        doBreak = false;
+        broke = false;
     }
 
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse)
     {
-        if (m_broke)
+        if (broke)
         {
             // The body already broke.
             return;
@@ -109,34 +109,34 @@ public class Breakable extends TestbedTest
         if (maxImpulse > 40.0f)
         {
             // Flag the body for breaking.
-            m_break = true;
+            doBreak = true;
         }
     }
 
     void Break()
     {
         // Create two bodies from one.
-        Body body1 = m_piece1.getBody();
+        Body body1 = piece1.getBody();
         Vec2 center = body1.getWorldCenter();
-        body1.destroyFixture(m_piece2);
-        m_piece2 = null;
+        body1.destroyFixture(piece2);
+        piece2 = null;
         BodyDef bd = new BodyDef();
         bd.type = BodyType.DYNAMIC;
         bd.position = body1.getPosition();
         bd.angle = body1.getAngle();
         Body body2 = getWorld().createBody(bd);
-        m_piece2 = body2.createFixture(m_shape2, 1.0f);
+        piece2 = body2.createFixture(shape2, 1.0f);
         // Compute consistent velocities for new bodies based on
         // cached velocity.
         Vec2 center1 = body1.getWorldCenter();
         Vec2 center2 = body2.getWorldCenter();
-        Vec2 velocity1 = m_velocity
-                .add(Vec2.cross(m_angularVelocity, center1.sub(center)));
-        Vec2 velocity2 = m_velocity
-                .add(Vec2.cross(m_angularVelocity, center2.sub(center)));
-        body1.setAngularVelocity(m_angularVelocity);
+        Vec2 velocity1 = velocity
+                .add(Vec2.cross(angularVelocity, center1.sub(center)));
+        Vec2 velocity2 = velocity
+                .add(Vec2.cross(angularVelocity, center2.sub(center)));
+        body1.setAngularVelocity(angularVelocity);
         body1.setLinearVelocity(velocity1);
-        body2.setAngularVelocity(m_angularVelocity);
+        body2.setAngularVelocity(angularVelocity);
         body2.setLinearVelocity(velocity2);
     }
 
@@ -144,17 +144,17 @@ public class Breakable extends TestbedTest
     public void step(TestbedSettings settings)
     {
         super.step(settings);
-        if (m_break)
+        if (doBreak)
         {
             Break();
-            m_broke = true;
-            m_break = false;
+            broke = true;
+            doBreak = false;
         }
         // Cache velocities to improve movement on breakage.
-        if (m_broke == false)
+        if (broke == false)
         {
-            m_velocity.set(m_body1.getLinearVelocity());
-            m_angularVelocity = m_body1.getAngularVelocity();
+            velocity.set(body1.getLinearVelocity());
+            angularVelocity = body1.getAngularVelocity();
         }
     }
 

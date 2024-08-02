@@ -43,15 +43,15 @@ public class CircleContact extends Contact
     public void init(Fixture fixtureA, Fixture fixtureB)
     {
         super.init(fixtureA, 0, fixtureB, 0);
-        assert (m_fixtureA.getType() == ShapeType.CIRCLE);
-        assert (m_fixtureB.getType() == ShapeType.CIRCLE);
+        assert (this.fixtureA.getType() == ShapeType.CIRCLE);
+        assert (this.fixtureB.getType() == ShapeType.CIRCLE);
     }
 
     @Override
     public void evaluate(Manifold manifold, Transform xfA, Transform xfB)
     {
         pool.getCollision().collideCircles(manifold,
-                (CircleShape) m_fixtureA.getShape(), xfA,
-                (CircleShape) m_fixtureB.getShape(), xfB);
+                (CircleShape) fixtureA.getShape(), xfA,
+                (CircleShape) fixtureB.getShape(), xfB);
     }
 }

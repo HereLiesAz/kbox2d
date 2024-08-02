@@ -15,7 +15,7 @@ public class VoronoiDiagram
 
     public static class VoronoiDiagramTask
     {
-        int m_x, m_y, m_i;
+        int x, y, i;
 
         Generator m_generator;
 
@@ -25,17 +25,17 @@ public class VoronoiDiagram
 
         public VoronoiDiagramTask(int x, int y, int i, Generator g)
         {
-            m_x = x;
-            m_y = y;
-            m_i = i;
+            this.x = x;
+            this.y = y;
+            this.i = i;
             m_generator = g;
         }
 
         public VoronoiDiagramTask set(int x, int y, int i, Generator g)
         {
-            m_x = x;
-            m_y = y;
-            m_i = i;
+            this.x = x;
+            this.y = y;
+            this.i = i;
             m_generator = g;
             return this;
         }
@@ -46,39 +46,39 @@ public class VoronoiDiagram
         void callback(int aTag, int bTag, int cTag);
     }
 
-    private Generator[] m_generatorBuffer;
+    private Generator[] generatorBuffer;
 
-    private int m_generatorCount;
+    private int generatorCount;
 
-    private int m_countX, m_countY;
+    private int countX, countY;
 
     // The diagram is an array of "pointers".
-    private Generator[] m_diagram;
+    private Generator[] diagram;
 
     public VoronoiDiagram(int generatorCapacity)
     {
-        m_generatorBuffer = new Generator[generatorCapacity];
+        generatorBuffer = new Generator[generatorCapacity];
         for (int i = 0; i < generatorCapacity; i++)
         {
-            m_generatorBuffer[i] = new Generator();
+            generatorBuffer[i] = new Generator();
         }
-        m_generatorCount = 0;
-        m_countX = 0;
-        m_countY = 0;
-        m_diagram = null;
+        generatorCount = 0;
+        countX = 0;
+        countY = 0;
+        diagram = null;
     }
 
     public void getNodes(VoronoiDiagramCallback callback)
     {
-        for (int y = 0; y < m_countY - 1; y++)
+        for (int y = 0; y < countY - 1; y++)
         {
-            for (int x = 0; x < m_countX - 1; x++)
+            for (int x = 0; x < countX - 1; x++)
             {
-                int i = x + y * m_countX;
-                Generator a = m_diagram[i];
-                Generator b = m_diagram[i + 1];
-                Generator c = m_diagram[i + m_countX];
-                Generator d = m_diagram[i + 1 + m_countX];
+                int i = x + y * countX;
+                Generator a = diagram[i];
+                Generator b = diagram[i + 1];
+                Generator c = diagram[i + countX];
+                Generator d = diagram[i + 1 + countX];
                 if (b != c)
                 {
                     if (a != b && a != c)
@@ -96,7 +96,7 @@ public class VoronoiDiagram
 
     public void addGenerator(Vec2 center, int tag)
     {
-        Generator g = m_generatorBuffer[m_generatorCount++];
+        Generator g = generatorBuffer[generatorCount++];
         g.center.x = center.x;
         g.center.y = center.y;
         g.tag = tag;
@@ -126,72 +126,72 @@ public class VoronoiDiagram
 
     public void generate(float radius)
     {
-        assert (m_diagram == null);
+        assert (diagram == null);
         float inverseRadius = 1 / radius;
         lower.x = Float.MAX_VALUE;
         lower.y = Float.MAX_VALUE;
         upper.x = -Float.MAX_VALUE;
         upper.y = -Float.MAX_VALUE;
-        for (int k = 0; k < m_generatorCount; k++)
+        for (int k = 0; k < generatorCount; k++)
         {
-            Generator g = m_generatorBuffer[k];
+            Generator g = generatorBuffer[k];
             Vec2.minToOut(lower, g.center, lower);
             Vec2.maxToOut(upper, g.center, upper);
         }
-        m_countX = 1 + (int) (inverseRadius * (upper.x - lower.x));
-        m_countY = 1 + (int) (inverseRadius * (upper.y - lower.y));
-        m_diagram = new Generator[m_countX * m_countY];
-        queue.reset(new VoronoiDiagramTask[4 * m_countX * m_countX]);
-        for (int k = 0; k < m_generatorCount; k++)
+        countX = 1 + (int) (inverseRadius * (upper.x - lower.x));
+        countY = 1 + (int) (inverseRadius * (upper.y - lower.y));
+        diagram = new Generator[countX * countY];
+        queue.reset(new VoronoiDiagramTask[4 * countX * countX]);
+        for (int k = 0; k < generatorCount; k++)
         {
-            Generator g = m_generatorBuffer[k];
+            Generator g = generatorBuffer[k];
             g.center.x = inverseRadius * (g.center.x - lower.x);
             g.center.y = inverseRadius * (g.center.y - lower.y);
             int x = MathUtils.max(0,
-                    MathUtils.min((int) g.center.x, m_countX - 1));
+                    MathUtils.min((int) g.center.x, countX - 1));
             int y = MathUtils.max(0,
-                    MathUtils.min((int) g.center.y, m_countY - 1));
-            queue.push(taskPool.pop().set(x, y, x + y * m_countX, g));
+                    MathUtils.min((int) g.center.y, countY - 1));
+            queue.push(taskPool.pop().set(x, y, x + y * countX, g));
         }
         while (!queue.empty())
         {
             VoronoiDiagramTask front = queue.pop();
-            int x = front.m_x;
-            int y = front.m_y;
-            int i = front.m_i;
+            int x = front.x;
+            int y = front.y;
+            int i = front.i;
             Generator g = front.m_generator;
-            if (m_diagram[i] == null)
+            if (diagram[i] == null)
             {
-                m_diagram[i] = g;
+                diagram[i] = g;
                 if (x > 0)
                 {
                     queue.push(taskPool.pop().set(x - 1, y, i - 1, g));
                 }
                 if (y > 0)
                 {
-                    queue.push(taskPool.pop().set(x, y - 1, i - m_countX, g));
+                    queue.push(taskPool.pop().set(x, y - 1, i - countX, g));
                 }
-                if (x < m_countX - 1)
+                if (x < countX - 1)
                 {
                     queue.push(taskPool.pop().set(x + 1, y, i + 1, g));
                 }
-                if (y < m_countY - 1)
+                if (y < countY - 1)
                 {
-                    queue.push(taskPool.pop().set(x, y + 1, i + m_countX, g));
+                    queue.push(taskPool.pop().set(x, y + 1, i + countX, g));
                 }
             }
             taskPool.push(front);
         }
-        int maxIteration = m_countX + m_countY;
+        int maxIteration = countX + countY;
         for (int iteration = 0; iteration < maxIteration; iteration++)
         {
-            for (int y = 0; y < m_countY; y++)
+            for (int y = 0; y < countY; y++)
             {
-                for (int x = 0; x < m_countX - 1; x++)
+                for (int x = 0; x < countX - 1; x++)
                 {
-                    int i = x + y * m_countX;
-                    Generator a = m_diagram[i];
-                    Generator b = m_diagram[i + 1];
+                    int i = x + y * countX;
+                    Generator a = diagram[i];
+                    Generator b = diagram[i + 1];
                     if (a != b)
                     {
                         queue.push(taskPool.pop().set(x, y, i, b));
@@ -199,18 +199,17 @@ public class VoronoiDiagram
                     }
                 }
             }
-            for (int y = 0; y < m_countY - 1; y++)
+            for (int y = 0; y < countY - 1; y++)
             {
-                for (int x = 0; x < m_countX; x++)
+                for (int x = 0; x < countX; x++)
                 {
-                    int i = x + y * m_countX;
-                    Generator a = m_diagram[i];
-                    Generator b = m_diagram[i + m_countX];
+                    int i = x + y * countX;
+                    Generator a = diagram[i];
+                    Generator b = diagram[i + countX];
                     if (a != b)
                     {
                         queue.push(taskPool.pop().set(x, y, i, b));
-                        queue.push(
-                                taskPool.pop().set(x, y + 1, i + m_countX, a));
+                        queue.push(taskPool.pop().set(x, y + 1, i + countX, a));
                     }
                 }
             }
@@ -218,11 +217,11 @@ public class VoronoiDiagram
             while (!queue.empty())
             {
                 VoronoiDiagramTask front = queue.pop();
-                int x = front.m_x;
-                int y = front.m_y;
-                int i = front.m_i;
+                int x = front.x;
+                int y = front.y;
+                int i = front.i;
                 Generator k = front.m_generator;
-                Generator a = m_diagram[i];
+                Generator a = diagram[i];
                 Generator b = k;
                 if (a != b)
                 {
@@ -234,24 +233,24 @@ public class VoronoiDiagram
                     float b2 = bx * bx + by * by;
                     if (a2 > b2)
                     {
-                        m_diagram[i] = b;
+                        diagram[i] = b;
                         if (x > 0)
                         {
                             queue.push(taskPool.pop().set(x - 1, y, i - 1, b));
                         }
                         if (y > 0)
                         {
-                            queue.push(taskPool.pop().set(x, y - 1,
-                                    i - m_countX, b));
+                            queue.push(taskPool.pop().set(x, y - 1, i - countX,
+                                    b));
                         }
-                        if (x < m_countX - 1)
+                        if (x < countX - 1)
                         {
                             queue.push(taskPool.pop().set(x + 1, y, i + 1, b));
                         }
-                        if (y < m_countY - 1)
+                        if (y < countY - 1)
                         {
-                            queue.push(taskPool.pop().set(x, y + 1,
-                                    i + m_countX, b));
+                            queue.push(taskPool.pop().set(x, y + 1, i + countX,
+                                    b));
                         }
                         updated = true;
                     }

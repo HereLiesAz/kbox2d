@@ -15,9 +15,9 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
 public class RopeTest extends TestbedTest
 {
-    RopeJointDef m_ropeDef;
+    RopeJointDef ropeDef;
 
-    Joint m_rope;
+    Joint rope;
 
     @Override
     public void initTest(boolean deserialized)
@@ -47,8 +47,8 @@ public class RopeTest extends TestbedTest
             jd.collideConnected = false;
             final int N = 10;
             final float y = 15.0f;
-            m_ropeDef = new RopeJointDef();
-            m_ropeDef.localAnchorA.set(0.0f, y);
+            ropeDef = new RopeJointDef();
+            ropeDef.localAnchorA.set(0.0f, y);
             Body prevBody = ground;
             for (int i = 0; i < N; ++i)
             {
@@ -70,14 +70,14 @@ public class RopeTest extends TestbedTest
                 getWorld().createJoint(jd);
                 prevBody = body;
             }
-            m_ropeDef.localAnchorB.setZero();
+            ropeDef.localAnchorB.setZero();
             float extraLength = 0.01f;
-            m_ropeDef.maxLength = N - 1.0f + extraLength;
-            m_ropeDef.bodyB = prevBody;
+            ropeDef.maxLength = N - 1.0f + extraLength;
+            ropeDef.bodyB = prevBody;
         }
         {
-            m_ropeDef.bodyA = ground;
-            m_rope = getWorld().createJoint(m_ropeDef);
+            ropeDef.bodyA = ground;
+            rope = getWorld().createJoint(ropeDef);
         }
     }
 
@@ -87,14 +87,14 @@ public class RopeTest extends TestbedTest
         switch (keyChar)
         {
         case 'j':
-            if (m_rope != null)
+            if (rope != null)
             {
-                getWorld().destroyJoint(m_rope);
-                m_rope = null;
+                getWorld().destroyJoint(rope);
+                rope = null;
             }
             else
             {
-                m_rope = getWorld().createJoint(m_ropeDef);
+                rope = getWorld().createJoint(ropeDef);
             }
             break;
         }
@@ -105,8 +105,8 @@ public class RopeTest extends TestbedTest
     {
         super.step(settings);
         addTextLine("Press (j) to toggle the rope joint.");
-        m_textLine += 15;
-        if (m_rope != null)
+        textLine += 15;
+        if (rope != null)
         {
             addTextLine("Rope ON");
         }

@@ -2,13 +2,13 @@ package de.pirckheimer_gymnasium.jbox2d.particle;
 
 public class StackQueue<T>
 {
-    private T[] m_buffer;
+    private T[] buffer;
 
-    private int m_front;
+    private int front;
 
-    private int m_back;
+    private int back;
 
-    private int m_end;
+    private int end;
 
     public StackQueue()
     {
@@ -16,40 +16,40 @@ public class StackQueue<T>
 
     public void reset(T[] buffer)
     {
-        m_buffer = buffer;
-        m_front = 0;
-        m_back = 0;
-        m_end = buffer.length;
+        this.buffer = buffer;
+        front = 0;
+        back = 0;
+        end = buffer.length;
     }
 
     public void push(T task)
     {
-        if (m_back >= m_end)
+        if (back >= end)
         {
-            System.arraycopy(m_buffer, m_front, m_buffer, 0, m_back - m_front);
-            m_back -= m_front;
-            m_front = 0;
-            if (m_back >= m_end)
+            System.arraycopy(buffer, front, buffer, 0, back - front);
+            back -= front;
+            front = 0;
+            if (back >= end)
             {
                 return;
             }
         }
-        m_buffer[m_back++] = task;
+        buffer[back++] = task;
     }
 
     public T pop()
     {
-        assert (m_front < m_back);
-        return m_buffer[m_front++];
+        assert (front < back);
+        return buffer[front++];
     }
 
     public boolean empty()
     {
-        return m_front >= m_back;
+        return front >= back;
     }
 
     public T front()
     {
-        return m_buffer[m_front];
+        return buffer[front];
     }
 }

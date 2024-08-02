@@ -44,23 +44,23 @@ public class Particles extends TestbedTest
                 getGroundBody().createFixture(shape, 0.0f);
             }
         }
-        m_world.setParticleRadius(0.35f);
-        m_world.setParticleDamping(0.2f);
+        world.setParticleRadius(0.35f);
+        world.setParticleDamping(0.2f);
         {
             CircleShape shape = new CircleShape();
-            shape.m_p.set(0, 30);
+            shape.p.set(0, 30);
             shape.radius = 20;
             ParticleGroupDef pd = new ParticleGroupDef();
-            pd.flags = ParticleType.b2_waterParticle;
+            pd.flags = ParticleType.waterParticle;
             pd.shape = shape;
-            m_world.createParticleGroup(pd);
+            world.createParticleGroup(pd);
         }
         {
             BodyDef bd = new BodyDef();
             bd.type = BodyType.DYNAMIC;
-            Body body = m_world.createBody(bd);
+            Body body = world.createBody(bd);
             CircleShape shape = new CircleShape();
-            shape.m_p.set(0, 80);
+            shape.p.set(0, 80);
             shape.radius = 5;
             body.createFixture(shape, 0.5f);
         }

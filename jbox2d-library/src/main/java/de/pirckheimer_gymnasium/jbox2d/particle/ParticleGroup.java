@@ -5,182 +5,182 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 
 public class ParticleGroup
 {
-    ParticleSystem m_system;
+    ParticleSystem system;
 
-    int m_firstIndex;
+    int firstIndex;
 
-    int m_lastIndex;
+    int lastIndex;
 
-    int m_groupFlags;
+    int groupFlags;
 
-    float m_strength;
+    float strength;
 
-    ParticleGroup m_prev;
+    ParticleGroup prev;
 
-    ParticleGroup m_next;
+    ParticleGroup next;
 
-    int m_timestamp;
+    int timestamp;
 
-    float m_mass;
+    float mass;
 
-    float m_inertia;
+    float inertia;
 
-    final Vec2 m_center = new Vec2();
+    final Vec2 center = new Vec2();
 
-    final Vec2 m_linearVelocity = new Vec2();
+    final Vec2 linearVelocity = new Vec2();
 
-    float m_angularVelocity;
+    float angularVelocity;
 
-    final Transform m_transform = new Transform();
+    final Transform transform = new Transform();
 
-    boolean m_destroyAutomatically;
+    boolean destroyAutomatically;
 
-    boolean m_toBeDestroyed;
+    boolean toBeDestroyed;
 
-    boolean m_toBeSplit;
+    boolean toBeSplit;
 
-    Object m_userData;
+    Object userData;
 
     public ParticleGroup()
     {
         // m_system = null;
-        m_firstIndex = 0;
-        m_lastIndex = 0;
-        m_groupFlags = 0;
-        m_strength = 1.0f;
-        m_timestamp = -1;
-        m_mass = 0;
-        m_inertia = 0;
-        m_angularVelocity = 0;
-        m_transform.setIdentity();
-        m_destroyAutomatically = true;
-        m_toBeDestroyed = false;
-        m_toBeSplit = false;
+        firstIndex = 0;
+        lastIndex = 0;
+        groupFlags = 0;
+        strength = 1.0f;
+        timestamp = -1;
+        mass = 0;
+        inertia = 0;
+        angularVelocity = 0;
+        transform.setIdentity();
+        destroyAutomatically = true;
+        toBeDestroyed = false;
+        toBeSplit = false;
     }
 
     public ParticleGroup getNext()
     {
-        return m_next;
+        return next;
     }
 
     public int getParticleCount()
     {
-        return m_lastIndex - m_firstIndex;
+        return lastIndex - firstIndex;
     }
 
     public int getBufferIndex()
     {
-        return m_firstIndex;
+        return firstIndex;
     }
 
     public int getGroupFlags()
     {
-        return m_groupFlags;
+        return groupFlags;
     }
 
     public void setGroupFlags(int flags)
     {
-        m_groupFlags = flags;
+        groupFlags = flags;
     }
 
     public float getMass()
     {
         updateStatistics();
-        return m_mass;
+        return mass;
     }
 
     public float getInertia()
     {
         updateStatistics();
-        return m_inertia;
+        return inertia;
     }
 
     public Vec2 getCenter()
     {
         updateStatistics();
-        return m_center;
+        return center;
     }
 
     public Vec2 getLinearVelocity()
     {
         updateStatistics();
-        return m_linearVelocity;
+        return linearVelocity;
     }
 
     public float getAngularVelocity()
     {
         updateStatistics();
-        return m_angularVelocity;
+        return angularVelocity;
     }
 
     public Transform getTransform()
     {
-        return m_transform;
+        return transform;
     }
 
     public Vec2 getPosition()
     {
-        return m_transform.p;
+        return transform.p;
     }
 
     public float getAngle()
     {
-        return m_transform.q.getAngle();
+        return transform.q.getAngle();
     }
 
     public Object getUserData()
     {
-        return m_userData;
+        return userData;
     }
 
     public void setUserData(Object data)
     {
-        m_userData = data;
+        userData = data;
     }
 
     public void updateStatistics()
     {
-        if (m_timestamp != m_system.m_timestamp)
+        if (timestamp != system.timestamp)
         {
-            float m = m_system.getParticleMass();
-            m_mass = 0;
-            m_center.setZero();
-            m_linearVelocity.setZero();
-            for (int i = m_firstIndex; i < m_lastIndex; i++)
+            float m = system.getParticleMass();
+            mass = 0;
+            center.setZero();
+            linearVelocity.setZero();
+            for (int i = firstIndex; i < lastIndex; i++)
             {
-                m_mass += m;
-                Vec2 pos = m_system.m_positionBuffer.data[i];
-                m_center.x += m * pos.x;
-                m_center.y += m * pos.y;
-                Vec2 vel = m_system.m_velocityBuffer.data[i];
-                m_linearVelocity.x += m * vel.x;
-                m_linearVelocity.y += m * vel.y;
+                mass += m;
+                Vec2 pos = system.positionBuffer.data[i];
+                center.x += m * pos.x;
+                center.y += m * pos.y;
+                Vec2 vel = system.velocityBuffer.data[i];
+                linearVelocity.x += m * vel.x;
+                linearVelocity.y += m * vel.y;
             }
-            if (m_mass > 0)
+            if (mass > 0)
             {
-                m_center.x *= 1 / m_mass;
-                m_center.y *= 1 / m_mass;
-                m_linearVelocity.x *= 1 / m_mass;
-                m_linearVelocity.y *= 1 / m_mass;
+                center.x *= 1 / mass;
+                center.y *= 1 / mass;
+                linearVelocity.x *= 1 / mass;
+                linearVelocity.y *= 1 / mass;
             }
-            m_inertia = 0;
-            m_angularVelocity = 0;
-            for (int i = m_firstIndex; i < m_lastIndex; i++)
+            inertia = 0;
+            angularVelocity = 0;
+            for (int i = firstIndex; i < lastIndex; i++)
             {
-                Vec2 pos = m_system.m_positionBuffer.data[i];
-                Vec2 vel = m_system.m_velocityBuffer.data[i];
-                float px = pos.x - m_center.x;
-                float py = pos.y - m_center.y;
-                float vx = vel.x - m_linearVelocity.x;
-                float vy = vel.y - m_linearVelocity.y;
-                m_inertia += m * (px * px + py * py);
-                m_angularVelocity += m * (px * vy - py * vx);
+                Vec2 pos = system.positionBuffer.data[i];
+                Vec2 vel = system.velocityBuffer.data[i];
+                float px = pos.x - center.x;
+                float py = pos.y - center.y;
+                float vx = vel.x - linearVelocity.x;
+                float vy = vel.y - linearVelocity.y;
+                inertia += m * (px * px + py * py);
+                angularVelocity += m * (px * vy - py * vx);
             }
-            if (m_inertia > 0)
+            if (inertia > 0)
             {
-                m_angularVelocity *= 1 / m_inertia;
+                angularVelocity *= 1 / inertia;
             }
-            m_timestamp = m_system.m_timestamp;
+            timestamp = system.timestamp;
         }
     }
 }

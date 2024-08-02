@@ -44,15 +44,15 @@ public class PolygonAndCircleContact extends Contact
     public void init(Fixture fixtureA, Fixture fixtureB)
     {
         super.init(fixtureA, 0, fixtureB, 0);
-        assert (m_fixtureA.getType() == ShapeType.POLYGON);
-        assert (m_fixtureB.getType() == ShapeType.CIRCLE);
+        assert (this.fixtureA.getType() == ShapeType.POLYGON);
+        assert (this.fixtureB.getType() == ShapeType.CIRCLE);
     }
 
     @Override
     public void evaluate(Manifold manifold, Transform xfA, Transform xfB)
     {
         pool.getCollision().collidePolygonAndCircle(manifold,
-                (PolygonShape) m_fixtureA.getShape(), xfA,
-                (CircleShape) m_fixtureB.getShape(), xfB);
+                (PolygonShape) fixtureA.getShape(), xfA,
+                (CircleShape) fixtureB.getShape(), xfB);
     }
 }

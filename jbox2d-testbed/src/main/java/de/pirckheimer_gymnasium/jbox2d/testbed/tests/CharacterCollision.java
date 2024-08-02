@@ -136,7 +136,7 @@ public class CharacterCollision extends TestbedTest
         // Square made from an edge loop. Collision should be smooth.
         {
             BodyDef bd = new BodyDef();
-            Body ground = m_world.createBody(bd);
+            Body ground = world.createBody(bd);
             Vec2[] vs = new Vec2[4];
             vs[0] = new Vec2(-1.0f, 3.0f);
             vs[1] = new Vec2(1.0f, 3.0f);

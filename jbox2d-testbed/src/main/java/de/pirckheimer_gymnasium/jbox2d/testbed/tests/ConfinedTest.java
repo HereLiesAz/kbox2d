@@ -77,7 +77,7 @@ public class ConfinedTest extends TestbedTest
         }
         float radius = 0.5f;
         CircleShape shape = new CircleShape();
-        shape.m_p.setZero();
+        shape.p.setZero();
         shape.radius = radius;
         FixtureDef fd = new FixtureDef();
         fd.shape = shape;
@@ -102,7 +102,7 @@ public class ConfinedTest extends TestbedTest
     {
         float radius = 2.0f;
         CircleShape shape = new CircleShape();
-        shape.m_p.setZero();
+        shape.p.setZero();
         shape.radius = radius;
         FixtureDef fd = new FixtureDef();
         fd.shape = shape;

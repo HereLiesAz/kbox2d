@@ -72,7 +72,7 @@ public class SphereStack extends TestbedTest
                 bd.position.set(0.0f, 4.0f + 3.0f * i);
                 bodies[i] = getWorld().createBody(bd);
                 bodies[i].createFixture(shape, 1.0f);
-                // m_bodies[i].setLinearVelocity(new Vec2(0.0f, -100.0f));
+                // bodies[i].setLinearVelocity(new Vec2(0.0f, -100.0f));
             }
         }
     }

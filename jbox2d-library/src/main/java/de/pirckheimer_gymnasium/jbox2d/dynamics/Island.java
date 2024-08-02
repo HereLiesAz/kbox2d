@@ -261,24 +261,22 @@ public class Island
         for (int i = 0; i < bodyCount; ++i)
         {
             final Body b = bodies[i];
-            final Sweep bm_sweep = b.m_sweep;
+            final Sweep bm_sweep = b.sweep;
             final Vec2 c = bm_sweep.c;
             float a = bm_sweep.a;
-            final Vec2 v = b.m_linearVelocity;
-            float w = b.m_angularVelocity;
+            final Vec2 v = b.linearVelocity;
+            float w = b.angularVelocity;
             // Store positions for continuous collision.
             bm_sweep.c0.set(bm_sweep.c);
             bm_sweep.a0 = bm_sweep.a;
-            if (b.m_type == BodyType.DYNAMIC)
+            if (b.type == BodyType.DYNAMIC)
             {
                 // Integrate velocities.
                 // v += h * (b.m_gravityScale * gravity + b.m_invMass *
                 // b.m_force);
-                v.x += h * (b.m_gravityScale * gravity.x
-                        + b.m_invMass * b.m_force.x);
-                v.y += h * (b.m_gravityScale * gravity.y
-                        + b.m_invMass * b.m_force.y);
-                w += h * b.m_invI * b.m_torque;
+                v.x += h * (b.gravityScale * gravity.x + b.invMass * b.force.x);
+                v.y += h * (b.gravityScale * gravity.y + b.invMass * b.force.y);
+                w += h * b.invI * b.torque;
                 // Apply damping.
                 // ODE: dv/dt + c * v = 0
                 // Solution: v(t) = v0 * exp(-c * t)
@@ -288,9 +286,9 @@ public class Island
                 // v2 = exp(-c * dt) * v1
                 // Pade approximation:
                 // v2 = v1 * 1 / (1 + c * dt)
-                v.x *= 1.0f / (1.0f + h * b.m_linearDamping);
-                v.y *= 1.0f / (1.0f + h * b.m_linearDamping);
-                w *= 1.0f / (1.0f + h * b.m_angularDamping);
+                v.x *= 1.0f / (1.0f + h * b.linearDamping);
+                v.y *= 1.0f / (1.0f + h * b.linearDamping);
+                w *= 1.0f / (1.0f + h * b.angularDamping);
             }
             positions[i].c.x = c.x;
             positions[i].c.y = c.y;
@@ -393,16 +391,16 @@ public class Island
         for (int i = 0; i < bodyCount; ++i)
         {
             Body body = bodies[i];
-            body.m_sweep.c.x = positions[i].c.x;
-            body.m_sweep.c.y = positions[i].c.y;
-            body.m_sweep.a = positions[i].a;
-            body.m_linearVelocity.x = velocities[i].v.x;
-            body.m_linearVelocity.y = velocities[i].v.y;
-            body.m_angularVelocity = velocities[i].w;
+            body.sweep.c.x = positions[i].c.x;
+            body.sweep.c.y = positions[i].c.y;
+            body.sweep.a = positions[i].a;
+            body.linearVelocity.x = velocities[i].v.x;
+            body.linearVelocity.y = velocities[i].v.y;
+            body.angularVelocity = velocities[i].w;
             body.synchronizeTransform();
         }
         profile.solvePosition.accum(timer.getMilliseconds());
-        report(contactSolver.m_velocityConstraints);
+        report(contactSolver.velocityConstraints);
         if (allowSleep)
         {
             float minSleepTime = Float.MAX_VALUE;
@@ -417,18 +415,18 @@ public class Island
                 {
                     continue;
                 }
-                if ((b.m_flags & Body.e_autoSleepFlag) == 0
-                        || b.m_angularVelocity * b.m_angularVelocity > angTolSqr
-                        || Vec2.dot(b.m_linearVelocity,
-                                b.m_linearVelocity) > linTolSqr)
+                if ((b.flags & Body.autoSleepFlag) == 0
+                        || b.angularVelocity * b.angularVelocity > angTolSqr
+                        || Vec2.dot(b.linearVelocity,
+                                b.linearVelocity) > linTolSqr)
                 {
-                    b.m_sleepTime = 0.0f;
+                    b.sleepTime = 0.0f;
                     minSleepTime = 0.0f;
                 }
                 else
                 {
-                    b.m_sleepTime += h;
-                    minSleepTime = MathUtils.min(minSleepTime, b.m_sleepTime);
+                    b.sleepTime += h;
+                    minSleepTime = MathUtils.min(minSleepTime, b.sleepTime);
                 }
             }
             if (minSleepTime >= Settings.timeToSleep && positionSolved)
@@ -453,12 +451,12 @@ public class Island
         // Initialize the body state.
         for (int i = 0; i < bodyCount; ++i)
         {
-            positions[i].c.x = bodies[i].m_sweep.c.x;
-            positions[i].c.y = bodies[i].m_sweep.c.y;
-            positions[i].a = bodies[i].m_sweep.a;
-            velocities[i].v.x = bodies[i].m_linearVelocity.x;
-            velocities[i].v.y = bodies[i].m_linearVelocity.y;
-            velocities[i].w = bodies[i].m_angularVelocity;
+            positions[i].c.x = bodies[i].sweep.c.x;
+            positions[i].c.y = bodies[i].sweep.c.y;
+            positions[i].a = bodies[i].sweep.a;
+            velocities[i].v.x = bodies[i].linearVelocity.x;
+            velocities[i].v.y = bodies[i].linearVelocity.y;
+            velocities[i].w = bodies[i].angularVelocity;
         }
         toiSolverDef.contacts = contacts;
         toiSolverDef.count = contactCount;
@@ -509,11 +507,11 @@ public class Island
         // }
         // #endif
         // Leap of faith to new safe state.
-        bodies[toiIndexA].m_sweep.c0.x = positions[toiIndexA].c.x;
-        bodies[toiIndexA].m_sweep.c0.y = positions[toiIndexA].c.y;
-        bodies[toiIndexA].m_sweep.a0 = positions[toiIndexA].a;
-        bodies[toiIndexB].m_sweep.c0.set(positions[toiIndexB].c);
-        bodies[toiIndexB].m_sweep.a0 = positions[toiIndexB].a;
+        bodies[toiIndexA].sweep.c0.x = positions[toiIndexA].c.x;
+        bodies[toiIndexA].sweep.c0.y = positions[toiIndexA].c.y;
+        bodies[toiIndexA].sweep.a0 = positions[toiIndexA].a;
+        bodies[toiIndexB].sweep.c0.set(positions[toiIndexB].c);
+        bodies[toiIndexB].sweep.a0 = positions[toiIndexB].a;
         // No warm starting is needed for TOI events because warm
         // starting impulses were applied in the discrete solver.
         toiContactSolver.initializeVelocityConstraints();
@@ -561,21 +559,21 @@ public class Island
             velocities[i].w = w;
             // Sync bodies
             Body body = bodies[i];
-            body.m_sweep.c.x = c.x;
-            body.m_sweep.c.y = c.y;
-            body.m_sweep.a = a;
-            body.m_linearVelocity.x = v.x;
-            body.m_linearVelocity.y = v.y;
-            body.m_angularVelocity = w;
+            body.sweep.c.x = c.x;
+            body.sweep.c.y = c.y;
+            body.sweep.a = a;
+            body.linearVelocity.x = v.x;
+            body.linearVelocity.y = v.y;
+            body.angularVelocity = w;
             body.synchronizeTransform();
         }
-        report(toiContactSolver.m_velocityConstraints);
+        report(toiContactSolver.velocityConstraints);
     }
 
     public void add(Body body)
     {
         assert (bodyCount < bodyCapacity);
-        body.m_islandIndex = bodyCount;
+        body.islandIndex = bodyCount;
         bodies[bodyCount] = body;
         ++bodyCount;
     }

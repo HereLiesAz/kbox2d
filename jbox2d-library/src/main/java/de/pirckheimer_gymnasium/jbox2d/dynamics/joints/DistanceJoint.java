@@ -196,14 +196,14 @@ public class DistanceJoint extends Joint
     @Override
     public void initVelocityConstraints(final SolverData data)
     {
-        indexA = bodyA.m_islandIndex;
-        indexB = bodyB.m_islandIndex;
-        localCenterA.set(bodyA.m_sweep.localCenter);
-        localCenterB.set(bodyB.m_sweep.localCenter);
-        invMassA = bodyA.m_invMass;
-        invMassB = bodyB.m_invMass;
-        invIA = bodyA.m_invI;
-        invIB = bodyB.m_invI;
+        indexA = bodyA.islandIndex;
+        indexB = bodyB.islandIndex;
+        localCenterA.set(bodyA.sweep.localCenter);
+        localCenterB.set(bodyB.sweep.localCenter);
+        invMassA = bodyA.invMass;
+        invMassB = bodyB.invMass;
+        invIA = bodyA.invI;
+        invIB = bodyB.invI;
         Vec2 cA = data.positions[indexA].c;
         float aA = data.positions[indexA].a;
         Vec2 vA = data.velocities[indexA].v;

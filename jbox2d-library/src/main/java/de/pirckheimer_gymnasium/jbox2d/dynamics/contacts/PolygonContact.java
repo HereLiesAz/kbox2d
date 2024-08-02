@@ -43,15 +43,15 @@ public class PolygonContact extends Contact
     public void init(Fixture fixtureA, Fixture fixtureB)
     {
         super.init(fixtureA, 0, fixtureB, 0);
-        assert (m_fixtureA.getType() == ShapeType.POLYGON);
-        assert (m_fixtureB.getType() == ShapeType.POLYGON);
+        assert (this.fixtureA.getType() == ShapeType.POLYGON);
+        assert (this.fixtureB.getType() == ShapeType.POLYGON);
     }
 
     @Override
     public void evaluate(Manifold manifold, Transform xfA, Transform xfB)
     {
         pool.getCollision().collidePolygons(manifold,
-                (PolygonShape) m_fixtureA.getShape(), xfA,
-                (PolygonShape) m_fixtureB.getShape(), xfB);
+                (PolygonShape) fixtureA.getShape(), xfA,
+                (PolygonShape) fixtureB.getShape(), xfB);
     }
 }

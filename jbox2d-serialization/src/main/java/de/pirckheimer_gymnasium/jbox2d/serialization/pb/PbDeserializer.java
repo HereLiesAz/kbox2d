@@ -219,8 +219,8 @@ public class PbDeserializer implements JbDeserializer
         }
         // adding fixtures can change this, so we put this here and set it
         // directly in the body
-        body.m_linearVelocity.set(pbToVec(b.getLinearVelocity()));
-        body.m_angularVelocity = b.getAngularVelocity();
+        body.linearVelocity.set(pbToVec(b.getLinearVelocity()));
+        body.angularVelocity = b.getAngularVelocity();
         if (listener != null && b.hasTag())
         {
             listener.processBody(body, b.getTag());
@@ -271,7 +271,7 @@ public class PbDeserializer implements JbDeserializer
         {
         case CIRCLE:
             CircleShape c = new CircleShape();
-            c.m_p.set(pbToVec(s.getCenter()));
+            c.p.set(pbToVec(s.getCenter()));
             shape = c;
             break;
 

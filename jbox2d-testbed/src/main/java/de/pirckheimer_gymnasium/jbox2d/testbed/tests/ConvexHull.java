@@ -33,11 +33,11 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
 public class ConvexHull extends TestbedTest
 {
-    private final int e_count = Settings.maxPolygonVertices;
+    private final int count = Settings.maxPolygonVertices;
 
-    private boolean m_auto = false;
+    private boolean auto = false;
 
-    private Vec2[] m_points = new Vec2[Settings.maxPolygonVertices];
+    private final Vec2[] m_points = new Vec2[Settings.maxPolygonVertices];
 
     private int m_count;
 
@@ -55,7 +55,7 @@ public class ConvexHull extends TestbedTest
     {
         Vec2 lowerBound = new Vec2(-8f, -8f);
         Vec2 upperBound = new Vec2(8f, 8f);
-        for (int i = 0; i < e_count; i++)
+        for (int i = 0; i < count; i++)
         {
             float x = MathUtils.randomFloat(-8, 8);
             float y = MathUtils.randomFloat(-8, 8);
@@ -63,7 +63,7 @@ public class ConvexHull extends TestbedTest
             MathUtils.clampToOut(v, lowerBound, upperBound, v);
             m_points[i] = v;
         }
-        m_count = e_count;
+        m_count = count;
     }
 
     public void keyPressed(char argKeyChar, int argKeyCode)
@@ -74,7 +74,7 @@ public class ConvexHull extends TestbedTest
         }
         else if (argKeyChar == 'a')
         {
-            m_auto = !m_auto;
+            auto = !auto;
         }
     }
 
@@ -98,7 +98,7 @@ public class ConvexHull extends TestbedTest
                     i + "", Color3f.WHITE);
         }
         assert (shape.validate());
-        if (m_auto)
+        if (auto)
         {
             generate();
         }

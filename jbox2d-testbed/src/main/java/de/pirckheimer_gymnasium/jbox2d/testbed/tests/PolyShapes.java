@@ -200,15 +200,15 @@ public class PolyShapes extends TestbedTest
         PolyShapesCallback callback = new PolyShapesCallback(
                 getWorld().getPool());
         callback.m_circle.radius = 2.0f;
-        callback.m_circle.m_p.set(0.0f, 2.1f);
+        callback.m_circle.p.set(0.0f, 2.1f);
         callback.m_transform.setIdentity();
         callback.debugDraw = getDebugDraw();
         AABB aabb = new AABB();
         callback.m_circle.computeAABB(aabb, callback.m_transform, 0);
         getWorld().queryAABB(callback, aabb);
         Color3f color = new Color3f(0.4f, 0.7f, 0.8f);
-        getDebugDraw().drawCircle(callback.m_circle.m_p,
-                callback.m_circle.radius, color);
+        getDebugDraw().drawCircle(callback.m_circle.p, callback.m_circle.radius,
+                color);
         addTextLine("Press 1-5 to drop stuff");
         addTextLine("Press 'a' to (de)activate some bodies");
         addTextLine("Press 'd' to destroy a body");
@@ -262,7 +262,7 @@ class PolyShapesCallback implements QueryCallback
         case CIRCLE:
         {
             CircleShape circle = (CircleShape) fixture.getShape();
-            Vec2 center = Transform.mul(xf, circle.m_p);
+            Vec2 center = Transform.mul(xf, circle.p);
             float radius = circle.radius;
             debugDraw.drawCircle(center, radius, color);
         }

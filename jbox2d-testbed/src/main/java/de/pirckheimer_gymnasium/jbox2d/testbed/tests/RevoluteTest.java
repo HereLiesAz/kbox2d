@@ -127,7 +127,7 @@ public class RevoluteTest extends TestbedTest
             fd.density = 5.0f;
             fd.filter.maskBits = 1;
             fd.shape = circle_shape;
-            Body ball = m_world.createBody(circle_bd);
+            Body ball = world.createBody(circle_bd);
             ball.createFixture(fd);
             PolygonShape polygon_shape = new PolygonShape();
             polygon_shape.setAsBox(10.0f, 0.2f, new Vec2(-10.0f, 0.0f), 0.0f);
@@ -135,20 +135,20 @@ public class RevoluteTest extends TestbedTest
             polygon_bd.position.set(20.0f, 10.0f);
             polygon_bd.type = BodyType.DYNAMIC;
             polygon_bd.bullet = true;
-            Body polygon_body = m_world.createBody(polygon_bd);
+            Body polygon_body = world.createBody(polygon_bd);
             polygon_body.createFixture(polygon_shape, 2.0f);
             RevoluteJointDef rjd = new RevoluteJointDef();
             rjd.initialize(ground, polygon_body, new Vec2(20.0f, 10.0f));
             rjd.lowerAngle = -0.25f * MathUtils.PI;
             rjd.upperAngle = 0.0f * MathUtils.PI;
             rjd.enableLimit = true;
-            m_world.createJoint(rjd);
+            world.createJoint(rjd);
         }
         // Tests mass computation of a small object far from the origin
         {
             BodyDef bodyDef = new BodyDef();
             bodyDef.type = BodyType.DYNAMIC;
-            Body body = m_world.createBody(bodyDef);
+            Body body = world.createBody(bodyDef);
             PolygonShape polyShape = new PolygonShape();
             Vec2 verts[] = new Vec2[3];
             verts[0] = new Vec2(17.63f, 36.31f);

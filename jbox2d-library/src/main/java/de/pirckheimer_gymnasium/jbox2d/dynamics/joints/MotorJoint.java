@@ -202,14 +202,14 @@ public class MotorJoint extends Joint
     @Override
     public void initVelocityConstraints(SolverData data)
     {
-        indexA = bodyA.m_islandIndex;
-        indexB = bodyB.m_islandIndex;
-        localCenterA.set(bodyA.m_sweep.localCenter);
-        localCenterB.set(bodyB.m_sweep.localCenter);
-        invMassA = bodyA.m_invMass;
-        invMassB = bodyB.m_invMass;
-        invIA = bodyA.m_invI;
-        invIB = bodyB.m_invI;
+        indexA = bodyA.islandIndex;
+        indexB = bodyB.islandIndex;
+        localCenterA.set(bodyA.sweep.localCenter);
+        localCenterB.set(bodyB.sweep.localCenter);
+        invMassA = bodyA.invMass;
+        invMassB = bodyB.invMass;
+        invIA = bodyA.invI;
+        invIB = bodyB.invI;
         final Vec2 cA = data.positions[indexA].c;
         float aA = data.positions[indexA].a;
         final Vec2 vA = data.velocities[indexA].v;
@@ -225,8 +225,8 @@ public class MotorJoint extends Joint
         qA.set(aA);
         qB.set(aB);
         // Compute the effective mass matrix.
-        // m_rA = b2Mul(qA, -m_localCenterA);
-        // m_rB = b2Mul(qB, -m_localCenterB);
+        // rA = b2Mul(qA, -m_localCenterA);
+        // rB = b2Mul(qB, -m_localCenterB);
         rA.x = qA.c * -localCenterA.x - qA.s * -localCenterA.y;
         rA.y = qA.s * -localCenterA.x + qA.c * -localCenterA.y;
         rB.x = qB.c * -localCenterB.x - qB.s * -localCenterB.y;

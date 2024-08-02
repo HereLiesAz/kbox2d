@@ -61,9 +61,6 @@ public class ContactManager implements PairCallback
 
     /**
      * Broad-phase callback.
-     *
-     * @param proxyUserDataA
-     * @param proxyUserDataB
      */
     public void addPair(Object proxyUserDataA, Object proxyUserDataB)
     {
@@ -132,34 +129,34 @@ public class ContactManager implements PairCallback
         bodyA = fixtureA.getBody();
         bodyB = fixtureB.getBody();
         // Insert into the world.
-        c.m_prev = null;
-        c.m_next = contactList;
+        c.prev = null;
+        c.next = contactList;
         if (contactList != null)
         {
-            contactList.m_prev = c;
+            contactList.prev = c;
         }
         contactList = c;
         // Connect to island graph.
         // Connect to body A
-        c.m_nodeA.contact = c;
-        c.m_nodeA.other = bodyB;
-        c.m_nodeA.prev = null;
-        c.m_nodeA.next = bodyA.m_contactList;
-        if (bodyA.m_contactList != null)
+        c.nodeA.contact = c;
+        c.nodeA.other = bodyB;
+        c.nodeA.prev = null;
+        c.nodeA.next = bodyA.contactList;
+        if (bodyA.contactList != null)
         {
-            bodyA.m_contactList.prev = c.m_nodeA;
+            bodyA.contactList.prev = c.nodeA;
         }
-        bodyA.m_contactList = c.m_nodeA;
+        bodyA.contactList = c.nodeA;
         // Connect to body B
-        c.m_nodeB.contact = c;
-        c.m_nodeB.other = bodyA;
-        c.m_nodeB.prev = null;
-        c.m_nodeB.next = bodyB.m_contactList;
-        if (bodyB.m_contactList != null)
+        c.nodeB.contact = c;
+        c.nodeB.other = bodyA;
+        c.nodeB.prev = null;
+        c.nodeB.next = bodyB.contactList;
+        if (bodyB.contactList != null)
         {
-            bodyB.m_contactList.prev = c.m_nodeB;
+            bodyB.contactList.prev = c.nodeB;
         }
-        bodyB.m_contactList = c.m_nodeB;
+        bodyB.contactList = c.nodeB;
         // wake up the bodies
         if (!fixtureA.isSensor() && !fixtureB.isSensor())
         {
@@ -185,43 +182,43 @@ public class ContactManager implements PairCallback
             contactListener.endContact(c);
         }
         // Remove from the world.
-        if (c.m_prev != null)
+        if (c.prev != null)
         {
-            c.m_prev.m_next = c.m_next;
+            c.prev.next = c.next;
         }
-        if (c.m_next != null)
+        if (c.next != null)
         {
-            c.m_next.m_prev = c.m_prev;
+            c.next.prev = c.prev;
         }
         if (c == contactList)
         {
-            contactList = c.m_next;
+            contactList = c.next;
         }
         // Remove from body 1
-        if (c.m_nodeA.prev != null)
+        if (c.nodeA.prev != null)
         {
-            c.m_nodeA.prev.next = c.m_nodeA.next;
+            c.nodeA.prev.next = c.nodeA.next;
         }
-        if (c.m_nodeA.next != null)
+        if (c.nodeA.next != null)
         {
-            c.m_nodeA.next.prev = c.m_nodeA.prev;
+            c.nodeA.next.prev = c.nodeA.prev;
         }
-        if (c.m_nodeA == bodyA.m_contactList)
+        if (c.nodeA == bodyA.contactList)
         {
-            bodyA.m_contactList = c.m_nodeA.next;
+            bodyA.contactList = c.nodeA.next;
         }
         // Remove from body 2
-        if (c.m_nodeB.prev != null)
+        if (c.nodeB.prev != null)
         {
-            c.m_nodeB.prev.next = c.m_nodeB.next;
+            c.nodeB.prev.next = c.nodeB.next;
         }
-        if (c.m_nodeB.next != null)
+        if (c.nodeB.next != null)
         {
-            c.m_nodeB.next.prev = c.m_nodeB.prev;
+            c.nodeB.next.prev = c.nodeB.prev;
         }
-        if (c.m_nodeB == bodyB.m_contactList)
+        if (c.nodeB == bodyB.contactList)
         {
-            bodyB.m_contactList = c.m_nodeB.next;
+            bodyB.contactList = c.nodeB.next;
         }
         // Call the factory.
         pool.pushContact(c);
@@ -245,7 +242,7 @@ public class ContactManager implements PairCallback
             Body bodyA = fixtureA.getBody();
             Body bodyB = fixtureB.getBody();
             // is this contact flagged for filtering?
-            if ((c.m_flags & Contact.FILTER_FLAG) == Contact.FILTER_FLAG)
+            if ((c.flags & Contact.FILTER_FLAG) == Contact.FILTER_FLAG)
             {
                 // Should these bodies collide?
                 if (bodyB.shouldCollide(bodyA) == false)
@@ -265,12 +262,10 @@ public class ContactManager implements PairCallback
                     continue;
                 }
                 // Clear the filtering flag.
-                c.m_flags &= ~Contact.FILTER_FLAG;
+                c.flags &= ~Contact.FILTER_FLAG;
             }
-            boolean activeA = bodyA.isAwake()
-                    && bodyA.m_type != BodyType.STATIC;
-            boolean activeB = bodyB.isAwake()
-                    && bodyB.m_type != BodyType.STATIC;
+            boolean activeA = bodyA.isAwake() && bodyA.type != BodyType.STATIC;
+            boolean activeB = bodyB.isAwake() && bodyB.type != BodyType.STATIC;
             // At least one body must be awake and it must be dynamic or
             // kinematic.
             if (activeA == false && activeB == false)

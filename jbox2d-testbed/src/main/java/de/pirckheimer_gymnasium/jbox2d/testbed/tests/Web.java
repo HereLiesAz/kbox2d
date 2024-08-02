@@ -42,9 +42,9 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
  */
 public class Web extends TestbedTest
 {
-    Body m_bodies[] = new Body[4];
+    Body bodies[] = new Body[4];
 
-    Joint m_joints[] = new Joint[8];
+    Joint joints[] = new Joint[8];
 
     @Override
     public void initTest(boolean argDeserialized)
@@ -63,17 +63,17 @@ public class Web extends TestbedTest
             BodyDef bd = new BodyDef();
             bd.type = BodyType.DYNAMIC;
             bd.position.set(-5.0f, 5.0f);
-            m_bodies[0] = getWorld().createBody(bd);
-            m_bodies[0].createFixture(shape, 5.0f);
+            bodies[0] = getWorld().createBody(bd);
+            bodies[0].createFixture(shape, 5.0f);
             bd.position.set(5.0f, 5.0f);
-            m_bodies[1] = getWorld().createBody(bd);
-            m_bodies[1].createFixture(shape, 5.0f);
+            bodies[1] = getWorld().createBody(bd);
+            bodies[1].createFixture(shape, 5.0f);
             bd.position.set(5.0f, 15.0f);
-            m_bodies[2] = getWorld().createBody(bd);
-            m_bodies[2].createFixture(shape, 5.0f);
+            bodies[2] = getWorld().createBody(bd);
+            bodies[2].createFixture(shape, 5.0f);
             bd.position.set(-5.0f, 15.0f);
-            m_bodies[3] = getWorld().createBody(bd);
-            m_bodies[3].createFixture(shape, 5.0f);
+            bodies[3] = getWorld().createBody(bd);
+            bodies[3].createFixture(shape, 5.0f);
             DistanceJointDef jd = new DistanceJointDef();
             Vec2 p1 = new Vec2();
             Vec2 p2 = new Vec2();
@@ -81,77 +81,77 @@ public class Web extends TestbedTest
             jd.frequencyHz = 4.0f;
             jd.dampingRatio = 0.5f;
             jd.bodyA = ground;
-            jd.bodyB = m_bodies[0];
+            jd.bodyB = bodies[0];
             jd.localAnchorA.set(-10.0f, 0.0f);
             jd.localAnchorB.set(-0.5f, -0.5f);
             p1 = jd.bodyA.getWorldPoint(jd.localAnchorA);
             p2 = jd.bodyB.getWorldPoint(jd.localAnchorB);
             d = p2.sub(p1);
             jd.length = d.length();
-            m_joints[0] = getWorld().createJoint(jd);
+            joints[0] = getWorld().createJoint(jd);
             jd.bodyA = ground;
-            jd.bodyB = m_bodies[1];
+            jd.bodyB = bodies[1];
             jd.localAnchorA.set(10.0f, 0.0f);
             jd.localAnchorB.set(0.5f, -0.5f);
             p1 = jd.bodyA.getWorldPoint(jd.localAnchorA);
             p2 = jd.bodyB.getWorldPoint(jd.localAnchorB);
             d = p2.sub(p1);
             jd.length = d.length();
-            m_joints[1] = getWorld().createJoint(jd);
+            joints[1] = getWorld().createJoint(jd);
             jd.bodyA = ground;
-            jd.bodyB = m_bodies[2];
+            jd.bodyB = bodies[2];
             jd.localAnchorA.set(10.0f, 20.0f);
             jd.localAnchorB.set(0.5f, 0.5f);
             p1 = jd.bodyA.getWorldPoint(jd.localAnchorA);
             p2 = jd.bodyB.getWorldPoint(jd.localAnchorB);
             d = p2.sub(p1);
             jd.length = d.length();
-            m_joints[2] = getWorld().createJoint(jd);
+            joints[2] = getWorld().createJoint(jd);
             jd.bodyA = ground;
-            jd.bodyB = m_bodies[3];
+            jd.bodyB = bodies[3];
             jd.localAnchorA.set(-10.0f, 20.0f);
             jd.localAnchorB.set(-0.5f, 0.5f);
             p1 = jd.bodyA.getWorldPoint(jd.localAnchorA);
             p2 = jd.bodyB.getWorldPoint(jd.localAnchorB);
             d = p2.sub(p1);
             jd.length = d.length();
-            m_joints[3] = getWorld().createJoint(jd);
-            jd.bodyA = m_bodies[0];
-            jd.bodyB = m_bodies[1];
+            joints[3] = getWorld().createJoint(jd);
+            jd.bodyA = bodies[0];
+            jd.bodyB = bodies[1];
             jd.localAnchorA.set(0.5f, 0.0f);
             jd.localAnchorB.set(-0.5f, 0.0f);;
             p1 = jd.bodyA.getWorldPoint(jd.localAnchorA);
             p2 = jd.bodyB.getWorldPoint(jd.localAnchorB);
             d = p2.sub(p1);
             jd.length = d.length();
-            m_joints[4] = getWorld().createJoint(jd);
-            jd.bodyA = m_bodies[1];
-            jd.bodyB = m_bodies[2];
+            joints[4] = getWorld().createJoint(jd);
+            jd.bodyA = bodies[1];
+            jd.bodyB = bodies[2];
             jd.localAnchorA.set(0.0f, 0.5f);
             jd.localAnchorB.set(0.0f, -0.5f);
             p1 = jd.bodyA.getWorldPoint(jd.localAnchorA);
             p2 = jd.bodyB.getWorldPoint(jd.localAnchorB);
             d = p2.sub(p1);
             jd.length = d.length();
-            m_joints[5] = getWorld().createJoint(jd);
-            jd.bodyA = m_bodies[2];
-            jd.bodyB = m_bodies[3];
+            joints[5] = getWorld().createJoint(jd);
+            jd.bodyA = bodies[2];
+            jd.bodyB = bodies[3];
             jd.localAnchorA.set(-0.5f, 0.0f);
             jd.localAnchorB.set(0.5f, 0.0f);
             p1 = jd.bodyA.getWorldPoint(jd.localAnchorA);
             p2 = jd.bodyB.getWorldPoint(jd.localAnchorB);
             d = p2.sub(p1);
             jd.length = d.length();
-            m_joints[6] = getWorld().createJoint(jd);
-            jd.bodyA = m_bodies[3];
-            jd.bodyB = m_bodies[0];
+            joints[6] = getWorld().createJoint(jd);
+            jd.bodyA = bodies[3];
+            jd.bodyB = bodies[0];
             jd.localAnchorA.set(0.0f, -0.5f);
             jd.localAnchorB.set(0.0f, 0.5f);
             p1 = jd.bodyA.getWorldPoint(jd.localAnchorA);
             p2 = jd.bodyB.getWorldPoint(jd.localAnchorB);
             d = p2.sub(p1);
             jd.length = d.length();
-            m_joints[7] = getWorld().createJoint(jd);
+            joints[7] = getWorld().createJoint(jd);
         }
     }
 
@@ -163,10 +163,10 @@ public class Web extends TestbedTest
         case 'b':
             for (int i = 0; i < 4; ++i)
             {
-                if (m_bodies[i] != null)
+                if (bodies[i] != null)
                 {
-                    getWorld().destroyBody(m_bodies[i]);
-                    m_bodies[i] = null;
+                    getWorld().destroyBody(bodies[i]);
+                    bodies[i] = null;
                     break;
                 }
             }
@@ -175,10 +175,10 @@ public class Web extends TestbedTest
         case 'j':
             for (int i = 0; i < 8; ++i)
             {
-                if (m_joints[i] != null)
+                if (joints[i] != null)
                 {
-                    getWorld().destroyJoint(m_joints[i]);
-                    m_joints[i] = null;
+                    getWorld().destroyJoint(joints[i]);
+                    joints[i] = null;
                     break;
                 }
             }
@@ -198,9 +198,9 @@ public class Web extends TestbedTest
     {
         for (int i = 0; i < 8; ++i)
         {
-            if (m_joints[i] == joint)
+            if (joints[i] == joint)
             {
-                m_joints[i] = null;
+                joints[i] = null;
                 break;
             }
         }

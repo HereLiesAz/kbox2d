@@ -45,7 +45,7 @@ public class ContactSolver
 {
     public static final boolean DEBUG_SOLVER = false;
 
-    public static final float k_errorTol = 1e-3f;
+    public static final float errorTol = 1e-3f;
 
     /**
      * For each solver, this is the initial number of constraints in the array,
@@ -56,69 +56,69 @@ public class ContactSolver
     /**
      * Ensure a reasonable condition number. for the block solver
      */
-    public static final float k_maxConditionNumber = 100.0f;
+    public static final float maxConditionNumber = 100.0f;
 
-    public TimeStep m_step;
+    public TimeStep step;
 
-    public Position[] m_positions;
+    public Position[] positions;
 
-    public Velocity[] m_velocities;
+    public Velocity[] velocities;
 
-    public ContactPositionConstraint[] m_positionConstraints;
+    public ContactPositionConstraint[] positionConstraints;
 
-    public ContactVelocityConstraint[] m_velocityConstraints;
+    public ContactVelocityConstraint[] velocityConstraints;
 
-    public Contact[] m_contacts;
+    public Contact[] contacts;
 
-    public int m_count;
+    public int count;
 
     public ContactSolver()
     {
-        m_positionConstraints = new ContactPositionConstraint[INITIAL_NUM_CONSTRAINTS];
-        m_velocityConstraints = new ContactVelocityConstraint[INITIAL_NUM_CONSTRAINTS];
+        positionConstraints = new ContactPositionConstraint[INITIAL_NUM_CONSTRAINTS];
+        velocityConstraints = new ContactVelocityConstraint[INITIAL_NUM_CONSTRAINTS];
         for (int i = 0; i < INITIAL_NUM_CONSTRAINTS; i++)
         {
-            m_positionConstraints[i] = new ContactPositionConstraint();
-            m_velocityConstraints[i] = new ContactVelocityConstraint();
+            positionConstraints[i] = new ContactPositionConstraint();
+            velocityConstraints[i] = new ContactVelocityConstraint();
         }
     }
 
     public final void init(ContactSolverDef def)
     {
         // System.out.println("Initializing contact solver");
-        m_step = def.step;
-        m_count = def.count;
-        if (m_positionConstraints.length < m_count)
+        step = def.step;
+        count = def.count;
+        if (positionConstraints.length < count)
         {
-            ContactPositionConstraint[] old = m_positionConstraints;
-            m_positionConstraints = new ContactPositionConstraint[MathUtils
-                    .max(old.length * 2, m_count)];
-            System.arraycopy(old, 0, m_positionConstraints, 0, old.length);
-            for (int i = old.length; i < m_positionConstraints.length; i++)
+            ContactPositionConstraint[] old = positionConstraints;
+            positionConstraints = new ContactPositionConstraint[MathUtils
+                    .max(old.length * 2, count)];
+            System.arraycopy(old, 0, positionConstraints, 0, old.length);
+            for (int i = old.length; i < positionConstraints.length; i++)
             {
-                m_positionConstraints[i] = new ContactPositionConstraint();
+                positionConstraints[i] = new ContactPositionConstraint();
             }
         }
-        if (m_velocityConstraints.length < m_count)
+        if (velocityConstraints.length < count)
         {
-            ContactVelocityConstraint[] old = m_velocityConstraints;
-            m_velocityConstraints = new ContactVelocityConstraint[MathUtils
-                    .max(old.length * 2, m_count)];
-            System.arraycopy(old, 0, m_velocityConstraints, 0, old.length);
-            for (int i = old.length; i < m_velocityConstraints.length; i++)
+            ContactVelocityConstraint[] old = velocityConstraints;
+            velocityConstraints = new ContactVelocityConstraint[MathUtils
+                    .max(old.length * 2, count)];
+            System.arraycopy(old, 0, velocityConstraints, 0, old.length);
+            for (int i = old.length; i < velocityConstraints.length; i++)
             {
-                m_velocityConstraints[i] = new ContactVelocityConstraint();
+                velocityConstraints[i] = new ContactVelocityConstraint();
             }
         }
-        m_positions = def.positions;
-        m_velocities = def.velocities;
-        m_contacts = def.contacts;
-        for (int i = 0; i < m_count; ++i)
+        positions = def.positions;
+        velocities = def.velocities;
+        contacts = def.contacts;
+        for (int i = 0; i < count; ++i)
         {
             // System.out.println("contacts: " + m_count);
-            final Contact contact = m_contacts[i];
-            final Fixture fixtureA = contact.m_fixtureA;
-            final Fixture fixtureB = contact.m_fixtureB;
+            final Contact contact = contacts[i];
+            final Fixture fixtureA = contact.fixtureA;
+            final Fixture fixtureB = contact.fixtureB;
             final Shape shapeA = fixtureA.getShape();
             final Shape shapeB = fixtureB.getShape();
             final float radiusA = shapeA.radius;
@@ -128,29 +128,29 @@ public class ContactSolver
             final Manifold manifold = contact.getManifold();
             int pointCount = manifold.pointCount;
             assert (pointCount > 0);
-            ContactVelocityConstraint vc = m_velocityConstraints[i];
-            vc.friction = contact.m_friction;
-            vc.restitution = contact.m_restitution;
-            vc.tangentSpeed = contact.m_tangentSpeed;
-            vc.indexA = bodyA.m_islandIndex;
-            vc.indexB = bodyB.m_islandIndex;
-            vc.invMassA = bodyA.m_invMass;
-            vc.invMassB = bodyB.m_invMass;
-            vc.invIA = bodyA.m_invI;
-            vc.invIB = bodyB.m_invI;
+            ContactVelocityConstraint vc = velocityConstraints[i];
+            vc.friction = contact.friction;
+            vc.restitution = contact.restitution;
+            vc.tangentSpeed = contact.tangentSpeed;
+            vc.indexA = bodyA.islandIndex;
+            vc.indexB = bodyB.islandIndex;
+            vc.invMassA = bodyA.invMass;
+            vc.invMassB = bodyB.invMass;
+            vc.invIA = bodyA.invI;
+            vc.invIB = bodyB.invI;
             vc.contactIndex = i;
             vc.pointCount = pointCount;
             vc.K.setZero();
             vc.normalMass.setZero();
-            ContactPositionConstraint pc = m_positionConstraints[i];
-            pc.indexA = bodyA.m_islandIndex;
-            pc.indexB = bodyB.m_islandIndex;
-            pc.invMassA = bodyA.m_invMass;
-            pc.invMassB = bodyB.m_invMass;
-            pc.localCenterA.set(bodyA.m_sweep.localCenter);
-            pc.localCenterB.set(bodyB.m_sweep.localCenter);
-            pc.invIA = bodyA.m_invI;
-            pc.invIB = bodyB.m_invI;
+            ContactPositionConstraint pc = positionConstraints[i];
+            pc.indexA = bodyA.islandIndex;
+            pc.indexB = bodyB.islandIndex;
+            pc.invMassA = bodyA.invMass;
+            pc.invMassB = bodyB.invMass;
+            pc.localCenterA.set(bodyA.sweep.localCenter);
+            pc.localCenterB.set(bodyB.sweep.localCenter);
+            pc.invIA = bodyA.invI;
+            pc.invIB = bodyB.invI;
             pc.localNormal.set(manifold.localNormal);
             pc.localPoint.set(manifold.localPoint);
             pc.pointCount = pointCount;
@@ -162,13 +162,13 @@ public class ContactSolver
             {
                 ManifoldPoint cp = manifold.points[j];
                 VelocityConstraintPoint vcp = vc.points[j];
-                if (m_step.warmStarting)
+                if (step.warmStarting)
                 {
                     // assert(cp.normalImpulse == 0);
                     // System.out.println("contact normal impulse: " +
                     // cp.normalImpulse);
-                    vcp.normalImpulse = m_step.dtRatio * cp.normalImpulse;
-                    vcp.tangentImpulse = m_step.dtRatio * cp.tangentImpulse;
+                    vcp.normalImpulse = step.dtRatio * cp.normalImpulse;
+                    vcp.tangentImpulse = step.dtRatio * cp.tangentImpulse;
                 }
                 else
                 {
@@ -189,9 +189,9 @@ public class ContactSolver
     public void warmStart()
     {
         // Warm start.
-        for (int i = 0; i < m_count; ++i)
+        for (int i = 0; i < count; ++i)
         {
-            final ContactVelocityConstraint vc = m_velocityConstraints[i];
+            final ContactVelocityConstraint vc = velocityConstraints[i];
             int indexA = vc.indexA;
             int indexB = vc.indexB;
             float mA = vc.invMassA;
@@ -199,10 +199,10 @@ public class ContactSolver
             float mB = vc.invMassB;
             float iB = vc.invIB;
             int pointCount = vc.pointCount;
-            Vec2 vA = m_velocities[indexA].v;
-            float wA = m_velocities[indexA].w;
-            Vec2 vB = m_velocities[indexB].v;
-            float wB = m_velocities[indexB].w;
+            Vec2 vA = velocities[indexA].v;
+            float wA = velocities[indexA].w;
+            Vec2 vB = velocities[indexB].v;
+            float wB = velocities[indexB].w;
             Vec2 normal = vc.normal;
             float tangentx = 1.0f * normal.y;
             float tangenty = -1.0f * normal.x;
@@ -220,8 +220,8 @@ public class ContactSolver
                 vB.x += Px * mB;
                 vB.y += Py * mB;
             }
-            m_velocities[indexA].w = wA;
-            m_velocities[indexB].w = wB;
+            velocities[indexA].w = wA;
+            velocities[indexB].w = wB;
         }
     }
 
@@ -235,13 +235,13 @@ public class ContactSolver
     public final void initializeVelocityConstraints()
     {
         // Warm start.
-        for (int i = 0; i < m_count; ++i)
+        for (int i = 0; i < count; ++i)
         {
-            ContactVelocityConstraint vc = m_velocityConstraints[i];
-            ContactPositionConstraint pc = m_positionConstraints[i];
+            ContactVelocityConstraint vc = velocityConstraints[i];
+            ContactPositionConstraint pc = positionConstraints[i];
             float radiusA = pc.radiusA;
             float radiusB = pc.radiusB;
-            Manifold manifold = m_contacts[vc.contactIndex].getManifold();
+            Manifold manifold = contacts[vc.contactIndex].getManifold();
             int indexA = vc.indexA;
             int indexB = vc.indexB;
             float mA = vc.invMassA;
@@ -250,14 +250,14 @@ public class ContactSolver
             float iB = vc.invIB;
             Vec2 localCenterA = pc.localCenterA;
             Vec2 localCenterB = pc.localCenterB;
-            Vec2 cA = m_positions[indexA].c;
-            float aA = m_positions[indexA].a;
-            Vec2 vA = m_velocities[indexA].v;
-            float wA = m_velocities[indexA].w;
-            Vec2 cB = m_positions[indexB].c;
-            float aB = m_positions[indexB].a;
-            Vec2 vB = m_velocities[indexB].v;
-            float wB = m_velocities[indexB].w;
+            Vec2 cA = positions[indexA].c;
+            float aA = positions[indexA].a;
+            Vec2 vA = velocities[indexA].v;
+            float wA = velocities[indexA].w;
+            Vec2 cB = positions[indexB].c;
+            float aB = positions[indexB].a;
+            Vec2 vB = velocities[indexB].v;
+            float wB = velocities[indexB].w;
             assert (manifold.pointCount > 0);
             final Rot xfAq = xfA.q;
             final Rot xfBq = xfB.q;
@@ -318,7 +318,7 @@ public class ContactSolver
                 float k11 = mA + mB + iA * rn1A * rn1A + iB * rn1B * rn1B;
                 float k22 = mA + mB + iA * rn2A * rn2A + iB * rn2B * rn2B;
                 float k12 = mA + mB + iA * rn1A * rn2A + iB * rn1B * rn2B;
-                if (k11 * k11 < k_maxConditionNumber * (k11 * k22 - k12 * k12))
+                if (k11 * k11 < maxConditionNumber * (k11 * k22 - k12 * k12))
                 {
                     // K is safe to invert.
                     vc.K.ex.x = k11;
@@ -339,9 +339,9 @@ public class ContactSolver
 
     public final void solveVelocityConstraints()
     {
-        for (int i = 0; i < m_count; ++i)
+        for (int i = 0; i < count; ++i)
         {
-            final ContactVelocityConstraint vc = m_velocityConstraints[i];
+            final ContactVelocityConstraint vc = velocityConstraints[i];
             int indexA = vc.indexA;
             int indexB = vc.indexB;
             float mA = vc.invMassA;
@@ -349,10 +349,10 @@ public class ContactSolver
             float iA = vc.invIA;
             float iB = vc.invIB;
             int pointCount = vc.pointCount;
-            Vec2 vA = m_velocities[indexA].v;
-            float wA = m_velocities[indexA].w;
-            Vec2 vB = m_velocities[indexB].v;
-            float wB = m_velocities[indexB].w;
+            Vec2 vA = velocities[indexA].v;
+            float wA = velocities[indexA].w;
+            Vec2 vB = velocities[indexB].v;
+            float wB = velocities[indexB].w;
             Vec2 normal = vc.normal;
             final float normalx = normal.x;
             final float normaly = normal.y;
@@ -564,9 +564,9 @@ public class ContactSolver
                             vn1 = Vec2.dot(dv1, normal);
                             vn2 = Vec2.dot(dv2, normal);
                             assert (MathUtils
-                                    .abs(vn1 - cp1.velocityBias) < k_errorTol);
+                                    .abs(vn1 - cp1.velocityBias) < errorTol);
                             assert (MathUtils
-                                    .abs(vn2 - cp2.velocityBias) < k_errorTol);
+                                    .abs(vn2 - cp2.velocityBias) < errorTol);
                         }
                         break;
                     }
@@ -628,7 +628,7 @@ public class ContactSolver
                             // Compute normal velocity
                             vn1 = Vec2.dot(dv1, normal);
                             assert (MathUtils
-                                    .abs(vn1 - cp1.velocityBias) < k_errorTol);
+                                    .abs(vn1 - cp1.velocityBias) < errorTol);
                         }
                         break;
                     }
@@ -688,7 +688,7 @@ public class ContactSolver
                             // Compute normal velocity
                             vn2 = Vec2.dot(dv2, normal);
                             assert (MathUtils
-                                    .abs(vn2 - cp2.velocityBias) < k_errorTol);
+                                    .abs(vn2 - cp2.velocityBias) < errorTol);
                         }
                         break;
                     }
@@ -738,18 +738,18 @@ public class ContactSolver
                 }
             }
             // m_velocities[indexA].v.set(vA);
-            m_velocities[indexA].w = wA;
+            velocities[indexA].w = wA;
             // m_velocities[indexB].v.set(vB);
-            m_velocities[indexB].w = wB;
+            velocities[indexB].w = wB;
         }
     }
 
     public void storeImpulses()
     {
-        for (int i = 0; i < m_count; i++)
+        for (int i = 0; i < count; i++)
         {
-            final ContactVelocityConstraint vc = m_velocityConstraints[i];
-            final Manifold manifold = m_contacts[vc.contactIndex].getManifold();
+            final ContactVelocityConstraint vc = velocityConstraints[i];
+            final Manifold manifold = contacts[vc.contactIndex].getManifold();
             for (int j = 0; j < vc.pointCount; j++)
             {
                 manifold.points[j].normalImpulse = vc.points[j].normalImpulse;
@@ -812,9 +812,9 @@ public class ContactSolver
     public final boolean solvePositionConstraints()
     {
         float minSeparation = 0.0f;
-        for (int i = 0; i < m_count; ++i)
+        for (int i = 0; i < count; ++i)
         {
-            ContactPositionConstraint pc = m_positionConstraints[i];
+            ContactPositionConstraint pc = positionConstraints[i];
             int indexA = pc.indexA;
             int indexB = pc.indexB;
             float mA = pc.invMassA;
@@ -828,10 +828,10 @@ public class ContactSolver
             final float localCenterBx = localCenterB.x;
             final float localCenterBy = localCenterB.y;
             int pointCount = pc.pointCount;
-            Vec2 cA = m_positions[indexA].c;
-            float aA = m_positions[indexA].a;
-            Vec2 cB = m_positions[indexB].c;
-            float aB = m_positions[indexB].a;
+            Vec2 cA = positions[indexA].c;
+            float aA = positions[indexA].a;
+            Vec2 cB = positions[indexB].c;
+            float aB = positions[indexB].a;
             // Solve normal constraints
             for (int j = 0; j < pointCount; ++j)
             {
@@ -878,9 +878,9 @@ public class ContactSolver
                 aB += iB * (rBx * Py - rBy * Px);
             }
             // m_positions[indexA].c.set(cA);
-            m_positions[indexA].a = aA;
+            positions[indexA].a = aA;
             // m_positions[indexB].c.set(cB);
-            m_positions[indexB].a = aB;
+            positions[indexB].a = aB;
         }
         // We can't expect minSpeparation >= -linearSlop because we don't
         // push the separation above -linearSlop.
@@ -891,9 +891,9 @@ public class ContactSolver
     public boolean solveTOIPositionConstraints(int toiIndexA, int toiIndexB)
     {
         float minSeparation = 0.0f;
-        for (int i = 0; i < m_count; ++i)
+        for (int i = 0; i < count; ++i)
         {
-            ContactPositionConstraint pc = m_positionConstraints[i];
+            ContactPositionConstraint pc = positionConstraints[i];
             int indexA = pc.indexA;
             int indexB = pc.indexB;
             Vec2 localCenterA = pc.localCenterA;
@@ -917,10 +917,10 @@ public class ContactSolver
                 mB = pc.invMassB;
                 iB = pc.invIB;
             }
-            Vec2 cA = m_positions[indexA].c;
-            float aA = m_positions[indexA].a;
-            Vec2 cB = m_positions[indexB].c;
-            float aB = m_positions[indexB].a;
+            Vec2 cA = positions[indexA].c;
+            float aA = positions[indexA].a;
+            Vec2 cB = positions[indexB].c;
+            float aB = positions[indexB].a;
             // Solve normal constraints
             for (int j = 0; j < pointCount; ++j)
             {
@@ -968,9 +968,9 @@ public class ContactSolver
                 aB += iB * (rBx * Py - rBy * Px);
             }
             // m_positions[indexA].c.set(cA);
-            m_positions[indexA].a = aA;
+            positions[indexA].a = aA;
             // m_positions[indexB].c.set(cB);
-            m_positions[indexB].a = aB;
+            positions[indexB].a = aB;
         }
         // We can't expect minSpeparation >= -_linearSlop because we don't
         // push the separation above -_linearSlop.

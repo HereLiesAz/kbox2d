@@ -49,20 +49,20 @@ public class SensorTest extends TestbedTest
         boolean tf;
     }
 
-    int e_count = 7;
+    int count = 7;
 
-    Fixture m_sensor;
+    Fixture sensor;
 
-    Body m_bodies[] = new Body[e_count];
+    Body bodies[] = new Body[count];
 
-    BoolWrapper m_touching[] = new BoolWrapper[e_count];
+    BoolWrapper touching[] = new BoolWrapper[count];
 
     @Override
     public void initTest(boolean deserialized)
     {
-        for (int i = 0; i < m_touching.length; i++)
+        for (int i = 0; i < touching.length; i++)
         {
-            m_touching[i] = new BoolWrapper();
+            touching[i] = new BoolWrapper();
         }
         {
             BodyDef bd = new BodyDef();
@@ -75,25 +75,25 @@ public class SensorTest extends TestbedTest
             {
                 CircleShape shape = new CircleShape();
                 shape.radius = 5.0f;
-                shape.m_p.set(0.0f, 10.0f);
+                shape.p.set(0.0f, 10.0f);
                 FixtureDef fd = new FixtureDef();
                 fd.shape = shape;
                 fd.isSensor = true;
-                m_sensor = ground.createFixture(fd);
+                sensor = ground.createFixture(fd);
             }
         }
         {
             CircleShape shape = new CircleShape();
             shape.radius = 1.0f;
-            for (int i = 0; i < e_count; ++i)
+            for (int i = 0; i < count; ++i)
             {
                 BodyDef bd = new BodyDef();
                 bd.type = BodyType.DYNAMIC;
                 bd.position.set(-10.0f + 3.0f * i, 20.0f);
-                bd.userData = m_touching[i];
-                m_touching[i].tf = false;
-                m_bodies[i] = getWorld().createBody(bd);
-                m_bodies[i].createFixture(shape, 1.0f);
+                bd.userData = touching[i];
+                touching[i].tf = false;
+                bodies[i] = getWorld().createBody(bd);
+                bodies[i].createFixture(shape, 1.0f);
             }
         }
     }
@@ -103,7 +103,7 @@ public class SensorTest extends TestbedTest
     {
         Fixture fixtureA = contact.getFixtureA();
         Fixture fixtureB = contact.getFixtureB();
-        if (fixtureA == m_sensor)
+        if (fixtureA == sensor)
         {
             Object userData = fixtureB.getBody().getUserData();
             if (userData != null)
@@ -111,7 +111,7 @@ public class SensorTest extends TestbedTest
                 ((BoolWrapper) userData).tf = true;
             }
         }
-        if (fixtureB == m_sensor)
+        if (fixtureB == sensor)
         {
             Object userData = fixtureA.getBody().getUserData();
             if (userData != null)
@@ -126,7 +126,7 @@ public class SensorTest extends TestbedTest
     {
         Fixture fixtureA = contact.getFixtureA();
         Fixture fixtureB = contact.getFixtureB();
-        if (fixtureA == m_sensor)
+        if (fixtureA == sensor)
         {
             Object userData = fixtureB.getBody().getUserData();
             if (userData != null)
@@ -134,7 +134,7 @@ public class SensorTest extends TestbedTest
                 ((BoolWrapper) userData).tf = false;
             }
         }
-        if (fixtureB == m_sensor)
+        if (fixtureB == sensor)
         {
             Object userData = fixtureA.getBody().getUserData();
             if (userData != null)
@@ -151,16 +151,16 @@ public class SensorTest extends TestbedTest
         super.step(settings);
         // Traverse the contact results. Apply a force on shapes
         // that overlap the sensor.
-        for (int i = 0; i < e_count; ++i)
+        for (int i = 0; i < count; ++i)
         {
-            if (m_touching[i].tf == false)
+            if (touching[i].tf == false)
             {
                 continue;
             }
-            Body body = m_bodies[i];
-            Body ground = m_sensor.getBody();
-            CircleShape circle = (CircleShape) m_sensor.getShape();
-            Vec2 center = ground.getWorldPoint(circle.m_p);
+            Body body = bodies[i];
+            Body ground = sensor.getBody();
+            CircleShape circle = (CircleShape) sensor.getShape();
+            Vec2 center = ground.getWorldPoint(circle.p);
             Vec2 position = body.getPosition();
             Vec2 d = center.sub(position);
             if (d.lengthSquared() < Settings.EPSILON * Settings.EPSILON)

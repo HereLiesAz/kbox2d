@@ -46,8 +46,8 @@ public class ChainAndCircleContact extends Contact
     public void init(Fixture fA, int indexA, Fixture fB, int indexB)
     {
         super.init(fA, indexA, fB, indexB);
-        assert (m_fixtureA.getType() == ShapeType.CHAIN);
-        assert (m_fixtureB.getType() == ShapeType.CIRCLE);
+        assert (fixtureA.getType() == ShapeType.CHAIN);
+        assert (fixtureB.getType() == ShapeType.CIRCLE);
     }
 
     private final EdgeShape edge = new EdgeShape();
@@ -55,9 +55,9 @@ public class ChainAndCircleContact extends Contact
     @Override
     public void evaluate(Manifold manifold, Transform xfA, Transform xfB)
     {
-        ChainShape chain = (ChainShape) m_fixtureA.getShape();
-        chain.getChildEdge(edge, m_indexA);
+        ChainShape chain = (ChainShape) fixtureA.getShape();
+        chain.getChildEdge(edge, indexA);
         pool.getCollision().collideEdgeAndCircle(manifold, edge, xfA,
-                (CircleShape) m_fixtureB.getShape(), xfB);
+                (CircleShape) fixtureB.getShape(), xfB);
     }
 }

@@ -14,11 +14,11 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
 public class BulletTest extends TestbedTest
 {
-    Body m_body;
+    Body body;
 
-    Body m_bullet;
+    Body bullet;
 
-    float m_x;
+    float x;
 
     @Override
     public Vec2 getDefaultCameraPos()
@@ -38,7 +38,7 @@ public class BulletTest extends TestbedTest
         {
             BodyDef bd = new BodyDef();
             bd.position.set(0.0f, 0.0f);
-            Body body = m_world.createBody(bd);
+            Body body = world.createBody(bd);
             EdgeShape edge = new EdgeShape();
             edge.set(new Vec2(-10.0f, 0.0f), new Vec2(10.0f, 0.0f));
             body.createFixture(edge, 0.0f);
@@ -52,28 +52,28 @@ public class BulletTest extends TestbedTest
             bd.position.set(0.0f, 4.0f);
             PolygonShape box = new PolygonShape();
             box.setAsBox(2.0f, 0.1f);
-            m_body = m_world.createBody(bd);
-            m_body.createFixture(box, 1.0f);
+            body = world.createBody(bd);
+            body.createFixture(box, 1.0f);
             box.setAsBox(0.25f, 0.25f);
-            // m_x = RandomFloat(-1.0f, 1.0f);
-            m_x = -0.06530577f;
-            bd.position.set(m_x, 10.0f);
+            // x = RandomFloat(-1.0f, 1.0f);
+            x = -0.06530577f;
+            bd.position.set(x, 10.0f);
             bd.bullet = true;
-            m_bullet = m_world.createBody(bd);
-            m_bullet.createFixture(box, 100.0f);
-            m_bullet.setLinearVelocity(new Vec2(0.0f, -50.0f));
+            bullet = world.createBody(bd);
+            bullet.createFixture(box, 100.0f);
+            bullet.setLinearVelocity(new Vec2(0.0f, -50.0f));
         }
     }
 
     public void launch()
     {
-        m_body.setTransform(new Vec2(0.0f, 4.0f), 0.0f);
-        m_body.setLinearVelocity(new Vec2());
-        m_body.setAngularVelocity(0.0f);
-        m_x = MathUtils.randomFloat(-1.0f, 1.0f);
-        m_bullet.setTransform(new Vec2(m_x, 10.0f), 0.0f);
-        m_bullet.setLinearVelocity(new Vec2(0.0f, -50.0f));
-        m_bullet.setAngularVelocity(0.0f);
+        body.setTransform(new Vec2(0.0f, 4.0f), 0.0f);
+        body.setLinearVelocity(new Vec2());
+        body.setAngularVelocity(0.0f);
+        x = MathUtils.randomFloat(-1.0f, 1.0f);
+        bullet.setTransform(new Vec2(x, 10.0f), 0.0f);
+        bullet.setLinearVelocity(new Vec2(0.0f, -50.0f));
+        bullet.setAngularVelocity(0.0f);
         Distance.GJK_CALLS = 0;
         Distance.GJK_ITERS = 0;
         Distance.GJK_MAX_ITERS = 0;

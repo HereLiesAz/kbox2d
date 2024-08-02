@@ -98,7 +98,7 @@ public class PistonTest extends TestbedTest
                         .cos(2f * Math.PI * (i / (float) (numPieces)));
                 float yPos = radius * (float) Math
                         .sin(2f * Math.PI * (i / (float) (numPieces)));
-                cd.m_p.set(xPos, yPos);
+                cd.p.set(xPos, yPos);
                 body.createFixture(fd);
             }
             RevoluteJointDef rjd = new RevoluteJointDef();

@@ -125,8 +125,8 @@ public class DominoTower extends TestbedTest
             for (int i = 0; i < baseCount; ++i)
             {
                 currX = i * 1.5f * dheight - (1.5f * dheight * baseCount / 2f);
-                makeDomino(currX, dheight / 2.0f, false, m_world);
-                makeDomino(currX, dheight + dwidth / 2.0f, true, m_world);
+                makeDomino(currX, dheight / 2.0f, false, world);
+                makeDomino(currX, dheight + dwidth / 2.0f, true, world);
             }
             currX = baseCount * 1.5f * dheight
                     - (1.5f * dheight * baseCount / 2f);
@@ -149,21 +149,21 @@ public class DominoTower extends TestbedTest
                     if (i == 0)
                     {
                         makeDomino(currX - (1.25f * dheight) + .5f * dwidth,
-                                currY - dwidth, false, m_world);
+                                currY - dwidth, false, world);
                     }
                     if (i == baseCount - j - 1)
                     {
                         // if (j != 1) //djm: why is this here? it makes it off
                         // balance
                         makeDomino(currX + (1.25f * dheight) - .5f * dwidth,
-                                currY - dwidth, false, m_world);
+                                currY - dwidth, false, world);
                     }
                     ddensity /= 2.5f;
-                    makeDomino(currX, currY, false, m_world);
+                    makeDomino(currX, currY, false, world);
                     makeDomino(currX, currY + .5f * (dwidth + dheight), true,
-                            m_world);
+                            world);
                     makeDomino(currX, currY - .5f * (dwidth + dheight), true,
-                            m_world);
+                            world);
                 }
             }
         }

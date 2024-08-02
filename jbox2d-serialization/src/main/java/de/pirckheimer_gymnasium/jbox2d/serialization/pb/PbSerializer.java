@@ -157,7 +157,7 @@ public class PbSerializer implements JbSerializer
             builder.addBodies(serializeBody(cbody));
             bodies.put(cbody, cnt);
             cnt++;
-            cbody = cbody.m_next;
+            cbody = cbody.next;
         }
         cnt = 0;
         HashMap<Joint, Integer> joints = new HashMap<Joint, Integer>();
@@ -259,7 +259,7 @@ public class PbSerializer implements JbSerializer
         builder.setAwake(argBody.isAwake());
         builder.setActive(argBody.isActive());
         builder.setFixedRotation(argBody.isFixedRotation());
-        Fixture curr = argBody.m_fixtureList;
+        Fixture curr = argBody.fixtureList;
         while (curr != null)
         {
             builder.addFixtures(serializeFixture(curr));
@@ -302,7 +302,7 @@ public class PbSerializer implements JbSerializer
         builder.setDensity(argFixture.density);
         builder.setFriction(argFixture.friction);
         builder.setRestitution(argFixture.restitution);
-        builder.setSensor(argFixture.m_isSensor);
+        builder.setSensor(argFixture.isSensor);
         builder.setShape(serializeShape(argFixture.shape));
         builder.setFilter(serializeFilter(argFixture.filter));
         return builder;
@@ -351,7 +351,7 @@ public class PbSerializer implements JbSerializer
         case CIRCLE:
             CircleShape c = (CircleShape) argShape;
             builder.setType(PbShapeType.CIRCLE);
-            builder.setCenter(vecToPb(c.m_p));
+            builder.setCenter(vecToPb(c.p));
             break;
 
         case POLYGON:

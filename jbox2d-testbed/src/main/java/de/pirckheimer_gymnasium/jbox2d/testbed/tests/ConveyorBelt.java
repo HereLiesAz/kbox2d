@@ -99,7 +99,7 @@ public class ConveyorBelt extends TestbedTest
             BodyDef bd = new BodyDef();
             bd.type = BodyType.DYNAMIC;
             bd.position.set(-10.0f + 2.0f * i, 7.0f);
-            Body body = m_world.createBody(bd);
+            Body body = world.createBody(bd);
             PolygonShape shape = new PolygonShape();
             shape.setAsBox(0.5f, 0.5f);
             body.createFixture(shape, 20.0f);

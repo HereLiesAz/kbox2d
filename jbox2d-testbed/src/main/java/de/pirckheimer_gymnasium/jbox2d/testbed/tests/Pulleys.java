@@ -46,12 +46,12 @@ public class Pulleys extends TestbedTest
 {
     private static final long JOINT_TAG = 2;
 
-    PulleyJoint m_joint1;
+    PulleyJoint joint1;
 
     @Override
     public Long getTag(Joint joint)
     {
-        if (joint == m_joint1)
+        if (joint == joint1)
             return JOINT_TAG;
         return super.getTag(joint);
     }
@@ -61,7 +61,7 @@ public class Pulleys extends TestbedTest
     {
         if (tag == JOINT_TAG)
         {
-            m_joint1 = (PulleyJoint) joint;
+            joint1 = (PulleyJoint) joint;
         }
         else
         {
@@ -95,9 +95,9 @@ public class Pulleys extends TestbedTest
             ground.createFixture(shape, 0.0f);
             CircleShape circle = new CircleShape();
             circle.radius = 2.0f;
-            circle.m_p.set(-10.0f, y + b + L);
+            circle.p.set(-10.0f, y + b + L);
             ground.createFixture(circle, 0.0f);
-            circle.m_p.set(10.0f, y + b + L);
+            circle.p.set(10.0f, y + b + L);
             ground.createFixture(circle, 0.0f);
         }
         {
@@ -118,7 +118,7 @@ public class Pulleys extends TestbedTest
             Vec2 groundAnchor2 = new Vec2(10.0f, y + b + L);
             pulleyDef.initialize(body1, body2, groundAnchor1, groundAnchor2,
                     anchor1, anchor2, 2.0f);
-            m_joint1 = (PulleyJoint) getWorld().createJoint(pulleyDef);
+            joint1 = (PulleyJoint) getWorld().createJoint(pulleyDef);
         }
     }
 
@@ -126,8 +126,8 @@ public class Pulleys extends TestbedTest
     public void step(TestbedSettings settings)
     {
         super.step(settings);
-        float ratio = m_joint1.getRatio();
-        float L = m_joint1.getLength1() + ratio * m_joint1.getLength2();
+        float ratio = joint1.getRatio();
+        float L = joint1.getLength1() + ratio * joint1.getLength2();
         addTextLine("L1 + " + ratio + " * L2 = " + L);
         if (L >= 36)
         {

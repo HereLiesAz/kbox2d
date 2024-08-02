@@ -66,13 +66,13 @@ public class Fixture
 
     public final Filter filter;
 
-    public boolean m_isSensor;
+    public boolean isSensor;
 
-    public Object m_userData;
+    public Object userData;
 
     public Fixture()
     {
-        m_userData = null;
+        userData = null;
         body = null;
         next = null;
         proxies = null;
@@ -109,7 +109,7 @@ public class Fixture
      */
     public boolean isSensor()
     {
-        return m_isSensor;
+        return isSensor;
     }
 
     /**
@@ -117,10 +117,10 @@ public class Fixture
      */
     public void setSensor(boolean sensor)
     {
-        if (sensor != m_isSensor)
+        if (sensor != isSensor)
         {
             body.setAwake(true);
-            m_isSensor = sensor;
+            isSensor = sensor;
         }
     }
 
@@ -218,7 +218,7 @@ public class Fixture
      */
     public Object getUserData()
     {
-        return m_userData;
+        return userData;
     }
 
     /**
@@ -226,7 +226,7 @@ public class Fixture
      */
     public void setUserData(Object data)
     {
-        m_userData = data;
+        userData = data;
     }
 
     /**
@@ -237,7 +237,7 @@ public class Fixture
      */
     public boolean testPoint(final Vec2 p)
     {
-        return shape.testPoint(body.m_xf, p);
+        return shape.testPoint(body.xf, p);
     }
 
     /**
@@ -249,7 +249,7 @@ public class Fixture
     public boolean raycast(RayCastOutput output, RayCastInput input,
             int childIndex)
     {
-        return shape.raycast(output, input, body.m_xf, childIndex);
+        return shape.raycast(output, input, body.xf, childIndex);
     }
 
     /**
@@ -324,13 +324,13 @@ public class Fixture
 
     public void create(Body body, FixtureDef def)
     {
-        m_userData = def.userData;
+        userData = def.userData;
         friction = def.friction;
         restitution = def.restitution;
         this.body = body;
         next = null;
         filter.set(def.filter);
-        m_isSensor = def.isSensor;
+        isSensor = def.isSensor;
         shape = def.shape.clone();
         // Reserve proxy space
         int childCount = shape.getChildCount();

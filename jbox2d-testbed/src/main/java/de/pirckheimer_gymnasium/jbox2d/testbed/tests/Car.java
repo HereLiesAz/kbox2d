@@ -41,44 +41,44 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
 public class Car extends TestbedTest
 {
-    private static final long CAR_TAG = 100l;
+    private static final long CAR_TAG = 100L;
 
-    private static final long WHEEL1_TAG = 101l;
+    private static final long WHEEL1_TAG = 101L;
 
-    private static final long WHEEL2_TAG = 102l;
+    private static final long WHEEL2_TAG = 102L;
 
-    private static final long SPRING1_TAG = 103l;
+    private static final long SPRING1_TAG = 103L;
 
-    private static final long SPRING2_TAG = 104l;
+    private static final long SPRING2_TAG = 104L;
 
-    private Body m_car;
+    private Body car;
 
-    private Body m_wheel1;
+    private Body wheel1;
 
-    private Body m_wheel2;
+    private Body wheel2;
 
-    private float m_hz;
+    private float hz;
 
-    private float m_zeta;
+    private float zeta;
 
-    private float m_speed;
+    private float speed;
 
-    private WheelJoint m_spring1;
+    private WheelJoint spring1;
 
-    private WheelJoint m_spring2;
+    private WheelJoint spring2;
 
     @Override
     public Long getTag(Body body)
     {
-        if (body == m_car)
+        if (body == car)
         {
             return CAR_TAG;
         }
-        if (body == m_wheel1)
+        if (body == wheel1)
         {
             return WHEEL1_TAG;
         }
-        if (body == m_wheel2)
+        if (body == wheel2)
         {
             return WHEEL2_TAG;
         }
@@ -88,11 +88,11 @@ public class Car extends TestbedTest
     @Override
     public Long getTag(Joint joint)
     {
-        if (joint == m_spring1)
+        if (joint == spring1)
         {
             return SPRING1_TAG;
         }
-        if (joint == m_spring2)
+        if (joint == spring2)
         {
             return SPRING2_TAG;
         }
@@ -104,15 +104,15 @@ public class Car extends TestbedTest
     {
         if (tag == CAR_TAG)
         {
-            m_car = body;
+            car = body;
         }
         else if (tag == WHEEL1_TAG)
         {
-            m_wheel1 = body;
+            wheel1 = body;
         }
         else if (tag == WHEEL2_TAG)
         {
-            m_wheel2 = body;
+            wheel2 = body;
         }
         else
         {
@@ -125,11 +125,11 @@ public class Car extends TestbedTest
     {
         if (tag == SPRING1_TAG)
         {
-            m_spring1 = (WheelJoint) joint;
+            spring1 = (WheelJoint) joint;
         }
         else if (tag == SPRING2_TAG)
         {
-            m_spring2 = (WheelJoint) joint;
+            spring2 = (WheelJoint) joint;
         }
         else
         {
@@ -156,13 +156,13 @@ public class Car extends TestbedTest
         {
             return;
         }
-        m_hz = 4.0f;
-        m_zeta = 0.7f;
-        m_speed = 50.0f;
+        hz = 4.0f;
+        zeta = 0.7f;
+        speed = 50.0f;
         Body ground = null;
         {
             BodyDef bd = new BodyDef();
-            ground = m_world.createBody(bd);
+            ground = world.createBody(bd);
             EdgeShape shape = new EdgeShape();
             FixtureDef fd = new FixtureDef();
             fd.shape = shape;
@@ -209,7 +209,7 @@ public class Car extends TestbedTest
             BodyDef bd = new BodyDef();
             bd.position.set(140.0f, 1.0f);
             bd.type = BodyType.DYNAMIC;
-            Body body = m_world.createBody(bd);
+            Body body = world.createBody(bd);
             PolygonShape box = new PolygonShape();
             box.setAsBox(10.0f, 0.25f);
             body.createFixture(box, 1.0f);
@@ -218,7 +218,7 @@ public class Car extends TestbedTest
             jd.lowerAngle = -8.0f * MathUtils.PI / 180.0f;
             jd.upperAngle = 8.0f * MathUtils.PI / 180.0f;
             jd.enableLimit = true;
-            m_world.createJoint(jd);
+            world.createJoint(jd);
             body.applyAngularImpulse(100.0f);
         }
         // Bridge
@@ -237,16 +237,16 @@ public class Car extends TestbedTest
                 BodyDef bd = new BodyDef();
                 bd.type = BodyType.DYNAMIC;
                 bd.position.set(161.0f + 2.0f * i, -0.125f);
-                Body body = m_world.createBody(bd);
+                Body body = world.createBody(bd);
                 body.createFixture(fd);
                 Vec2 anchor = new Vec2(160.0f + 2.0f * i, -0.125f);
                 jd.initialize(prevBody, body, anchor);
-                m_world.createJoint(jd);
+                world.createJoint(jd);
                 prevBody = body;
             }
             Vec2 anchor = new Vec2(160.0f + 2.0f * N, -0.125f);
             jd.initialize(prevBody, ground, anchor);
-            m_world.createJoint(jd);
+            world.createJoint(jd);
         }
         // Boxes
         {
@@ -256,19 +256,19 @@ public class Car extends TestbedTest
             BodyDef bd = new BodyDef();
             bd.type = BodyType.DYNAMIC;
             bd.position.set(230.0f, 0.5f);
-            body = m_world.createBody(bd);
+            body = world.createBody(bd);
             body.createFixture(box, 0.5f);
             bd.position.set(230.0f, 1.5f);
-            body = m_world.createBody(bd);
+            body = world.createBody(bd);
             body.createFixture(box, 0.5f);
             bd.position.set(230.0f, 2.5f);
-            body = m_world.createBody(bd);
+            body = world.createBody(bd);
             body.createFixture(box, 0.5f);
             bd.position.set(230.0f, 3.5f);
-            body = m_world.createBody(bd);
+            body = world.createBody(bd);
             body.createFixture(box, 0.5f);
             bd.position.set(230.0f, 4.5f);
-            body = m_world.createBody(bd);
+            body = world.createBody(bd);
             body.createFixture(box, 0.5f);
         }
         // Car
@@ -287,34 +287,34 @@ public class Car extends TestbedTest
             BodyDef bd = new BodyDef();
             bd.type = BodyType.DYNAMIC;
             bd.position.set(0.0f, 1.0f);
-            m_car = m_world.createBody(bd);
-            m_car.createFixture(chassis, 1.0f);
+            car = world.createBody(bd);
+            car.createFixture(chassis, 1.0f);
             FixtureDef fd = new FixtureDef();
             fd.shape = circle;
             fd.density = 1.0f;
             fd.friction = 0.9f;
             bd.position.set(-1.0f, 0.35f);
-            m_wheel1 = m_world.createBody(bd);
-            m_wheel1.createFixture(fd);
+            wheel1 = world.createBody(bd);
+            wheel1.createFixture(fd);
             bd.position.set(1.0f, 0.4f);
-            m_wheel2 = m_world.createBody(bd);
-            m_wheel2.createFixture(fd);
+            wheel2 = world.createBody(bd);
+            wheel2.createFixture(fd);
             WheelJointDef jd = new WheelJointDef();
             Vec2 axis = new Vec2(0.0f, 1.0f);
-            jd.initialize(m_car, m_wheel1, m_wheel1.getPosition(), axis);
+            jd.initialize(car, wheel1, wheel1.getPosition(), axis);
             jd.motorSpeed = 0.0f;
             jd.maxMotorTorque = 20.0f;
             jd.enableMotor = true;
-            jd.frequencyHz = m_hz;
-            jd.dampingRatio = m_zeta;
-            m_spring1 = (WheelJoint) m_world.createJoint(jd);
-            jd.initialize(m_car, m_wheel2, m_wheel2.getPosition(), axis);
+            jd.frequencyHz = hz;
+            jd.dampingRatio = zeta;
+            spring1 = (WheelJoint) world.createJoint(jd);
+            jd.initialize(car, wheel2, wheel2.getPosition(), axis);
             jd.motorSpeed = 0.0f;
             jd.maxMotorTorque = 10.0f;
             jd.enableMotor = false;
-            jd.frequencyHz = m_hz;
-            jd.dampingRatio = m_zeta;
-            m_spring2 = (WheelJoint) m_world.createJoint(jd);
+            jd.frequencyHz = hz;
+            jd.dampingRatio = zeta;
+            spring2 = (WheelJoint) world.createJoint(jd);
         }
     }
 
@@ -324,30 +324,30 @@ public class Car extends TestbedTest
         switch (argKeyChar)
         {
         case 'a':
-            m_spring1.enableMotor(true);
-            m_spring1.setMotorSpeed(m_speed);
+            spring1.enableMotor(true);
+            spring1.setMotorSpeed(speed);
             break;
 
         case 's':
-            m_spring1.enableMotor(true);
-            m_spring1.setMotorSpeed(0.0f);
+            spring1.enableMotor(true);
+            spring1.setMotorSpeed(0.0f);
             break;
 
         case 'd':
-            m_spring1.enableMotor(true);
-            m_spring1.setMotorSpeed(-m_speed);
+            spring1.enableMotor(true);
+            spring1.setMotorSpeed(-speed);
             break;
 
         case 'q':
-            m_hz = MathUtils.max(0.0f, m_hz - 1.0f);
-            m_spring1.setSpringFrequencyHz(m_hz);
-            m_spring2.setSpringFrequencyHz(m_hz);
+            hz = MathUtils.max(0.0f, hz - 1.0f);
+            spring1.setSpringFrequencyHz(hz);
+            spring2.setSpringFrequencyHz(hz);
             break;
 
         case 'e':
-            m_hz += 1.0f;
-            m_spring1.setSpringFrequencyHz(m_hz);
-            m_spring2.setSpringFrequencyHz(m_hz);
+            hz += 1.0f;
+            spring1.setSpringFrequencyHz(hz);
+            spring2.setSpringFrequencyHz(hz);
             break;
         }
     }
@@ -361,7 +361,7 @@ public class Car extends TestbedTest
         case 'a':
         case 's':
         case 'd':
-            m_spring1.enableMotor(false);
+            spring1.enableMotor(false);
             break;
         }
     }
@@ -378,7 +378,7 @@ public class Car extends TestbedTest
         super.step(settings);
         addTextLine(
                 "Keys: left = a, brake = s, right = d, hz down = q, hz up = e");
-        addTextLine("frequency = " + m_hz + " hz, damping ratio = " + m_zeta);
-        getCamera().setCamera(m_car.getPosition());
+        addTextLine("frequency = " + hz + " hz, damping ratio = " + zeta);
+        getCamera().setCamera(car.getPosition());
     }
 }

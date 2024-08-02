@@ -241,18 +241,18 @@ public class PrismaticJoint extends Joint
         Vec2 axis = pool.popVec2();
         Vec2 temp2 = pool.popVec2();
         Vec2 temp3 = pool.popVec2();
-        temp.set(localAnchorA).subLocal(bA.m_sweep.localCenter);
-        Rot.mulToOutUnsafe(bA.m_xf.q, temp, rA);
-        temp.set(localAnchorB).subLocal(bB.m_sweep.localCenter);
-        Rot.mulToOutUnsafe(bB.m_xf.q, temp, rB);
-        p1.set(bA.m_sweep.c).addLocal(rA);
-        p2.set(bB.m_sweep.c).addLocal(rB);
+        temp.set(localAnchorA).subLocal(bA.sweep.localCenter);
+        Rot.mulToOutUnsafe(bA.xf.q, temp, rA);
+        temp.set(localAnchorB).subLocal(bB.sweep.localCenter);
+        Rot.mulToOutUnsafe(bB.xf.q, temp, rB);
+        p1.set(bA.sweep.c).addLocal(rA);
+        p2.set(bB.sweep.c).addLocal(rB);
         d.set(p2).subLocal(p1);
-        Rot.mulToOutUnsafe(bA.m_xf.q, localXAxisA, axis);
-        Vec2 vA = bA.m_linearVelocity;
-        Vec2 vB = bB.m_linearVelocity;
-        float wA = bA.m_angularVelocity;
-        float wB = bB.m_angularVelocity;
+        Rot.mulToOutUnsafe(bA.xf.q, localXAxisA, axis);
+        Vec2 vA = bA.linearVelocity;
+        Vec2 vB = bB.linearVelocity;
+        float wA = bA.angularVelocity;
+        float wB = bB.angularVelocity;
         Vec2.crossToOutUnsafe(wA, axis, temp);
         Vec2.crossToOutUnsafe(wB, rB, temp2);
         Vec2.crossToOutUnsafe(wA, rA, temp3);
@@ -418,14 +418,14 @@ public class PrismaticJoint extends Joint
     @Override
     public void initVelocityConstraints(final SolverData data)
     {
-        indexA = bodyA.m_islandIndex;
-        indexB = bodyB.m_islandIndex;
-        localCenterA.set(bodyA.m_sweep.localCenter);
-        localCenterB.set(bodyB.m_sweep.localCenter);
-        invMassA = bodyA.m_invMass;
-        invMassB = bodyB.m_invMass;
-        invIA = bodyA.m_invI;
-        invIB = bodyB.m_invI;
+        indexA = bodyA.islandIndex;
+        indexB = bodyB.islandIndex;
+        localCenterA.set(bodyA.sweep.localCenter);
+        localCenterB.set(bodyB.sweep.localCenter);
+        invMassA = bodyA.invMass;
+        invMassB = bodyB.invMass;
+        invIA = bodyA.invI;
+        invIB = bodyB.invI;
         Vec2 cA = data.positions[indexA].c;
         float aA = data.positions[indexA].a;
         Vec2 vA = data.velocities[indexA].v;

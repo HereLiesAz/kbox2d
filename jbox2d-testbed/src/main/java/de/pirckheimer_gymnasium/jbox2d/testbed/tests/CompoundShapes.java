@@ -67,10 +67,10 @@ public class CompoundShapes extends TestbedTest
         {
             CircleShape circle1 = new CircleShape();
             circle1.radius = 0.5f;
-            circle1.m_p.set(-0.5f, 0.5f);
+            circle1.p.set(-0.5f, 0.5f);
             CircleShape circle2 = new CircleShape();;
             circle2.radius = 0.5f;
-            circle2.m_p.set(0.5f, 0.5f);
+            circle2.p.set(0.5f, 0.5f);
             for (int i = 0; i < 10; ++i)
             {
                 float x = MathUtils.randomFloat(-0.1f, 0.1f);

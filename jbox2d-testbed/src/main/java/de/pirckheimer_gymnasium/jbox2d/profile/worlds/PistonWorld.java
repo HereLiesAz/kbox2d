@@ -22,9 +22,9 @@ public class PistonWorld implements PerformanceTestWorld
 
     public int posIters = 3;
 
-    public RevoluteJoint m_joint1;
+    public RevoluteJoint joint1;
 
-    public PrismaticJoint m_joint2;
+    public PrismaticJoint joint2;
 
     public World world;
 
@@ -80,7 +80,7 @@ public class PistonWorld implements PerformanceTestWorld
                         .cos(2f * Math.PI * (i / (float) (numPieces)));
                 float yPos = radius * (float) Math
                         .sin(2f * Math.PI * (i / (float) (numPieces)));
-                cd.m_p.set(xPos, yPos);
+                cd.p.set(xPos, yPos);
                 body.createFixture(fd);
             }
             RevoluteJointDef rjd = new RevoluteJointDef();
@@ -106,7 +106,7 @@ public class PistonWorld implements PerformanceTestWorld
                 rjd.motorSpeed = 1.0f * MathUtils.PI;
                 rjd.maxMotorTorque = 20000;
                 rjd.enableMotor = true;
-                m_joint1 = (RevoluteJoint) world.createJoint(rjd);
+                joint1 = (RevoluteJoint) world.createJoint(rjd);
                 prevBody = body;
             }
             // Define follower.
@@ -146,7 +146,7 @@ public class PistonWorld implements PerformanceTestWorld
                         new Vec2(0.0f, 1.0f));
                 pjd.maxMotorForce = 1000.0f;
                 pjd.enableMotor = true;
-                m_joint2 = (PrismaticJoint) world.createJoint(pjd);
+                joint2 = (PrismaticJoint) world.createJoint(pjd);
             }
             // Create a payload
             {

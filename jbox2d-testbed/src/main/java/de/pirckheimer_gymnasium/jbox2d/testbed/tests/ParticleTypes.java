@@ -16,14 +16,14 @@ public class ParticleTypes extends TestbedTest
 {
     Body circle;
 
-    int flags = ParticleType.b2_tensileParticle;
+    int flags = ParticleType.tensileParticle;
 
     @Override
     public void initTest(boolean deserialized)
     {
         {
             BodyDef bd = new BodyDef();
-            Body ground = m_world.createBody(bd);
+            Body ground = world.createBody(bd);
             {
                 PolygonShape shape = new PolygonShape();
                 Vec2[] vertices = new Vec2[] { new Vec2(-40, -10),
@@ -47,22 +47,22 @@ public class ParticleTypes extends TestbedTest
                 ground.createFixture(shape, 0.0f);
             }
         }
-        m_world.setParticleRadius(0.2f);
+        world.setParticleRadius(0.2f);
         {
             PolygonShape shape = new PolygonShape();
             shape.setAsBox(20, 10, new Vec2(0, 10), 0);
             ParticleGroupDef pd = new ParticleGroupDef();
             pd.flags = pd.flags;
             pd.shape = shape;
-            m_world.createParticleGroup(pd);
+            world.createParticleGroup(pd);
         }
         {
             BodyDef bd = new BodyDef();
             bd.type = BodyType.KINEMATIC;
-            Body body = m_world.createBody(bd);
+            Body body = world.createBody(bd);
             circle = body;
             CircleShape shape = new CircleShape();
-            shape.m_p.set(0, 5);
+            shape.p.set(0, 5);
             shape.radius = 1;
             body.createFixture(shape, 0.1f);
             body.setLinearVelocity(new Vec2(-6, 0.0f));
@@ -70,7 +70,7 @@ public class ParticleTypes extends TestbedTest
         {
             BodyDef bd = new BodyDef();
             bd.type = BodyType.DYNAMIC;
-            Body body = m_world.createBody(bd);
+            Body body = world.createBody(bd);
             PolygonShape shape = new PolygonShape();
             shape.setAsBox(1, 1, new Vec2(-10, 5), 0);
             body.createFixture(shape, 0.1f);
@@ -78,7 +78,7 @@ public class ParticleTypes extends TestbedTest
         {
             BodyDef bd = new BodyDef();
             bd.type = BodyType.DYNAMIC;
-            Body body = m_world.createBody(bd);
+            Body body = world.createBody(bd);
             PolygonShape shape = new PolygonShape();
             shape.setAsBox(1, 1, new Vec2(10, 5), 0.5f);
             body.createFixture(shape, 0.1f);
@@ -86,7 +86,7 @@ public class ParticleTypes extends TestbedTest
         {
             BodyDef bd = new BodyDef();
             bd.type = BodyType.DYNAMIC;
-            Body body = m_world.createBody(bd);
+            Body body = world.createBody(bd);
             EdgeShape shape = new EdgeShape();
             shape.set(new Vec2(0, 20), new Vec2(1, 21));
             body.createFixture(shape, 0.1f);
@@ -94,7 +94,7 @@ public class ParticleTypes extends TestbedTest
         {
             BodyDef bd = new BodyDef();
             bd.type = BodyType.DYNAMIC;
-            Body body = m_world.createBody(bd);
+            Body body = world.createBody(bd);
             EdgeShape shape = new EdgeShape();
             shape.set(new Vec2(3, 20), new Vec2(4, 21));
             body.createFixture(shape, 0.1f);
@@ -102,7 +102,7 @@ public class ParticleTypes extends TestbedTest
         {
             BodyDef bd = new BodyDef();
             bd.type = BodyType.DYNAMIC;
-            Body body = m_world.createBody(bd);
+            Body body = world.createBody(bd);
             EdgeShape shape = new EdgeShape();
             shape.set(new Vec2(-3, 21), new Vec2(-2, 20));
             body.createFixture(shape, 0.1f);
@@ -120,20 +120,20 @@ public class ParticleTypes extends TestbedTest
             v.x = -v.x;
             circle.setLinearVelocity(v);
         }
-        int[] flagsBuffer = m_world.getParticleFlagsBuffer();
-        for (int i = 0; i < m_world.getParticleCount(); i++)
+        int[] flagsBuffer = world.getParticleFlagsBuffer();
+        for (int i = 0; i < world.getParticleCount(); i++)
         {
             flagsBuffer[i] = flags;
         }
         addTextLine("'a' Clear");
-        addTextLine("'e' Elastic "
-                + ((flags & ParticleType.b2_elasticParticle) != 0));
-        addTextLine("'q' Powder  "
-                + ((flags & ParticleType.b2_powderParticle) != 0));
-        addTextLine("'t' Tensile "
-                + ((flags & ParticleType.b2_tensileParticle) != 0));
-        addTextLine("'v' Viscous "
-                + ((flags & ParticleType.b2_viscousParticle) != 0));
+        addTextLine(
+                "'e' Elastic " + ((flags & ParticleType.elasticParticle) != 0));
+        addTextLine(
+                "'q' Powder  " + ((flags & ParticleType.powderParticle) != 0));
+        addTextLine(
+                "'t' Tensile " + ((flags & ParticleType.tensileParticle) != 0));
+        addTextLine(
+                "'v' Viscous " + ((flags & ParticleType.viscousParticle) != 0));
     }
 
     @Override
@@ -148,19 +148,19 @@ public class ParticleTypes extends TestbedTest
             break;
 
         case 'e':
-            toggle = ParticleType.b2_elasticParticle;
+            toggle = ParticleType.elasticParticle;
             break;
 
         case 'q':
-            toggle = ParticleType.b2_powderParticle;
+            toggle = ParticleType.powderParticle;
             break;
 
         case 't':
-            toggle = ParticleType.b2_tensileParticle;
+            toggle = ParticleType.tensileParticle;
             break;
 
         case 'v':
-            toggle = ParticleType.b2_viscousParticle;
+            toggle = ParticleType.viscousParticle;
             break;
         }
         if (toggle != 0)

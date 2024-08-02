@@ -59,7 +59,7 @@ public class EdgeTest extends TestbedTest
             bd.type = BodyType.DYNAMIC;
             bd.position.set(-0.5f, 0.6f);
             bd.allowSleep = false;
-            Body body = m_world.createBody(bd);
+            Body body = world.createBody(bd);
             CircleShape shape = new CircleShape();
             shape.radius = 0.5f;
             body.createFixture(shape, 1.0f);
@@ -69,7 +69,7 @@ public class EdgeTest extends TestbedTest
             bd.type = BodyType.DYNAMIC;
             bd.position.set(1.0f, 0.6f);
             bd.allowSleep = false;
-            Body body = m_world.createBody(bd);
+            Body body = world.createBody(bd);
             PolygonShape shape = new PolygonShape();
             shape.setAsBox(0.5f, 0.5f);
             body.createFixture(shape, 1.0f);

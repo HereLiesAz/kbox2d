@@ -112,9 +112,9 @@ public abstract class Joint
 
     protected IWorldPool pool;
     // Cache here per time step to reduce cache misses.
-    // final Vec2 m_localCenterA, m_localCenterB;
-    // float m_invMassA, m_invIA;
-    // float m_invMassB, m_invIB;
+    // final Vec2 localCenterA, localCenterB;
+    // float invMassA, invIA;
+    // float invMassB, invIB;
 
     protected Joint(IWorldPool worldPool, JointDef def)
     {

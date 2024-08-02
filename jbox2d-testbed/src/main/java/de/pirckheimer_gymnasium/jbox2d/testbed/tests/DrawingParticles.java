@@ -58,7 +58,7 @@ public class DrawingParticles extends TestbedTest
                 getGroundBody().createFixture(shape, 0.0f);
             }
         }
-        m_world.setParticleRadius(0.5f);
+        world.setParticleRadius(0.5f);
         m_lastGroup = null;
         m_drawing = true;
         m_groupFlags = 0;
@@ -82,41 +82,41 @@ public class DrawingParticles extends TestbedTest
         switch (keyChar)
         {
         case 'e':
-            m_particleFlags = ParticleType.b2_elasticParticle;
-            m_groupFlags = ParticleGroupType.b2_solidParticleGroup;
+            m_particleFlags = ParticleType.elasticParticle;
+            m_groupFlags = ParticleGroupType.solidParticleGroup;
             break;
 
         case 'o':
-            m_particleFlags = ParticleType.b2_powderParticle;
+            m_particleFlags = ParticleType.powderParticle;
             break;
 
         case 'f':
-            m_groupFlags = ParticleGroupType.b2_rigidParticleGroup
-                    | ParticleGroupType.b2_solidParticleGroup;
+            m_groupFlags = ParticleGroupType.rigidParticleGroup
+                    | ParticleGroupType.solidParticleGroup;
             break;
 
         case 's':
-            m_particleFlags = ParticleType.b2_springParticle;
-            m_groupFlags = ParticleGroupType.b2_solidParticleGroup;
+            m_particleFlags = ParticleType.springParticle;
+            m_groupFlags = ParticleGroupType.solidParticleGroup;
             break;
 
         case 't':
             color.set((byte) 0, (byte) 127, (byte) 0, (byte) 50);
-            m_particleFlags = ParticleType.b2_tensileParticle;
+            m_particleFlags = ParticleType.tensileParticle;
             break;
 
         case 'v':
             color.set((byte) 0, (byte) 0, (byte) 127, (byte) 50);
-            m_particleFlags = ParticleType.b2_viscousParticle;
+            m_particleFlags = ParticleType.viscousParticle;
             break;
 
         case 'w':
-            m_particleFlags = ParticleType.b2_wallParticle;
-            m_groupFlags = ParticleGroupType.b2_solidParticleGroup;
+            m_particleFlags = ParticleType.wallParticle;
+            m_groupFlags = ParticleGroupType.solidParticleGroup;
             break;
 
         case 'z':
-            m_particleFlags = ParticleType.b2_zombieParticle;
+            m_particleFlags = ParticleType.zombieParticle;
             break;
         }
     }
@@ -133,19 +133,19 @@ public class DrawingParticles extends TestbedTest
         super.mouseDrag(p, button);
         if (m_drawing)
         {
-            pshape.m_p.set(p);
+            pshape.p.set(p);
             pshape.radius = 2.0f;
             pxf.setIdentity();
-            m_world.destroyParticlesInShape(pshape, pxf);
+            world.destroyParticlesInShape(pshape, pxf);
             ppd.shape = pshape;
             ppd.color = color;
             ppd.flags = m_particleFlags;
             ppd.groupFlags = m_groupFlags;
-            ParticleGroup group = m_world.createParticleGroup(ppd);
+            ParticleGroup group = world.createParticleGroup(ppd);
             if (m_lastGroup != null
                     && group.getGroupFlags() == m_lastGroup.getGroupFlags())
             {
-                m_world.joinParticleGroups(m_lastGroup, group);
+                world.joinParticleGroups(m_lastGroup, group);
             }
             else
             {

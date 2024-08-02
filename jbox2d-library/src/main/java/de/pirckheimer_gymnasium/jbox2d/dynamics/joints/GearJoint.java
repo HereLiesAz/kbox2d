@@ -135,10 +135,10 @@ public class GearJoint extends Joint
         bodyC = joint1.getBodyA();
         bodyA = joint1.getBodyB();
         // Get geometry of joint1
-        Transform xfA = bodyA.m_xf;
-        float aA = bodyA.m_sweep.a;
-        Transform xfC = bodyC.m_xf;
-        float aC = bodyC.m_sweep.a;
+        Transform xfA = bodyA.xf;
+        float aA = bodyA.sweep.a;
+        Transform xfC = bodyC.xf;
+        float aC = bodyC.sweep.a;
         if (typeA == JointType.REVOLUTE)
         {
             RevoluteJoint revolute = (RevoluteJoint) def.joint1;
@@ -167,10 +167,10 @@ public class GearJoint extends Joint
         bodyD = joint2.getBodyA();
         bodyB = joint2.getBodyB();
         // Get geometry of joint2
-        Transform xfB = bodyB.m_xf;
-        float aB = bodyB.m_sweep.a;
-        Transform xfD = bodyD.m_xf;
-        float aD = bodyD.m_sweep.a;
+        Transform xfB = bodyB.xf;
+        float aB = bodyB.sweep.a;
+        Transform xfD = bodyD.xf;
+        float aD = bodyD.sweep.a;
         if (typeB == JointType.REVOLUTE)
         {
             RevoluteJoint revolute = (RevoluteJoint) def.joint2;
@@ -240,22 +240,22 @@ public class GearJoint extends Joint
     @Override
     public void initVelocityConstraints(SolverData data)
     {
-        indexA = bodyA.m_islandIndex;
-        indexB = bodyB.m_islandIndex;
-        indexC = bodyC.m_islandIndex;
-        indexD = bodyD.m_islandIndex;
-        lcA.set(bodyA.m_sweep.localCenter);
-        lcB.set(bodyB.m_sweep.localCenter);
-        lcC.set(bodyC.m_sweep.localCenter);
-        lcD.set(bodyD.m_sweep.localCenter);
-        mA = bodyA.m_invMass;
-        mB = bodyB.m_invMass;
-        mC = bodyC.m_invMass;
-        mD = bodyD.m_invMass;
-        iA = bodyA.m_invI;
-        iB = bodyB.m_invI;
-        iC = bodyC.m_invI;
-        iD = bodyD.m_invI;
+        indexA = bodyA.islandIndex;
+        indexB = bodyB.islandIndex;
+        indexC = bodyC.islandIndex;
+        indexD = bodyD.islandIndex;
+        lcA.set(bodyA.sweep.localCenter);
+        lcB.set(bodyB.sweep.localCenter);
+        lcC.set(bodyC.sweep.localCenter);
+        lcD.set(bodyD.sweep.localCenter);
+        mA = bodyA.invMass;
+        mB = bodyB.invMass;
+        mC = bodyC.invMass;
+        mD = bodyD.invMass;
+        iA = bodyA.invI;
+        iB = bodyB.invI;
+        iC = bodyC.invI;
+        iD = bodyD.invI;
         // Vec2 cA = data.positions[m_indexA].c;
         float aA = data.positions[indexA].a;
         Vec2 vA = data.velocities[indexA].v;
