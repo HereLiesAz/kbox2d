@@ -147,9 +147,9 @@ public class RopeJoint extends Joint
         }
         pool.pushRot(2);
         pool.pushVec2(1);
-        // data.velocities[m_indexA].v = vA;
+        // data.velocities[indexA].v = vA;
         data.velocities[indexA].w = wA;
-        // data.velocities[m_indexB].v = vB;
+        // data.velocities[indexB].v = vB;
         data.velocities[indexB].w = wB;
     }
 
@@ -188,9 +188,9 @@ public class RopeJoint extends Joint
         vB.y += invMassB * Py;
         wB += invIB * (rB.x * Py - rB.y * Px);
         pool.pushVec2(3);
-        // data.velocities[m_indexA].v = vA;
+        // data.velocities[indexA].v = vA;
         data.velocities[indexA].w = wA;
-        // data.velocities[m_indexB].v = vB;
+        // data.velocities[indexB].v = vB;
         data.velocities[indexB].w = wB;
     }
 
@@ -229,9 +229,9 @@ public class RopeJoint extends Joint
         aB += invIB * (rB.x * Py - rB.y * Px);
         pool.pushRot(2);
         pool.pushVec2(4);
-        // data.positions[m_indexA].c = cA;
+        // data.positions[indexA].c = cA;
         data.positions[indexA].a = aA;
-        // data.positions[m_indexB].c = cB;
+        // data.positions[indexB].c = cB;
         data.positions[indexB].a = aB;
         return length - maxLength < Settings.linearSlop;
     }

@@ -692,8 +692,8 @@ public class Collision
         // Vec2 Q = MulT(xfA, Mul(xfB, circleB.m_p));
         Transform.mulToOutUnsafe(xfB, circleB.p, temp);
         Transform.mulTransToOutUnsafe(xfA, temp, Q);
-        final Vec2 A = edgeA.m_vertex1;
-        final Vec2 B = edgeA.m_vertex2;
+        final Vec2 A = edgeA.vertex1;
+        final Vec2 B = edgeA.vertex2;
         e.set(B).subLocal(A);
         // Barycentric coordinates
         float u = Vec2.dot(e, temp.set(B).subLocal(Q));
@@ -713,9 +713,9 @@ public class Collision
                 return;
             }
             // Is there an edge connected to A?
-            if (edgeA.m_hasVertex0)
+            if (edgeA.hasVertex0)
             {
-                final Vec2 A1 = edgeA.m_vertex0;
+                final Vec2 A1 = edgeA.vertex0;
                 final Vec2 B1 = A;
                 e1.set(B1).subLocal(A1);
                 float u1 = Vec2.dot(e1, temp.set(B1).subLocal(Q));
@@ -747,9 +747,9 @@ public class Collision
                 return;
             }
             // Is there an edge connected to B?
-            if (edgeA.m_hasVertex3)
+            if (edgeA.hasVertex3)
             {
-                final Vec2 B2 = edgeA.m_vertex3;
+                final Vec2 B2 = edgeA.vertex3;
                 final Vec2 A2 = B;
                 final Vec2 e2 = e1;
                 e2.set(B2).subLocal(A2);
@@ -1012,12 +1012,12 @@ public class Collision
         {
             Transform.mulTransToOutUnsafe(xfA, xfB, m_xf);
             Transform.mulToOutUnsafe(m_xf, polygonB.centroid, m_centroidB);
-            m_v0 = edgeA.m_vertex0;
-            m_v1 = edgeA.m_vertex1;
-            m_v2 = edgeA.m_vertex2;
-            m_v3 = edgeA.m_vertex3;
-            boolean hasVertex0 = edgeA.m_hasVertex0;
-            boolean hasVertex3 = edgeA.m_hasVertex3;
+            m_v0 = edgeA.vertex0;
+            m_v1 = edgeA.vertex1;
+            m_v2 = edgeA.vertex2;
+            m_v3 = edgeA.vertex3;
+            boolean hasVertex0 = edgeA.hasVertex0;
+            boolean hasVertex3 = edgeA.hasVertex3;
             edge1.set(m_v2).subLocal(m_v1);
             edge1.normalize();
             m_normal1.set(edge1.y, -edge1.x);

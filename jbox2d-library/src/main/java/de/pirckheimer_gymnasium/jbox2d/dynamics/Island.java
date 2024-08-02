@@ -476,9 +476,9 @@ public class Island
         }
         // #if 0
         // // Is the new position really safe?
-        // for (int i = 0; i < m_contactCount; ++i)
+        // for (int i = 0; i < contactCount; ++i)
         // {
-        // Contact* c = m_contacts[i];
+        // Contact* c = contacts[i];
         // Fixture* fA = c.GetFixtureA();
         // Fixture* fB = c.GetFixtureB();
         //

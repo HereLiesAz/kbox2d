@@ -46,12 +46,12 @@ public class PrismaticTest extends TestbedTest
 {
     private static final long JOINT_TAG = 1;
 
-    PrismaticJoint m_joint;
+    PrismaticJoint joint;
 
     @Override
     public Long getTag(Joint joint)
     {
-        if (joint == m_joint)
+        if (joint == this.joint)
             return JOINT_TAG;
         return super.getTag(joint);
     }
@@ -61,7 +61,7 @@ public class PrismaticTest extends TestbedTest
     {
         if (tag == JOINT_TAG)
         {
-            m_joint = (PrismaticJoint) joint;
+            this.joint = (PrismaticJoint) joint;
         }
         else
         {
@@ -114,7 +114,7 @@ public class PrismaticTest extends TestbedTest
             pjd.lowerTranslation = 0.0f;
             pjd.upperTranslation = 20.0f;
             pjd.enableLimit = true;
-            m_joint = (PrismaticJoint) getWorld().createJoint(pjd);
+            joint = (PrismaticJoint) getWorld().createJoint(pjd);
         }
     }
 
@@ -123,7 +123,7 @@ public class PrismaticTest extends TestbedTest
     {
         super.step(settings);
         addTextLine("Keys: (l) limits, (m) motors, (s) speed");
-        float force = m_joint.getMotorForce(1);
+        float force = joint.getMotorForce(1);
         addTextLine("Motor Force = " + force);
     }
 
@@ -133,17 +133,17 @@ public class PrismaticTest extends TestbedTest
         switch (argKeyChar)
         {
         case 'l':
-            m_joint.enableLimit(!m_joint.isLimitEnabled());
+            joint.enableLimit(!joint.isLimitEnabled());
             getModel().getKeys()['l'] = false;
             break;
 
         case 'm':
-            m_joint.enableMotor(!m_joint.isMotorEnabled());
+            joint.enableMotor(!joint.isMotorEnabled());
             getModel().getKeys()['m'] = false;
             break;
 
         case 's':
-            m_joint.setMotorSpeed(-m_joint.getMotorSpeed());
+            joint.setMotorSpeed(-joint.getMotorSpeed());
             getModel().getKeys()['s'] = false;
             break;
         }

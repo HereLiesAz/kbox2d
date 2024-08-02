@@ -289,28 +289,28 @@ public class PbDeserializer implements JbDeserializer
 
         case EDGE:
             EdgeShape edge = new EdgeShape();
-            edge.m_vertex0.set(pbToVec(s.getV0()));
-            edge.m_vertex1.set(pbToVec(s.getV1()));
-            edge.m_vertex2.set(pbToVec(s.getV2()));
-            edge.m_vertex3.set(pbToVec(s.getV3()));
-            edge.m_hasVertex0 = s.getHas0();
-            edge.m_hasVertex3 = s.getHas3();
+            edge.vertex0.set(pbToVec(s.getV0()));
+            edge.vertex1.set(pbToVec(s.getV1()));
+            edge.vertex2.set(pbToVec(s.getV2()));
+            edge.vertex3.set(pbToVec(s.getV3()));
+            edge.hasVertex0 = s.getHas0();
+            edge.hasVertex3 = s.getHas3();
             shape = edge;
             break;
 
         case CHAIN:
         {
             ChainShape chain = new ChainShape();
-            chain.m_count = s.getPointsCount();
-            chain.m_vertices = new Vec2[chain.m_count];
-            for (int i = 0; i < chain.m_count; i++)
+            chain.count = s.getPointsCount();
+            chain.vertices = new Vec2[chain.count];
+            for (int i = 0; i < chain.count; i++)
             {
-                chain.m_vertices[i] = new Vec2(pbToVec(s.getPoints(i)));
+                chain.vertices[i] = new Vec2(pbToVec(s.getPoints(i)));
             }
-            chain.m_hasPrevVertex = s.getHas0();
-            chain.m_hasNextVertex = s.getHas3();
-            chain.m_prevVertex.set(pbToVec(s.getPrev()));
-            chain.m_nextVertex.set(pbToVec(s.getNext()));
+            chain.hasPrevVertex = s.getHas0();
+            chain.hasNextVertex = s.getHas3();
+            chain.prevVertex.set(pbToVec(s.getPrev()));
+            chain.nextVertex.set(pbToVec(s.getNext()));
             shape = chain;
             break;
         }

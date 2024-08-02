@@ -62,7 +62,7 @@ public abstract class DebugDraw
     /** Draw only the wireframe for drawing performance */
     public static final int e_wireframeDrawingBit = 1 << 7;
 
-    protected int m_drawFlags;
+    protected int drawFlags;
 
     protected IViewportTransform viewportTransform;
 
@@ -73,7 +73,7 @@ public abstract class DebugDraw
 
     public DebugDraw(IViewportTransform viewport)
     {
-        m_drawFlags = 0;
+        drawFlags = 0;
         viewportTransform = viewport;
     }
 
@@ -84,22 +84,22 @@ public abstract class DebugDraw
 
     public void setFlags(int flags)
     {
-        m_drawFlags = flags;
+        drawFlags = flags;
     }
 
     public int getFlags()
     {
-        return m_drawFlags;
+        return drawFlags;
     }
 
     public void appendFlags(int flags)
     {
-        m_drawFlags |= flags;
+        drawFlags |= flags;
     }
 
     public void clearFlags(int flags)
     {
-        m_drawFlags &= ~flags;
+        drawFlags &= ~flags;
     }
 
     /**

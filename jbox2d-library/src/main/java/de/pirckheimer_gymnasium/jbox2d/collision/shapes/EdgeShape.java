@@ -46,24 +46,24 @@ public class EdgeShape extends Shape
     /**
      * edge vertex 1
      */
-    public final Vec2 m_vertex1 = new Vec2();
+    public final Vec2 vertex1 = new Vec2();
 
     /**
      * edge vertex 2
      */
-    public final Vec2 m_vertex2 = new Vec2();
+    public final Vec2 vertex2 = new Vec2();
 
     /**
      * optional adjacent vertex 1. Used for smooth collision
      */
-    public final Vec2 m_vertex0 = new Vec2();
+    public final Vec2 vertex0 = new Vec2();
 
     /**
      * optional adjacent vertex 2. Used for smooth collision
      */
-    public final Vec2 m_vertex3 = new Vec2();
+    public final Vec2 vertex3 = new Vec2();
 
-    public boolean m_hasVertex0 = false, m_hasVertex3 = false;
+    public boolean hasVertex0 = false, hasVertex3 = false;
 
     public EdgeShape()
     {
@@ -79,9 +79,9 @@ public class EdgeShape extends Shape
 
     public void set(Vec2 v1, Vec2 v2)
     {
-        m_vertex1.set(v1);
-        m_vertex2.set(v2);
-        m_hasVertex0 = m_hasVertex3 = false;
+        vertex1.set(v1);
+        vertex2.set(v2);
+        hasVertex0 = hasVertex3 = false;
     }
 
     @Override
@@ -101,10 +101,10 @@ public class EdgeShape extends Shape
         float xfqs = xf.q.s;
         float xfpx = xf.p.x;
         float xfpy = xf.p.y;
-        float v1x = (xfqc * m_vertex1.x - xfqs * m_vertex1.y) + xfpx;
-        float v1y = (xfqs * m_vertex1.x + xfqc * m_vertex1.y) + xfpy;
-        float v2x = (xfqc * m_vertex2.x - xfqs * m_vertex2.y) + xfpx;
-        float v2y = (xfqs * m_vertex2.x + xfqc * m_vertex2.y) + xfpy;
+        float v1x = (xfqc * vertex1.x - xfqs * vertex1.y) + xfpx;
+        float v1y = (xfqs * vertex1.x + xfqc * vertex1.y) + xfpy;
+        float v2x = (xfqc * vertex2.x - xfqs * vertex2.y) + xfpx;
+        float v2y = (xfqs * vertex2.x + xfqc * vertex2.y) + xfpy;
         float dx = p.x - v1x;
         float dy = p.y - v1y;
         float sx = v2x - v1x;
@@ -147,8 +147,8 @@ public class EdgeShape extends Shape
             Transform xf, int childIndex)
     {
         float tempx, tempy;
-        final Vec2 v1 = m_vertex1;
-        final Vec2 v2 = m_vertex2;
+        final Vec2 v1 = vertex1;
+        final Vec2 v2 = vertex2;
         final Rot xfq = xf.q;
         final Vec2 xfp = xf.p;
         // Put the ray into the edge's frame of reference.
@@ -230,10 +230,10 @@ public class EdgeShape extends Shape
         final Vec2 lowerBound = aabb.lowerBound;
         final Vec2 upperBound = aabb.upperBound;
         final Rot xfq = xf.q;
-        final float v1x = (xfq.c * m_vertex1.x - xfq.s * m_vertex1.y) + xf.p.x;
-        final float v1y = (xfq.s * m_vertex1.x + xfq.c * m_vertex1.y) + xf.p.y;
-        final float v2x = (xfq.c * m_vertex2.x - xfq.s * m_vertex2.y) + xf.p.x;
-        final float v2y = (xfq.s * m_vertex2.x + xfq.c * m_vertex2.y) + xf.p.y;
+        final float v1x = (xfq.c * vertex1.x - xfq.s * vertex1.y) + xf.p.x;
+        final float v1y = (xfq.s * vertex1.x + xfq.c * vertex1.y) + xf.p.y;
+        final float v2x = (xfq.c * vertex2.x - xfq.s * vertex2.y) + xf.p.x;
+        final float v2y = (xfq.s * vertex2.x + xfq.c * vertex2.y) + xf.p.y;
         lowerBound.x = v1x < v2x ? v1x : v2x;
         lowerBound.y = v1y < v2y ? v1y : v2y;
         upperBound.x = v1x > v2x ? v1x : v2x;
@@ -248,7 +248,7 @@ public class EdgeShape extends Shape
     public void computeMass(MassData massData, float density)
     {
         massData.mass = 0.0f;
-        massData.center.set(m_vertex1).addLocal(m_vertex2).mulLocal(0.5f);
+        massData.center.set(vertex1).addLocal(vertex2).mulLocal(0.5f);
         massData.I = 0.0f;
     }
 
@@ -257,12 +257,12 @@ public class EdgeShape extends Shape
     {
         EdgeShape edge = new EdgeShape();
         edge.radius = this.radius;
-        edge.m_hasVertex0 = this.m_hasVertex0;
-        edge.m_hasVertex3 = this.m_hasVertex3;
-        edge.m_vertex0.set(this.m_vertex0);
-        edge.m_vertex1.set(this.m_vertex1);
-        edge.m_vertex2.set(this.m_vertex2);
-        edge.m_vertex3.set(this.m_vertex3);
+        edge.hasVertex0 = this.hasVertex0;
+        edge.hasVertex3 = this.hasVertex3;
+        edge.vertex0.set(this.vertex0);
+        edge.vertex1.set(this.vertex1);
+        edge.vertex2.set(this.vertex2);
+        edge.vertex3.set(this.vertex3);
         return edge;
     }
 }

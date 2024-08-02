@@ -325,14 +325,14 @@ public class Body
      */
     public final void setTransform(Vec2 position, float angle)
     {
-        assert (world.isLocked() == false);
-        if (world.isLocked() == true)
+        assert (!world.isLocked());
+        if (world.isLocked())
         {
             return;
         }
         xf.q.set(angle);
         xf.p.set(position);
-        // m_sweep.c0 = m_sweep.c = Mul(m_xf, m_sweep.localCenter);
+        // sweep.c0 = sweep.c = Mul(xf, sweep.localCenter);
         Transform.mulToOutUnsafe(xf, sweep.localCenter, sweep.c);
         sweep.a = angle;
         sweep.c0.set(sweep.c);
@@ -458,8 +458,6 @@ public class Body
 
     /**
      * Set the gravity scale of the body.
-     *
-     * @param gravityScale
      */
     public void setGravityScale(float gravityScale)
     {
@@ -480,14 +478,14 @@ public class Body
         {
             return;
         }
-        if (isAwake() == false)
+        if (!isAwake())
         {
             setAwake(true);
         }
-        // m_force.addLocal(force);
+        // force.addLocal(force);
         // Vec2 temp = tltemp.get();
-        // temp.set(point).subLocal(m_sweep.c);
-        // m_torque += Vec2.cross(temp, force);
+        // temp.set(point).subLocal(sweep.c);
+        // torque += Vec2.cross(temp, force);
         this.force.x += force.x;
         this.force.y += force.y;
         torque += (point.x - sweep.c.x) * force.y
@@ -505,7 +503,7 @@ public class Body
         {
             return;
         }
-        if (isAwake() == false)
+        if (!isAwake())
         {
             setAwake(true);
         }
@@ -525,7 +523,7 @@ public class Body
         {
             return;
         }
-        if (isAwake() == false)
+        if (!isAwake())
         {
             setAwake(true);
         }
@@ -576,7 +574,7 @@ public class Body
         {
             return;
         }
-        if (isAwake() == false)
+        if (!isAwake())
         {
             setAwake(true);
         }
@@ -610,10 +608,10 @@ public class Body
      */
     public final void getMassData(MassData data)
     {
-        // data.mass = m_mass;
-        // data.I = m_I + m_mass * Vec2.dot(m_sweep.localCenter,
-        // m_sweep.localCenter);
-        // data.center.set(m_sweep.localCenter);
+        // data.mass = mass;
+        // data.I = I + mass * Vec2.dot(sweep.localCenter,
+        // sweep.localCenter);
+        // data.center.set(sweep.localCenter);
         data.mass = mass;
         data.I = I + mass * (sweep.localCenter.x * sweep.localCenter.x
                 + sweep.localCenter.y * sweep.localCenter.y);
@@ -633,8 +631,8 @@ public class Body
     {
         // TODO_ERIN adjust linear velocity and torque to account for movement
         // of center.
-        assert (world.isLocked() == false);
-        if (world.isLocked() == true)
+        assert (!world.isLocked());
+        if (world.isLocked())
         {
             return;
         }
@@ -661,11 +659,11 @@ public class Body
         // Move center of mass.
         oldCenter.set(sweep.c);
         sweep.localCenter.set(massData.center);
-        // m_sweep.c0 = m_sweep.c = Mul(m_xf, m_sweep.localCenter);
+        // sweep.c0 = sweep.c = Mul(xf, sweep.localCenter);
         Transform.mulToOutUnsafe(xf, sweep.localCenter, sweep.c0);
         sweep.c.set(sweep.c0);
         // Update center of mass velocity.
-        // m_linearVelocity += Cross(m_angularVelocity, m_sweep.c - oldCenter);
+        // linearVelocity += Cross(angularVelocity, sweep.c - oldCenter);
         final Vec2 temp = world.getPool().popVec2();
         temp.set(sweep.c).subLocal(oldCenter);
         Vec2.crossToOut(angularVelocity, temp, temp);
@@ -691,7 +689,7 @@ public class Body
         // Static and kinematic bodies have zero mass.
         if (type == BodyType.STATIC || type == BodyType.KINEMATIC)
         {
-            // m_sweep.c0 = m_sweep.c = m_xf.position;
+            // sweep.c0 = sweep.c = xf.position;
             sweep.c0.set(xf.p);
             sweep.c.set(xf.p);
             sweep.a0 = sweep.a;
@@ -744,15 +742,14 @@ public class Body
         // Move center of mass.
         oldCenter.set(sweep.c);
         sweep.localCenter.set(localCenter);
-        // m_sweep.c0 = m_sweep.c = Mul(m_xf, m_sweep.localCenter);
+        // sweep.c0 = sweep.c = Mul(xf, sweep.localCenter);
         Transform.mulToOutUnsafe(xf, sweep.localCenter, sweep.c0);
         sweep.c.set(sweep.c0);
         // Update center of mass velocity.
-        // m_linearVelocity += Cross(m_angularVelocity, m_sweep.c - oldCenter);
+        // linearVelocity += Cross(angularVelocity, sweep.c - oldCenter);
         temp.set(sweep.c).subLocal(oldCenter);
-        final Vec2 temp2 = oldCenter;
-        Vec2.crossToOutUnsafe(angularVelocity, temp, temp2);
-        linearVelocity.addLocal(temp2);
+        Vec2.crossToOutUnsafe(angularVelocity, temp, oldCenter);
+        linearVelocity.addLocal(oldCenter);
         world.getPool().pushVec2(3);
     }
 
@@ -917,8 +914,8 @@ public class Body
      */
     public void setType(BodyType type)
     {
-        assert (world.isLocked() == false);
-        if (world.isLocked() == true)
+        assert (!world.isLocked());
+        if (world.isLocked())
         {
             return;
         }
@@ -1062,7 +1059,7 @@ public class Body
      */
     public void setActive(boolean flag)
     {
-        assert (world.isLocked() == false);
+        assert (!world.isLocked());
         if (flag == isActive())
         {
             return;
@@ -1190,10 +1187,10 @@ public class Body
     protected final void synchronizeFixtures()
     {
         final Transform xf1 = pxf;
-        // xf1.position = m_sweep.c0 - Mul(xf1.R, m_sweep.localCenter);
-        // xf1.q.set(m_sweep.a0);
-        // Rot.mulToOutUnsafe(xf1.q, m_sweep.localCenter, xf1.p);
-        // xf1.p.mulLocal(-1).addLocal(m_sweep.c0);
+        // xf1.position = sweep.c0 - Mul(xf1.R, sweep.localCenter);
+        // xf1.q.set(sweep.a0);
+        // Rot.mulToOutUnsafe(xf1.q, sweep.localCenter, xf1.p);
+        // xf1.p.mulLocal(-1).addLocal(sweep.c0);
         // inlined:
         xf1.q.s = MathUtils.sin(sweep.a0);
         xf1.q.c = MathUtils.cos(sweep.a0);
@@ -1210,11 +1207,11 @@ public class Body
 
     public final void synchronizeTransform()
     {
-        // m_xf.q.set(m_sweep.a);
+        // xf.q.set(sweep.a);
         //
-        // // m_xf.position = m_sweep.c - Mul(m_xf.R, m_sweep.localCenter);
-        // Rot.mulToOutUnsafe(m_xf.q, m_sweep.localCenter, m_xf.p);
-        // m_xf.p.mulLocal(-1).addLocal(m_sweep.c);
+        // // xf.position = sweep.c - Mul(xf.R, sweep.localCenter);
+        // Rot.mulToOutUnsafe(xf.q, sweep.localCenter, xf.p);
+        // xf.p.mulLocal(-1).addLocal(sweep.c);
         //
         xf.q.s = MathUtils.sin(sweep.a);
         xf.q.c = MathUtils.cos(sweep.a);
@@ -1256,7 +1253,7 @@ public class Body
         sweep.c.set(sweep.c0);
         sweep.a = sweep.a0;
         xf.q.set(sweep.a);
-        // m_xf.position = m_sweep.c - Mul(m_xf.R, m_sweep.localCenter);
+        // xf.position = sweep.c - Mul(xf.R, sweep.localCenter);
         Rot.mulToOutUnsafe(xf.q, sweep.localCenter, xf.p);
         xf.p.mulLocal(-1).addLocal(sweep.c);
     }

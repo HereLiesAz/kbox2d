@@ -225,8 +225,8 @@ public class MotorJoint extends Joint
         qA.set(aA);
         qB.set(aB);
         // Compute the effective mass matrix.
-        // rA = b2Mul(qA, -m_localCenterA);
-        // rB = b2Mul(qB, -m_localCenterB);
+        // rA = b2Mul(qA, -localCenterA);
+        // rB = b2Mul(qB, -localCenterB);
         rA.x = qA.c * -localCenterA.x - qA.s * -localCenterA.y;
         rA.y = qA.s * -localCenterA.x + qA.c * -localCenterA.y;
         rB.x = qB.c * -localCenterB.x - qB.s * -localCenterB.y;
@@ -251,7 +251,7 @@ public class MotorJoint extends Joint
         {
             angularMass = 1.0f / angularMass;
         }
-        // m_linearError = cB + m_rB - cA - m_rA - b2Mul(qA, m_linearOffset);
+        // linearError = cB + rB - cA - rA - b2Mul(qA, linearOffset);
         Rot.mulToOutUnsafe(qA, linearOffset, temp);
         linearError.x = cB.x + rB.x - cA.x - rA.x - temp.x;
         linearError.y = cB.y + rB.y - cA.y - rA.y - temp.y;
@@ -278,9 +278,9 @@ public class MotorJoint extends Joint
         pool.pushVec2(1);
         pool.pushMat22(1);
         pool.pushRot(2);
-        // data.velocities[m_indexA].v = vA;
+        // data.velocities[indexA].v = vA;
         data.velocities[indexA].w = wA;
-        // data.velocities[m_indexB].v = vB;
+        // data.velocities[indexB].v = vB;
         data.velocities[indexB].w = wB;
     }
 
@@ -311,9 +311,9 @@ public class MotorJoint extends Joint
         final Vec2 Cdot = pool.popVec2();
         // Solve linear friction
         {
-            // Cdot = vB + b2Cross(wB, m_rB) - vA - b2Cross(wA, m_rA) + inv_h *
-            // m_correctionFactor *
-            // m_linearError;
+            // Cdot = vB + b2Cross(wB, rB) - vA - b2Cross(wA, rA) + inv_h *
+            // correctionFactor *
+            // linearError;
             Cdot.x = vB.x + -wB * rB.y - vA.x - -wA * rA.y
                     + inv_h * correctionFactor * linearError.x;
             Cdot.y = vB.y + wB * rB.x - vA.y - wA * rA.x
@@ -340,9 +340,9 @@ public class MotorJoint extends Joint
             wB += iB * (rB.x * impulse.y - rB.y * impulse.x);
         }
         pool.pushVec2(3);
-        // data.velocities[m_indexA].v.set(vA);
+        // data.velocities[indexA].v.set(vA);
         data.velocities[indexA].w = wA;
-        // data.velocities[m_indexB].v.set(vB);
+        // data.velocities[indexB].v.set(vB);
         data.velocities[indexB].w = wB;
     }
 

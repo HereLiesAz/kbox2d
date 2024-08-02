@@ -256,19 +256,19 @@ public class GearJoint extends Joint
         iB = bodyB.invI;
         iC = bodyC.invI;
         iD = bodyD.invI;
-        // Vec2 cA = data.positions[m_indexA].c;
+        // Vec2 cA = data.positions[indexA].c;
         float aA = data.positions[indexA].a;
         Vec2 vA = data.velocities[indexA].v;
         float wA = data.velocities[indexA].w;
-        // Vec2 cB = data.positions[m_indexB].c;
+        // Vec2 cB = data.positions[indexB].c;
         float aB = data.positions[indexB].a;
         Vec2 vB = data.velocities[indexB].v;
         float wB = data.velocities[indexB].w;
-        // Vec2 cC = data.positions[m_indexC].c;
+        // Vec2 cC = data.positions[indexC].c;
         float aC = data.positions[indexC].a;
         Vec2 vC = data.velocities[indexC].v;
         float wC = data.velocities[indexC].w;
-        // Vec2 cD = data.positions[m_indexD].c;
+        // Vec2 cD = data.positions[indexD].c;
         float aD = data.positions[indexD].a;
         Vec2 vD = data.velocities[indexD].v;
         float wD = data.velocities[indexD].w;
@@ -343,13 +343,13 @@ public class GearJoint extends Joint
         }
         pool.pushVec2(1);
         pool.pushRot(4);
-        // data.velocities[m_indexA].v = vA;
+        // data.velocities[indexA].v = vA;
         data.velocities[indexA].w = wA;
-        // data.velocities[m_indexB].v = vB;
+        // data.velocities[indexB].v = vB;
         data.velocities[indexB].w = wB;
-        // data.velocities[m_indexC].v = vC;
+        // data.velocities[indexC].v = vC;
         data.velocities[indexC].w = wC;
-        // data.velocities[m_indexD].v = vD;
+        // data.velocities[indexD].v = vD;
         data.velocities[indexD].w = wD;
     }
 
@@ -384,13 +384,13 @@ public class GearJoint extends Joint
         vD.x -= (mD * impulse) * JvBD.x;
         vD.y -= (mD * impulse) * JvBD.y;
         wD -= iD * impulse * JwD;
-        // data.velocities[m_indexA].v = vA;
+        // data.velocities[indexA].v = vA;
         data.velocities[indexA].w = wA;
-        // data.velocities[m_indexB].v = vB;
+        // data.velocities[indexB].v = vB;
         data.velocities[indexB].w = wB;
-        // data.velocities[m_indexC].v = vC;
+        // data.velocities[indexC].v = vC;
         data.velocities[indexC].w = wC;
-        // data.velocities[m_indexD].v = vD;
+        // data.velocities[indexD].v = vD;
         data.velocities[indexD].w = wD;
     }
 
@@ -500,13 +500,13 @@ public class GearJoint extends Joint
         cD.x -= (mD * impulse) * JvBD.x;
         cD.y -= (mD * impulse) * JvBD.y;
         aD -= iD * impulse * JwD;
-        // data.positions[m_indexA].c = cA;
+        // data.positions[indexA].c = cA;
         data.positions[indexA].a = aA;
-        // data.positions[m_indexB].c = cB;
+        // data.positions[indexB].c = cB;
         data.positions[indexB].a = aB;
-        // data.positions[m_indexC].c = cC;
+        // data.positions[indexC].c = cC;
         data.positions[indexC].a = aC;
-        // data.positions[m_indexD].c = cD;
+        // data.positions[indexD].c = cD;
         data.positions[indexD].a = aD;
         // TODO_ERIN not implemented
         return linearError < Settings.linearSlop;

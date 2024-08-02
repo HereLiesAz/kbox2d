@@ -385,9 +385,9 @@ public class WheelJoint extends Joint
         }
         pool.pushRot(2);
         pool.pushVec2(1);
-        // data.velocities[m_indexA].v = vA;
+        // data.velocities[indexA].v = vA;
         data.velocities[indexA].w = wA;
-        // data.velocities[m_indexB].v = vB;
+        // data.velocities[indexB].v = vB;
         data.velocities[indexB].w = wB;
     }
 
@@ -449,9 +449,9 @@ public class WheelJoint extends Joint
             wB += iB * LB;
         }
         pool.pushVec2(2);
-        // data.velocities[m_indexA].v = vA;
+        // data.velocities[indexA].v = vA;
         data.velocities[indexA].w = wA;
-        // data.velocities[m_indexB].v = vB;
+        // data.velocities[indexB].v = vB;
         data.velocities[indexB].w = wB;
     }
 
@@ -499,9 +499,9 @@ public class WheelJoint extends Joint
         aB += invIB * LB;
         pool.pushVec2(3);
         pool.pushRot(2);
-        // data.positions[m_indexA].c = cA;
+        // data.positions[indexA].c = cA;
         data.positions[indexA].a = aA;
-        // data.positions[m_indexB].c = cB;
+        // data.positions[indexB].c = cB;
         data.positions[indexB].a = aB;
         return MathUtils.abs(C) <= Settings.linearSlop;
     }

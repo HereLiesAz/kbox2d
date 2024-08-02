@@ -138,8 +138,8 @@ public abstract class Joint
         edgeB.other = null;
         edgeB.prev = null;
         edgeB.next = null;
-        // m_localCenterA = new Vec2();
-        // m_localCenterB = new Vec2();
+        // localCenterA = new Vec2();
+        // localCenterB = new Vec2();
     }
 
     /**

@@ -44,14 +44,14 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
  */
 public class CharacterCollision extends TestbedTest
 {
-    private static final long CHARACTER_TAG = 1231l;
+    private static final long CHARACTER_TAG = 1231L;
 
-    private Body m_character;
+    private Body character;
 
     @Override
     public Long getTag(Body argBody)
     {
-        if (argBody == m_character)
+        if (argBody == character)
         {
             return CHARACTER_TAG;
         }
@@ -63,7 +63,7 @@ public class CharacterCollision extends TestbedTest
     {
         if (argTag == CHARACTER_TAG)
         {
-            m_character = argBody;
+            character = argBody;
             return;
         }
         super.processBody(argBody, argTag);
@@ -241,21 +241,21 @@ public class CharacterCollision extends TestbedTest
             bd.position.set(-7.0f, 6.0f);
             bd.type = BodyType.DYNAMIC;
             bd.allowSleep = false;
-            m_character = getWorld().createBody(bd);
+            character = getWorld().createBody(bd);
             CircleShape shape = new CircleShape();
             shape.radius = 0.25f;
             FixtureDef fd = new FixtureDef();
             fd.shape = shape;
             fd.density = 20.0f;
             fd.friction = 1;
-            m_character.createFixture(fd);
+            character.createFixture(fd);
         }
     }
 
     @Override
     public void step(TestbedSettings settings)
     {
-        Vec2 v = m_character.getLinearVelocity();
+        Vec2 v = character.getLinearVelocity();
         v.x = -5f;
         super.step(settings);
         addTextLine("This tests various character collision shapes");

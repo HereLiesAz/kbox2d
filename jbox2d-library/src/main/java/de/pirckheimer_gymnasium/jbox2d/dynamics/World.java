@@ -115,7 +115,7 @@ public class World
     private final Vec2 gravity = new Vec2();
 
     private boolean allowSleep;
-    // private Body m_groundBody;
+    // private Body groundBody;
 
     private DestructionListener destructionListener;
 
@@ -1725,8 +1725,8 @@ public class World
         case EDGE:
         {
             EdgeShape edge = (EdgeShape) fixture.getShape();
-            Transform.mulToOutUnsafe(xf, edge.m_vertex1, v1);
-            Transform.mulToOutUnsafe(xf, edge.m_vertex2, v2);
+            Transform.mulToOutUnsafe(xf, edge.vertex1, v1);
+            Transform.mulToOutUnsafe(xf, edge.vertex2, v2);
             debugDraw.drawSegment(v1, v2, color);
         }
             break;
@@ -1734,8 +1734,8 @@ public class World
         case CHAIN:
         {
             ChainShape chain = (ChainShape) fixture.getShape();
-            int count = chain.m_count;
-            Vec2[] vertices = chain.m_vertices;
+            int count = chain.count;
+            Vec2[] vertices = chain.vertices;
             Transform.mulToOutUnsafe(xf, vertices[0], v1);
             for (int i = 1; i < count; ++i)
             {

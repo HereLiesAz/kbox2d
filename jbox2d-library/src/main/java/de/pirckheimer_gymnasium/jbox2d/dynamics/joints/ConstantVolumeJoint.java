@@ -199,8 +199,8 @@ public class ConstantVolumeJoint extends Joint
             }
             positions[bodies[next].islandIndex].c.x += delta.x;
             positions[bodies[next].islandIndex].c.y += delta.y;
-            // bodies[next].m_linearVelocity.x += delta.x * step.inv_dt;
-            // bodies[next].m_linearVelocity.y += delta.y * step.inv_dt;
+            // bodies[next].linearVelocity.x += delta.x * step.inv_dt;
+            // bodies[next].linearVelocity.y += delta.y * step.inv_dt;
         }
         pool.pushVec2(1);
         // System.out.println(sumdeltax);
@@ -227,7 +227,7 @@ public class ConstantVolumeJoint extends Joint
             // System.out.println(crossMassSum + " " +dotMassSum);
             // lambda = MathUtils.clamp(lambda, -Settings.maxLinearCorrection,
             // Settings.maxLinearCorrection);
-            // m_impulse = lambda;
+            // impulse = lambda;
             for (int i = 0; i < bodies.length; ++i)
             {
                 velocities[bodies[i].islandIndex].v.x += bodies[i].invMass
@@ -271,7 +271,7 @@ public class ConstantVolumeJoint extends Joint
         // lambda = MathUtils.clamp(lambda, -Settings.maxLinearCorrection,
         // Settings.maxLinearCorrection);
         impulse += lambda;
-        // System.out.println(m_impulse);
+        // System.out.println(impulse);
         for (int i = 0; i < bodies.length; ++i)
         {
             velocities[bodies[i].islandIndex].v.x += bodies[i].invMass * d[i].y

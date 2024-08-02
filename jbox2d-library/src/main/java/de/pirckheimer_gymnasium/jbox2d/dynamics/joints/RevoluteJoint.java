@@ -136,11 +136,11 @@ public class RevoluteJoint extends Joint
         invMassB = bodyB.invMass;
         invIA = bodyA.invI;
         invIB = bodyB.invI;
-        // Vec2 cA = data.positions[m_indexA].c;
+        // Vec2 cA = data.positions[indexA].c;
         float aA = data.positions[indexA].a;
         Vec2 vA = data.velocities[indexA].v;
         float wA = data.velocities[indexA].w;
-        // Vec2 cB = data.positions[m_indexB].c;
+        // Vec2 cB = data.positions[indexB].c;
         float aB = data.positions[indexB].a;
         Vec2 vB = data.velocities[indexB].v;
         float wB = data.velocities[indexB].w;
@@ -239,9 +239,9 @@ public class RevoluteJoint extends Joint
             impulse.setZero();
             motorImpulse = 0.0f;
         }
-        // data.velocities[m_indexA].v.set(vA);
+        // data.velocities[indexA].v.set(vA);
         data.velocities[indexA].w = wA;
-        // data.velocities[m_indexB].v.set(vB);
+        // data.velocities[indexB].v.set(vB);
         data.velocities[indexB].w = wB;
         pool.pushVec2(1);
         pool.pushRot(2);
@@ -366,9 +366,9 @@ public class RevoluteJoint extends Joint
             wB += iB * Vec2.cross(rB, impulse);
             pool.pushVec2(2);
         }
-        // data.velocities[m_indexA].v.set(vA);
+        // data.velocities[indexA].v.set(vA);
         data.velocities[indexA].w = wA;
-        // data.velocities[m_indexB].v.set(vB);
+        // data.velocities[indexB].v.set(vB);
         data.velocities[indexB].w = wB;
         pool.pushVec2(1);
     }
@@ -455,9 +455,9 @@ public class RevoluteJoint extends Joint
             pool.pushVec2(4);
             pool.pushMat22(1);
         }
-        // data.positions[m_indexA].c.set(cA);
+        // data.positions[indexA].c.set(cA);
         data.positions[indexA].a = aA;
-        // data.positions[m_indexB].c.set(cB);
+        // data.positions[indexB].c.set(cB);
         data.positions[indexB].a = aB;
         pool.pushRot(2);
         return positionError <= Settings.linearSlop

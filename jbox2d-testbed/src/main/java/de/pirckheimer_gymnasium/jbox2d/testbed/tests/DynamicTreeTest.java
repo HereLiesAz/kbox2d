@@ -49,27 +49,27 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 public class DynamicTreeTest extends TestbedTest
         implements TreeCallback, TreeRayCastCallback
 {
-    int e_actorCount = 128;
+    int actorCount = 128;
 
     float worldExtent;
 
-    float m_proxyExtent;
+    float proxyExtent;
 
-    BroadPhaseStrategy m_tree;
+    BroadPhaseStrategy tree;
 
-    AABB m_queryAABB;
+    AABB queryAABB;
 
-    RayCastInput m_rayCastInput;
+    RayCastInput rayCastInput;
 
-    RayCastOutput m_rayCastOutput;
+    RayCastOutput rayCastOutput;
 
-    Actor m_rayActor;
+    Actor rayActor;
 
-    Actor m_actors[] = new Actor[e_actorCount];
+    Actor[] actors = new Actor[actorCount];
 
-    int m_stepCount;
+    int stepCount;
 
-    boolean m_automated;
+    boolean automated;
 
     Random rand = new Random();
 
@@ -77,27 +77,27 @@ public class DynamicTreeTest extends TestbedTest
     public void initTest(boolean argDeserialized)
     {
         worldExtent = 15.0f;
-        m_proxyExtent = 0.5f;
-        m_tree = new DynamicTree();
-        for (int i = 0; i < e_actorCount; ++i)
+        proxyExtent = 0.5f;
+        tree = new DynamicTree();
+        for (int i = 0; i < actorCount; ++i)
         {
-            Actor actor = m_actors[i] = new Actor();
+            Actor actor = actors[i] = new Actor();
             GetRandomAABB(actor.aabb);
-            actor.proxyId = m_tree.createProxy(actor.aabb, actor);
+            actor.proxyId = tree.createProxy(actor.aabb, actor);
         }
-        m_stepCount = 0;
+        stepCount = 0;
         float h = worldExtent;
-        m_queryAABB = new AABB();
-        m_queryAABB.lowerBound.set(-3.0f, -4.0f + h);
-        m_queryAABB.upperBound.set(5.0f, 6.0f + h);
-        m_rayCastInput = new RayCastInput();
-        m_rayCastInput.p1.set(-5.0f, 5.0f + h);
-        m_rayCastInput.p2.set(7.0f, -4.0f + h);
-        // m_rayCastInput.p1.set(0.0f, 2.0f + h);
-        // m_rayCastInput.p2.set(0.0f, -2.0f + h);
-        m_rayCastInput.maxFraction = 1.0f;
-        m_rayCastOutput = new RayCastOutput();
-        m_automated = false;
+        queryAABB = new AABB();
+        queryAABB.lowerBound.set(-3.0f, -4.0f + h);
+        queryAABB.upperBound.set(5.0f, 6.0f + h);
+        rayCastInput = new RayCastInput();
+        rayCastInput.p1.set(-5.0f, 5.0f + h);
+        rayCastInput.p2.set(7.0f, -4.0f + h);
+        // rayCastInput.p1.set(0.0f, 2.0f + h);
+        // rayCastInput.p2.set(0.0f, -2.0f + h);
+        rayCastInput.maxFraction = 1.0f;
+        rayCastOutput = new RayCastOutput();
+        automated = false;
     }
 
     @Override
@@ -106,7 +106,7 @@ public class DynamicTreeTest extends TestbedTest
         switch (argKeyChar)
         {
         case 'a':
-            m_automated = !m_automated;
+            automated = !automated;
             break;
 
         case 'c':
@@ -128,15 +128,15 @@ public class DynamicTreeTest extends TestbedTest
     @Override
     public void step(TestbedSettings settings)
     {
-        m_rayActor = null;
-        for (int i = 0; i < e_actorCount; ++i)
+        rayActor = null;
+        for (int i = 0; i < actorCount; ++i)
         {
-            m_actors[i].fraction = 1.0f;
-            m_actors[i].overlap = false;
+            actors[i].fraction = 1.0f;
+            actors[i].overlap = false;
         }
-        if (m_automated == true)
+        if (automated)
         {
-            int actionCount = MathUtils.max(1, e_actorCount >> 2);
+            int actionCount = MathUtils.max(1, actorCount >> 2);
             for (int i = 0; i < actionCount; ++i)
             {
                 Action();
@@ -145,17 +145,17 @@ public class DynamicTreeTest extends TestbedTest
         Query();
         RayCast();
         Vec2[] vecs = vecPool.get(4);
-        for (int i = 0; i < e_actorCount; ++i)
+        for (int i = 0; i < actorCount; ++i)
         {
-            Actor actor = m_actors[i];
+            Actor actor = actors[i];
             if (actor.proxyId == -1)
                 continue;
             Color3f c = new Color3f(0.9f, 0.9f, 0.9f);
-            if (actor == m_rayActor && actor.overlap)
+            if (actor == rayActor && actor.overlap)
             {
                 c.set(0.9f, 0.6f, 0.6f);
             }
-            else if (actor == m_rayActor)
+            else if (actor == rayActor)
             {
                 c.set(0.6f, 0.9f, 0.6f);
             }
@@ -167,24 +167,24 @@ public class DynamicTreeTest extends TestbedTest
             getDebugDraw().drawPolygon(vecs, 4, c);
         }
         Color3f c = new Color3f(0.7f, 0.7f, 0.7f);
-        m_queryAABB.getVertices(vecs);
+        queryAABB.getVertices(vecs);
         getDebugDraw().drawPolygon(vecs, 4, c);
-        getDebugDraw().drawSegment(m_rayCastInput.p1, m_rayCastInput.p2, c);
+        getDebugDraw().drawSegment(rayCastInput.p1, rayCastInput.p2, c);
         Color3f c1 = new Color3f(0.2f, 0.9f, 0.2f);
         Color3f c2 = new Color3f(0.9f, 0.2f, 0.2f);
-        getDebugDraw().drawPoint(m_rayCastInput.p1, 6.0f, c1);
-        getDebugDraw().drawPoint(m_rayCastInput.p2, 6.0f, c2);
-        if (m_rayActor != null)
+        getDebugDraw().drawPoint(rayCastInput.p1, 6.0f, c1);
+        getDebugDraw().drawPoint(rayCastInput.p2, 6.0f, c2);
+        if (rayActor != null)
         {
             Color3f cr = new Color3f(0.2f, 0.2f, 0.9f);
-            Vec2 p = m_rayCastInput.p2.sub(m_rayCastInput.p1)
-                    .mulLocal(m_rayActor.fraction).addLocal(m_rayCastInput.p1);
+            Vec2 p = rayCastInput.p2.sub(rayCastInput.p1)
+                    .mulLocal(rayActor.fraction).addLocal(rayCastInput.p1);
             getDebugDraw().drawPoint(p, 6.0f, cr);
         }
-        ++m_stepCount;
+        ++stepCount;
         if (settings.getSetting(TestbedSettings.DrawTree).enabled)
         {
-            m_tree.drawTree(getDebugDraw());
+            tree.drawTree(getDebugDraw());
         }
         getDebugDraw().drawString(5, 30,
                 "(c)reate proxy, (d)estroy proxy, (a)utomate", Color3f.WHITE);
@@ -192,21 +192,21 @@ public class DynamicTreeTest extends TestbedTest
 
     public boolean treeCallback(int proxyId)
     {
-        Actor actor = (Actor) m_tree.getUserData(proxyId);
-        actor.overlap = AABB.testOverlap(m_queryAABB, actor.aabb);
+        Actor actor = (Actor) tree.getUserData(proxyId);
+        actor.overlap = AABB.testOverlap(queryAABB, actor.aabb);
         return true;
     }
 
     public float raycastCallback(final RayCastInput input, int proxyId)
     {
-        Actor actor = (Actor) m_tree.getUserData(proxyId);
+        Actor actor = (Actor) tree.getUserData(proxyId);
         RayCastOutput output = new RayCastOutput();
         boolean hit = actor.aabb.raycast(output, input, getWorld().getPool());
         if (hit)
         {
-            m_rayCastOutput = output;
-            m_rayActor = actor;
-            m_rayActor.fraction = output.fraction;
+            rayCastOutput = output;
+            rayActor = actor;
+            rayActor.fraction = output.fraction;
             return output.fraction;
         }
         return input.maxFraction;
@@ -226,7 +226,7 @@ public class DynamicTreeTest extends TestbedTest
     public void GetRandomAABB(AABB aabb)
     {
         Vec2 w = new Vec2();
-        w.set(2.0f * m_proxyExtent, 2.0f * m_proxyExtent);
+        w.set(2.0f * proxyExtent, 2.0f * proxyExtent);
         // aabb.lowerBound.x = -m_proxyExtent;
         // aabb.lowerBound.y = -m_proxyExtent + worldExtent;
         aabb.lowerBound.x = MathUtils.randomFloat(rand, -worldExtent,
@@ -257,14 +257,14 @@ public class DynamicTreeTest extends TestbedTest
 
     public void CreateProxy()
     {
-        for (int i = 0; i < e_actorCount; ++i)
+        for (int i = 0; i < actorCount; ++i)
         {
-            int j = MathUtils.abs(rand.nextInt() % e_actorCount);
-            Actor actor = m_actors[j];
+            int j = MathUtils.abs(rand.nextInt() % actorCount);
+            Actor actor = actors[j];
             if (actor.proxyId == -1)
             {
                 GetRandomAABB(actor.aabb);
-                actor.proxyId = m_tree.createProxy(actor.aabb, actor);
+                actor.proxyId = tree.createProxy(actor.aabb, actor);
                 return;
             }
         }
@@ -272,13 +272,13 @@ public class DynamicTreeTest extends TestbedTest
 
     public void DestroyProxy()
     {
-        for (int i = 0; i < e_actorCount; ++i)
+        for (int i = 0; i < actorCount; ++i)
         {
-            int j = MathUtils.abs(rand.nextInt() % e_actorCount);
-            Actor actor = m_actors[j];
+            int j = MathUtils.abs(rand.nextInt() % actorCount);
+            Actor actor = actors[j];
             if (actor.proxyId != -1)
             {
-                m_tree.destroyProxy(actor.proxyId);
+                tree.destroyProxy(actor.proxyId);
                 actor.proxyId = -1;
                 return;
             }
@@ -287,10 +287,10 @@ public class DynamicTreeTest extends TestbedTest
 
     public void MoveProxy()
     {
-        for (int i = 0; i < e_actorCount; ++i)
+        for (int i = 0; i < actorCount; ++i)
         {
-            int j = MathUtils.abs(rand.nextInt() % e_actorCount);
-            Actor actor = m_actors[j];
+            int j = MathUtils.abs(rand.nextInt() % actorCount);
+            Actor actor = actors[j];
             if (actor.proxyId == -1)
             {
                 continue;
@@ -298,7 +298,7 @@ public class DynamicTreeTest extends TestbedTest
             AABB aabb0 = new AABB(actor.aabb);
             MoveAABB(actor.aabb);
             Vec2 displacement = actor.aabb.getCenter().sub(aabb0.getCenter());
-            m_tree.moveProxy(actor.proxyId, new AABB(actor.aabb), displacement);
+            tree.moveProxy(actor.proxyId, new AABB(actor.aabb), displacement);
             return;
         }
     }
@@ -323,40 +323,40 @@ public class DynamicTreeTest extends TestbedTest
 
     public void Query()
     {
-        m_tree.query(this, m_queryAABB);
-        for (int i = 0; i < e_actorCount; ++i)
+        tree.query(this, queryAABB);
+        for (int i = 0; i < actorCount; ++i)
         {
-            if (m_actors[i].proxyId == -1)
+            if (actors[i].proxyId == -1)
             {
                 continue;
             }
-            boolean overlap = AABB.testOverlap(m_queryAABB, m_actors[i].aabb);
-            assert (overlap == m_actors[i].overlap);
+            boolean overlap = AABB.testOverlap(queryAABB, actors[i].aabb);
+            assert (overlap == actors[i].overlap);
         }
     }
 
     public void RayCast()
     {
-        m_rayActor = null;
+        rayActor = null;
         RayCastInput input = new RayCastInput();
-        input.set(m_rayCastInput);
+        input.set(rayCastInput);
         // Ray cast against the dynamic tree.
-        m_tree.raycast(this, input);
+        tree.raycast(this, input);
         // Brute force ray cast.
         Actor bruteActor = null;
         RayCastOutput bruteOutput = new RayCastOutput();
-        for (int i = 0; i < e_actorCount; ++i)
+        for (int i = 0; i < actorCount; ++i)
         {
-            if (m_actors[i].proxyId == -1)
+            if (actors[i].proxyId == -1)
             {
                 continue;
             }
             RayCastOutput output = new RayCastOutput();
-            boolean hit = m_actors[i].aabb.raycast(output, input,
+            boolean hit = actors[i].aabb.raycast(output, input,
                     getWorld().getPool());
             if (hit)
             {
-                bruteActor = m_actors[i];
+                bruteActor = actors[i];
                 bruteOutput = output;
                 input.maxFraction = output.fraction;
             }
@@ -364,11 +364,11 @@ public class DynamicTreeTest extends TestbedTest
         if (bruteActor != null)
         {
             if (MathUtils.abs(bruteOutput.fraction
-                    - m_rayCastOutput.fraction) > Settings.EPSILON)
+                    - rayCastOutput.fraction) > Settings.EPSILON)
             {
                 System.out.println("wrong!");
                 assert (MathUtils.abs(bruteOutput.fraction
-                        - m_rayCastOutput.fraction) <= 20 * Settings.EPSILON);
+                        - rayCastOutput.fraction) <= 20 * Settings.EPSILON);
             }
         }
     }

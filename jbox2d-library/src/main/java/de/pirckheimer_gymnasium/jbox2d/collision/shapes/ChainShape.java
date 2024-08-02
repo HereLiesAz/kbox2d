@@ -45,34 +45,34 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
  */
 public class ChainShape extends Shape
 {
-    public Vec2[] m_vertices;
+    public Vec2[] vertices;
 
-    public int m_count;
+    public int count;
 
-    public final Vec2 m_prevVertex = new Vec2(), m_nextVertex = new Vec2();
+    public final Vec2 prevVertex = new Vec2(), nextVertex = new Vec2();
 
-    public boolean m_hasPrevVertex = false, m_hasNextVertex = false;
+    public boolean hasPrevVertex = false, hasNextVertex = false;
 
     private final EdgeShape pool0 = new EdgeShape();
 
     public ChainShape()
     {
         super(ShapeType.CHAIN);
-        m_vertices = null;
+        vertices = null;
         radius = Settings.polygonRadius;
-        m_count = 0;
+        count = 0;
     }
 
     public void clear()
     {
-        m_vertices = null;
-        m_count = 0;
+        vertices = null;
+        count = 0;
     }
 
     @Override
     public int getChildCount()
     {
-        return m_count - 1;
+        return count - 1;
     }
 
     /**
@@ -80,39 +80,39 @@ public class ChainShape extends Shape
      */
     public void getChildEdge(EdgeShape edge, int index)
     {
-        assert (0 <= index && index < m_count - 1);
+        assert (0 <= index && index < count - 1);
         edge.radius = radius;
-        final Vec2 v0 = m_vertices[index + 0];
-        final Vec2 v1 = m_vertices[index + 1];
-        edge.m_vertex1.x = v0.x;
-        edge.m_vertex1.y = v0.y;
-        edge.m_vertex2.x = v1.x;
-        edge.m_vertex2.y = v1.y;
+        final Vec2 v0 = vertices[index + 0];
+        final Vec2 v1 = vertices[index + 1];
+        edge.vertex1.x = v0.x;
+        edge.vertex1.y = v0.y;
+        edge.vertex2.x = v1.x;
+        edge.vertex2.y = v1.y;
         if (index > 0)
         {
-            Vec2 v = m_vertices[index - 1];
-            edge.m_vertex0.x = v.x;
-            edge.m_vertex0.y = v.y;
-            edge.m_hasVertex0 = true;
+            Vec2 v = vertices[index - 1];
+            edge.vertex0.x = v.x;
+            edge.vertex0.y = v.y;
+            edge.hasVertex0 = true;
         }
         else
         {
-            edge.m_vertex0.x = m_prevVertex.x;
-            edge.m_vertex0.y = m_prevVertex.y;
-            edge.m_hasVertex0 = m_hasPrevVertex;
+            edge.vertex0.x = prevVertex.x;
+            edge.vertex0.y = prevVertex.y;
+            edge.hasVertex0 = hasPrevVertex;
         }
-        if (index < m_count - 2)
+        if (index < count - 2)
         {
-            Vec2 v = m_vertices[index + 2];
-            edge.m_vertex3.x = v.x;
-            edge.m_vertex3.y = v.y;
-            edge.m_hasVertex3 = true;
+            Vec2 v = vertices[index + 2];
+            edge.vertex3.x = v.x;
+            edge.vertex3.y = v.y;
+            edge.hasVertex3 = true;
         }
         else
         {
-            edge.m_vertex3.x = m_nextVertex.x;
-            edge.m_vertex3.y = m_nextVertex.y;
-            edge.m_hasVertex3 = m_hasNextVertex;
+            edge.vertex3.x = nextVertex.x;
+            edge.vertex3.y = nextVertex.y;
+            edge.hasVertex3 = hasNextVertex;
         }
     }
 
@@ -135,37 +135,37 @@ public class ChainShape extends Shape
     public boolean raycast(RayCastOutput output, RayCastInput input,
             Transform xf, int childIndex)
     {
-        assert (childIndex < m_count);
+        assert (childIndex < count);
         final EdgeShape edgeShape = pool0;
         int i1 = childIndex;
         int i2 = childIndex + 1;
-        if (i2 == m_count)
+        if (i2 == count)
         {
             i2 = 0;
         }
-        Vec2 v = m_vertices[i1];
-        edgeShape.m_vertex1.x = v.x;
-        edgeShape.m_vertex1.y = v.y;
-        Vec2 v1 = m_vertices[i2];
-        edgeShape.m_vertex2.x = v1.x;
-        edgeShape.m_vertex2.y = v1.y;
+        Vec2 v = vertices[i1];
+        edgeShape.vertex1.x = v.x;
+        edgeShape.vertex1.y = v.y;
+        Vec2 v1 = vertices[i2];
+        edgeShape.vertex2.x = v1.x;
+        edgeShape.vertex2.y = v1.y;
         return edgeShape.raycast(output, input, xf, 0);
     }
 
     @Override
     public void computeAABB(AABB aabb, Transform xf, int childIndex)
     {
-        assert (childIndex < m_count);
+        assert (childIndex < count);
         final Vec2 lower = aabb.lowerBound;
         final Vec2 upper = aabb.upperBound;
         int i1 = childIndex;
         int i2 = childIndex + 1;
-        if (i2 == m_count)
+        if (i2 == count)
         {
             i2 = 0;
         }
-        final Vec2 vi1 = m_vertices[i1];
-        final Vec2 vi2 = m_vertices[i2];
+        final Vec2 vi1 = vertices[i1];
+        final Vec2 vi2 = vertices[i2];
         final Rot xfq = xf.q;
         final Vec2 xfp = xf.p;
         float v1x = (xfq.c * vi1.x - xfq.s * vi1.y) + xfp.x;
@@ -190,11 +190,11 @@ public class ChainShape extends Shape
     public Shape clone()
     {
         ChainShape clone = new ChainShape();
-        clone.createChain(m_vertices, m_count);
-        clone.m_prevVertex.set(m_prevVertex);
-        clone.m_nextVertex.set(m_nextVertex);
-        clone.m_hasPrevVertex = m_hasPrevVertex;
-        clone.m_hasNextVertex = m_hasNextVertex;
+        clone.createChain(vertices, count);
+        clone.prevVertex.set(prevVertex);
+        clone.nextVertex.set(nextVertex);
+        clone.hasPrevVertex = hasPrevVertex;
+        clone.hasNextVertex = hasNextVertex;
         return clone;
     }
 
@@ -206,10 +206,10 @@ public class ChainShape extends Shape
      */
     public void createLoop(final Vec2[] vertices, int count)
     {
-        assert (m_vertices == null && m_count == 0);
+        assert (this.vertices == null && this.count == 0);
         assert (count >= 3);
-        m_count = count + 1;
-        m_vertices = new Vec2[m_count];
+        this.count = count + 1;
+        this.vertices = new Vec2[this.count];
         for (int i = 1; i < count; i++)
         {
             Vec2 v1 = vertices[i - 1];
@@ -225,13 +225,13 @@ public class ChainShape extends Shape
         }
         for (int i = 0; i < count; i++)
         {
-            m_vertices[i] = new Vec2(vertices[i]);
+            this.vertices[i] = new Vec2(vertices[i]);
         }
-        m_vertices[count] = new Vec2(m_vertices[0]);
-        m_prevVertex.set(m_vertices[m_count - 2]);
-        m_nextVertex.set(m_vertices[1]);
-        m_hasPrevVertex = true;
-        m_hasNextVertex = true;
+        this.vertices[count] = new Vec2(this.vertices[0]);
+        prevVertex.set(this.vertices[this.count - 2]);
+        nextVertex.set(this.vertices[1]);
+        hasPrevVertex = true;
+        hasNextVertex = true;
     }
 
     /**
@@ -242,11 +242,11 @@ public class ChainShape extends Shape
      */
     public void createChain(final Vec2 vertices[], int count)
     {
-        assert (m_vertices == null && m_count == 0);
+        assert (this.vertices == null && this.count == 0);
         assert (count >= 2);
-        m_count = count;
-        m_vertices = new Vec2[m_count];
-        for (int i = 1; i < m_count; i++)
+        this.count = count;
+        this.vertices = new Vec2[this.count];
+        for (int i = 1; i < this.count; i++)
         {
             Vec2 v1 = vertices[i - 1];
             Vec2 v2 = vertices[i];
@@ -259,14 +259,14 @@ public class ChainShape extends Shape
                         "Vertices of chain shape are too close together");
             }
         }
-        for (int i = 0; i < m_count; i++)
+        for (int i = 0; i < this.count; i++)
         {
-            m_vertices[i] = new Vec2(vertices[i]);
+            this.vertices[i] = new Vec2(vertices[i]);
         }
-        m_hasPrevVertex = false;
-        m_hasNextVertex = false;
-        m_prevVertex.setZero();
-        m_nextVertex.setZero();
+        hasPrevVertex = false;
+        hasNextVertex = false;
+        prevVertex.setZero();
+        nextVertex.setZero();
     }
 
     /**
@@ -277,8 +277,8 @@ public class ChainShape extends Shape
      */
     public void setPrevVertex(final Vec2 prevVertex)
     {
-        m_prevVertex.set(prevVertex);
-        m_hasPrevVertex = true;
+        this.prevVertex.set(prevVertex);
+        hasPrevVertex = true;
     }
 
     /**
@@ -289,7 +289,7 @@ public class ChainShape extends Shape
      */
     public void setNextVertex(final Vec2 nextVertex)
     {
-        m_nextVertex.set(nextVertex);
-        m_hasNextVertex = true;
+        this.nextVertex.set(nextVertex);
+        hasNextVertex = true;
     }
 }

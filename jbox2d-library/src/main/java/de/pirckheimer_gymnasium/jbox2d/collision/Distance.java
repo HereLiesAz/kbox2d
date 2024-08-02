@@ -563,15 +563,15 @@ public class Distance
 
             case CHAIN:
                 final ChainShape chain = (ChainShape) shape;
-                assert (0 <= index && index < chain.m_count);
-                m_buffer[0] = chain.m_vertices[index];
-                if (index + 1 < chain.m_count)
+                assert (0 <= index && index < chain.count);
+                m_buffer[0] = chain.vertices[index];
+                if (index + 1 < chain.count)
                 {
-                    m_buffer[1] = chain.m_vertices[index + 1];
+                    m_buffer[1] = chain.vertices[index + 1];
                 }
                 else
                 {
-                    m_buffer[1] = chain.m_vertices[0];
+                    m_buffer[1] = chain.vertices[0];
                 }
                 m_vertices[0].set(m_buffer[0]);
                 m_vertices[1].set(m_buffer[1]);
@@ -581,8 +581,8 @@ public class Distance
 
             case EDGE:
                 EdgeShape edge = (EdgeShape) shape;
-                m_vertices[0].set(edge.m_vertex1);
-                m_vertices[1].set(edge.m_vertex2);
+                m_vertices[0].set(edge.vertex1);
+                m_vertices[1].set(edge.vertex2);
                 m_count = 2;
                 m_radius = edge.radius;
                 break;

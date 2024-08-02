@@ -47,9 +47,9 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
  */
 public class SliderCrankTest extends TestbedTest
 {
-    private RevoluteJoint m_joint1;
+    private RevoluteJoint joint1;
 
-    private PrismaticJoint m_joint2;
+    private PrismaticJoint joint2;
 
     @Override
     public void initTest(boolean argDeserialized)
@@ -75,10 +75,10 @@ public class SliderCrankTest extends TestbedTest
                 body.createFixture(shape, 2.0f);
                 RevoluteJointDef rjd = new RevoluteJointDef();
                 rjd.initialize(prevBody, body, new Vec2(0.0f, 5.0f));
-                rjd.motorSpeed = 1.0f * MathUtils.PI;
+                rjd.motorSpeed = MathUtils.PI;
                 rjd.maxMotorTorque = 10000.0f;
                 rjd.enableMotor = true;
-                m_joint1 = (RevoluteJoint) getWorld().createJoint(rjd);
+                joint1 = (RevoluteJoint) getWorld().createJoint(rjd);
                 prevBody = body;
             }
             // Define follower.
@@ -114,7 +114,7 @@ public class SliderCrankTest extends TestbedTest
                         new Vec2(0.0f, 1.0f));
                 pjd.maxMotorForce = 1000.0f;
                 pjd.enableMotor = false;
-                m_joint2 = (PrismaticJoint) getWorld().createJoint(pjd);
+                joint2 = (PrismaticJoint) getWorld().createJoint(pjd);
             }
             // Create a payload
             {
@@ -134,10 +134,10 @@ public class SliderCrankTest extends TestbedTest
     {
         super.step(settings);
         addTextLine("Keys: (f) toggle friction, (m) toggle motor");
-        float torque = m_joint1.getMotorTorque(1);
+        float torque = joint1.getMotorTorque(1);
         Formatter f = new Formatter();
         addTextLine(f.format("Friction: %b, Motor Force = %5.0f, ",
-                m_joint2.isMotorEnabled(), torque).toString());
+                joint2.isMotorEnabled(), torque).toString());
         f.close();
     }
 
@@ -147,12 +147,12 @@ public class SliderCrankTest extends TestbedTest
         switch (argKeyChar)
         {
         case 'f':
-            m_joint2.enableMotor(!m_joint2.isMotorEnabled());
+            joint2.enableMotor(!joint2.isMotorEnabled());
             getModel().getKeys()['f'] = false;
             break;
 
         case 'm':
-            m_joint1.enableMotor(!m_joint1.isMotorEnabled());
+            joint1.enableMotor(!joint1.isMotorEnabled());
             getModel().getKeys()['m'] = false;
             break;
         }

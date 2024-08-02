@@ -737,9 +737,9 @@ public class ContactSolver
                     break;
                 }
             }
-            // m_velocities[indexA].v.set(vA);
+            // velocities[indexA].v.set(vA);
             velocities[indexA].w = wA;
-            // m_velocities[indexB].v.set(vB);
+            // velocities[indexB].v.set(vB);
             velocities[indexB].w = wB;
         }
     }

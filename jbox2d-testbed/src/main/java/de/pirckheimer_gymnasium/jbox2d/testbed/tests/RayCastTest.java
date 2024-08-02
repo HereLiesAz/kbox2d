@@ -162,15 +162,15 @@ public class RayCastTest extends TestbedTest
         {
             ccallback.init();
             getWorld().raycast(ccallback, point1, point2);
-            if (ccallback.m_hit)
+            if (ccallback.hit)
             {
-                getDebugDraw().drawPoint(ccallback.m_point, 5.0f,
+                getDebugDraw().drawPoint(ccallback.point, 5.0f,
                         new Color3f(0.4f, 0.9f, 0.4f));
-                getDebugDraw().drawSegment(point1, ccallback.m_point,
+                getDebugDraw().drawSegment(point1, ccallback.point,
                         new Color3f(0.8f, 0.8f, 0.8f));
-                pooledHead.set(ccallback.m_normal);
-                pooledHead.mulLocal(.5f).addLocal(ccallback.m_point);
-                getDebugDraw().drawSegment(ccallback.m_point, pooledHead,
+                pooledHead.set(ccallback.normal);
+                pooledHead.mulLocal(.5f).addLocal(ccallback.point);
+                getDebugDraw().drawSegment(ccallback.point, pooledHead,
                         new Color3f(0.9f, 0.9f, 0.4f));
             }
             else
@@ -183,15 +183,15 @@ public class RayCastTest extends TestbedTest
         {
             acallback.init();
             getWorld().raycast(acallback, point1, point2);
-            if (acallback.m_hit)
+            if (acallback.hit)
             {
-                getDebugDraw().drawPoint(acallback.m_point, 5.0f,
+                getDebugDraw().drawPoint(acallback.point, 5.0f,
                         new Color3f(0.4f, 0.9f, 0.4f));
-                getDebugDraw().drawSegment(point1, acallback.m_point,
+                getDebugDraw().drawSegment(point1, acallback.point,
                         new Color3f(0.8f, 0.8f, 0.8f));
-                pooledHead.set(acallback.m_normal);
-                pooledHead.mulLocal(.5f).addLocal(acallback.m_point);
-                getDebugDraw().drawSegment(acallback.m_point, pooledHead,
+                pooledHead.set(acallback.normal);
+                pooledHead.mulLocal(.5f).addLocal(acallback.point);
+                getDebugDraw().drawSegment(acallback.point, pooledHead,
                         new Color3f(0.9f, 0.9f, 0.4f));
             }
             else
@@ -206,10 +206,10 @@ public class RayCastTest extends TestbedTest
             getWorld().raycast(mcallback, point1, point2);
             getDebugDraw().drawSegment(point1, point2,
                     new Color3f(0.8f, 0.8f, 0.8f));
-            for (int i = 0; i < mcallback.m_count; ++i)
+            for (int i = 0; i < mcallback.count; ++i)
             {
-                Vec2 p = mcallback.m_points[i];
-                Vec2 n = mcallback.m_normals[i];
+                Vec2 p = mcallback.points[i];
+                Vec2 n = mcallback.normals[i];
                 getDebugDraw().drawPoint(p, 5.0f,
                         new Color3f(0.4f, 0.9f, 0.4f));
                 getDebugDraw().drawSegment(point1, p,
@@ -324,15 +324,15 @@ public class RayCastTest extends TestbedTest
 // This callback finds the closest hit. Polygon 0 is filtered.
 class RayCastClosestCallback implements RayCastCallback
 {
-    boolean m_hit;
+    boolean hit;
 
-    Vec2 m_point;
+    Vec2 point;
 
-    Vec2 m_normal;
+    Vec2 normal;
 
     public void init()
     {
-        m_hit = false;
+        hit = false;
     }
 
     public float reportFixture(Fixture fixture, Vec2 point, Vec2 normal,
@@ -349,9 +349,9 @@ class RayCastClosestCallback implements RayCastCallback
                 return -1f;
             }
         }
-        m_hit = true;
-        m_point = point;
-        m_normal = normal;
+        hit = true;
+        this.point = point;
+        this.normal = normal;
         return fraction;
     }
 };
@@ -361,7 +361,7 @@ class RayCastAnyCallback implements RayCastCallback
 {
     public void init()
     {
-        m_hit = false;
+        hit = false;
     }
 
     public float reportFixture(Fixture fixture, Vec2 point, Vec2 normal,
@@ -378,38 +378,38 @@ class RayCastAnyCallback implements RayCastCallback
                 return -1f;
             }
         }
-        m_hit = true;
-        m_point = point;
-        m_normal = normal;
+        hit = true;
+        this.point = point;
+        this.normal = normal;
         return 0f;
     }
 
-    boolean m_hit;
+    boolean hit;
 
-    Vec2 m_point;
+    Vec2 point;
 
-    Vec2 m_normal;
+    Vec2 normal;
 };
 
 // This ray cast collects multiple hits along the ray. Polygon 0 is filtered.
 class RayCastMultipleCallback implements RayCastCallback
 {
-    public int e_maxCount = 30;
+    public int maxCount = 30;
 
-    Vec2 m_points[] = new Vec2[e_maxCount];
+    Vec2 points[] = new Vec2[maxCount];
 
-    Vec2 m_normals[] = new Vec2[e_maxCount];
+    Vec2 normals[] = new Vec2[maxCount];
 
-    int m_count;
+    int count;
 
     public void init()
     {
-        for (int i = 0; i < e_maxCount; i++)
+        for (int i = 0; i < maxCount; i++)
         {
-            m_points[i] = new Vec2();
-            m_normals[i] = new Vec2();
+            points[i] = new Vec2();
+            normals[i] = new Vec2();
         }
-        m_count = 0;
+        count = 0;
     }
 
     public float reportFixture(Fixture fixture, Vec2 point, Vec2 normal,
@@ -427,11 +427,11 @@ class RayCastMultipleCallback implements RayCastCallback
                 return -1f;
             }
         }
-        assert (m_count < e_maxCount);
-        m_points[m_count].set(point);
-        m_normals[m_count].set(normal);
-        ++m_count;
-        if (m_count == e_maxCount)
+        assert (count < maxCount);
+        points[count].set(point);
+        normals[count].set(normal);
+        ++count;
+        if (count == maxCount)
         {
             return 0f;
         }

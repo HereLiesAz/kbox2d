@@ -368,25 +368,25 @@ public class PbSerializer implements JbSerializer
         case EDGE:
             EdgeShape e = (EdgeShape) argShape;
             builder.setType(PbShapeType.EDGE);
-            builder.setV0(vecToPb(e.m_vertex0));
-            builder.setV1(vecToPb(e.m_vertex1));
-            builder.setV2(vecToPb(e.m_vertex2));
-            builder.setV3(vecToPb(e.m_vertex3));
-            builder.setHas0(e.m_hasVertex0);
-            builder.setHas3(e.m_hasVertex3);
+            builder.setV0(vecToPb(e.vertex0));
+            builder.setV1(vecToPb(e.vertex1));
+            builder.setV2(vecToPb(e.vertex2));
+            builder.setV3(vecToPb(e.vertex3));
+            builder.setHas0(e.hasVertex0);
+            builder.setHas3(e.hasVertex3);
             break;
 
         case CHAIN:
             ChainShape h = (ChainShape) argShape;
             builder.setType(PbShapeType.CHAIN);
-            for (int i = 0; i < h.m_count; i++)
+            for (int i = 0; i < h.count; i++)
             {
-                builder.addPoints(vecToPb(h.m_vertices[i]));
+                builder.addPoints(vecToPb(h.vertices[i]));
             }
-            builder.setPrev(vecToPb(h.m_prevVertex));
-            builder.setNext(vecToPb(h.m_nextVertex));
-            builder.setHas0(h.m_hasPrevVertex);
-            builder.setHas3(h.m_hasNextVertex);
+            builder.setPrev(vecToPb(h.prevVertex));
+            builder.setNext(vecToPb(h.nextVertex));
+            builder.setHas0(h.hasPrevVertex);
+            builder.setHas3(h.hasNextVertex);
             break;
 
         default:
