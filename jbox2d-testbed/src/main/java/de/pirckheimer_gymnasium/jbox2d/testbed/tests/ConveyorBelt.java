@@ -37,14 +37,14 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
 public class ConveyorBelt extends TestbedTest
 {
-    private static long platformTag = 98752L;
+    private static final long platformTag = 98752L;
 
-    private Fixture m_platform;
+    private Fixture platform;
 
     @Override
     public Long getTag(Fixture argFixture)
     {
-        if (argFixture == m_platform)
+        if (argFixture == platform)
         {
             return platformTag;
         }
@@ -56,7 +56,7 @@ public class ConveyorBelt extends TestbedTest
     {
         if (argTag == platformTag)
         {
-            m_platform = argFixture;
+            platform = argFixture;
             return;
         }
         super.processFixture(argFixture, argTag);
@@ -91,7 +91,7 @@ public class ConveyorBelt extends TestbedTest
             FixtureDef fd = new FixtureDef();
             fd.shape = shape;
             fd.friction = 0.8f;
-            m_platform = body.createFixture(fd);
+            platform = body.createFixture(fd);
         }
         // Boxes
         for (int i = 0; i < 5; ++i)
@@ -112,7 +112,7 @@ public class ConveyorBelt extends TestbedTest
         super.preSolve(contact, oldManifold);
         Fixture fixtureA = contact.getFixtureA();
         Fixture fixtureB = contact.getFixtureB();
-        if (fixtureA == m_platform || fixtureB == m_platform)
+        if (fixtureA == platform || fixtureB == platform)
         {
             contact.setTangentSpeed(5.0f);
         }

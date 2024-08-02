@@ -43,7 +43,7 @@ public class ParticleGroup
 
     public ParticleGroup()
     {
-        // m_system = null;
+        // system = null;
         firstIndex = 0;
         lastIndex = 0;
         groupFlags = 0;

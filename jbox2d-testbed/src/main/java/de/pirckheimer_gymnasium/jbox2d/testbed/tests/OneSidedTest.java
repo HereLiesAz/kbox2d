@@ -44,23 +44,23 @@ public class OneSidedTest extends TestbedTest
 
     enum State
     {
-        e_unknown, e_above, e_below,
+        unknown, above, below,
     };
 
-    float m_radius, m_top, m_bottom;
+    float radius, top, bottom;
 
-    State m_state;
+    State state;
 
-    Fixture m_platform;
+    Fixture platform;
 
-    Fixture m_character;
+    Fixture character;
 
     @Override
     public Long getTag(Fixture fixture)
     {
-        if (fixture == m_platform)
+        if (fixture == platform)
             return PLATFORM_TAG;
-        if (fixture == m_character)
+        if (fixture == character)
             return CHARACTER_TAG;
         return super.getTag(fixture);
     }
@@ -70,11 +70,11 @@ public class OneSidedTest extends TestbedTest
     {
         if (tag == PLATFORM_TAG)
         {
-            m_platform = fixture;
+            platform = fixture;
         }
         else if (tag == CHARACTER_TAG)
         {
-            m_character = fixture;
+            character = fixture;
         }
         else
         {
@@ -97,7 +97,7 @@ public class OneSidedTest extends TestbedTest
     @Override
     public void initTest(boolean deserialized)
     {
-        m_state = State.e_unknown;
+        state = State.unknown;
         if (deserialized)
         {
             return;
@@ -117,9 +117,9 @@ public class OneSidedTest extends TestbedTest
             Body body = getWorld().createBody(bd);
             PolygonShape shape = new PolygonShape();
             shape.setAsBox(3.0f, 0.5f);
-            m_platform = body.createFixture(shape, 0.0f);
-            m_bottom = 10.0f - 0.5f;
-            m_top = 10.0f + 0.5f;
+            platform = body.createFixture(shape, 0.0f);
+            bottom = 10.0f - 0.5f;
+            top = 10.0f + 0.5f;
         }
         // Actor
         {
@@ -127,12 +127,12 @@ public class OneSidedTest extends TestbedTest
             bd.type = BodyType.DYNAMIC;
             bd.position.set(0.0f, 12.0f);
             Body body = getWorld().createBody(bd);
-            m_radius = 0.5f;
+            radius = 0.5f;
             CircleShape shape = new CircleShape();
-            shape.radius = m_radius;
-            m_character = body.createFixture(shape, 20.0f);
+            shape.radius = radius;
+            character = body.createFixture(shape, 20.0f);
             body.setLinearVelocity(new Vec2(0.0f, -50.0f));
-            m_state = State.e_unknown;
+            state = State.unknown;
         }
     }
 
@@ -142,16 +142,16 @@ public class OneSidedTest extends TestbedTest
         super.preSolve(contact, oldManifold);
         Fixture fixtureA = contact.getFixtureA();
         Fixture fixtureB = contact.getFixtureB();
-        if (fixtureA != m_platform && fixtureA != m_character)
+        if (fixtureA != platform && fixtureA != character)
         {
             return;
         }
-        if (fixtureB != m_character && fixtureB != m_character)
+        if (fixtureB != character && fixtureB != character)
         {
             return;
         }
-        Vec2 position = m_character.getBody().getPosition();
-        if (position.y < m_top + m_radius - 3.0f * Settings.linearSlop)
+        Vec2 position = character.getBody().getPosition();
+        if (position.y < top + radius - 3.0f * Settings.linearSlop)
         {
             contact.setEnabled(false);
         }

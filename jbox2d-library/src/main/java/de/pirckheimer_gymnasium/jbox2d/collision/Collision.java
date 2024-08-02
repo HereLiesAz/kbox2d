@@ -243,7 +243,7 @@ public class Collision
         int normalIndex = 0;
         float separation = -Float.MAX_VALUE;
         final float radius = polygon.radius + circle.radius;
-        final int vertexCount = polygon.m_count;
+        final int vertexCount = polygon.count;
         float s;
         final Vec2[] vertices = polygon.vertices;
         final Vec2[] normals = polygon.normals;
@@ -411,8 +411,8 @@ public class Collision
             final PolygonShape poly1, final Transform xf1,
             final PolygonShape poly2, final Transform xf2)
     {
-        int count1 = poly1.m_count;
-        int count2 = poly2.m_count;
+        int count1 = poly1.count;
+        int count2 = poly2.count;
         Vec2[] n1s = poly1.normals;
         Vec2[] v1s = poly1.vertices;
         Vec2[] v2s = poly2.vertices;
@@ -450,9 +450,9 @@ public class Collision
             final PolygonShape poly1, final Transform xf1, int edge1,
             final PolygonShape poly2, final Transform xf2)
     {
-        int count1 = poly1.m_count;
+        int count1 = poly1.count;
         final Vec2[] normals1 = poly1.normals;
-        int count2 = poly2.m_count;
+        int count2 = poly2.count;
         final Vec2[] vertices2 = poly2.vertices;
         final Vec2[] normals2 = poly2.normals;
         assert (0 <= edge1 && edge1 < count1);
@@ -585,7 +585,7 @@ public class Collision
         }
         final Rot xf1q = xf1.q;
         findIncidentEdge(incidentEdge, poly1, xf1, edge1, poly2, xf2);
-        int count1 = poly1.m_count;
+        int count1 = poly1.count;
         final Vec2[] vertices1 = poly1.vertices;
         final int iv1 = edge1;
         final int iv2 = edge1 + 1 < count1 ? edge1 + 1 : 0;
@@ -1259,8 +1259,8 @@ public class Collision
                 }
             }
             // Get polygonB in frameA
-            m_polygonB.count = polygonB.m_count;
-            for (int i = 0; i < polygonB.m_count; ++i)
+            m_polygonB.count = polygonB.count;
+            for (int i = 0; i < polygonB.count; ++i)
             {
                 Transform.mulToOutUnsafe(m_xf, polygonB.vertices[i],
                         m_polygonB.vertices[i]);

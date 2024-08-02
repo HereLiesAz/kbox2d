@@ -216,7 +216,7 @@ public class DistanceJoint extends Joint
         final Rot qB = pool.popRot();
         qA.set(aA);
         qB.set(aB);
-        // use m_u as temporary variable
+        // use u as temporary variable
         Rot.mulToOutUnsafe(qA, u.set(localAnchorA).subLocal(localCenterA), rA);
         Rot.mulToOutUnsafe(qB, u.set(localAnchorB).subLocal(localCenterB), rB);
         u.set(cB).addLocal(rB).subLocal(cA).subLocal(rA);

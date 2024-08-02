@@ -39,28 +39,28 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
 public class RayCastTest extends TestbedTest
 {
-    public static final int e_maxBodies = 256;
+    public static final int maxBodies = 256;
 
     enum Mode
     {
-        e_closest, e_any, e_multiple
+        closest, any, multiple
     };
 
-    int m_bodyIndex;
+    int bodyIndex;
 
-    Body[] m_bodies;
+    Body[] bodies;
 
-    Integer[] m_userData;
+    Integer[] userData;
 
-    PolygonShape[] m_polygons;
+    PolygonShape[] polygons;
 
-    CircleShape m_circle;
+    CircleShape circle;
 
-    EdgeShape m_edge;
+    EdgeShape edge;
 
-    float m_angle;
+    float angle;
 
-    Mode m_mode;
+    Mode mode;
 
     @Override
     public String getTestName()
@@ -71,9 +71,9 @@ public class RayCastTest extends TestbedTest
     @Override
     public void initTest(boolean deserialized)
     {
-        m_bodies = new Body[e_maxBodies];
-        m_userData = new Integer[e_maxBodies];
-        m_polygons = new PolygonShape[4];
+        bodies = new Body[maxBodies];
+        userData = new Integer[maxBodies];
+        polygons = new PolygonShape[4];
         {
             BodyDef bd = new BodyDef();
             Body ground = getWorld().createBody(bd);
@@ -86,16 +86,16 @@ public class RayCastTest extends TestbedTest
             vertices[0] = new Vec2(-0.5f, 0.0f);
             vertices[1] = new Vec2(0.5f, 0.0f);
             vertices[2] = new Vec2(0.0f, 1.5f);
-            m_polygons[0] = new PolygonShape();
-            m_polygons[0].set(vertices, 3);
+            polygons[0] = new PolygonShape();
+            polygons[0].set(vertices, 3);
         }
         {
             Vec2 vertices[] = new Vec2[3];
             vertices[0] = new Vec2(-0.1f, 0.0f);
             vertices[1] = new Vec2(0.1f, 0.0f);
             vertices[2] = new Vec2(0.0f, 1.5f);
-            m_polygons[1] = new PolygonShape();
-            m_polygons[1].set(vertices, 3);
+            polygons[1] = new PolygonShape();
+            polygons[1].set(vertices, 3);
         }
         {
             float w = 1.0f;
@@ -110,24 +110,24 @@ public class RayCastTest extends TestbedTest
             vertices[5] = new Vec2(-0.5f * w, b + s);
             vertices[6] = new Vec2(-0.5f * w, b);
             vertices[7] = new Vec2(-0.5f * s, 0.0f);
-            m_polygons[2] = new PolygonShape();
-            m_polygons[2].set(vertices, 8);
+            polygons[2] = new PolygonShape();
+            polygons[2].set(vertices, 8);
         }
         {
-            m_polygons[3] = new PolygonShape();
-            m_polygons[3].setAsBox(0.5f, 0.5f);
+            polygons[3] = new PolygonShape();
+            polygons[3].setAsBox(0.5f, 0.5f);
         }
         {
-            m_circle = new CircleShape();
-            m_circle.radius = 0.5f;
+            circle = new CircleShape();
+            circle.radius = 0.5f;
         }
         {
-            m_edge = new EdgeShape();
-            m_edge.set(new Vec2(-1.0f, 0.0f), new Vec2(1.0f, 0.0f));
+            edge = new EdgeShape();
+            edge.set(new Vec2(-1.0f, 0.0f), new Vec2(1.0f, 0.0f));
         }
-        m_bodyIndex = 0;
-        m_angle = 0.0f;
-        m_mode = Mode.e_closest;
+        bodyIndex = 0;
+        angle = 0.0f;
+        mode = Mode.closest;
     }
 
     RayCastClosestCallback ccallback = new RayCastClosestCallback();
@@ -152,13 +152,13 @@ public class RayCastTest extends TestbedTest
         super.step(settings);
         addTextLine("Press 1-6 to drop stuff, m to change the mode");
         addTextLine("Polygon 1 is filtered");
-        addTextLine("Mode = " + m_mode);
+        addTextLine("Mode = " + mode);
         float L = 11.0f;
         point1.set(0.0f, 10.0f);
-        d.set(L * MathUtils.cos(m_angle), L * MathUtils.sin(m_angle));
+        d.set(L * MathUtils.cos(angle), L * MathUtils.sin(angle));
         point2.set(point1);
         point2.addLocal(d);
-        if (m_mode == Mode.e_closest)
+        if (mode == Mode.closest)
         {
             ccallback.init();
             getWorld().raycast(ccallback, point1, point2);
@@ -179,7 +179,7 @@ public class RayCastTest extends TestbedTest
                         new Color3f(0.8f, 0.8f, 0.8f));
             }
         }
-        else if (m_mode == Mode.e_any)
+        else if (mode == Mode.any)
         {
             acallback.init();
             getWorld().raycast(acallback, point1, point2);
@@ -200,7 +200,7 @@ public class RayCastTest extends TestbedTest
                         new Color3f(0.8f, 0.8f, 0.8f));
             }
         }
-        else if (m_mode == Mode.e_multiple)
+        else if (mode == Mode.multiple)
         {
             mcallback.init();
             getWorld().raycast(mcallback, point1, point2);
@@ -222,61 +222,61 @@ public class RayCastTest extends TestbedTest
         }
         if (advanceRay)
         {
-            m_angle += 0.25f * MathUtils.PI / 180.0f;
+            angle += 0.25f * MathUtils.PI / 180.0f;
         }
     }
 
     void Create(int index)
     {
-        if (m_bodies[m_bodyIndex] != null)
+        if (bodies[bodyIndex] != null)
         {
-            getWorld().destroyBody(m_bodies[m_bodyIndex]);
-            m_bodies[m_bodyIndex] = null;
+            getWorld().destroyBody(bodies[bodyIndex]);
+            bodies[bodyIndex] = null;
         }
         BodyDef bd = new BodyDef();
         float x = (float) Math.random() * 20 - 10;
         float y = (float) Math.random() * 20;
         bd.position.set(x, y);
         bd.angle = (float) Math.random() * MathUtils.TWOPI - MathUtils.PI;
-        m_userData[m_bodyIndex] = index;
-        bd.userData = m_userData[m_bodyIndex];
+        userData[bodyIndex] = index;
+        bd.userData = userData[bodyIndex];
         if (index == 4)
         {
             bd.angularDamping = 0.02f;
         }
-        m_bodies[m_bodyIndex] = getWorld().createBody(bd);
+        bodies[bodyIndex] = getWorld().createBody(bd);
         if (index < 4)
         {
             FixtureDef fd = new FixtureDef();
-            fd.shape = m_polygons[index];
+            fd.shape = polygons[index];
             fd.friction = 0.3f;
-            m_bodies[m_bodyIndex].createFixture(fd);
+            bodies[bodyIndex].createFixture(fd);
         }
         else if (index < 5)
         {
             FixtureDef fd = new FixtureDef();
-            fd.shape = m_circle;
+            fd.shape = circle;
             fd.friction = 0.3f;
-            m_bodies[m_bodyIndex].createFixture(fd);
+            bodies[bodyIndex].createFixture(fd);
         }
         else
         {
             FixtureDef fd = new FixtureDef();
-            fd.shape = m_edge;
+            fd.shape = edge;
             fd.friction = 0.3f;
-            m_bodies[m_bodyIndex].createFixture(fd);
+            bodies[bodyIndex].createFixture(fd);
         }
-        m_bodyIndex = (m_bodyIndex + 1) % e_maxBodies;
+        bodyIndex = (bodyIndex + 1) % maxBodies;
     }
 
     void DestroyBody()
     {
-        for (int i = 0; i < e_maxBodies; ++i)
+        for (int i = 0; i < maxBodies; ++i)
         {
-            if (m_bodies[i] != null)
+            if (bodies[i] != null)
             {
-                getWorld().destroyBody(m_bodies[i]);
-                m_bodies[i] = null;
+                getWorld().destroyBody(bodies[i]);
+                bodies[i] = null;
                 return;
             }
         }
@@ -301,17 +301,17 @@ public class RayCastTest extends TestbedTest
             break;
 
         case 'm':
-            if (m_mode == Mode.e_closest)
+            if (mode == Mode.closest)
             {
-                m_mode = Mode.e_any;
+                mode = Mode.any;
             }
-            else if (m_mode == Mode.e_any)
+            else if (mode == Mode.any)
             {
-                m_mode = Mode.e_multiple;
+                mode = Mode.multiple;
             }
-            else if (m_mode == Mode.e_multiple)
+            else if (mode == Mode.multiple)
             {
-                m_mode = Mode.e_closest;
+                mode = Mode.closest;
             }
             break;
         }

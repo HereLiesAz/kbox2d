@@ -53,26 +53,26 @@ public class TheoJansen extends TestbedTest
 
     private static final long MOTOR_TAG = 8;
 
-    Vec2 m_offset = new Vec2();
+    Vec2 offset = new Vec2();
 
-    Body m_chassis;
+    Body chassis;
 
-    Body m_wheel;
+    Body wheel;
 
-    RevoluteJoint m_motorJoint;
+    RevoluteJoint motorJoint;
 
-    boolean m_motorOn;
+    boolean motorOn;
 
-    float m_motorSpeed;
+    float motorSpeed;
 
     @Override
     public Long getTag(Body argBody)
     {
-        if (argBody == m_chassis)
+        if (argBody == chassis)
         {
             return CHASSIS_TAG;
         }
-        else if (argBody == m_wheel)
+        else if (argBody == wheel)
         {
             return WHEEL_TAG;
         }
@@ -82,7 +82,7 @@ public class TheoJansen extends TestbedTest
     @Override
     public Long getTag(Joint argJoint)
     {
-        if (argJoint == m_motorJoint)
+        if (argJoint == motorJoint)
         {
             return MOTOR_TAG;
         }
@@ -94,11 +94,11 @@ public class TheoJansen extends TestbedTest
     {
         if (argTag == CHASSIS_TAG)
         {
-            m_chassis = argBody;
+            chassis = argBody;
         }
         else if (argTag == WHEEL_TAG)
         {
-            m_wheel = argBody;
+            wheel = argBody;
         }
     }
 
@@ -107,8 +107,8 @@ public class TheoJansen extends TestbedTest
     {
         if (argTag == MOTOR_TAG)
         {
-            m_motorJoint = (RevoluteJoint) argJoint;
-            m_motorOn = m_motorJoint.isMotorEnabled();
+            motorJoint = (RevoluteJoint) argJoint;
+            motorOn = motorJoint.isMotorEnabled();
         }
     }
 
@@ -125,9 +125,9 @@ public class TheoJansen extends TestbedTest
         {
             return;
         }
-        m_offset.set(0.0f, 8.0f);
-        m_motorSpeed = 2.0f;
-        m_motorOn = true;
+        offset.set(0.0f, 8.0f);
+        motorSpeed = 2.0f;
+        motorOn = true;
         Vec2 pivot = new Vec2(0.0f, 0.8f);
         // Ground
         {
@@ -162,9 +162,9 @@ public class TheoJansen extends TestbedTest
             sd.filter.groupIndex = -1;
             BodyDef bd = new BodyDef();
             bd.type = BodyType.DYNAMIC;
-            bd.position.set(pivot).addLocal(m_offset);
-            m_chassis = getWorld().createBody(bd);
-            m_chassis.createFixture(sd);
+            bd.position.set(pivot).addLocal(offset);
+            chassis = getWorld().createBody(bd);
+            chassis.createFixture(sd);
         }
         {
             CircleShape shape = new CircleShape();
@@ -175,28 +175,27 @@ public class TheoJansen extends TestbedTest
             sd.filter.groupIndex = -1;
             BodyDef bd = new BodyDef();
             bd.type = BodyType.DYNAMIC;
-            bd.position.set(pivot).addLocal(m_offset);
-            m_wheel = getWorld().createBody(bd);
-            m_wheel.createFixture(sd);
+            bd.position.set(pivot).addLocal(offset);
+            wheel = getWorld().createBody(bd);
+            wheel.createFixture(sd);
         }
         {
             RevoluteJointDef jd = new RevoluteJointDef();
-            jd.initialize(m_wheel, m_chassis, pivot.add(m_offset));
+            jd.initialize(wheel, chassis, pivot.add(offset));
             jd.collideConnected = false;
-            jd.motorSpeed = m_motorSpeed;
+            jd.motorSpeed = motorSpeed;
             jd.maxMotorTorque = 400.0f;
-            jd.enableMotor = m_motorOn;
-            m_motorJoint = (RevoluteJoint) getWorld().createJoint(jd);
+            jd.enableMotor = motorOn;
+            motorJoint = (RevoluteJoint) getWorld().createJoint(jd);
         }
         Vec2 wheelAnchor;
         wheelAnchor = pivot.add(new Vec2(0.0f, -0.8f));
         createLeg(-1.0f, wheelAnchor);
         createLeg(1.0f, wheelAnchor);
-        m_wheel.setTransform(m_wheel.getPosition(),
-                120.0f * MathUtils.PI / 180.0f);
+        wheel.setTransform(wheel.getPosition(), 120.0f * MathUtils.PI / 180.0f);
         createLeg(-1.0f, wheelAnchor);
         createLeg(1.0f, wheelAnchor);
-        m_wheel.setTransform(m_wheel.getPosition(),
+        wheel.setTransform(wheel.getPosition(),
                 -120.0f * MathUtils.PI / 180.0f);
         createLeg(-1.0f, wheelAnchor);
         createLeg(1.0f, wheelAnchor);
@@ -247,8 +246,8 @@ public class TheoJansen extends TestbedTest
         BodyDef bd1 = new BodyDef(), bd2 = new BodyDef();
         bd1.type = BodyType.DYNAMIC;
         bd2.type = BodyType.DYNAMIC;
-        bd1.position = m_offset;
-        bd2.position = p4.add(m_offset);
+        bd1.position = offset;
+        bd2.position = p4.add(offset);
         bd1.angularDamping = 10.0f;
         bd2.angularDamping = 10.0f;
         Body body1 = getWorld().createBody(bd1);
@@ -261,18 +260,16 @@ public class TheoJansen extends TestbedTest
         // acting like a suspension system.
         djd.dampingRatio = 0.5f;
         djd.frequencyHz = 10.0f;
-        djd.initialize(body1, body2, p2.add(m_offset), p5.add(m_offset));
+        djd.initialize(body1, body2, p2.add(offset), p5.add(offset));
         getWorld().createJoint(djd);
-        djd.initialize(body1, body2, p3.add(m_offset), p4.add(m_offset));
+        djd.initialize(body1, body2, p3.add(offset), p4.add(offset));
         getWorld().createJoint(djd);
-        djd.initialize(body1, m_wheel, p3.add(m_offset),
-                wheelAnchor.add(m_offset));
+        djd.initialize(body1, wheel, p3.add(offset), wheelAnchor.add(offset));
         getWorld().createJoint(djd);
-        djd.initialize(body2, m_wheel, p6.add(m_offset),
-                wheelAnchor.add(m_offset));
+        djd.initialize(body2, wheel, p6.add(offset), wheelAnchor.add(offset));
         getWorld().createJoint(djd);
         RevoluteJointDef rjd = new RevoluteJointDef();
-        rjd.initialize(body2, m_chassis, p4.add(m_offset));
+        rjd.initialize(body2, chassis, p4.add(offset));
         getWorld().createJoint(rjd);
     }
 
@@ -282,19 +279,19 @@ public class TheoJansen extends TestbedTest
         switch (key)
         {
         case 'a':
-            m_motorJoint.setMotorSpeed(-m_motorSpeed);
+            motorJoint.setMotorSpeed(-motorSpeed);
             break;
 
         case 's':
-            m_motorJoint.setMotorSpeed(0.0f);
+            motorJoint.setMotorSpeed(0.0f);
             break;
 
         case 'd':
-            m_motorJoint.setMotorSpeed(m_motorSpeed);
+            motorJoint.setMotorSpeed(motorSpeed);
             break;
 
         case 'm':
-            m_motorJoint.enableMotor(!m_motorJoint.isMotorEnabled());
+            motorJoint.enableMotor(!motorJoint.isMotorEnabled());
             break;
         }
     }

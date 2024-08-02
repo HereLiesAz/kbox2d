@@ -37,9 +37,9 @@ public class ConvexHull extends TestbedTest
 
     private boolean auto = false;
 
-    private final Vec2[] m_points = new Vec2[Settings.maxPolygonVertices];
+    private final Vec2[] memberPoints = new Vec2[Settings.maxPolygonVertices];
 
-    private int m_count;
+    private int memberCount;
 
     @Override
     public void initTest(boolean deserialized)
@@ -61,9 +61,9 @@ public class ConvexHull extends TestbedTest
             float y = MathUtils.randomFloat(-8, 8);
             Vec2 v = new Vec2(x, y);
             MathUtils.clampToOut(v, lowerBound, upperBound, v);
-            m_points[i] = v;
+            memberPoints[i] = v;
         }
-        m_count = count;
+        memberCount = count;
     }
 
     public void keyPressed(char argKeyChar, int argKeyCode)
@@ -88,14 +88,15 @@ public class ConvexHull extends TestbedTest
     public synchronized void step(TestbedSettings settings)
     {
         super.step(settings);
-        shape.set(m_points, m_count);
+        shape.set(memberPoints, memberCount);
         addTextLine("Press g to generate a new random convex hull");
-        getDebugDraw().drawPolygon(shape.vertices, shape.m_count, color);
-        for (int i = 0; i < m_count; ++i)
+        getDebugDraw().drawPolygon(shape.vertices, shape.count, color);
+        for (int i = 0; i < memberCount; ++i)
         {
-            getDebugDraw().drawPoint(m_points[i], 2.0f, color2);
-            getDebugDraw().drawString(m_points[i].add(new Vec2(0.05f, 0.05f)),
-                    i + "", Color3f.WHITE);
+            getDebugDraw().drawPoint(memberPoints[i], 2.0f, color2);
+            getDebugDraw().drawString(
+                    memberPoints[i].add(new Vec2(0.05f, 0.05f)), i + "",
+                    Color3f.WHITE);
         }
         assert (shape.validate());
         if (auto)

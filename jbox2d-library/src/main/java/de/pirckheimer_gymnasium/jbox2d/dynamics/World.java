@@ -1703,7 +1703,7 @@ public class World
         case POLYGON:
         {
             PolygonShape poly = (PolygonShape) fixture.getShape();
-            int vertexCount = poly.m_count;
+            int vertexCount = poly.count;
             assert (vertexCount <= Settings.maxPolygonVertices);
             Vec2[] vertices = tlvertices.get(Settings.maxPolygonVertices);
             for (int i = 0; i < vertexCount; ++i)

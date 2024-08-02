@@ -45,19 +45,19 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
  */
 public class ContinuousTest extends TestbedTest
 {
-    Body m_body;
+    Body body;
 
     Fixture currFixture;
 
-    PolygonShape m_poly;
+    PolygonShape poly;
 
-    CircleShape m_circle;
+    CircleShape circle;
 
     Shape nextShape = null;
 
     boolean polygon = false;
 
-    float m_angularVelocity;
+    float angularVelocity;
 
     @Override
     public String getTestName()
@@ -69,11 +69,11 @@ public class ContinuousTest extends TestbedTest
     {
         if (polygon)
         {
-            nextShape = m_circle;
+            nextShape = circle;
         }
         else
         {
-            nextShape = m_poly;
+            nextShape = poly;
         }
         polygon = !polygon;
     }
@@ -92,20 +92,20 @@ public class ContinuousTest extends TestbedTest
             pshape.setAsBox(0.2f, 1.0f, new Vec2(0.5f, 1.0f), 0.0f);
             body.createFixture(pshape, 0.0f);
         }
-        m_poly = new PolygonShape();
-        m_poly.setAsBox(2.0f, 0.1f);
-        m_circle = new CircleShape();
-        m_circle.p.setZero();
-        m_circle.radius = 0.5f;
+        poly = new PolygonShape();
+        poly.setAsBox(2.0f, 0.1f);
+        circle = new CircleShape();
+        circle.p.setZero();
+        circle.radius = 0.5f;
         BodyDef bd = new BodyDef();
         bd.type = BodyType.DYNAMIC;
         bd.position.set(0.0f, 20.0f);
-        m_body = getWorld().createBody(bd);
-        currFixture = m_body.createFixture(m_poly, 1.0f);
-        m_angularVelocity = (float) Math.random() * 100 - 50;
-        m_angularVelocity = 33.468121f;
-        m_body.setLinearVelocity(new Vec2(0.0f, -100.0f));
-        m_body.setAngularVelocity(m_angularVelocity);
+        body = getWorld().createBody(bd);
+        currFixture = body.createFixture(poly, 1.0f);
+        angularVelocity = (float) Math.random() * 100 - 50;
+        angularVelocity = 33.468121f;
+        body.setLinearVelocity(new Vec2(0.0f, -100.0f));
+        body.setAngularVelocity(angularVelocity);
         TimeOfImpact.toiCalls = 0;
         TimeOfImpact.toiIters = 0;
         TimeOfImpact.toiMaxIters = 0;
@@ -115,10 +115,10 @@ public class ContinuousTest extends TestbedTest
 
     public void launch()
     {
-        m_body.setTransform(new Vec2(0.0f, 20.0f), 0.0f);
-        m_angularVelocity = (float) Math.random() * 100 - 50;
-        m_body.setLinearVelocity(new Vec2(0.0f, -100.0f));
-        m_body.setAngularVelocity(m_angularVelocity);
+        body.setTransform(new Vec2(0.0f, 20.0f), 0.0f);
+        angularVelocity = (float) Math.random() * 100 - 50;
+        body.setLinearVelocity(new Vec2(0.0f, -100.0f));
+        body.setAngularVelocity(angularVelocity);
     }
 
     @Override
@@ -126,8 +126,8 @@ public class ContinuousTest extends TestbedTest
     {
         if (nextShape != null)
         {
-            m_body.destroyFixture(currFixture);
-            currFixture = m_body.createFixture(nextShape, 1f);
+            body.destroyFixture(currFixture);
+            currFixture = body.createFixture(nextShape, 1f);
             nextShape = null;
         }
         // if (stepCount == 12){

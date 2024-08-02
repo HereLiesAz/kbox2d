@@ -42,11 +42,11 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
  */
 public class ShapeEditing extends TestbedTest
 {
-    Body m_body;
+    Body body;
 
-    Fixture m_fixture1;
+    Fixture fixture1;
 
-    Fixture m_fixture2;
+    Fixture fixture2;
 
     @Override
     public void initTest(boolean argDeserialized)
@@ -61,11 +61,11 @@ public class ShapeEditing extends TestbedTest
         BodyDef bd = new BodyDef();
         bd.type = BodyType.DYNAMIC;
         bd.position.set(0.0f, 10.0f);
-        m_body = getWorld().createBody(bd);
+        body = getWorld().createBody(bd);
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(4.0f, 4.0f, new Vec2(0.0f, 0.0f), 0.0f);
-        m_fixture1 = m_body.createFixture(shape, 10.0f);
-        m_fixture2 = null;
+        fixture1 = body.createFixture(shape, 10.0f);
+        fixture2 = null;
     }
 
     @Override
@@ -74,22 +74,22 @@ public class ShapeEditing extends TestbedTest
         switch (key)
         {
         case 'c':
-            if (m_fixture2 == null)
+            if (fixture2 == null)
             {
                 CircleShape shape = new CircleShape();
                 shape.radius = 3.0f;
                 shape.p.set(0.5f, -4.0f);
-                m_fixture2 = m_body.createFixture(shape, 10.0f);
-                m_body.setAwake(true);
+                fixture2 = body.createFixture(shape, 10.0f);
+                body.setAwake(true);
             }
             break;
 
         case 'd':
-            if (m_fixture2 != null)
+            if (fixture2 != null)
             {
-                m_body.destroyFixture(m_fixture2);
-                m_fixture2 = null;
-                m_body.setAwake(true);
+                body.destroyFixture(fixture2);
+                fixture2 = null;
+                body.setAwake(true);
             }
             break;
         }

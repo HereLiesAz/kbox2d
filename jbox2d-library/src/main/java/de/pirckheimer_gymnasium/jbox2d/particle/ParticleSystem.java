@@ -211,10 +211,10 @@ public class ParticleSystem
         userDataBuffer = new ParticleBuffer<Object>(Object.class);
     }
 //  public void assertNotSamePosition() {
-//    for (int i = 0; i < m_count; i++) {
-//      Vec2 vi = m_positionBuffer.data[i];
-//      for (int j = i + 1; j < m_count; j++) {
-//        Vec2 vj = m_positionBuffer.data[j];
+//    for (int i = 0; i < count; i++) {
+//      Vec2 vi = positionBuffer.data[i];
+//      for (int j = i + 1; j < count; j++) {
+//        Vec2 vj = positionBuffer.data[j];
 //        assert(vi.x != vj.x || vi.y != vj.y);
 //      }
 //    }

@@ -48,18 +48,18 @@ public class BodyTypes extends TestbedTest
 
     private final static long PLATFORM_TAG = 20;
 
-    Body m_attachment;
+    Body attachment;
 
-    Body m_platform;
+    Body platform;
 
-    float m_speed;
+    float speed;
 
     @Override
     public Long getTag(Body body)
     {
-        if (body == m_attachment)
+        if (body == attachment)
             return ATTACHMENT_TAG;
-        if (body == m_platform)
+        if (body == platform)
             return PLATFORM_TAG;
         return super.getTag(body);
     }
@@ -69,11 +69,11 @@ public class BodyTypes extends TestbedTest
     {
         if (tag == ATTACHMENT_TAG)
         {
-            m_attachment = body;
+            attachment = body;
         }
         else if (tag == PLATFORM_TAG)
         {
-            m_platform = body;
+            platform = body;
         }
         else
         {
@@ -90,7 +90,7 @@ public class BodyTypes extends TestbedTest
     @Override
     public void initTest(boolean deserialized)
     {
-        m_speed = 3.0f;
+        speed = 3.0f;
         if (deserialized)
         {
             return;
@@ -110,17 +110,17 @@ public class BodyTypes extends TestbedTest
             BodyDef bd = new BodyDef();
             bd.type = BodyType.DYNAMIC;
             bd.position.set(0.0f, 3.0f);
-            m_attachment = getWorld().createBody(bd);
+            attachment = getWorld().createBody(bd);
             PolygonShape shape = new PolygonShape();
             shape.setAsBox(0.5f, 2.0f);
-            m_attachment.createFixture(shape, 2.0f);
+            attachment.createFixture(shape, 2.0f);
         }
         // Define platform
         {
             BodyDef bd = new BodyDef();
             bd.type = BodyType.DYNAMIC;
             bd.position.set(-4.0f, 5.0f);
-            m_platform = getWorld().createBody(bd);
+            platform = getWorld().createBody(bd);
             PolygonShape shape = new PolygonShape();
             shape.setAsBox(0.5f, 4.0f, new Vec2(4.0f, 0.0f),
                     0.5f * MathUtils.PI);
@@ -128,14 +128,14 @@ public class BodyTypes extends TestbedTest
             fd.shape = shape;
             fd.friction = 0.6f;
             fd.density = 2.0f;
-            m_platform.createFixture(fd);
+            platform.createFixture(fd);
             RevoluteJointDef rjd = new RevoluteJointDef();
-            rjd.initialize(m_attachment, m_platform, new Vec2(0.0f, 5.0f));
+            rjd.initialize(attachment, platform, new Vec2(0.0f, 5.0f));
             rjd.maxMotorTorque = 50.0f;
             rjd.enableMotor = true;
             getWorld().createJoint(rjd);
             PrismaticJointDef pjd = new PrismaticJointDef();
-            pjd.initialize(ground, m_platform, new Vec2(0.0f, 5.0f),
+            pjd.initialize(ground, platform, new Vec2(0.0f, 5.0f),
                     new Vec2(1.0f, 0.0f));
             pjd.maxMotorForce = 1000.0f;
             pjd.enableMotor = true;
@@ -166,14 +166,14 @@ public class BodyTypes extends TestbedTest
         super.step(settings);
         addTextLine("Keys: (d) dynamic, (s) static, (k) kinematic");
         // Drive the kinematic body.
-        if (m_platform.getType() == BodyType.KINEMATIC)
+        if (platform.getType() == BodyType.KINEMATIC)
         {
-            Vec2 p = m_platform.getTransform().p;
-            Vec2 v = m_platform.getLinearVelocity();
+            Vec2 p = platform.getTransform().p;
+            Vec2 v = platform.getLinearVelocity();
             if ((p.x < -10.0f && v.x < 0.0f) || (p.x > 10.0f && v.x > 0.0f))
             {
                 v.x = -v.x;
-                m_platform.setLinearVelocity(v);
+                platform.setLinearVelocity(v);
             }
         }
     }
@@ -184,17 +184,17 @@ public class BodyTypes extends TestbedTest
         switch (argKeyChar)
         {
         case 'd':
-            m_platform.setType(BodyType.DYNAMIC);
+            platform.setType(BodyType.DYNAMIC);
             break;
 
         case 's':
-            m_platform.setType(BodyType.STATIC);
+            platform.setType(BodyType.STATIC);
             break;
 
         case 'k':
-            m_platform.setType(BodyType.KINEMATIC);
-            m_platform.setLinearVelocity(new Vec2(-m_speed, 0.0f));
-            m_platform.setAngularVelocity(0.0f);
+            platform.setType(BodyType.KINEMATIC);
+            platform.setLinearVelocity(new Vec2(-speed, 0.0f));
+            platform.setAngularVelocity(0.0f);
             break;
         }
     }

@@ -52,15 +52,15 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
  */
 public class PolyShapes extends TestbedTest
 {
-    int k_maxBodies = 256;
+    int maxBodies = 256;
 
-    int m_bodyIndex;
+    int bodyIndex;
 
-    Body m_bodies[] = new Body[k_maxBodies];
+    Body[] bodies = new Body[maxBodies];
 
-    PolygonShape m_polygons[] = new PolygonShape[4];
+    PolygonShape[] polygons = new PolygonShape[4];
 
-    CircleShape m_circle;
+    CircleShape circle;
 
     @Override
     public void initTest(boolean argDeserialized)
@@ -78,16 +78,16 @@ public class PolyShapes extends TestbedTest
             vertices[0] = new Vec2(-0.5f, 0.0f);
             vertices[1] = new Vec2(0.5f, 0.0f);
             vertices[2] = new Vec2(0.0f, 1.5f);
-            m_polygons[0] = new PolygonShape();
-            m_polygons[0].set(vertices, 3);
+            polygons[0] = new PolygonShape();
+            polygons[0].set(vertices, 3);
         }
         {
             Vec2 vertices[] = new Vec2[3];
             vertices[0] = new Vec2(-0.1f, 0.0f);
             vertices[1] = new Vec2(0.1f, 0.0f);
             vertices[2] = new Vec2(0.0f, 1.5f);
-            m_polygons[1] = new PolygonShape();
-            m_polygons[1].set(vertices, 3);
+            polygons[1] = new PolygonShape();
+            polygons[1].set(vertices, 3);
         }
         {
             float w = 1.0f;
@@ -102,18 +102,18 @@ public class PolyShapes extends TestbedTest
             vertices[5] = new Vec2(-0.5f * w, b + s);
             vertices[6] = new Vec2(-0.5f * w, b);
             vertices[7] = new Vec2(-0.5f * s, 0.0f);
-            m_polygons[2] = new PolygonShape();
-            m_polygons[2].set(vertices, 8);
+            polygons[2] = new PolygonShape();
+            polygons[2].set(vertices, 8);
         }
         {
-            m_polygons[3] = new PolygonShape();
-            m_polygons[3].setAsBox(0.5f, 0.5f);
+            polygons[3] = new PolygonShape();
+            polygons[3].setAsBox(0.5f, 0.5f);
         }
         {
-            m_circle = new CircleShape();
-            m_circle.radius = 0.5f;
+            circle = new CircleShape();
+            circle.radius = 0.5f;
         }
-        m_bodyIndex = 0;
+        bodyIndex = 0;
     }
 
     void Create(int index)
@@ -127,34 +127,34 @@ public class PolyShapes extends TestbedTest
         {
             bd.angularDamping = 0.02f;
         }
-        m_bodies[m_bodyIndex] = getWorld().createBody(bd);
+        bodies[bodyIndex] = getWorld().createBody(bd);
         if (index < 4)
         {
             FixtureDef fd = new FixtureDef();
-            fd.shape = m_polygons[index];
+            fd.shape = polygons[index];
             fd.density = 1.0f;
             fd.friction = 0.3f;
-            m_bodies[m_bodyIndex].createFixture(fd);
+            bodies[bodyIndex].createFixture(fd);
         }
         else
         {
             FixtureDef fd = new FixtureDef();
-            fd.shape = m_circle;
+            fd.shape = circle;
             fd.density = 1.0f;
             fd.friction = 0.3f;
-            m_bodies[m_bodyIndex].createFixture(fd);
+            bodies[bodyIndex].createFixture(fd);
         }
-        m_bodyIndex = (m_bodyIndex + 1) % k_maxBodies;
+        bodyIndex = (bodyIndex + 1) % maxBodies;
     }
 
     void DestroyBody()
     {
-        for (int i = 0; i < k_maxBodies; ++i)
+        for (int i = 0; i < maxBodies; ++i)
         {
-            if (m_bodies[i] != null)
+            if (bodies[i] != null)
             {
-                getWorld().destroyBody(m_bodies[i]);
-                m_bodies[i] = null;
+                getWorld().destroyBody(bodies[i]);
+                bodies[i] = null;
                 return;
             }
         }
@@ -174,12 +174,12 @@ public class PolyShapes extends TestbedTest
             break;
 
         case 'a':
-            for (int i = 0; i < k_maxBodies; i += 2)
+            for (int i = 0; i < maxBodies; i += 2)
             {
-                if (m_bodies[i] != null)
+                if (bodies[i] != null)
                 {
-                    boolean active = m_bodies[i].isActive();
-                    m_bodies[i].setActive(!active);
+                    boolean active = bodies[i].isActive();
+                    bodies[i].setActive(!active);
                 }
             }
             break;
@@ -199,15 +199,15 @@ public class PolyShapes extends TestbedTest
         super.step(settings);
         PolyShapesCallback callback = new PolyShapesCallback(
                 getWorld().getPool());
-        callback.m_circle.radius = 2.0f;
-        callback.m_circle.p.set(0.0f, 2.1f);
-        callback.m_transform.setIdentity();
+        callback.circle.radius = 2.0f;
+        callback.circle.p.set(0.0f, 2.1f);
+        callback.transform.setIdentity();
         callback.debugDraw = getDebugDraw();
         AABB aabb = new AABB();
-        callback.m_circle.computeAABB(aabb, callback.m_transform, 0);
+        callback.circle.computeAABB(aabb, callback.transform, 0);
         getWorld().queryAABB(callback, aabb);
         Color3f color = new Color3f(0.4f, 0.7f, 0.8f);
-        getDebugDraw().drawCircle(callback.m_circle.p, callback.m_circle.radius,
+        getDebugDraw().drawCircle(callback.circle.p, callback.circle.radius,
                 color);
         addTextLine("Press 1-5 to drop stuff");
         addTextLine("Press 'a' to (de)activate some bodies");
@@ -235,21 +235,21 @@ public class PolyShapes extends TestbedTest
  */
 class PolyShapesCallback implements QueryCallback
 {
-    int e_maxCount = 30;
+    int maxCount = 30;
 
-    CircleShape m_circle = new CircleShape();
+    CircleShape circle = new CircleShape();
 
-    Transform m_transform = new Transform();
+    Transform transform = new Transform();
 
     DebugDraw debugDraw;
 
-    int m_count;
+    int count;
 
     IWorldPool p;
 
     public PolyShapesCallback(IWorldPool argWorld)
     {
-        m_count = 0;
+        count = 0;
         p = argWorld;
     }
 
@@ -271,7 +271,7 @@ class PolyShapesCallback implements QueryCallback
         case POLYGON:
         {
             PolygonShape poly = (PolygonShape) fixture.getShape();
-            int vertexCount = poly.m_count;
+            int vertexCount = poly.count;
             assert (vertexCount <= Settings.maxPolygonVertices);
             Vec2 vertices[] = new Vec2[Settings.maxPolygonVertices];
             for (int i = 0; i < vertexCount; ++i)
@@ -289,18 +289,18 @@ class PolyShapesCallback implements QueryCallback
 
     public boolean reportFixture(Fixture fixture)
     {
-        if (m_count == e_maxCount)
+        if (count == maxCount)
         {
             return false;
         }
         Body body = fixture.getBody();
         Shape shape = fixture.getShape();
-        boolean overlap = p.getCollision().testOverlap(shape, 0, m_circle, 0,
-                body.getTransform(), m_transform);
+        boolean overlap = p.getCollision().testOverlap(shape, 0, circle, 0,
+                body.getTransform(), transform);
         if (overlap)
         {
             DrawFixture(fixture);
-            ++m_count;
+            ++count;
         }
         return true;
     }

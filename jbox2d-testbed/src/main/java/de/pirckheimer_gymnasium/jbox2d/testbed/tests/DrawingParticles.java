@@ -14,13 +14,13 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
 public class DrawingParticles extends TestbedTest
 {
-    ParticleGroup m_lastGroup;
+    ParticleGroup lastGroup;
 
-    boolean m_drawing;
+    boolean drawing;
 
-    int m_particleFlags;
+    int particleFlags;
 
-    int m_groupFlags;
+    int groupFlags;
 
     ParticleColor color = new ParticleColor();
 
@@ -59,9 +59,9 @@ public class DrawingParticles extends TestbedTest
             }
         }
         world.setParticleRadius(0.5f);
-        m_lastGroup = null;
-        m_drawing = true;
-        m_groupFlags = 0;
+        lastGroup = null;
+        drawing = true;
+        groupFlags = 0;
     }
 
     @Override
@@ -75,48 +75,48 @@ public class DrawingParticles extends TestbedTest
 
     public void keyPressed(char keyChar, int keyCode)
     {
-        m_drawing = keyChar != 'x';
-        m_particleFlags = 0;
-        m_groupFlags = 0;
+        drawing = keyChar != 'x';
+        particleFlags = 0;
+        groupFlags = 0;
         color.set((byte) 127, (byte) 127, (byte) 127, (byte) 50);
         switch (keyChar)
         {
         case 'e':
-            m_particleFlags = ParticleType.elasticParticle;
-            m_groupFlags = ParticleGroupType.solidParticleGroup;
+            particleFlags = ParticleType.elasticParticle;
+            groupFlags = ParticleGroupType.solidParticleGroup;
             break;
 
         case 'o':
-            m_particleFlags = ParticleType.powderParticle;
+            particleFlags = ParticleType.powderParticle;
             break;
 
         case 'f':
-            m_groupFlags = ParticleGroupType.rigidParticleGroup
+            groupFlags = ParticleGroupType.rigidParticleGroup
                     | ParticleGroupType.solidParticleGroup;
             break;
 
         case 's':
-            m_particleFlags = ParticleType.springParticle;
-            m_groupFlags = ParticleGroupType.solidParticleGroup;
+            particleFlags = ParticleType.springParticle;
+            groupFlags = ParticleGroupType.solidParticleGroup;
             break;
 
         case 't':
             color.set((byte) 0, (byte) 127, (byte) 0, (byte) 50);
-            m_particleFlags = ParticleType.tensileParticle;
+            particleFlags = ParticleType.tensileParticle;
             break;
 
         case 'v':
             color.set((byte) 0, (byte) 0, (byte) 127, (byte) 50);
-            m_particleFlags = ParticleType.viscousParticle;
+            particleFlags = ParticleType.viscousParticle;
             break;
 
         case 'w':
-            m_particleFlags = ParticleType.wallParticle;
-            m_groupFlags = ParticleGroupType.solidParticleGroup;
+            particleFlags = ParticleType.wallParticle;
+            groupFlags = ParticleGroupType.solidParticleGroup;
             break;
 
         case 'z':
-            m_particleFlags = ParticleType.zombieParticle;
+            particleFlags = ParticleType.zombieParticle;
             break;
         }
     }
@@ -131,7 +131,7 @@ public class DrawingParticles extends TestbedTest
     public void mouseDrag(Vec2 p, int button)
     {
         super.mouseDrag(p, button);
-        if (m_drawing)
+        if (drawing)
         {
             pshape.p.set(p);
             pshape.radius = 2.0f;
@@ -139,17 +139,17 @@ public class DrawingParticles extends TestbedTest
             world.destroyParticlesInShape(pshape, pxf);
             ppd.shape = pshape;
             ppd.color = color;
-            ppd.flags = m_particleFlags;
-            ppd.groupFlags = m_groupFlags;
+            ppd.flags = particleFlags;
+            ppd.groupFlags = groupFlags;
             ParticleGroup group = world.createParticleGroup(ppd);
-            if (m_lastGroup != null
-                    && group.getGroupFlags() == m_lastGroup.getGroupFlags())
+            if (lastGroup != null
+                    && group.getGroupFlags() == lastGroup.getGroupFlags())
             {
-                world.joinParticleGroups(m_lastGroup, group);
+                world.joinParticleGroups(lastGroup, group);
             }
             else
             {
-                m_lastGroup = group;
+                lastGroup = group;
             }
             mouseTracing = false;
         }
@@ -159,16 +159,16 @@ public class DrawingParticles extends TestbedTest
     public void mouseUp(Vec2 p, int button)
     {
         super.mouseUp(p, button);
-        m_lastGroup = null;
+        lastGroup = null;
     }
 
     @Override
     public void particleGroupDestroyed(ParticleGroup group)
     {
         super.particleGroupDestroyed(group);
-        if (group == m_lastGroup)
+        if (group == lastGroup)
         {
-            m_lastGroup = null;
+            lastGroup = null;
         }
     }
 

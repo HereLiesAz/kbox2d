@@ -358,7 +358,7 @@ public class PbSerializer implements JbSerializer
             PolygonShape p = (PolygonShape) argShape;
             builder.setType(PbShapeType.POLYGON);
             builder.setCentroid(vecToPb(p.centroid));
-            for (int i = 0; i < p.m_count; i++)
+            for (int i = 0; i < p.count; i++)
             {
                 builder.addPoints(vecToPb(p.vertices[i]));
                 builder.addNormals(vecToPb(p.normals[i]));

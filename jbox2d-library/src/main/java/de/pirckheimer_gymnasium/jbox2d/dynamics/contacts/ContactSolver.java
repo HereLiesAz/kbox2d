@@ -115,7 +115,7 @@ public class ContactSolver
         contacts = def.contacts;
         for (int i = 0; i < count; ++i)
         {
-            // System.out.println("contacts: " + m_count);
+            // System.out.println("contacts: " + count);
             final Contact contact = contacts[i];
             final Fixture fixtureA = contact.fixtureA;
             final Fixture fixtureB = contact.fixtureB;

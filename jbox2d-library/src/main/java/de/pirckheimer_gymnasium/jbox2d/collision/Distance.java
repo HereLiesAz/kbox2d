@@ -553,7 +553,7 @@ public class Distance
 
             case POLYGON:
                 final PolygonShape poly = (PolygonShape) shape;
-                m_count = poly.m_count;
+                m_count = poly.count;
                 m_radius = poly.radius;
                 for (int i = 0; i < m_count; i++)
                 {

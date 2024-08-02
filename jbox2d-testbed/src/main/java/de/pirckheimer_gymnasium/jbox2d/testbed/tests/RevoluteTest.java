@@ -48,14 +48,14 @@ public class RevoluteTest extends TestbedTest
 {
     private static final long JOINT_TAG = 1;
 
-    private RevoluteJoint m_joint;
+    private RevoluteJoint joint;
 
     private boolean isLeft = false;
 
     @Override
     public Long getTag(Joint joint)
     {
-        if (joint == m_joint)
+        if (joint == this.joint)
             return JOINT_TAG;
         return super.getTag(joint);
     }
@@ -65,8 +65,8 @@ public class RevoluteTest extends TestbedTest
     {
         if (tag == JOINT_TAG)
         {
-            m_joint = (RevoluteJoint) joint;
-            isLeft = m_joint.getMotorSpeed() > 0;
+            this.joint = (RevoluteJoint) joint;
+            isLeft = this.joint.getMotorSpeed() > 0;
         }
         else
         {
@@ -115,7 +115,7 @@ public class RevoluteTest extends TestbedTest
             rjd.upperAngle = 0.5f * MathUtils.PI;
             rjd.enableLimit = true;
             rjd.collideConnected = true;
-            m_joint = (RevoluteJoint) getWorld().createJoint(rjd);
+            joint = (RevoluteJoint) getWorld().createJoint(rjd);
         }
         {
             CircleShape circle_shape = new CircleShape();
@@ -166,8 +166,8 @@ public class RevoluteTest extends TestbedTest
     public void step(TestbedSettings settings)
     {
         super.step(settings);
-        addTextLine("Limits " + (m_joint.isLimitEnabled() ? "on" : "off")
-                + ", Motor " + (m_joint.isMotorEnabled() ? "on " : "off ")
+        addTextLine("Limits " + (joint.isLimitEnabled() ? "on" : "off")
+                + ", Motor " + (joint.isMotorEnabled() ? "on " : "off ")
                 + (isLeft ? "left" : "right"));
         addTextLine("Keys: (l) limits, (m) motor, (a) left, (d) right");
     }
@@ -178,20 +178,20 @@ public class RevoluteTest extends TestbedTest
         switch (argKeyChar)
         {
         case 'l':
-            m_joint.enableLimit(!m_joint.isLimitEnabled());
+            joint.enableLimit(!joint.isLimitEnabled());
             break;
 
         case 'm':
-            m_joint.enableMotor(!m_joint.isMotorEnabled());
+            joint.enableMotor(!joint.isMotorEnabled());
             break;
 
         case 'a':
-            m_joint.setMotorSpeed(1.0f * MathUtils.PI);
+            joint.setMotorSpeed(1.0f * MathUtils.PI);
             isLeft = true;
             break;
 
         case 'd':
-            m_joint.setMotorSpeed(-1.0f * MathUtils.PI);
+            joint.setMotorSpeed(-1.0f * MathUtils.PI);
             isLeft = false;
             break;
         }

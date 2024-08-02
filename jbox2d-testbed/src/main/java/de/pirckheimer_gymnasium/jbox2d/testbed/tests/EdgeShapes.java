@@ -208,16 +208,16 @@ public class EdgeShapes extends TestbedTest
         Vec2 d = new Vec2(L * MathUtils.cos(angle),
                 -L * MathUtils.abs(MathUtils.sin(angle)));
         Vec2 point2 = point1.add(d);
-        callback.m_fixture = null;
+        callback.fixture = null;
         getWorld().raycast(callback, point1, point2);
-        if (callback.m_fixture != null)
+        if (callback.fixture != null)
         {
-            getDebugDraw().drawPoint(callback.m_point, 5.0f,
+            getDebugDraw().drawPoint(callback.point, 5.0f,
                     new Color3f(0.4f, 0.9f, 0.4f));
-            getDebugDraw().drawSegment(point1, callback.m_point,
+            getDebugDraw().drawSegment(point1, callback.point,
                     new Color3f(0.8f, 0.8f, 0.8f));
-            Vec2 head = callback.m_normal.mul(.5f).addLocal(callback.m_point);
-            getDebugDraw().drawSegment(callback.m_point, head,
+            Vec2 head = callback.normal.mul(.5f).addLocal(callback.point);
+            getDebugDraw().drawSegment(callback.point, head,
                     new Color3f(0.9f, 0.9f, 0.4f));
         }
         else
@@ -242,21 +242,21 @@ class EdgeShapesCallback implements RayCastCallback
 {
     EdgeShapesCallback()
     {
-        m_fixture = null;
+        fixture = null;
     }
 
     public float reportFixture(Fixture fixture, final Vec2 point,
             final Vec2 normal, float fraction)
     {
-        m_fixture = fixture;
-        m_point = point;
-        m_normal = normal;
+        this.fixture = fixture;
+        this.point = point;
+        this.normal = normal;
         return fraction;
     }
 
-    Fixture m_fixture;
+    Fixture fixture;
 
-    Vec2 m_point;
+    Vec2 point;
 
-    Vec2 m_normal;
+    Vec2 normal;
 };

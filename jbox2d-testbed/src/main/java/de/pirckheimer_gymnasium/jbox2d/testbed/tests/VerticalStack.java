@@ -44,16 +44,16 @@ public class VerticalStack extends TestbedTest
 {
     private static final long BULLET_TAG = 1;
 
-    public static final int e_columnCount = 5;
+    public static final int columnCount = 5;
 
-    public static final int e_rowCount = 15;
+    public static final int rowCount = 15;
 
-    Body m_bullet;
+    Body bullet;
 
     @Override
     public Long getTag(Body argBody)
     {
-        if (argBody == m_bullet)
+        if (argBody == bullet)
         {
             return BULLET_TAG;
         }
@@ -65,7 +65,7 @@ public class VerticalStack extends TestbedTest
     {
         if (argTag == BULLET_TAG)
         {
-            m_bullet = argBody;
+            bullet = argBody;
             return;
         }
         super.processBody(argBody, argTag);
@@ -95,7 +95,7 @@ public class VerticalStack extends TestbedTest
             ground.createFixture(shape, 0.0f);
         }
         float xs[] = new float[] { 0.0f, -10.0f, -5.0f, 5.0f, 10.0f };
-        for (int j = 0; j < e_columnCount; ++j)
+        for (int j = 0; j < columnCount; ++j)
         {
             PolygonShape shape = new PolygonShape();
             shape.setAsBox(0.5f, 0.5f);
@@ -103,12 +103,12 @@ public class VerticalStack extends TestbedTest
             fd.shape = shape;
             fd.density = 1.0f;
             fd.friction = 0.3f;
-            for (int i = 0; i < e_rowCount; ++i)
+            for (int i = 0; i < rowCount; ++i)
             {
                 BodyDef bd = new BodyDef();
                 bd.type = BodyType.DYNAMIC;
-                int n = j * e_rowCount + i;
-                assert (n < e_rowCount * e_columnCount);
+                int n = j * rowCount + i;
+                assert (n < rowCount * columnCount);
                 float x = 0.0f;
                 // float x = RandomFloat(-0.02f, 0.02f);
                 // float x = i % 2 == 0 ? -0.025f : 0.025f;
@@ -117,7 +117,7 @@ public class VerticalStack extends TestbedTest
                 body.createFixture(fd);
             }
         }
-        m_bullet = null;
+        bullet = null;
     }
 
     @Override
@@ -126,10 +126,10 @@ public class VerticalStack extends TestbedTest
         switch (argKeyChar)
         {
         case ',':
-            if (m_bullet != null)
+            if (bullet != null)
             {
-                getWorld().destroyBody(m_bullet);
-                m_bullet = null;
+                getWorld().destroyBody(bullet);
+                bullet = null;
             }
         {
             CircleShape shape = new CircleShape();
@@ -142,9 +142,9 @@ public class VerticalStack extends TestbedTest
             bd.type = BodyType.DYNAMIC;
             bd.bullet = true;
             bd.position.set(-31.0f, 5.0f);
-            m_bullet = getWorld().createBody(bd);
-            m_bullet.createFixture(fd);
-            m_bullet.setLinearVelocity(new Vec2(400.0f, 0.0f));
+            bullet = getWorld().createBody(bd);
+            bullet.createFixture(fd);
+            bullet.setLinearVelocity(new Vec2(400.0f, 0.0f));
         }
             break;
         }
