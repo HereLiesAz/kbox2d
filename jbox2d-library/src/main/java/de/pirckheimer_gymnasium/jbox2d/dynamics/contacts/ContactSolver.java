@@ -290,10 +290,10 @@ public class ContactSolver
                 float rnB = vcprB.x * vcnormal.y - vcprB.y * vcnormal.x;
                 float kNormal = mA + mB + iA * rnA * rnA + iB * rnB * rnB;
                 vcp.normalMass = kNormal > 0.0f ? 1.0f / kNormal : 0.0f;
-                float tangentx = 1.0f * vcnormal.y;
-                float tangenty = -1.0f * vcnormal.x;
-                float rtA = vcprA.x * tangenty - vcprA.y * tangentx;
-                float rtB = vcprB.x * tangenty - vcprB.y * tangentx;
+                float tangentX = vcnormal.y;
+                float tangentY = -1.0f * vcnormal.x;
+                float rtA = vcprA.x * tangentY - vcprA.y * tangentX;
+                float rtB = vcprB.x * tangentY - vcprB.y * tangentX;
                 float kTangent = mA + mB + iA * rtA * rtA + iB * rtB * rtB;
                 vcp.tangentMass = kTangent > 0.0f ? 1.0f / kTangent : 0.0f;
                 // Setup a velocity bias for restitution.
@@ -354,10 +354,10 @@ public class ContactSolver
             Vec2 vB = velocities[indexB].v;
             float wB = velocities[indexB].w;
             Vec2 normal = vc.normal;
-            final float normalx = normal.x;
-            final float normaly = normal.y;
-            float tangentx = 1.0f * vc.normal.y;
-            float tangenty = -1.0f * vc.normal.x;
+            final float normalX = normal.x;
+            final float normalY = normal.y;
+            float tangentX = vc.normal.y;
+            float tangentY = -1.0f * vc.normal.x;
             final float friction = vc.friction;
             assert (pointCount == 1 || pointCount == 2);
             // Solve tangent constraints
@@ -368,7 +368,7 @@ public class ContactSolver
                 float dvx = -wB * vcp.rB.y + vB.x - vA.x + wA * a.y;
                 float dvy = wB * vcp.rB.x + vB.y - vA.y - wA * a.x;
                 // Compute tangent force
-                final float vt = dvx * tangentx + dvy * tangenty
+                final float vt = dvx * tangentX + dvy * tangentY
                         - vc.tangentSpeed;
                 float lambda = vcp.tangentMass * (-vt);
                 // Clamp the accumulated force
@@ -379,8 +379,8 @@ public class ContactSolver
                 vcp.tangentImpulse = newImpulse;
                 // Apply contact impulse
                 // Vec2 P = lambda * tangent;
-                final float Px = tangentx * lambda;
-                final float Py = tangenty * lambda;
+                final float Px = tangentX * lambda;
+                final float Py = tangentY * lambda;
                 // vA -= invMassA * P;
                 vA.x -= Px * mA;
                 vA.y -= Py * mA;
@@ -399,16 +399,16 @@ public class ContactSolver
                 float dvx = -wB * vcp.rB.y + vB.x - vA.x + wA * vcp.rA.y;
                 float dvy = wB * vcp.rB.x + vB.y - vA.y - wA * vcp.rA.x;
                 // Compute normal impulse
-                final float vn = dvx * normalx + dvy * normaly;
+                final float vn = dvx * normalX + dvy * normalY;
                 float lambda = -vcp.normalMass * (vn - vcp.velocityBias);
                 // Clamp the accumulated impulse
                 float a = vcp.normalImpulse + lambda;
-                final float newImpulse = (a > 0.0f ? a : 0.0f);
+                final float newImpulse = (Math.max(a, 0.0f));
                 lambda = newImpulse - vcp.normalImpulse;
                 vcp.normalImpulse = newImpulse;
                 // Apply contact impulse
-                float Px = normalx * lambda;
-                float Py = normaly * lambda;
+                float Px = normalX * lambda;
+                float Py = normalY * lambda;
                 // vA -= invMassA * P;
                 vA.x -= Px * mA;
                 vA.y -= Py * mA;
@@ -483,16 +483,16 @@ public class ContactSolver
                 float dv2x = -wB * cp2rB.y + vB.x - vA.x + wA * cp2rA.y;
                 float dv2y = wB * cp2rB.x + vB.y - vA.y - wA * cp2rA.x;
                 // Compute normal velocity
-                float vn1 = dv1x * normalx + dv1y * normaly;
-                float vn2 = dv2x * normalx + dv2y * normaly;
+                float vn1 = dv1x * normalX + dv1y * normalY;
+                float vn2 = dv2x * normalX + dv2y * normalY;
                 float bx = vn1 - cp1.velocityBias;
                 float by = vn2 - cp2.velocityBias;
                 // Compute b'
                 Mat22 R = vc.K;
                 bx -= R.ex.x * ax + R.ey.x * ay;
                 by -= R.ex.y * ax + R.ey.y * ay;
-                // final float k_errorTol = 1e-3f;
-                // B2_NOT_USED(k_errorTol);
+                // final float errorTol = 1e-3f;
+                // B2_NOT_USED(errorTol);
                 for (;;)
                 {
                     //
@@ -519,10 +519,10 @@ public class ContactSolver
                         // Apply incremental impulse
                         // Vec2 P1 = d.x * normal;
                         // Vec2 P2 = d.y * normal;
-                        float P1x = dx * normalx;
-                        float P1y = dx * normaly;
-                        float P2x = dy * normalx;
-                        float P2y = dy * normaly;
+                        float P1x = dx * normalX;
+                        float P1y = dx * normalY;
+                        float P2x = dy * normalX;
+                        float P2y = dy * normalY;
                         /*
                          * vA -= invMassA * (P1 + P2); wA -= invIA *
                          * (Cross(cp1.rA, P1) + Cross(cp2.rA, P2));
@@ -549,8 +549,8 @@ public class ContactSolver
                          * // Compute normal velocity vn1 = Dot(dv1, normal);
                          * vn2 = Dot(dv2, normal);
                          *
-                         * assert(Abs(vn1 - cp1.velocityBias) < k_errorTol);
-                         * assert(Abs(vn2 - cp2.velocityBias) < k_errorTol);
+                         * assert(Abs(vn1 - cp1.velocityBias) < errorTol);
+                         * assert(Abs(vn2 - cp2.velocityBias) < errorTol);
                          * #endif
                          */
                         if (DEBUG_SOLVER)
@@ -588,10 +588,10 @@ public class ContactSolver
                         // Apply incremental impulse
                         // Vec2 P1 = d.x * normal;
                         // Vec2 P2 = d.y * normal;
-                        float P1x = normalx * dx;
-                        float P1y = normaly * dx;
-                        float P2x = normalx * dy;
-                        float P2y = normaly * dy;
+                        float P1x = normalX * dx;
+                        float P1y = normalY * dx;
+                        float P2x = normalX * dy;
+                        float P2y = normalY * dy;
                         /*
                          * Vec2 P1 = d.x * normal; Vec2 P2 = d.y * normal; vA -=
                          * invMassA * (P1 + P2); wA -= invIA * (Cross(cp1.rA,
@@ -617,7 +617,7 @@ public class ContactSolver
                          *
                          * // Compute normal velocity vn1 = Dot(dv1, normal);
                          *
-                         * assert(Abs(vn1 - cp1.velocityBias) < k_errorTol);
+                         * assert(Abs(vn1 - cp1.velocityBias) < errorTol);
                          * #endif
                          */
                         if (DEBUG_SOLVER)
@@ -656,10 +656,10 @@ public class ContactSolver
                          * vB += invMassB * (P1 + P2); wB += invIB *
                          * (Cross(cp1.rB, P1) + Cross(cp2.rB, P2));
                          */
-                        float P1x = normalx * dx;
-                        float P1y = normaly * dx;
-                        float P2x = normalx * dy;
-                        float P2y = normaly * dy;
+                        float P1x = normalX * dx;
+                        float P1y = normalY * dx;
+                        float P2x = normalX * dy;
+                        float P2y = normalY * dy;
                         vA.x -= mA * (P1x + P2x);
                         vA.y -= mA * (P1y + P2y);
                         vB.x += mB * (P1x + P2x);
@@ -677,7 +677,7 @@ public class ContactSolver
                          *
                          * // Compute normal velocity vn2 = Dot(dv2, normal);
                          *
-                         * assert(Abs(vn2 - cp2.velocityBias) < k_errorTol);
+                         * assert(Abs(vn2 - cp2.velocityBias) < errorTol);
                          * #endif
                          */
                         if (DEBUG_SOLVER)
@@ -715,10 +715,10 @@ public class ContactSolver
                          * vB += invMassB * (P1 + P2); wB += invIB *
                          * (Cross(cp1.rB, P1) + Cross(cp2.rB, P2));
                          */
-                        float P1x = normalx * dx;
-                        float P1y = normaly * dx;
-                        float P2x = normalx * dy;
-                        float P2y = normaly * dy;
+                        float P1x = normalX * dx;
+                        float P1y = normalY * dx;
+                        float P2x = normalX * dy;
+                        float P2y = normalY * dy;
                         vA.x -= mA * (P1x + P2x);
                         vA.y -= mA * (P1y + P2y);
                         vB.x += mB * (P1x + P2x);
@@ -1053,19 +1053,19 @@ class PositionSolverManifold
             final Vec2 pcLocalPoint = pc.localPoint;
             normal.x = xfAq.c * pcLocalNormal.x - xfAq.s * pcLocalNormal.y;
             normal.y = xfAq.s * pcLocalNormal.x + xfAq.c * pcLocalNormal.y;
-            final float planePointx = (xfAq.c * pcLocalPoint.x
+            final float planePointX = (xfAq.c * pcLocalPoint.x
                     - xfAq.s * pcLocalPoint.y) + xfA.p.x;
-            final float planePointy = (xfAq.s * pcLocalPoint.x
+            final float planePointY = (xfAq.s * pcLocalPoint.x
                     + xfAq.c * pcLocalPoint.y) + xfA.p.y;
-            final float clipPointx = (xfBq.c * pcLocalPointsI.x
+            final float clipPointY = (xfBq.c * pcLocalPointsI.x
                     - xfBq.s * pcLocalPointsI.y) + xfB.p.x;
             final float clipPointy = (xfBq.s * pcLocalPointsI.x
                     + xfBq.c * pcLocalPointsI.y) + xfB.p.y;
-            final float tempx = clipPointx - planePointx;
-            final float tempy = clipPointy - planePointy;
-            separation = tempx * normal.x + tempy * normal.y - pc.radiusA
+            final float tempX = clipPointY - planePointX;
+            final float tempY = clipPointy - planePointY;
+            separation = tempX * normal.x + tempY * normal.y - pc.radiusA
                     - pc.radiusB;
-            point.x = clipPointx;
+            point.x = clipPointY;
             point.y = clipPointy;
             break;
         }
@@ -1086,19 +1086,19 @@ class PositionSolverManifold
             final Vec2 pcLocalPoint = pc.localPoint;
             normal.x = xfBq.c * pcLocalNormal.x - xfBq.s * pcLocalNormal.y;
             normal.y = xfBq.s * pcLocalNormal.x + xfBq.c * pcLocalNormal.y;
-            final float planePointx = (xfBq.c * pcLocalPoint.x
+            final float planePointX = (xfBq.c * pcLocalPoint.x
                     - xfBq.s * pcLocalPoint.y) + xfB.p.x;
-            final float planePointy = (xfBq.s * pcLocalPoint.x
+            final float planePointY = (xfBq.s * pcLocalPoint.x
                     + xfBq.c * pcLocalPoint.y) + xfB.p.y;
-            final float clipPointx = (xfAq.c * pcLocalPointsI.x
+            final float clipPointX = (xfAq.c * pcLocalPointsI.x
                     - xfAq.s * pcLocalPointsI.y) + xfA.p.x;
             final float clipPointy = (xfAq.s * pcLocalPointsI.x
                     + xfAq.c * pcLocalPointsI.y) + xfA.p.y;
-            final float tempx = clipPointx - planePointx;
-            final float tempy = clipPointy - planePointy;
-            separation = tempx * normal.x + tempy * normal.y - pc.radiusA
+            final float tempX = clipPointX - planePointX;
+            final float tempY = clipPointy - planePointY;
+            separation = tempX * normal.x + tempY * normal.y - pc.radiusA
                     - pc.radiusB;
-            point.x = clipPointx;
+            point.x = clipPointX;
             point.y = clipPointy;
             normal.x *= -1;
             normal.y *= -1;

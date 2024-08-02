@@ -48,23 +48,23 @@ public class CollisionFiltering extends TestbedTest
     // The 3 small ones always collide.
     // The 3 large ones never collide.
     // The boxes don't collide with triangles (except if both are small).
-    final int k_smallGroup = 1;
+    final int smallGroup = 1;
 
-    final int k_largeGroup = -1;
+    final int largeGroup = -1;
 
-    final int k_defaultCategory = 0x0001;
+    final int defaultCategory = 0x0001;
 
-    final int k_triangleCategory = 0x0002;
+    final int triangleCategory = 0x0002;
 
-    final int k_boxCategory = 0x0004;
+    final int boxCategory = 0x0004;
 
-    final int k_circleCategory = 0x0008;
+    final int circleCategory = 0x0008;
 
-    final int k_triangleMask = 0xFFFF;
+    final int triangleMask = 0xFFFF;
 
-    final int k_boxMask = 0xFFFF ^ k_triangleCategory;
+    final int boxMask = 0xFFFF ^ triangleCategory;
 
-    final int k_circleMask = 0xFFFF;
+    final int circleMask = 0xFFFF;
 
     @Override
     public boolean isSaveLoadEnabled()
@@ -100,9 +100,9 @@ public class CollisionFiltering extends TestbedTest
         FixtureDef triangleShapeDef = new FixtureDef();
         triangleShapeDef.shape = polygon;
         triangleShapeDef.density = 1.0f;
-        triangleShapeDef.filter.groupIndex = k_smallGroup;
-        triangleShapeDef.filter.categoryBits = k_triangleCategory;
-        triangleShapeDef.filter.maskBits = k_triangleMask;
+        triangleShapeDef.filter.groupIndex = smallGroup;
+        triangleShapeDef.filter.categoryBits = triangleCategory;
+        triangleShapeDef.filter.maskBits = triangleMask;
         BodyDef triangleBodyDef = new BodyDef();
         triangleBodyDef.type = BodyType.DYNAMIC;
         triangleBodyDef.position.set(-5.0f, 2.0f);
@@ -113,7 +113,7 @@ public class CollisionFiltering extends TestbedTest
         vertices[1].mulLocal(2.0f);
         vertices[2].mulLocal(2.0f);
         polygon.set(vertices, 3);
-        triangleShapeDef.filter.groupIndex = k_largeGroup;
+        triangleShapeDef.filter.groupIndex = largeGroup;
         triangleBodyDef.position.set(-5.0f, 6.0f);
         triangleBodyDef.fixedRotation = true; // look at me!
         Body body2 = getWorld().createBody(triangleBodyDef);
@@ -143,9 +143,9 @@ public class CollisionFiltering extends TestbedTest
         boxShapeDef.shape = polygon;
         boxShapeDef.density = 1.0f;
         boxShapeDef.restitution = 0.1f;
-        boxShapeDef.filter.groupIndex = k_smallGroup;
-        boxShapeDef.filter.categoryBits = k_boxCategory;
-        boxShapeDef.filter.maskBits = k_boxMask;
+        boxShapeDef.filter.groupIndex = smallGroup;
+        boxShapeDef.filter.categoryBits = boxCategory;
+        boxShapeDef.filter.maskBits = boxMask;
         BodyDef boxBodyDef = new BodyDef();
         boxBodyDef.type = BodyType.DYNAMIC;
         boxBodyDef.position.set(0.0f, 2.0f);
@@ -153,7 +153,7 @@ public class CollisionFiltering extends TestbedTest
         body3.createFixture(boxShapeDef);
         // Large box (recycle definitions)
         polygon.setAsBox(2.0f, 1.0f);
-        boxShapeDef.filter.groupIndex = k_largeGroup;
+        boxShapeDef.filter.groupIndex = largeGroup;
         boxBodyDef.position.set(0.0f, 6.0f);
         Body body4 = getWorld().createBody(boxBodyDef);
         body4.createFixture(boxShapeDef);
@@ -163,9 +163,9 @@ public class CollisionFiltering extends TestbedTest
         FixtureDef circleShapeDef = new FixtureDef();
         circleShapeDef.shape = circle;
         circleShapeDef.density = 1.0f;
-        circleShapeDef.filter.groupIndex = k_smallGroup;
-        circleShapeDef.filter.categoryBits = k_circleCategory;
-        circleShapeDef.filter.maskBits = k_circleMask;
+        circleShapeDef.filter.groupIndex = smallGroup;
+        circleShapeDef.filter.categoryBits = circleCategory;
+        circleShapeDef.filter.maskBits = circleMask;
         BodyDef circleBodyDef = new BodyDef();
         circleBodyDef.type = BodyType.DYNAMIC;
         circleBodyDef.position.set(5.0f, 2.0f);
@@ -173,7 +173,7 @@ public class CollisionFiltering extends TestbedTest
         body5.createFixture(circleShapeDef);
         // Large circle
         circle.radius *= 2.0f;
-        circleShapeDef.filter.groupIndex = k_largeGroup;
+        circleShapeDef.filter.groupIndex = largeGroup;
         circleBodyDef.position.set(5.0f, 6.0f);
         Body body6 = getWorld().createBody(circleBodyDef);
         body6.createFixture(circleShapeDef);

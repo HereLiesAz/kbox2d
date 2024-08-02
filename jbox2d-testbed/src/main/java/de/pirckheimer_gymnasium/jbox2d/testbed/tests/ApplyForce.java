@@ -57,7 +57,7 @@ public class ApplyForce extends TestbedTest
             return;
         }
         getWorld().setGravity(new Vec2(0.0f, 0.0f));
-        final float k_restitution = 0.4f;
+        final float restitution = 0.4f;
         Body ground;
         {
             BodyDef bd = new BodyDef();
@@ -67,7 +67,7 @@ public class ApplyForce extends TestbedTest
             FixtureDef sd = new FixtureDef();
             sd.shape = shape;
             sd.density = 0.0f;
-            sd.restitution = k_restitution;
+            sd.restitution = restitution;
             // Left vertical
             shape.set(new Vec2(-20.0f, -20.0f), new Vec2(-20.0f, 20.0f));
             ground.createFixture(sd);

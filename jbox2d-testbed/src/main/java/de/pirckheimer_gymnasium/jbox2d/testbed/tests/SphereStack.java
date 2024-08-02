@@ -39,7 +39,7 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
  */
 public class SphereStack extends TestbedTest
 {
-    int e_count = 10;
+    int count = 10;
 
     @Override
     public boolean isSaveLoadEnabled()
@@ -54,7 +54,7 @@ public class SphereStack extends TestbedTest
         {
             return;
         }
-        Body bodies[] = new Body[e_count];
+        Body bodies[] = new Body[count];
         {
             BodyDef bd = new BodyDef();
             Body ground = getWorld().createBody(bd);
@@ -65,7 +65,7 @@ public class SphereStack extends TestbedTest
         {
             CircleShape shape = new CircleShape();
             shape.radius = 1.0f;
-            for (int i = 0; i < e_count; ++i)
+            for (int i = 0; i < count; ++i)
             {
                 BodyDef bd = new BodyDef();
                 bd.type = BodyType.DYNAMIC;

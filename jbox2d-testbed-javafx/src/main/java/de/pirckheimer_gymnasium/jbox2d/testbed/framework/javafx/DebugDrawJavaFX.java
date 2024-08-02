@@ -353,17 +353,17 @@ public class DebugDrawJavaFX extends DebugDraw
         GraphicsContext g = getGraphics();
         getWorldToScreenToOut(xf.p, temp);
         temp2.setZero();
-        float k_axisScale = 0.4f;
+        float axisScale = 0.4f;
         Color c = cpool.getColor(1, 0, 0);
         g.setStroke(c);
-        temp2.x = xf.p.x + k_axisScale * xf.q.c;
-        temp2.y = xf.p.y + k_axisScale * xf.q.s;
+        temp2.x = xf.p.x + axisScale * xf.q.c;
+        temp2.y = xf.p.y + axisScale * xf.q.s;
         getWorldToScreenToOut(temp2, temp2);
         g.strokeLine(temp.x, temp.y, temp2.x, temp2.y);
         c = cpool.getColor(0, 1, 0);
         g.setStroke(c);
-        temp2.x = xf.p.x + -k_axisScale * xf.q.s;
-        temp2.y = xf.p.y + k_axisScale * xf.q.c;
+        temp2.x = xf.p.x + -axisScale * xf.q.s;
+        temp2.y = xf.p.y + axisScale * xf.q.c;
         getWorldToScreenToOut(temp2, temp2);
         g.strokeLine(temp.x, temp.y, temp2.x, temp2.y);
     }

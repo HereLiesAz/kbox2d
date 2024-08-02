@@ -42,7 +42,7 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
  */
 public class Cantilever extends TestbedTest
 {
-    int e_count = 8;
+    int count = 8;
 
     @Override
     public boolean isSaveLoadEnabled()
@@ -73,7 +73,7 @@ public class Cantilever extends TestbedTest
             fd.density = 20.0f;
             WeldJointDef jd = new WeldJointDef();
             Body prevBody = ground;
-            for (int i = 0; i < e_count; ++i)
+            for (int i = 0; i < count; ++i)
             {
                 BodyDef bd = new BodyDef();
                 bd.type = BodyType.DYNAMIC;
@@ -117,7 +117,7 @@ public class Cantilever extends TestbedTest
             fd.density = 20.0f;
             WeldJointDef jd = new WeldJointDef();
             Body prevBody = ground;
-            for (int i = 0; i < e_count; ++i)
+            for (int i = 0; i < count; ++i)
             {
                 BodyDef bd = new BodyDef();
                 bd.type = BodyType.DYNAMIC;
@@ -143,7 +143,7 @@ public class Cantilever extends TestbedTest
             jd.frequencyHz = 8f;
             jd.dampingRatio = .7f;
             Body prevBody = ground;
-            for (int i = 0; i < e_count; ++i)
+            for (int i = 0; i < count; ++i)
             {
                 BodyDef bd = new BodyDef();
                 bd.type = BodyType.DYNAMIC;

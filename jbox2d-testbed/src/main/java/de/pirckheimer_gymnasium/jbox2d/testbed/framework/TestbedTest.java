@@ -507,22 +507,22 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
         }
         int flags = 0;
         flags += settings.getSetting(TestbedSettings.DrawShapes).enabled
-                ? DebugDraw.e_shapeBit
+                ? DebugDraw.shapeBit
                 : 0;
         flags += settings.getSetting(TestbedSettings.DrawJoints).enabled
-                ? DebugDraw.e_jointBit
+                ? DebugDraw.jointBit
                 : 0;
         flags += settings.getSetting(TestbedSettings.DrawAABBs).enabled
-                ? DebugDraw.e_aabbBit
+                ? DebugDraw.aabbBit
                 : 0;
         flags += settings.getSetting(TestbedSettings.DrawCOMs).enabled
-                ? DebugDraw.e_centerOfMassBit
+                ? DebugDraw.centerOfMassBit
                 : 0;
         flags += settings.getSetting(TestbedSettings.DrawTree).enabled
-                ? DebugDraw.e_dynamicTreeBit
+                ? DebugDraw.dynamicTreeBit
                 : 0;
         flags += settings.getSetting(TestbedSettings.DrawWireframe).enabled
-                ? DebugDraw.e_wireframeDrawingBit
+                ? DebugDraw.wireframeDrawingBit
                 : 0;
         debugDraw.setFlags(flags);
         world.setAllowSleep(
@@ -629,7 +629,7 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
         }
         if (settings.getSetting(TestbedSettings.DrawContactPoints).enabled)
         {
-            final float k_impulseScale = 0.1f;
+            final float impulseScale = 0.1f;
             final float axisScale = 0.3f;
             for (int i = 0; i < pointCount; i++)
             {
@@ -653,7 +653,7 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
                         TestbedSettings.DrawContactImpulses).enabled)
                 {
                     p1.set(point.position);
-                    p2.set(point.normal).mulLocal(k_impulseScale)
+                    p2.set(point.normal).mulLocal(impulseScale)
                             .mulLocal(point.normalImpulse).addLocal(p1);
                     debugDraw.drawSegment(p1, p2, color5);
                 }
@@ -662,7 +662,7 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
                 {
                     Vec2.crossToOutUnsafe(point.normal, 1, tangent);
                     p1.set(point.position);
-                    p2.set(tangent).mulLocal(k_impulseScale)
+                    p2.set(tangent).mulLocal(impulseScale)
                             .mulLocal(point.tangentImpulse).addLocal(p1);
                     debugDraw.drawSegment(p1, p2, color5);
                 }

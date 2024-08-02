@@ -5,7 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- insertion marker -->
+## [v3.0.0](https://github.com/engine-pi/jbox2d/releases/tag/v3.0.0) - 2024-08-02
+
+<small>[Compare with v2.3.1](https://github.com/engine-pi/jbox2d/compare/v2.3.1...v3.0.0)</small>
+
+### Changed
+
+- Remove the `m_` (member?) `e_` (element?) `k_` (konstant?) attribute prefixes hungarian notation ([ddd3705](ddd3705893772e2cbad370c601e8c3dcf66dd577), [b1f4084](b1f408448543bc0a2232695cf5e3439814e6b18b), [5792d64](5792d640ed8f32843709894a919917fe47fe3e70) and [89fee5c](89fee5c75e48577efe20153eda19a37b280cb42f) by Josef Friedrich).
+
 ## [v2.3.1](https://github.com/engine-pi/jbox2d/releases/tag/v2.3.1) - 2024-08-01
 
 <small>[Compare with jbox2d-2.3.0-BETA](https://github.com/engine-pi/jbox2d/compare/jbox2d-2.3.0-BETA...v2.3.1)</small>

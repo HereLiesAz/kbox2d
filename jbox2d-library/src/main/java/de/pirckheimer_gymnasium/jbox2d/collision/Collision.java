@@ -562,8 +562,8 @@ public class Collision
         Transform xf1, xf2;
         int edge1; // reference edge
         boolean flip;
-        final float k_tol = 0.1f * Settings.linearSlop;
-        if (results2.separation > results1.separation + k_tol)
+        final float tol = 0.1f * Settings.linearSlop;
+        if (results2.separation > results1.separation + tol)
         {
             poly1 = polyB;
             poly2 = polyA;
@@ -595,7 +595,7 @@ public class Collision
         localTangent.y = v12.y - v11.y;
         localTangent.normalize();
         // Vec2 localNormal = Vec2.cross(dv, 1.0f);
-        localNormal.x = 1f * localTangent.y;
+        localNormal.x = localTangent.y;
         localNormal.y = -1f * localTangent.x;
         // Vec2 planePoint = 0.5f * (v11+ v12);
         planePoint.x = (v11.x + v12.x) * .5f;
@@ -604,7 +604,7 @@ public class Collision
         tangent.x = xf1q.c * localTangent.x - xf1q.s * localTangent.y;
         tangent.y = xf1q.s * localTangent.x + xf1q.c * localTangent.y;
         // Vec2.crossToOutUnsafe(tangent, 1f, normal);
-        final float normalx = 1f * tangent.y;
+        final float normalx = tangent.y;
         final float normaly = -1f * tangent.x;
         Transform.mulToOut(xf1, v11, v11);
         Transform.mulToOut(xf1, v12, v12);
@@ -958,23 +958,23 @@ public class Collision
 
         Vec2 m_v3 = new Vec2();
 
-        final Vec2 m_normal0 = new Vec2();
+        final Vec2 normal0 = new Vec2();
 
-        final Vec2 m_normal1 = new Vec2();
+        final Vec2 normal1 = new Vec2();
 
-        final Vec2 m_normal2 = new Vec2();
+        final Vec2 normal2 = new Vec2();
 
-        final Vec2 m_normal = new Vec2();
+        final Vec2 normal = new Vec2();
 
         VertexType m_type1, m_type2;
 
-        final Vec2 m_lowerLimit = new Vec2();
+        final Vec2 lowerLimit = new Vec2();
 
-        final Vec2 m_upperLimit = new Vec2();
+        final Vec2 upperLimit = new Vec2();
 
-        float m_radius;
+        float radius;
 
-        boolean m_front;
+        boolean front;
 
         public EPCollider()
         {
@@ -1020,8 +1020,8 @@ public class Collision
             boolean hasVertex3 = edgeA.hasVertex3;
             edge1.set(m_v2).subLocal(m_v1);
             edge1.normalize();
-            m_normal1.set(edge1.y, -edge1.x);
-            float offset1 = Vec2.dot(m_normal1,
+            normal1.set(edge1.y, -edge1.x);
+            float offset1 = Vec2.dot(normal1,
                     temp.set(m_centroidB).subLocal(m_v1));
             float offset0 = 0.0f, offset2 = 0.0f;
             boolean convex1 = false, convex2 = false;
@@ -1030,9 +1030,9 @@ public class Collision
             {
                 edge0.set(m_v1).subLocal(m_v0);
                 edge0.normalize();
-                m_normal0.set(edge0.y, -edge0.x);
+                normal0.set(edge0.y, -edge0.x);
                 convex1 = Vec2.cross(edge0, edge1) >= 0.0f;
-                offset0 = Vec2.dot(m_normal0,
+                offset0 = Vec2.dot(normal0,
                         temp.set(m_centroidB).subLocal(m_v0));
             }
             // Is there a following edge?
@@ -1040,9 +1040,9 @@ public class Collision
             {
                 edge2.set(m_v3).subLocal(m_v2);
                 edge2.normalize();
-                m_normal2.set(edge2.y, -edge2.x);
+                normal2.set(edge2.y, -edge2.x);
                 convex2 = Vec2.cross(edge1, edge2) > 0.0f;
-                offset2 = Vec2.dot(m_normal2,
+                offset2 = Vec2.dot(normal2,
                         temp.set(m_centroidB).subLocal(m_v2));
             }
             // Determine front or back collision. Determine collision normal
@@ -1051,94 +1051,94 @@ public class Collision
             {
                 if (convex1 && convex2)
                 {
-                    m_front = offset0 >= 0.0f || offset1 >= 0.0f
+                    front = offset0 >= 0.0f || offset1 >= 0.0f
                             || offset2 >= 0.0f;
-                    if (m_front)
+                    if (front)
                     {
-                        m_normal.x = m_normal1.x;
-                        m_normal.y = m_normal1.y;
-                        m_lowerLimit.x = m_normal0.x;
-                        m_lowerLimit.y = m_normal0.y;
-                        m_upperLimit.x = m_normal2.x;
-                        m_upperLimit.y = m_normal2.y;
+                        normal.x = normal1.x;
+                        normal.y = normal1.y;
+                        lowerLimit.x = normal0.x;
+                        lowerLimit.y = normal0.y;
+                        upperLimit.x = normal2.x;
+                        upperLimit.y = normal2.y;
                     }
                     else
                     {
-                        m_normal.x = -m_normal1.x;
-                        m_normal.y = -m_normal1.y;
-                        m_lowerLimit.x = -m_normal1.x;
-                        m_lowerLimit.y = -m_normal1.y;
-                        m_upperLimit.x = -m_normal1.x;
-                        m_upperLimit.y = -m_normal1.y;
+                        normal.x = -normal1.x;
+                        normal.y = -normal1.y;
+                        lowerLimit.x = -normal1.x;
+                        lowerLimit.y = -normal1.y;
+                        upperLimit.x = -normal1.x;
+                        upperLimit.y = -normal1.y;
                     }
                 }
                 else if (convex1)
                 {
-                    m_front = offset0 >= 0.0f
+                    front = offset0 >= 0.0f
                             || (offset1 >= 0.0f && offset2 >= 0.0f);
-                    if (m_front)
+                    if (front)
                     {
-                        m_normal.x = m_normal1.x;
-                        m_normal.y = m_normal1.y;
-                        m_lowerLimit.x = m_normal0.x;
-                        m_lowerLimit.y = m_normal0.y;
-                        m_upperLimit.x = m_normal1.x;
-                        m_upperLimit.y = m_normal1.y;
+                        normal.x = normal1.x;
+                        normal.y = normal1.y;
+                        lowerLimit.x = normal0.x;
+                        lowerLimit.y = normal0.y;
+                        upperLimit.x = normal1.x;
+                        upperLimit.y = normal1.y;
                     }
                     else
                     {
-                        m_normal.x = -m_normal1.x;
-                        m_normal.y = -m_normal1.y;
-                        m_lowerLimit.x = -m_normal2.x;
-                        m_lowerLimit.y = -m_normal2.y;
-                        m_upperLimit.x = -m_normal1.x;
-                        m_upperLimit.y = -m_normal1.y;
+                        normal.x = -normal1.x;
+                        normal.y = -normal1.y;
+                        lowerLimit.x = -normal2.x;
+                        lowerLimit.y = -normal2.y;
+                        upperLimit.x = -normal1.x;
+                        upperLimit.y = -normal1.y;
                     }
                 }
                 else if (convex2)
                 {
-                    m_front = offset2 >= 0.0f
+                    front = offset2 >= 0.0f
                             || (offset0 >= 0.0f && offset1 >= 0.0f);
-                    if (m_front)
+                    if (front)
                     {
-                        m_normal.x = m_normal1.x;
-                        m_normal.y = m_normal1.y;
-                        m_lowerLimit.x = m_normal1.x;
-                        m_lowerLimit.y = m_normal1.y;
-                        m_upperLimit.x = m_normal2.x;
-                        m_upperLimit.y = m_normal2.y;
+                        normal.x = normal1.x;
+                        normal.y = normal1.y;
+                        lowerLimit.x = normal1.x;
+                        lowerLimit.y = normal1.y;
+                        upperLimit.x = normal2.x;
+                        upperLimit.y = normal2.y;
                     }
                     else
                     {
-                        m_normal.x = -m_normal1.x;
-                        m_normal.y = -m_normal1.y;
-                        m_lowerLimit.x = -m_normal1.x;
-                        m_lowerLimit.y = -m_normal1.y;
-                        m_upperLimit.x = -m_normal0.x;
-                        m_upperLimit.y = -m_normal0.y;
+                        normal.x = -normal1.x;
+                        normal.y = -normal1.y;
+                        lowerLimit.x = -normal1.x;
+                        lowerLimit.y = -normal1.y;
+                        upperLimit.x = -normal0.x;
+                        upperLimit.y = -normal0.y;
                     }
                 }
                 else
                 {
-                    m_front = offset0 >= 0.0f && offset1 >= 0.0f
+                    front = offset0 >= 0.0f && offset1 >= 0.0f
                             && offset2 >= 0.0f;
-                    if (m_front)
+                    if (front)
                     {
-                        m_normal.x = m_normal1.x;
-                        m_normal.y = m_normal1.y;
-                        m_lowerLimit.x = m_normal1.x;
-                        m_lowerLimit.y = m_normal1.y;
-                        m_upperLimit.x = m_normal1.x;
-                        m_upperLimit.y = m_normal1.y;
+                        normal.x = normal1.x;
+                        normal.y = normal1.y;
+                        lowerLimit.x = normal1.x;
+                        lowerLimit.y = normal1.y;
+                        upperLimit.x = normal1.x;
+                        upperLimit.y = normal1.y;
                     }
                     else
                     {
-                        m_normal.x = -m_normal1.x;
-                        m_normal.y = -m_normal1.y;
-                        m_lowerLimit.x = -m_normal2.x;
-                        m_lowerLimit.y = -m_normal2.y;
-                        m_upperLimit.x = -m_normal0.x;
-                        m_upperLimit.y = -m_normal0.y;
+                        normal.x = -normal1.x;
+                        normal.y = -normal1.y;
+                        lowerLimit.x = -normal2.x;
+                        lowerLimit.y = -normal2.y;
+                        upperLimit.x = -normal0.x;
+                        upperLimit.y = -normal0.y;
                     }
                 }
             }
@@ -1146,46 +1146,46 @@ public class Collision
             {
                 if (convex1)
                 {
-                    m_front = offset0 >= 0.0f || offset1 >= 0.0f;
-                    if (m_front)
+                    front = offset0 >= 0.0f || offset1 >= 0.0f;
+                    if (front)
                     {
-                        m_normal.x = m_normal1.x;
-                        m_normal.y = m_normal1.y;
-                        m_lowerLimit.x = m_normal0.x;
-                        m_lowerLimit.y = m_normal0.y;
-                        m_upperLimit.x = -m_normal1.x;
-                        m_upperLimit.y = -m_normal1.y;
+                        normal.x = normal1.x;
+                        normal.y = normal1.y;
+                        lowerLimit.x = normal0.x;
+                        lowerLimit.y = normal0.y;
+                        upperLimit.x = -normal1.x;
+                        upperLimit.y = -normal1.y;
                     }
                     else
                     {
-                        m_normal.x = -m_normal1.x;
-                        m_normal.y = -m_normal1.y;
-                        m_lowerLimit.x = m_normal1.x;
-                        m_lowerLimit.y = m_normal1.y;
-                        m_upperLimit.x = -m_normal1.x;
-                        m_upperLimit.y = -m_normal1.y;
+                        normal.x = -normal1.x;
+                        normal.y = -normal1.y;
+                        lowerLimit.x = normal1.x;
+                        lowerLimit.y = normal1.y;
+                        upperLimit.x = -normal1.x;
+                        upperLimit.y = -normal1.y;
                     }
                 }
                 else
                 {
-                    m_front = offset0 >= 0.0f && offset1 >= 0.0f;
-                    if (m_front)
+                    front = offset0 >= 0.0f && offset1 >= 0.0f;
+                    if (front)
                     {
-                        m_normal.x = m_normal1.x;
-                        m_normal.y = m_normal1.y;
-                        m_lowerLimit.x = m_normal1.x;
-                        m_lowerLimit.y = m_normal1.y;
-                        m_upperLimit.x = -m_normal1.x;
-                        m_upperLimit.y = -m_normal1.y;
+                        normal.x = normal1.x;
+                        normal.y = normal1.y;
+                        lowerLimit.x = normal1.x;
+                        lowerLimit.y = normal1.y;
+                        upperLimit.x = -normal1.x;
+                        upperLimit.y = -normal1.y;
                     }
                     else
                     {
-                        m_normal.x = -m_normal1.x;
-                        m_normal.y = -m_normal1.y;
-                        m_lowerLimit.x = m_normal1.x;
-                        m_lowerLimit.y = m_normal1.y;
-                        m_upperLimit.x = -m_normal0.x;
-                        m_upperLimit.y = -m_normal0.y;
+                        normal.x = -normal1.x;
+                        normal.y = -normal1.y;
+                        lowerLimit.x = normal1.x;
+                        lowerLimit.y = normal1.y;
+                        upperLimit.x = -normal0.x;
+                        upperLimit.y = -normal0.y;
                     }
                 }
             }
@@ -1193,69 +1193,69 @@ public class Collision
             {
                 if (convex2)
                 {
-                    m_front = offset1 >= 0.0f || offset2 >= 0.0f;
-                    if (m_front)
+                    front = offset1 >= 0.0f || offset2 >= 0.0f;
+                    if (front)
                     {
-                        m_normal.x = m_normal1.x;
-                        m_normal.y = m_normal1.y;
-                        m_lowerLimit.x = -m_normal1.x;
-                        m_lowerLimit.y = -m_normal1.y;
-                        m_upperLimit.x = m_normal2.x;
-                        m_upperLimit.y = m_normal2.y;
+                        normal.x = normal1.x;
+                        normal.y = normal1.y;
+                        lowerLimit.x = -normal1.x;
+                        lowerLimit.y = -normal1.y;
+                        upperLimit.x = normal2.x;
+                        upperLimit.y = normal2.y;
                     }
                     else
                     {
-                        m_normal.x = -m_normal1.x;
-                        m_normal.y = -m_normal1.y;
-                        m_lowerLimit.x = -m_normal1.x;
-                        m_lowerLimit.y = -m_normal1.y;
-                        m_upperLimit.x = m_normal1.x;
-                        m_upperLimit.y = m_normal1.y;
+                        normal.x = -normal1.x;
+                        normal.y = -normal1.y;
+                        lowerLimit.x = -normal1.x;
+                        lowerLimit.y = -normal1.y;
+                        upperLimit.x = normal1.x;
+                        upperLimit.y = normal1.y;
                     }
                 }
                 else
                 {
-                    m_front = offset1 >= 0.0f && offset2 >= 0.0f;
-                    if (m_front)
+                    front = offset1 >= 0.0f && offset2 >= 0.0f;
+                    if (front)
                     {
-                        m_normal.x = m_normal1.x;
-                        m_normal.y = m_normal1.y;
-                        m_lowerLimit.x = -m_normal1.x;
-                        m_lowerLimit.y = -m_normal1.y;
-                        m_upperLimit.x = m_normal1.x;
-                        m_upperLimit.y = m_normal1.y;
+                        normal.x = normal1.x;
+                        normal.y = normal1.y;
+                        lowerLimit.x = -normal1.x;
+                        lowerLimit.y = -normal1.y;
+                        upperLimit.x = normal1.x;
+                        upperLimit.y = normal1.y;
                     }
                     else
                     {
-                        m_normal.x = -m_normal1.x;
-                        m_normal.y = -m_normal1.y;
-                        m_lowerLimit.x = -m_normal2.x;
-                        m_lowerLimit.y = -m_normal2.y;
-                        m_upperLimit.x = m_normal1.x;
-                        m_upperLimit.y = m_normal1.y;
+                        normal.x = -normal1.x;
+                        normal.y = -normal1.y;
+                        lowerLimit.x = -normal2.x;
+                        lowerLimit.y = -normal2.y;
+                        upperLimit.x = normal1.x;
+                        upperLimit.y = normal1.y;
                     }
                 }
             }
             else
             {
-                m_front = offset1 >= 0.0f;
-                if (m_front)
+                front = offset1 >= 0.0f;
+                if (front)
                 {
-                    m_normal.x = m_normal1.x;
-                    m_normal.y = m_normal1.y;
-                    m_lowerLimit.x = -m_normal1.x;
-                    m_lowerLimit.y = -m_normal1.y;
-                    m_upperLimit.x = -m_normal1.x;
-                    m_upperLimit.y = -m_normal1.y;
+                    normal.x = normal1.x;
+                    normal.y = normal1.y;
+                    lowerLimit.x = -normal1.x;
+                    lowerLimit.y = -normal1.y;
+                    upperLimit.x = -normal1.x;
+                    upperLimit.y = -normal1.y;
                 }
                 else
                 {
-                    m_normal.x = -m_normal1.x;
-                    m_normal.y = -m_normal1.y;
-                    m_lowerLimit.x = m_normal1.x;
-                    m_lowerLimit.y = m_normal1.y;
-                    m_upperLimit.x = m_normal1.x;
-                    m_upperLimit.y = m_normal1.y;
+                    normal.x = -normal1.x;
+                    normal.y = -normal1.y;
+                    lowerLimit.x = normal1.x;
+                    lowerLimit.y = normal1.y;
+                    upperLimit.x = normal1.x;
+                    upperLimit.y = normal1.y;
                 }
             }
             // Get polygonB in frameA
@@ -1267,7 +1267,7 @@ public class Collision
                 Rot.mulToOutUnsafe(m_xf.q, polygonB.normals[i],
                         m_polygonB.normals[i]);
             }
-            m_radius = 2.0f * Settings.polygonRadius;
+            radius = 2.0f * Settings.polygonRadius;
             manifold.pointCount = 0;
             computeEdgeSeparation(edgeAxis);
             // If no valid normal can be found than this edge should not
@@ -1276,26 +1276,26 @@ public class Collision
             {
                 return;
             }
-            if (edgeAxis.separation > m_radius)
+            if (edgeAxis.separation > radius)
             {
                 return;
             }
             computePolygonSeparation(polygonAxis);
             if (polygonAxis.type != EPAxis.Type.UNKNOWN
-                    && polygonAxis.separation > m_radius)
+                    && polygonAxis.separation > radius)
             {
                 return;
             }
             // Use hysteresis for jitter reduction.
-            final float k_relativeTol = 0.98f;
-            final float k_absoluteTol = 0.001f;
+            final float relativeTol = 0.98f;
+            final float absoluteTol = 0.001f;
             EPAxis primaryAxis;
             if (polygonAxis.type == EPAxis.Type.UNKNOWN)
             {
                 primaryAxis = edgeAxis;
             }
-            else if (polygonAxis.separation > k_relativeTol
-                    * edgeAxis.separation + k_absoluteTol)
+            else if (polygonAxis.separation > relativeTol * edgeAxis.separation
+                    + absoluteTol)
             {
                 primaryAxis = polygonAxis;
             }
@@ -1311,10 +1311,10 @@ public class Collision
                 // Search for the polygon normal that is most anti-parallel to
                 // the edge normal.
                 int bestIndex = 0;
-                float bestValue = Vec2.dot(m_normal, m_polygonB.normals[0]);
+                float bestValue = Vec2.dot(normal, m_polygonB.normals[0]);
                 for (int i = 1; i < m_polygonB.count; ++i)
                 {
-                    float value = Vec2.dot(m_normal, m_polygonB.normals[i]);
+                    float value = Vec2.dot(normal, m_polygonB.normals[i]);
                     if (value < bestValue)
                     {
                         bestValue = value;
@@ -1333,13 +1333,13 @@ public class Collision
                 ie1.id.indexB = (byte) i2;
                 ie1.id.typeA = (byte) ContactID.Type.FACE.ordinal();
                 ie1.id.typeB = (byte) ContactID.Type.VERTEX.ordinal();
-                if (m_front)
+                if (front)
                 {
                     rf.i1 = 0;
                     rf.i2 = 1;
                     rf.v1.set(m_v1);
                     rf.v2.set(m_v2);
-                    rf.normal.set(m_normal1);
+                    rf.normal.set(normal1);
                 }
                 else
                 {
@@ -1347,7 +1347,7 @@ public class Collision
                     rf.i2 = 0;
                     rf.v1.set(m_v2);
                     rf.v2.set(m_v1);
-                    rf.normal.set(m_normal1).negateLocal();
+                    rf.normal.set(normal1).negateLocal();
                 }
             }
             else
@@ -1406,7 +1406,7 @@ public class Collision
                 float separation;
                 separation = Vec2.dot(rf.normal,
                         temp.set(clipPoints2[i].v).subLocal(rf.v1));
-                if (separation <= m_radius)
+                if (separation <= radius)
                 {
                     ManifoldPoint cp = manifold.points[pointCount];
                     if (primaryAxis.type == EPAxis.Type.EDGE_A)
@@ -1433,10 +1433,10 @@ public class Collision
         public void computeEdgeSeparation(EPAxis axis)
         {
             axis.type = EPAxis.Type.EDGE_A;
-            axis.index = m_front ? 0 : 1;
+            axis.index = front ? 0 : 1;
             axis.separation = Float.MAX_VALUE;
-            float nx = m_normal.x;
-            float ny = m_normal.y;
+            float nx = normal.x;
+            float ny = normal.y;
             for (int i = 0; i < m_polygonB.count; ++i)
             {
                 Vec2 v = m_polygonB.vertices[i];
@@ -1459,8 +1459,8 @@ public class Collision
             axis.type = EPAxis.Type.UNKNOWN;
             axis.index = -1;
             axis.separation = -Float.MAX_VALUE;
-            perp.x = -m_normal.y;
-            perp.y = m_normal.x;
+            perp.x = -normal.y;
+            perp.y = normal.x;
             for (int i = 0; i < m_polygonB.count; ++i)
             {
                 Vec2 normalB = m_polygonB.normals[i];
@@ -1476,7 +1476,7 @@ public class Collision
                 tempy = vB.y - m_v2.y;
                 float s2 = n.x * tempx + n.y * tempy;
                 float s = MathUtils.min(s1, s2);
-                if (s > m_radius)
+                if (s > radius)
                 {
                     // No collision
                     axis.type = EPAxis.Type.EDGE_B;
@@ -1487,16 +1487,16 @@ public class Collision
                 // Adjacency
                 if (n.x * perp.x + n.y * perp.y >= 0.0f)
                 {
-                    if (Vec2.dot(temp.set(n).subLocal(m_upperLimit),
-                            m_normal) < -Settings.angularSlop)
+                    if (Vec2.dot(temp.set(n).subLocal(upperLimit),
+                            normal) < -Settings.angularSlop)
                     {
                         continue;
                     }
                 }
                 else
                 {
-                    if (Vec2.dot(temp.set(n).subLocal(m_lowerLimit),
-                            m_normal) < -Settings.angularSlop)
+                    if (Vec2.dot(temp.set(n).subLocal(lowerLimit),
+                            normal) < -Settings.angularSlop)
                     {
                         continue;
                     }

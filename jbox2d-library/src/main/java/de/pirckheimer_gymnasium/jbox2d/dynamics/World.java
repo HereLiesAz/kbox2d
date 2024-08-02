@@ -729,8 +729,8 @@ public class World
             return;
         }
         int flags = debugDraw.getFlags();
-        boolean wireframe = (flags & DebugDraw.e_wireframeDrawingBit) != 0;
-        if ((flags & DebugDraw.e_shapeBit) != 0)
+        boolean wireframe = (flags & DebugDraw.wireframeDrawingBit) != 0;
+        if ((flags & DebugDraw.shapeBit) != 0)
         {
             for (Body b = bodyList; b != null; b = b.getNext())
             {
@@ -766,14 +766,14 @@ public class World
             }
             drawParticleSystem(particleSystem);
         }
-        if ((flags & DebugDraw.e_jointBit) != 0)
+        if ((flags & DebugDraw.jointBit) != 0)
         {
             for (Joint j = jointList; j != null; j = j.getNext())
             {
                 drawJoint(j);
             }
         }
-        if ((flags & DebugDraw.e_pairBit) != 0)
+        if ((flags & DebugDraw.pairBit) != 0)
         {
             color.set(0.3f, 0.9f, 0.9f);
             for (Contact c = contactManager.contactList; c != null; c = c
@@ -786,7 +786,7 @@ public class World
                 debugDraw.drawSegment(cA, cB, color);
             }
         }
-        if ((flags & DebugDraw.e_aabbBit) != 0)
+        if ((flags & DebugDraw.aabbBit) != 0)
         {
             color.set(0.9f, 0.3f, 0.9f);
             for (Body b = bodyList; b != null; b = b.getNext())
@@ -815,7 +815,7 @@ public class World
                 }
             }
         }
-        if ((flags & DebugDraw.e_centerOfMassBit) != 0)
+        if ((flags & DebugDraw.centerOfMassBit) != 0)
         {
             for (Body b = bodyList; b != null; b = b.getNext())
             {
@@ -824,7 +824,7 @@ public class World
                 debugDraw.drawTransform(xf);
             }
         }
-        if ((flags & DebugDraw.e_dynamicTreeBit) != 0)
+        if ((flags & DebugDraw.dynamicTreeBit) != 0)
         {
             contactManager.broadPhase.drawTree(debugDraw);
         }
@@ -1755,7 +1755,7 @@ public class World
     private void drawParticleSystem(ParticleSystem system)
     {
         boolean wireframe = (debugDraw.getFlags()
-                & DebugDraw.e_wireframeDrawingBit) != 0;
+                & DebugDraw.wireframeDrawingBit) != 0;
         int particleCount = system.getParticleCount();
         if (particleCount != 0)
         {

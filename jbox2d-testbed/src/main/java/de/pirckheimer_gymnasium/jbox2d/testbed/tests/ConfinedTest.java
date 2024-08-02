@@ -35,9 +35,9 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
 public class ConfinedTest extends TestbedTest
 {
-    int e_columnCount = 0;
+    int columnCount = 0;
 
-    int e_rowCount = 0;
+    int rowCount = 0;
 
     @Override
     public boolean isSaveLoadEnabled()
@@ -83,9 +83,9 @@ public class ConfinedTest extends TestbedTest
         fd.shape = shape;
         fd.density = 1.0f;
         fd.friction = 0.1f;
-        for (int j = 0; j < e_columnCount; ++j)
+        for (int j = 0; j < columnCount; ++j)
         {
-            for (int i = 0; i < e_rowCount; ++i)
+            for (int i = 0; i < rowCount; ++i)
             {
                 BodyDef bd = new BodyDef();
                 bd.type = BodyType.DYNAMIC;
