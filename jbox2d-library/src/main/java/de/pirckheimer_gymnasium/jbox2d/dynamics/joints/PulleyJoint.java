@@ -94,6 +94,9 @@ public class PulleyJoint extends Joint
 
     private float mass;
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_pulley_joint.cpp#L39-L56
+     */
     protected PulleyJoint(IWorldPool argWorldPool, PulleyJointDef def)
     {
         super(argWorldPool, def);
@@ -208,6 +211,9 @@ public class PulleyJoint extends Joint
         return ratio;
     }
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_pulley_joint.cpp#L77-L165
+     */
     @Override
     public void initVelocityConstraints(final SolverData data)
     {
@@ -288,14 +294,17 @@ public class PulleyJoint extends Joint
         {
             impulse = 0.0f;
         }
-//    data.velocities[indexA].v.set(vA);
+        // data.velocities[indexA].v.set(vA);
         data.velocities[indexA].w = wA;
-//    data.velocities[indexB].v.set(vB);
+        // data.velocities[indexB].v.set(vB);
         data.velocities[indexB].w = wB;
         pool.pushVec2(1);
         pool.pushRot(2);
     }
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_pulley_joint.cpp#L167-L192
+     */
     @Override
     public void solveVelocityConstraints(final SolverData data)
     {
@@ -322,9 +331,9 @@ public class PulleyJoint extends Joint
         vB.x += invMassB * PB.x;
         vB.y += invMassB * PB.y;
         wB += invIB * Vec2.cross(rB, PB);
-//    data.velocities[indexA].v.set(vA);
+        // data.velocities[indexA].v.set(vA);
         data.velocities[indexA].w = wA;
-//    data.velocities[indexB].v.set(vB);
+        // data.velocities[indexB].v.set(vB);
         data.velocities[indexB].w = wB;
         pool.pushVec2(4);
     }
@@ -395,9 +404,9 @@ public class PulleyJoint extends Joint
         cB.x += invMassB * PB.x;
         cB.y += invMassB * PB.y;
         aB += invIB * Vec2.cross(rB, PB);
-//    data.positions[indexA].c.set(cA);
+        // data.positions[indexA].c.set(cA);
         data.positions[indexA].a = aA;
-//    data.positions[indexB].c.set(cB);
+        // data.positions[indexB].c.set(cB);
         data.positions[indexB].a = aB;
         pool.pushRot(2);
         pool.pushVec2(7);
