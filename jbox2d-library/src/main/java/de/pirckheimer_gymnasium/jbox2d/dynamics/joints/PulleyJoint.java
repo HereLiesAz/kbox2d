@@ -330,7 +330,7 @@ public class PulleyJoint extends Joint
     }
 
     /**
-     * @box2d https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_pulley_joint.cpp#L194-L264
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_pulley_joint.cpp#L194-L264
      */
     @Override
     public boolean solvePositionConstraints(final SolverData data)
