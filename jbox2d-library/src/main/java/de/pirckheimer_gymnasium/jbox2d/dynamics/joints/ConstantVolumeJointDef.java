@@ -28,8 +28,8 @@ import java.util.ArrayList;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
 
 /**
- * Definition for a {@link ConstantVolumeJoint}, which connects a group a bodies
- * together, so they maintain a constant volume within them.
+ * Definition for a {@link ConstantVolumeJoint}, which connects a group a
+ * bodies, so they maintain a constant volume within them.
  *
  * @author Daniel Murphy
  */

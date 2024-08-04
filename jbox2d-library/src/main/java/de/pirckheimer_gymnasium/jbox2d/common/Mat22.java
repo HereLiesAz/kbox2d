@@ -271,9 +271,9 @@ public class Mat22 implements Serializable
 
     public final void mulToOut(final Vec2 v, final Vec2 out)
     {
-        final float tempy = ex.y * v.x + ey.y * v.y;
+        final float tempY = ex.y * v.x + ey.y * v.y;
         out.x = ex.x * v.x + ey.x * v.y;
-        out.y = tempy;
+        out.y = tempY;
     }
 
     public final void mulToOutUnsafe(final Vec2 v, final Vec2 out)
@@ -395,9 +395,9 @@ public class Mat22 implements Serializable
         /*
          * out.x = Vec2.dot(v, ex); out.y = Vec2.dot(v, col2);
          */
-        final float tempx = v.x * ex.x + v.y * ex.y;
+        final float tempX = v.x * ex.x + v.y * ex.y;
         out.y = v.x * ey.x + v.y * ey.y;
-        out.x = tempx;
+        out.x = tempX;
     }
 
     /**

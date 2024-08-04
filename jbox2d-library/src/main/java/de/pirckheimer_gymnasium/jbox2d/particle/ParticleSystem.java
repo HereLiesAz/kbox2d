@@ -986,7 +986,7 @@ public class ParticleSystem
                             - Settings.minParticleWeight);
             accumulationBuffer[i] = h;
         }
-        // applies pressure between each particles in contact
+        // applies pressure between each particle in contact
         float velocityPerPressure = step.dt / (density * particleDiameter);
         for (int k = 0; k < bodyContactCount; k++)
         {
@@ -1029,7 +1029,7 @@ public class ParticleSystem
 
     void solveDamping(TimeStep step)
     {
-        // reduces normal velocity of each contact
+        // reduces the normal velocity of each contact
         float damping = dampingStrength;
         for (int k = 0; k < bodyContactCount; k++)
         {
@@ -1449,7 +1449,7 @@ public class ParticleSystem
 
     void solveZombie()
     {
-        // removes particles with zombie flag
+        // removes particles with a zombie flag
         int newCount = 0;
         int[] newIndices = new int[count];
         for (int i = 0; i < count; i++)
@@ -1701,7 +1701,7 @@ public class ParticleSystem
     void RotateBuffer(int start, int mid, int end)
     {
         // move the particles assigned to the given group toward the end of
-        // array
+        // the array
         if (start == mid || mid == end)
         {
             return;
