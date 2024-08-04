@@ -52,14 +52,18 @@ public class Vec2 implements Serializable
         this(toCopy.x, toCopy.y);
     }
 
-    /** Zero out this vector. */
+    /**
+     * Zero out this vector.
+     */
     public final void setZero()
     {
         x = 0.0f;
         y = 0.0f;
     }
 
-    /** Set the vector component-wise. */
+    /**
+     * Set the vector component-wise.
+     */
     public final Vec2 set(float x, float y)
     {
         this.x = x;
@@ -67,7 +71,9 @@ public class Vec2 implements Serializable
         return this;
     }
 
-    /** Set this vector to another vector. */
+    /**
+     * Set this vector to another vector.
+     */
     public final Vec2 set(Vec2 v)
     {
         this.x = v.x;
@@ -75,7 +81,9 @@ public class Vec2 implements Serializable
         return this;
     }
 
-    /** Return the sum of this vector and another; does not alter either one. */
+    /**
+     * Return the sum of this vector and another; does not alter either one.
+     */
     public final Vec2 add(Vec2 v)
     {
         return new Vec2(x + v.x, y + v.y);
@@ -98,13 +106,17 @@ public class Vec2 implements Serializable
         return new Vec2(x * a, y * a);
     }
 
-    /** Return the negation of this vector; does not alter this vector. */
+    /**
+     * Return the negation of this vector; does not alter this vector.
+     */
     public final Vec2 negate()
     {
         return new Vec2(-x, -y);
     }
 
-    /** Flip the vector and return it - alters this vector. */
+    /**
+     * Flip the vector and return it - alters this vector.
+     */
     public final Vec2 negateLocal()
     {
         x = -x;
@@ -122,7 +134,9 @@ public class Vec2 implements Serializable
         return this;
     }
 
-    /** Adds values to this vector and returns result - alters this vector. */
+    /**
+     * Adds values to this vector and returns result - alters this vector.
+     */
     public final Vec2 addLocal(float x, float y)
     {
         this.x += x;
@@ -168,7 +182,9 @@ public class Vec2 implements Serializable
         out.y = x;
     }
 
-    /** Return the length of this vector. */
+    /**
+     * Return the length of this vector.
+     */
     public final float length()
     {
         return MathUtils.sqrt(x * x + y * y);
@@ -207,7 +223,9 @@ public class Vec2 implements Serializable
                 && !Float.isInfinite(y);
     }
 
-    /** Return a new vector that has positive components. */
+    /**
+     * Return a new vector that has positive components.
+     */
     public final Vec2 abs()
     {
         return new Vec2(MathUtils.abs(x), MathUtils.abs(y));
@@ -220,7 +238,9 @@ public class Vec2 implements Serializable
     }
 
     // @Override // annotation omitted for GWT-compatibility
-    /** Return a copy of this vector. */
+    /**
+     * Return a copy of this vector.
+     */
     public final Vec2 clone()
     {
         return new Vec2(x, y);
@@ -235,91 +255,91 @@ public class Vec2 implements Serializable
      * Static
      */
 
-    public final static Vec2 abs(Vec2 a)
+    public static Vec2 abs(Vec2 a)
     {
         return new Vec2(MathUtils.abs(a.x), MathUtils.abs(a.y));
     }
 
-    public final static void absToOut(Vec2 a, Vec2 out)
+    public static void absToOut(Vec2 a, Vec2 out)
     {
         out.x = MathUtils.abs(a.x);
         out.y = MathUtils.abs(a.y);
     }
 
-    public final static float dot(final Vec2 a, final Vec2 b)
+    public static float dot(final Vec2 a, final Vec2 b)
     {
         return a.x * b.x + a.y * b.y;
     }
 
-    public final static float cross(final Vec2 a, final Vec2 b)
+    public static float cross(final Vec2 a, final Vec2 b)
     {
         return a.x * b.y - a.y * b.x;
     }
 
-    public final static Vec2 cross(Vec2 a, float s)
+    public static Vec2 cross(Vec2 a, float s)
     {
         return new Vec2(s * a.y, -s * a.x);
     }
 
-    public final static void crossToOut(Vec2 a, float s, Vec2 out)
+    public static void crossToOut(Vec2 a, float s, Vec2 out)
     {
         final float tempy = -s * a.x;
         out.x = s * a.y;
         out.y = tempy;
     }
 
-    public final static void crossToOutUnsafe(Vec2 a, float s, Vec2 out)
+    public static void crossToOutUnsafe(Vec2 a, float s, Vec2 out)
     {
         assert (out != a);
         out.x = s * a.y;
         out.y = -s * a.x;
     }
 
-    public final static Vec2 cross(float s, Vec2 a)
+    public static Vec2 cross(float s, Vec2 a)
     {
         return new Vec2(-s * a.y, s * a.x);
     }
 
-    public final static void crossToOut(float s, Vec2 a, Vec2 out)
+    public static void crossToOut(float s, Vec2 a, Vec2 out)
     {
         final float tempY = s * a.x;
         out.x = -s * a.y;
         out.y = tempY;
     }
 
-    public final static void crossToOutUnsafe(float s, Vec2 a, Vec2 out)
+    public static void crossToOutUnsafe(float s, Vec2 a, Vec2 out)
     {
         assert (out != a);
         out.x = -s * a.y;
         out.y = s * a.x;
     }
 
-    public final static void negateToOut(Vec2 a, Vec2 out)
+    public static void negateToOut(Vec2 a, Vec2 out)
     {
         out.x = -a.x;
         out.y = -a.y;
     }
 
-    public final static Vec2 min(Vec2 a, Vec2 b)
+    public static Vec2 min(Vec2 a, Vec2 b)
     {
-        return new Vec2(a.x < b.x ? a.x : b.x, a.y < b.y ? a.y : b.y);
+        return new Vec2(Math.min(a.x, b.x), Math.min(a.y, b.y));
     }
 
-    public final static Vec2 max(Vec2 a, Vec2 b)
+    public static Vec2 max(Vec2 a, Vec2 b)
     {
-        return new Vec2(a.x > b.x ? a.x : b.x, a.y > b.y ? a.y : b.y);
+        return new Vec2(Math.max(a.x, b.x), Math.max(a.y, b.y));
     }
 
-    public final static void minToOut(Vec2 a, Vec2 b, Vec2 out)
+    public static void minToOut(Vec2 a, Vec2 b, Vec2 out)
     {
-        out.x = a.x < b.x ? a.x : b.x;
-        out.y = a.y < b.y ? a.y : b.y;
+        out.x = Math.min(a.x, b.x);
+        out.y = Math.min(a.y, b.y);
     }
 
-    public final static void maxToOut(Vec2 a, Vec2 b, Vec2 out)
+    public static void maxToOut(Vec2 a, Vec2 b, Vec2 out)
     {
-        out.x = a.x > b.x ? a.x : b.x;
-        out.y = a.y > b.y ? a.y : b.y;
+        out.x = Math.max(a.x, b.x);
+        out.y = Math.max(a.y, b.y);
     }
 
     /**
@@ -350,8 +370,6 @@ public class Vec2 implements Serializable
         Vec2 other = (Vec2) obj;
         if (Float.floatToIntBits(x) != Float.floatToIntBits(other.x))
             return false;
-        if (Float.floatToIntBits(y) != Float.floatToIntBits(other.y))
-            return false;
-        return true;
+        return Float.floatToIntBits(y) == Float.floatToIntBits(other.y);
     }
 }

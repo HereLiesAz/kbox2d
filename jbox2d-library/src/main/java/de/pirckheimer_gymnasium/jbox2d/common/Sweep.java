@@ -37,13 +37,19 @@ public class Sweep implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
-    /** Local center of mass position */
+    /**
+     * Local center of mass position
+     */
     public final Vec2 localCenter;
 
-    /** Center world positions */
+    /**
+     * Center world positions
+     */
     public final Vec2 c0, c;
 
-    /** World angles */
+    /**
+     * World angles
+     */
     public float a0, a;
 
     /**

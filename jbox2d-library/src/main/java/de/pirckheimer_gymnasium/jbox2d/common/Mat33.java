@@ -111,44 +111,46 @@ public class Mat33 implements Serializable
         ez.z = (float) 1;
     }
 
-    // / Multiply a matrix times a vector.
-    public static final Vec3 mul(Mat33 A, Vec3 v)
+    /**
+     * Multiply a matrix times a vector.
+     */
+    public static Vec3 mul(Mat33 A, Vec3 v)
     {
         return new Vec3(v.x * A.ex.x + v.y * A.ey.x + v.z + A.ez.x,
                 v.x * A.ex.y + v.y * A.ey.y + v.z * A.ez.y,
                 v.x * A.ex.z + v.y * A.ey.z + v.z * A.ez.z);
     }
 
-    public static final Vec2 mul22(Mat33 A, Vec2 v)
+    public static Vec2 mul22(Mat33 A, Vec2 v)
     {
         return new Vec2(A.ex.x * v.x + A.ey.x * v.y,
                 A.ex.y * v.x + A.ey.y * v.y);
     }
 
-    public static final void mul22ToOut(Mat33 A, Vec2 v, Vec2 out)
+    public static void mul22ToOut(Mat33 A, Vec2 v, Vec2 out)
     {
         final float tempx = A.ex.x * v.x + A.ey.x * v.y;
         out.y = A.ex.y * v.x + A.ey.y * v.y;
         out.x = tempx;
     }
 
-    public static final void mul22ToOutUnsafe(Mat33 A, Vec2 v, Vec2 out)
+    public static void mul22ToOutUnsafe(Mat33 A, Vec2 v, Vec2 out)
     {
         assert (v != out);
         out.y = A.ex.y * v.x + A.ey.y * v.y;
         out.x = A.ex.x * v.x + A.ey.x * v.y;
     }
 
-    public static final void mulToOut(Mat33 A, Vec3 v, Vec3 out)
+    public static void mulToOut(Mat33 A, Vec3 v, Vec3 out)
     {
-        final float tempy = v.x * A.ex.y + v.y * A.ey.y + v.z * A.ez.y;
-        final float tempz = v.x * A.ex.z + v.y * A.ey.z + v.z * A.ez.z;
+        final float tempY = v.x * A.ex.y + v.y * A.ey.y + v.z * A.ez.y;
+        final float tempZ = v.x * A.ex.z + v.y * A.ey.z + v.z * A.ez.z;
         out.x = v.x * A.ex.x + v.y * A.ey.x + v.z * A.ez.x;
-        out.y = tempy;
-        out.z = tempz;
+        out.y = tempY;
+        out.z = tempZ;
     }
 
-    public static final void mulToOutUnsafe(Mat33 A, Vec3 v, Vec3 out)
+    public static void mulToOutUnsafe(Mat33 A, Vec3 v, Vec3 out)
     {
         assert (out != v);
         out.x = v.x * A.ex.x + v.y * A.ey.x + v.z * A.ez.x;
@@ -266,7 +268,7 @@ public class Mat33 implements Serializable
         M.ez.z = det * (a11 * a22 - a12 * a12);
     }
 
-    public final static void setScaleTransform(float scale, Mat33 out)
+    public static void setScaleTransform(float scale, Mat33 out)
     {
         out.ex.x = scale;
         out.ey.y = scale;
@@ -309,11 +311,9 @@ public class Mat33 implements Serializable
             return false;
         if (ez == null)
         {
-            if (other.ez != null)
-                return false;
+            return other.ez == null;
         }
-        else if (!ez.equals(other.ez))
-            return false;
-        return true;
+        else
+            return ez.equals(other.ez);
     }
 }

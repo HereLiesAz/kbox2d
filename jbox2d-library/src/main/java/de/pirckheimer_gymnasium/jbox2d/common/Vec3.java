@@ -163,32 +163,30 @@ public class Vec3 implements Serializable
             return false;
         if (Float.floatToIntBits(y) != Float.floatToIntBits(other.y))
             return false;
-        if (Float.floatToIntBits(z) != Float.floatToIntBits(other.z))
-            return false;
-        return true;
+        return Float.floatToIntBits(z) == Float.floatToIntBits(other.z);
     }
 
-    public final static float dot(Vec3 a, Vec3 b)
+    public static float dot(Vec3 a, Vec3 b)
     {
         return a.x * b.x + a.y * b.y + a.z * b.z;
     }
 
-    public final static Vec3 cross(Vec3 a, Vec3 b)
+    public static Vec3 cross(Vec3 a, Vec3 b)
     {
         return new Vec3(a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z,
                 a.x * b.y - a.y * b.x);
     }
 
-    public final static void crossToOut(Vec3 a, Vec3 b, Vec3 out)
+    public static void crossToOut(Vec3 a, Vec3 b, Vec3 out)
     {
-        final float tempy = a.z * b.x - a.x * b.z;
-        final float tempz = a.x * b.y - a.y * b.x;
+        final float tempY = a.z * b.x - a.x * b.z;
+        final float tempZ = a.x * b.y - a.y * b.x;
         out.x = a.y * b.z - a.z * b.y;
-        out.y = tempy;
-        out.z = tempz;
+        out.y = tempY;
+        out.z = tempZ;
     }
 
-    public final static void crossToOutUnsafe(Vec3 a, Vec3 b, Vec3 out)
+    public static void crossToOutUnsafe(Vec3 a, Vec3 b, Vec3 out)
     {
         assert (out != b);
         assert (out != a);

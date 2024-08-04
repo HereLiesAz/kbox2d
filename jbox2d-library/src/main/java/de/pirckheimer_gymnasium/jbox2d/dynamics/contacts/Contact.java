@@ -37,42 +37,57 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
 
 /**
  * The class manages contact between two shapes. A contact exists for each
- * overlapping AABB in the broad-phase (except if filtered). Therefore a contact
- * object may exist that has no contact points.
+ * overlapping AABB in the broad-phase (except if filtered). Therefore, a
+ * contact object may exist that has no contact points.
  *
  * @author Daniel Murphy
  */
 public abstract class Contact
 {
-    // Flags stored in flags
-    // Used when crawling contact graph when forming islands.
+    /**
+     * Flags stored in flags Used when crawling contact graph when forming
+     * islands.
+     */
     public static final int ISLAND_FLAG = 0x0001;
 
-    // Set when the shapes are touching.
+    /**
+     * Set when the shapes are touching.
+     */
     public static final int TOUCHING_FLAG = 0x0002;
 
-    // This contact can be disabled (by user)
+    /**
+     * This contact can be disabled (by user)
+     */
     public static final int ENABLED_FLAG = 0x0004;
 
-    // This contact needs filtering because a fixture filter was changed.
+    /**
+     * This contact needs filtering because a fixture filter was changed.
+     */
     public static final int FILTER_FLAG = 0x0008;
 
-    // This bullet contact had a TOI event
+    /**
+     * This bullet contact had a TOI event
+     */
     public static final int BULLET_HIT_FLAG = 0x0010;
 
     public static final int TOI_FLAG = 0x0020;
 
     public int flags;
 
-    // World pool and list pointers.
+    //
+    /**
+     * World pool and list pointers.
+     */
     public Contact prev;
 
     public Contact next;
 
-    // Nodes for connecting bodies.
-    public ContactEdge nodeA = null;
+    /**
+     * Nodes for connecting bodies.
+     */
+    public ContactEdge nodeA;
 
-    public ContactEdge nodeB = null;
+    public ContactEdge nodeB;
 
     public Fixture fixtureA;
 
@@ -106,7 +121,9 @@ public abstract class Contact
         pool = argPool;
     }
 
-    /** initialization for pooling */
+    /**
+     * initialization for pooling
+     */
     public void init(Fixture fA, int indexA, Fixture fB, int indexB)
     {
         flags = ENABLED_FLAG;
@@ -132,7 +149,7 @@ public abstract class Contact
     }
 
     /**
-     * Get the contact manifold. Do not set the point count to zero. Instead
+     * Get the contact manifold. Do not set the point count to zero. Instead,
      * call Disable.
      */
     public Manifold getManifold()
@@ -166,8 +183,6 @@ public abstract class Contact
      * Enable/disable this contact. This can be used inside the pre-solve
      * contact listener. The contact is only disabled for the current time step
      * (or sub-step in continuous collisions).
-     *
-     * @param flag
      */
     public void setEnabled(boolean flag)
     {
@@ -287,7 +302,7 @@ public abstract class Contact
         oldManifold.set(manifold);
         // Re-enable this contact.
         flags |= ENABLED_FLAG;
-        boolean touching = false;
+        boolean touching;
         boolean wasTouching = (flags & TOUCHING_FLAG) == TOUCHING_FLAG;
         boolean sensorA = fixtureA.isSensor();
         boolean sensorB = fixtureB.isSensor();
@@ -348,15 +363,15 @@ public abstract class Contact
         {
             return;
         }
-        if (wasTouching == false && touching == true)
+        if (!wasTouching && touching)
         {
             listener.beginContact(this);
         }
-        if (wasTouching == true && touching == false)
+        if (wasTouching && !touching)
         {
             listener.endContact(this);
         }
-        if (sensor == false && touching)
+        if (!sensor && touching)
         {
             listener.preSolve(this, oldManifold);
         }
@@ -365,25 +380,18 @@ public abstract class Contact
     /**
      * Friction mixing law. The idea is to allow either fixture to drive the
      * restitution to zero. For example, anything slides on ice.
-     *
-     * @param friction1
-     * @param friction2
      */
-    public static final float mixFriction(float friction1, float friction2)
+    public static float mixFriction(float friction1, float friction2)
     {
         return MathUtils.sqrt(friction1 * friction2);
     }
 
     /**
-     * Restitution mixing law. The idea is allow for anything to bounce off an
+     * Restitution mixing law. The idea is allowed for anything to bounce off an
      * inelastic surface. For example, a superball bounces on anything.
-     *
-     * @param restitution1
-     * @param restitution2
      */
-    public static final float mixRestitution(float restitution1,
-            float restitution2)
+    public static float mixRestitution(float restitution1, float restitution2)
     {
-        return restitution1 > restitution2 ? restitution1 : restitution2;
+        return Math.max(restitution1, restitution2);
     }
 }
