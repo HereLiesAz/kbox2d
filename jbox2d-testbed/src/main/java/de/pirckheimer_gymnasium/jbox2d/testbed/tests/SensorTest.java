@@ -144,7 +144,6 @@ public class SensorTest extends TestbedTest
     @Override
     public void step(TestbedSettings settings)
     {
-        // TODO Auto-generated method stub
         super.step(settings);
         // Traverse the contact results. Apply a force on shapes
         // that overlap the sensor.

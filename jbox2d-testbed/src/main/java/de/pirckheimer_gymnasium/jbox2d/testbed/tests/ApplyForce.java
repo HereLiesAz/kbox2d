@@ -148,7 +148,6 @@ public class ApplyForce extends TestbedTest
     @Override
     public void keyPressed(char keyCar, int keyCode)
     {
-        // TODO Auto-generated method stub
         super.keyPressed(keyCar, keyCode);
     }
 

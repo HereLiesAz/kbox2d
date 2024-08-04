@@ -34,19 +34,88 @@ the 'target' directories of each project.
 - `jbox2d-jni-broadphase` - Experiment with moving parts of the engine to C++. Not
   faster.
 
+## Tests / Demos
+
+https://github.com/engine-pi/jbox2d/tree/main/jbox2d-testbed/src/main/java/de/pirckheimer_gymnasium/jbox2d/testbed/tests
+
+<!-- ApplyForce
+BlobTest4
+BodyTypes
+Breakable -->
+
+BulletTest
 
 ![](https://raw.githubusercontent.com/engine-pi/jbox2d/main/screencasts/BulletTest.gif)
 
+<!-- Cantilever -->
+
+Car
+
 ![](https://raw.githubusercontent.com/engine-pi/jbox2d/main/screencasts/Car.gif)
+
+<!-- Chain
+CharacterCollision
+CircleStress
+CollisionFiltering
+CollisionProcessing
+CompoundShapes
+ConfinedTest
+ContinuousTest
+ConvexHull
+ConveyorBelt -->
+
+DamBreak
 
 ![](https://raw.githubusercontent.com/engine-pi/jbox2d/main/screencasts/DamBreak.gif)
 
+<!-- DistanceTest -->
+
+DominoTest
+
 ![](https://raw.githubusercontent.com/engine-pi/jbox2d/main/screencasts/Dominos.gif)
 
-![](https://raw.githubusercontent.com/engine-pi/jbox2d/main/screencasts/DrawingParticles.gif)
+<!--
+DominoTower
+DrawingParticles
+DynamicTreeTest
+EdgeShapes
+EdgeTest
+FixedPendulumTest
+FreePendulumTest
+Gears -->
+
+LiquidTimer
 
 ![](https://raw.githubusercontent.com/engine-pi/jbox2d/main/screencasts/LiquidTimer.gif)
 
+<!--
+MotorTest
+OneSidedTest
+Particles -->
+
+ParticleTypes
+
 ![](https://raw.githubusercontent.com/engine-pi/jbox2d/main/screencasts/Particles.gif)
 
+PistonTest
+PolyShapes
+PrismaticTest
+Pulleys
+PyramidTest
+RayCastTest
+RevoluteTest
+RopeTest
+SensorTest
+ShapeEditing
+SliderCrankTest
+SphereStack
+TheoJansen
+Tumbler
+VaryingFrictionTest
+VaryingRestitution
+VerticalStack
+WaveMachine
+
 ![](https://raw.githubusercontent.com/engine-pi/jbox2d/main/screencasts/WaveMachine.gif)
+
+Web

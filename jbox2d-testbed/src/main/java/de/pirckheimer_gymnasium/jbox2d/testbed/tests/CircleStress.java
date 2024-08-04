@@ -225,7 +225,6 @@ public class CircleStress extends TestbedTest
     @Override
     public void step(TestbedSettings settings)
     {
-        // TODO Auto-generated method stub
         super.step(settings);
         addTextLine("Press 's' to stop, and '1' - '5' to change speeds");
     }
