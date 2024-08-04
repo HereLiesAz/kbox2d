@@ -142,8 +142,7 @@ public abstract class Joint
     }
 
     /**
-     * get the type of the concrete joint.
-     *
+     * Get the type of the concrete joint.
      */
     public JointType getType()
     {
@@ -151,7 +150,7 @@ public abstract class Joint
     }
 
     /**
-     * get the first body attached to this joint.
+     * Get the first body attached to this joint.
      */
     public final Body getBodyA()
     {
@@ -159,8 +158,7 @@ public abstract class Joint
     }
 
     /**
-     * get the second body attached to this joint.
-     *
+     * Get the second body attached to this joint.
      */
     public final Body getBodyB()
     {
@@ -168,29 +166,27 @@ public abstract class Joint
     }
 
     /**
-     * get the anchor point on bodyA in world coordinates.
-     *
+     * Get the anchor point on bodyA in world coordinates.
      */
     public abstract void getAnchorA(Vec2 out);
 
     /**
-     * get the anchor point on bodyB in world coordinates.
-     *
+     * Get the anchor point on bodyB in world coordinates.
      */
     public abstract void getAnchorB(Vec2 out);
 
     /**
-     * get the reaction force on body2 at the joint anchor in Newtons.
+     * Get the reaction force on body2 at the joint anchor in Newtons.
      */
     public abstract void getReactionForce(float invDt, Vec2 out);
 
     /**
-     * get the reaction torque on body2 in N*m.
+     * Get the reaction torque on body2 in N*m.
      */
     public abstract float getReactionTorque(float invDt);
 
     /**
-     * get the next joint the world joint list.
+     * Get the next joint the world joint list.
      */
     public Joint getNext()
     {
@@ -198,7 +194,7 @@ public abstract class Joint
     }
 
     /**
-     * get the user data pointer.
+     * Get the user data pointer.
      */
     public Object getUserData()
     {
@@ -232,10 +228,14 @@ public abstract class Joint
         return bodyA.isActive() && bodyB.isActive();
     }
 
-    /** Internal */
+    /**
+     * Internal
+     */
     public abstract void initVelocityConstraints(SolverData data);
 
-    /** Internal */
+    /**
+     * Internal
+     */
     public abstract void solveVelocityConstraints(SolverData data);
 
     /**

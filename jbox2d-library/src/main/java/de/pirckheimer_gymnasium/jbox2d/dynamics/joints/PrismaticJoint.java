@@ -160,8 +160,10 @@ public class PrismaticJoint extends Joint
 
     private final Mat33 K;
 
-    private float motorMass; // effective mass for motor/limit translational
-                             // constraint.
+    /**
+     * effective mass for motor/limit translational constraint.
+     */
+    private float motorMass;
 
     protected PrismaticJoint(IWorldPool argWorld, PrismaticJointDef def)
     {
@@ -188,28 +190,49 @@ public class PrismaticJoint extends Joint
         perp = new Vec2();
     }
 
+    /**
+     *
+     */
     public Vec2 getLocalAnchorA()
     {
         return localAnchorA;
     }
 
+    /**
+     *
+     */
     public Vec2 getLocalAnchorB()
     {
         return localAnchorB;
     }
 
+    /**
+     * Get the anchor point on bodyA in world coordinates.
+     *
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_joint.h#L122-L123
+     */
     @Override
     public void getAnchorA(Vec2 argOut)
     {
         bodyA.getWorldPointToOut(localAnchorA, argOut);
     }
 
+    /**
+     * Get the anchor point on bodyB in world coordinates.
+     *
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_joint.h#L125-L126
+     */
     @Override
     public void getAnchorB(Vec2 argOut)
     {
         bodyB.getWorldPointToOut(localAnchorB, argOut);
     }
 
+    /**
+     * Get the reaction force on bodyB at the joint anchor in Newtons.
+     *
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_joint.h#L128-L129
+     */
     @Override
     public void getReactionForce(float invDt, Vec2 argOut)
     {
@@ -219,6 +242,9 @@ public class PrismaticJoint extends Joint
         pool.pushVec2(1);
     }
 
+    /**
+     *
+     */
     @Override
     public float getReactionTorque(float invDt)
     {
@@ -276,7 +302,6 @@ public class PrismaticJoint extends Joint
 
     /**
      * Is the joint limit enabled?
-     *
      */
     public boolean isLimitEnabled()
     {
@@ -299,7 +324,6 @@ public class PrismaticJoint extends Joint
 
     /**
      * Get the lower joint limit, usually in meters.
-     *
      */
     public float getLowerLimit()
     {
@@ -308,7 +332,6 @@ public class PrismaticJoint extends Joint
 
     /**
      * Get the upper joint limit, usually in meters.
-     *
      */
     public float getUpperLimit()
     {
@@ -333,7 +356,6 @@ public class PrismaticJoint extends Joint
 
     /**
      * Is the joint motor enabled?
-     *
      */
     public boolean isMotorEnabled()
     {
@@ -362,7 +384,6 @@ public class PrismaticJoint extends Joint
 
     /**
      * Get the motor speed, usually in meters per second.
-     *
      */
     public float getMotorSpeed()
     {

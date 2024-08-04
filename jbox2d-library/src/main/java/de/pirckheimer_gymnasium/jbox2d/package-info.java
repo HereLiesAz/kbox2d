@@ -94,5 +94,7 @@
  * first time of impact (TOI). Second, there is a sub-stepping solver that moves
  * bodies to their first time of impact and then resolves the collision.
  * </p>
+ *
+ * https://box2d.org/documentation/index.html
  */
 package de.pirckheimer_gymnasium.jbox2d;
