@@ -14,7 +14,7 @@
     <description>The testbed for JBox2D, a 2d java physics engine, ported from the C++ Box2d engine.</description>
 
     <properties>
-        <mainClass>de.pirckheimer_gymnasium.jbox2d.testbed.framework.javafx.TestbedMain</mainClass>
+        <mainClass>de.pirckheimer_gymnasium.jbox2d.testbed.TestbedMain</mainClass>
     </properties>
 
     <dependencies>
@@ -71,6 +71,15 @@
                         </manifest>
                     </archive>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.openjfx</groupId>

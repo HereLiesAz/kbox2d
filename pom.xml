@@ -73,9 +73,10 @@
     <build>
         <pluginManagement>
             <plugins>
+                <!-- https://maven.apache.org/plugins/maven-assembly-plugin/ -->
                 <plugin>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>2.4</version>
+                    <version>3.7.1</version>
                     <configuration>
                         <descriptorRefs>
                             <descriptorRef>jar-with-dependencies</descriptorRef>
