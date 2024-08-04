@@ -42,15 +42,11 @@ public interface ContactListener
 {
     /**
      * Called when two fixtures begin to touch.
-     *
-     * @param contact
      */
     public void beginContact(Contact contact);
 
     /**
      * Called when two fixtures cease to touch.
-     *
-     * @param contact
      */
     public void endContact(Contact contact);
 
@@ -65,9 +61,6 @@ public interface ContactListener
      * callback. However, you may get a BeginContact callback the next step.
      * Note: the oldManifold parameter is pooled, so it will be the same object
      * for every callback for each thread.
-     *
-     * @param contact
-     * @param oldManifold
      */
     public void preSolve(Contact contact, Manifold oldManifold);
 

@@ -38,25 +38,39 @@ import de.pirckheimer_gymnasium.jbox2d.particle.ParticleColor;
  */
 public abstract class DebugDraw
 {
-    /** Draw shapes */
+    /**
+     * Draw shapes
+     */
     public static final int shapeBit = 1 << 1;
 
-    /** Draw joint connections */
+    /**
+     * Draw joint connections
+     */
     public static final int jointBit = 1 << 2;
 
-    /** Draw axis aligned bounding boxes */
+    /**
+     * Draw axis aligned bounding boxes
+     */
     public static final int aabbBit = 1 << 3;
 
-    /** Draw pairs of connected objects */
+    /**
+     * Draw pairs of connected objects
+     */
     public static final int pairBit = 1 << 4;
 
-    /** Draw center of mass frame */
+    /**
+     * Draw center of mass frame
+     */
     public static final int centerOfMassBit = 1 << 5;
 
-    /** Draw dynamic tree */
+    /**
+     * Draw dynamic tree
+     */
     public static final int dynamicTreeBit = 1 << 6;
 
-    /** Draw only the wireframe for drawing performance */
+    /**
+     * Draw only the wireframe for drawing performance
+     */
     public static final int wireframeDrawingBit = 1 << 7;
 
     protected int drawFlags;

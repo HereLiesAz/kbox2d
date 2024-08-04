@@ -23,7 +23,6 @@
  */
 package de.pirckheimer_gymnasium.jbox2d.common;
 
-// updated to rev 100
 /**
  * @author Daniel Murphy
  */

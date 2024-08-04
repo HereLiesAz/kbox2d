@@ -65,7 +65,6 @@ public interface BroadPhase
 
     /**
      * Get the number of proxies.
-     *
      */
     int getProxyCount();
 

@@ -29,7 +29,6 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.SolverData;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.World;
 import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
 
-// updated to rev 100
 /**
  * The base joint class. Joints are used to constrain two bodies together in
  * various fashions. Some joints also feature limits and motors.

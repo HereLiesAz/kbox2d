@@ -34,7 +34,6 @@ import de.pirckheimer_gymnasium.jbox2d.common.Settings;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 import de.pirckheimer_gymnasium.jbox2d.common.Transform;
 
-// updated to rev 100
 /**
  * This is non-static for faster pooling. To get an instance, use the
  * {@code SingletonPool}, don't construct a distance object.

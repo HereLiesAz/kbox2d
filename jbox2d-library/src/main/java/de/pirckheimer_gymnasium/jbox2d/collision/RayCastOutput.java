@@ -25,7 +25,6 @@ package de.pirckheimer_gymnasium.jbox2d.collision;
 
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 
-// updated to rev 100
 /**
  * Ray-cast output data. The ray hits at p1 + fraction * (p2 - p1), where p1 and
  * p2 come from b2RayCastInput.

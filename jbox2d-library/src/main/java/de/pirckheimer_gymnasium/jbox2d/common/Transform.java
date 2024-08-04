@@ -24,7 +24,6 @@
 package de.pirckheimer_gymnasium.jbox2d.common;
 
 import java.io.Serializable;
-// updated to rev 100
 
 /**
  * A transform contains translation and rotation. It is used to represent the

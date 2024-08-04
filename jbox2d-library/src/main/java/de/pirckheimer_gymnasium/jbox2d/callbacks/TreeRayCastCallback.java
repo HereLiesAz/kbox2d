@@ -25,7 +25,6 @@ package de.pirckheimer_gymnasium.jbox2d.callbacks;
 
 import de.pirckheimer_gymnasium.jbox2d.collision.RayCastInput;
 import de.pirckheimer_gymnasium.jbox2d.collision.broadphase.DynamicTree;
-// updated to rev 100
 
 /**
  * callback for {@link DynamicTree}

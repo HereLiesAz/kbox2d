@@ -25,7 +25,6 @@ package de.pirckheimer_gymnasium.jbox2d.collision;
 
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 
-// updated to rev 100
 /**
  * Ray-cast input data. The ray extends from p1 to p1 + maxFraction * (p2 - p1).
  *

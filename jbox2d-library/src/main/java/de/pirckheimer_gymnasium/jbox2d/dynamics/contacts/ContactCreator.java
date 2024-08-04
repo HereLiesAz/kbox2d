@@ -26,7 +26,6 @@ package de.pirckheimer_gymnasium.jbox2d.dynamics.contacts;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.Fixture;
 import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
 
-// updated to rev 100
 /**
  * @author Daniel Murphy
  */
