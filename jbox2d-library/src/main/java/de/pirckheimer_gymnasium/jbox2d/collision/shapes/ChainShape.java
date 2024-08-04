@@ -82,7 +82,7 @@ public class ChainShape extends Shape
     {
         assert (0 <= index && index < count - 1);
         edge.radius = radius;
-        final Vec2 v0 = vertices[index + 0];
+        final Vec2 v0 = vertices[index];
         final Vec2 v1 = vertices[index + 1];
         edge.vertex1.x = v0.x;
         edge.vertex1.y = v0.y;
@@ -172,10 +172,10 @@ public class ChainShape extends Shape
         float v1y = (xfq.s * vi1.x + xfq.c * vi1.y) + xfp.y;
         float v2x = (xfq.c * vi2.x - xfq.s * vi2.y) + xfp.x;
         float v2y = (xfq.s * vi2.x + xfq.c * vi2.y) + xfp.y;
-        lower.x = v1x < v2x ? v1x : v2x;
-        lower.y = v1y < v2y ? v1y : v2y;
-        upper.x = v1x > v2x ? v1x : v2x;
-        upper.y = v1y > v2y ? v1y : v2y;
+        lower.x = Math.min(v1x, v2x);
+        lower.y = Math.min(v1y, v2y);
+        upper.x = Math.max(v1x, v2x);
+        upper.y = Math.max(v1y, v2y);
     }
 
     @Override
@@ -272,8 +272,6 @@ public class ChainShape extends Shape
     /**
      * Establish connectivity to a vertex that precedes the first vertex. Don't
      * call this for loops.
-     *
-     * @param prevVertex
      */
     public void setPrevVertex(final Vec2 prevVertex)
     {
@@ -284,8 +282,6 @@ public class ChainShape extends Shape
     /**
      * Establish connectivity to a vertex that follows the last vertex. Don't
      * call this for loops.
-     *
-     * @param nextVertex
      */
     public void setNextVertex(final Vec2 nextVertex)
     {

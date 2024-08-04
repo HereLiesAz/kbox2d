@@ -67,8 +67,6 @@ public class CircleShape extends Shape
 
     /**
      * Get the supporting vertex index in the given direction.
-     *
-     * @param d
      */
     public final int getSupport(final Vec2 d)
     {
@@ -77,8 +75,6 @@ public class CircleShape extends Shape
 
     /**
      * Get the supporting vertex in the given direction.
-     *
-     * @param d
      */
     public final Vec2 getSupportVertex(final Vec2 d)
     {
@@ -96,8 +92,6 @@ public class CircleShape extends Shape
 
     /**
      * Get a vertex by index.
-     *
-     * @param index
      */
     public final Vec2 getVertex(final int index)
     {
@@ -143,21 +137,21 @@ public class CircleShape extends Shape
     public final boolean raycast(RayCastOutput output, RayCastInput input,
             Transform transform, int childIndex)
     {
-        final Vec2 inputp1 = input.p1;
-        final Vec2 inputp2 = input.p2;
+        final Vec2 inputP1 = input.p1;
+        final Vec2 inputP2 = input.p2;
         final Rot tq = transform.q;
         final Vec2 tp = transform.p;
         // Rot.mulToOutUnsafe(transform.q, p, position);
         // position.addLocal(transform.p);
-        final float positionx = tq.c * p.x - tq.s * p.y + tp.x;
-        final float positiony = tq.s * p.x + tq.c * p.y + tp.y;
-        final float sx = inputp1.x - positionx;
-        final float sy = inputp1.y - positiony;
+        final float positionX = tq.c * p.x - tq.s * p.y + tp.x;
+        final float positionY = tq.s * p.x + tq.c * p.y + tp.y;
+        final float sx = inputP1.x - positionX;
+        final float sy = inputP1.y - positionY;
         // final float b = Vec2.dot(s, s) - radius * radius;
         final float b = sx * sx + sy * sy - radius * radius;
         // Solve quadratic equation.
-        final float rx = inputp2.x - inputp1.x;
-        final float ry = inputp2.y - inputp1.y;
+        final float rx = inputP2.x - inputP1.x;
+        final float ry = inputP2.y - inputP1.y;
         // final float c = Vec2.dot(s, r);
         // final float rr = Vec2.dot(r, r);
         final float c = sx * rx + sy * ry;

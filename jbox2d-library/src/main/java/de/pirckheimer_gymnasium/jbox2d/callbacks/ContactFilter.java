@@ -40,8 +40,6 @@ public class ContactFilter
      *
      * @warning for performance reasons this is only called when the AABBs begin
      *          to overlap.
-     * @param fixtureA
-     * @param fixtureB
      */
     public boolean shouldCollide(Fixture fixtureA, Fixture fixtureB)
     {

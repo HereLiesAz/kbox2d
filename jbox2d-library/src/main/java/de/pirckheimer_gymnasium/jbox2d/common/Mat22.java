@@ -36,7 +36,9 @@ public class Mat22 implements Serializable
 
     public final Vec2 ex, ey;
 
-    /** Convert the matrix to printable format. */
+    /**
+     * Convert the matrix to printable format.
+     */
     @Override
     public String toString()
     {
@@ -70,11 +72,6 @@ public class Mat22 implements Serializable
 
     /**
      * Create a matrix from four floats.
-     *
-     * @param exx
-     * @param col2x
-     * @param exy
-     * @param col2y
      */
     public Mat22(final float exx, final float col2x, final float exy,
             final float col2y)
@@ -175,7 +172,9 @@ public class Mat22 implements Serializable
         ey.y = c2.y;
     }
 
-    /** Returns the inverted Mat22 - does NOT invert the matrix locally! */
+    /**
+     * Returns the inverted Mat22 - does NOT invert the matrix locally!
+     */
     public final Mat22 invert()
     {
         final float a = ex.x, b = ey.x, c = ex.y, d = ey.y;
@@ -243,7 +242,7 @@ public class Mat22 implements Serializable
      *
      * @return Absolute value matrix
      */
-    public final static Mat22 abs(final Mat22 R)
+    public static Mat22 abs(final Mat22 R)
     {
         return R.abs();
     }
@@ -284,8 +283,6 @@ public class Mat22 implements Serializable
 
     /**
      * Multiply another matrix by this one (this one on left). djm optimized
-     *
-     * @param R
      */
     public final Mat22 mul(final Mat22 R)
     {
@@ -309,14 +306,12 @@ public class Mat22 implements Serializable
 
     public final void mulToOut(final Mat22 R, final Mat22 out)
     {
-        final float tempy1 = this.ex.y * R.ex.x + this.ey.y * R.ex.y;
-        final float tempx1 = this.ex.x * R.ex.x + this.ey.x * R.ex.y;
-        out.ex.x = tempx1;
-        out.ex.y = tempy1;
-        final float tempy2 = this.ex.y * R.ey.x + this.ey.y * R.ey.y;
-        final float tempx2 = this.ex.x * R.ey.x + this.ey.x * R.ey.y;
-        out.ey.x = tempx2;
-        out.ey.y = tempy2;
+        final float tempY1 = this.ex.y * R.ex.x + this.ey.y * R.ex.y;
+        out.ex.x = this.ex.x * R.ex.x + this.ey.x * R.ex.y;
+        out.ex.y = tempY1;
+        final float tempY2 = this.ex.y * R.ey.x + this.ey.y * R.ey.y;
+        out.ey.x = this.ex.x * R.ey.x + this.ey.x * R.ey.y;
+        out.ey.y = tempY2;
     }
 
     public final void mulToOutUnsafe(final Mat22 R, final Mat22 out)
@@ -332,8 +327,6 @@ public class Mat22 implements Serializable
     /**
      * Multiply another matrix by the transpose of this one (transpose of this
      * one on left). djm: optimized
-     *
-     * @param B
      */
     public final Mat22 mulTrans(final Mat22 B)
     {
@@ -385,8 +378,6 @@ public class Mat22 implements Serializable
 
     /**
      * Multiply a vector by the transpose of this matrix.
-     *
-     * @param v
      */
     public final Vec2 mulTrans(final Vec2 v)
     {
@@ -394,7 +385,9 @@ public class Mat22 implements Serializable
         return new Vec2((v.x * ex.x + v.y * ex.y), (v.x * ey.x + v.y * ey.y));
     }
 
-    /* djm added */
+    /*
+     * djm added
+     */
     public final void mulTransToOut(final Vec2 v, final Vec2 out)
     {
         /*
@@ -407,8 +400,6 @@ public class Mat22 implements Serializable
 
     /**
      * Add this matrix to B, return the result.
-     *
-     * @param B
      */
     public final Mat22 add(final Mat22 B)
     {
@@ -423,8 +414,6 @@ public class Mat22 implements Serializable
 
     /**
      * Add B to this matrix locally.
-     *
-     * @param B
      */
     public final Mat22 addLocal(final Mat22 B)
     {
@@ -450,9 +439,8 @@ public class Mat22 implements Serializable
         {
             det = 1.0f / det;
         }
-        final Vec2 x = new Vec2(det * (a22 * b.x - a12 * b.y),
+        return new Vec2(det * (a22 * b.x - a12 * b.y),
                 det * (a11 * b.y - a21 * b.x));
-        return x;
     }
 
     public final void solveToOut(final Vec2 b, final Vec2 out)
@@ -468,22 +456,21 @@ public class Mat22 implements Serializable
         out.y = tempy;
     }
 
-    public final static Vec2 mul(final Mat22 R, final Vec2 v)
+    public static Vec2 mul(final Mat22 R, final Vec2 v)
     {
         // return R.mul(v);
         return new Vec2(R.ex.x * v.x + R.ey.x * v.y,
                 R.ex.y * v.x + R.ey.y * v.y);
     }
 
-    public final static void mulToOut(final Mat22 R, final Vec2 v,
-            final Vec2 out)
+    public static void mulToOut(final Mat22 R, final Vec2 v, final Vec2 out)
     {
         final float tempy = R.ex.y * v.x + R.ey.y * v.y;
         out.x = R.ex.x * v.x + R.ey.x * v.y;
         out.y = tempy;
     }
 
-    public final static void mulToOutUnsafe(final Mat22 R, final Vec2 v,
+    public static void mulToOutUnsafe(final Mat22 R, final Vec2 v,
             final Vec2 out)
     {
         assert (v != out);
@@ -491,7 +478,7 @@ public class Mat22 implements Serializable
         out.y = R.ex.y * v.x + R.ey.y * v.y;
     }
 
-    public final static Mat22 mul(final Mat22 A, final Mat22 B)
+    public static Mat22 mul(final Mat22 A, final Mat22 B)
     {
         // return A.mul(B);
         final Mat22 C = new Mat22();
@@ -502,8 +489,7 @@ public class Mat22 implements Serializable
         return C;
     }
 
-    public final static void mulToOut(final Mat22 A, final Mat22 B,
-            final Mat22 out)
+    public static void mulToOut(final Mat22 A, final Mat22 B, final Mat22 out)
     {
         final float tempy1 = A.ex.y * B.ex.x + A.ey.y * B.ex.y;
         final float tempx1 = A.ex.x * B.ex.x + A.ey.x * B.ex.y;
@@ -515,7 +501,7 @@ public class Mat22 implements Serializable
         out.ey.y = tempy2;
     }
 
-    public final static void mulToOutUnsafe(final Mat22 A, final Mat22 B,
+    public static void mulToOutUnsafe(final Mat22 A, final Mat22 B,
             final Mat22 out)
     {
         assert (out != A);
@@ -526,13 +512,13 @@ public class Mat22 implements Serializable
         out.ey.y = A.ex.y * B.ey.x + A.ey.y * B.ey.y;
     }
 
-    public final static Vec2 mulTrans(final Mat22 R, final Vec2 v)
+    public static Vec2 mulTrans(final Mat22 R, final Vec2 v)
     {
         return new Vec2((v.x * R.ex.x + v.y * R.ex.y),
                 (v.x * R.ey.x + v.y * R.ey.y));
     }
 
-    public final static void mulTransToOut(final Mat22 R, final Vec2 v,
+    public static void mulTransToOut(final Mat22 R, final Vec2 v,
             final Vec2 out)
     {
         float outx = v.x * R.ex.x + v.y * R.ex.y;
@@ -540,7 +526,7 @@ public class Mat22 implements Serializable
         out.x = outx;
     }
 
-    public final static void mulTransToOutUnsafe(final Mat22 R, final Vec2 v,
+    public static void mulTransToOutUnsafe(final Mat22 R, final Vec2 v,
             final Vec2 out)
     {
         assert (out != v);
@@ -548,7 +534,7 @@ public class Mat22 implements Serializable
         out.x = v.x * R.ex.x + v.y * R.ex.y;
     }
 
-    public final static Mat22 mulTrans(final Mat22 A, final Mat22 B)
+    public static Mat22 mulTrans(final Mat22 A, final Mat22 B)
     {
         final Mat22 C = new Mat22();
         C.ex.x = A.ex.x * B.ex.x + A.ex.y * B.ex.y;
@@ -558,7 +544,7 @@ public class Mat22 implements Serializable
         return C;
     }
 
-    public final static void mulTransToOut(final Mat22 A, final Mat22 B,
+    public static void mulTransToOut(final Mat22 A, final Mat22 B,
             final Mat22 out)
     {
         final float x1 = A.ex.x * B.ex.x + A.ex.y * B.ex.y;
@@ -571,7 +557,7 @@ public class Mat22 implements Serializable
         out.ey.y = y2;
     }
 
-    public final static void mulTransToOutUnsafe(final Mat22 A, final Mat22 B,
+    public static void mulTransToOutUnsafe(final Mat22 A, final Mat22 B,
             final Mat22 out)
     {
         assert (A != out);
@@ -582,7 +568,7 @@ public class Mat22 implements Serializable
         out.ey.y = A.ey.x * B.ey.x + A.ey.y * B.ey.y;
     }
 
-    public final static Mat22 createRotationalTransform(float angle)
+    public static Mat22 createRotationalTransform(float angle)
     {
         Mat22 mat = new Mat22();
         final float c = MathUtils.cos(angle);
@@ -594,7 +580,7 @@ public class Mat22 implements Serializable
         return mat;
     }
 
-    public final static void createRotationalTransform(float angle, Mat22 out)
+    public static void createRotationalTransform(float angle, Mat22 out)
     {
         final float c = MathUtils.cos(angle);
         final float s = MathUtils.sin(angle);
@@ -604,7 +590,7 @@ public class Mat22 implements Serializable
         out.ey.y = c;
     }
 
-    public final static Mat22 createScaleTransform(float scale)
+    public static Mat22 createScaleTransform(float scale)
     {
         Mat22 mat = new Mat22();
         mat.ex.x = scale;
@@ -612,7 +598,7 @@ public class Mat22 implements Serializable
         return mat;
     }
 
-    public final static void createScaleTransform(float scale, Mat22 out)
+    public static void createScaleTransform(float scale, Mat22 out)
     {
         out.ex.x = scale;
         out.ey.y = scale;
@@ -647,11 +633,9 @@ public class Mat22 implements Serializable
             return false;
         if (ey == null)
         {
-            if (other.ey != null)
-                return false;
+            return other.ey == null;
         }
-        else if (!ey.equals(other.ey))
-            return false;
-        return true;
+        else
+            return ey.equals(other.ey);
     }
 }

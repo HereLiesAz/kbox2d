@@ -78,7 +78,6 @@ public abstract class Shape
 
     /**
      * Get the number of child primitives
-     *
      */
     public abstract int getChildCount();
 

@@ -30,9 +30,9 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
  * details related to the geometry and dynamics of the contact points. The local
  * point usage depends on the manifold type:
  * <ul>
- * <li>e_circles: the local center of circleB</li>
- * <li>e_faceA: the local center of cirlceB or the clip point of polygonB</li>
- * <li>e_faceB: the clip point of polygonA</li>
+ * <li>circles: the local center of circleB</li>
+ * <li>faceA: the local center of cirlceB or the clip point of polygonB</li>
+ * <li>faceB: the clip point of polygonA</li>
  * </ul>
  * This structure is stored across time steps, so we keep it small.<br/>
  * Note: the impulses are used for internal caching and may not provide reliable
@@ -42,16 +42,24 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
  */
 public class ManifoldPoint
 {
-    /** usage depends on manifold type */
+    /**
+     * usage depends on manifold type
+     */
     public final Vec2 localPoint;
 
-    /** the non-penetration impulse */
+    /**
+     * the non-penetration impulse
+     */
     public float normalImpulse;
 
-    /** the friction impulse */
+    /**
+     * the friction impulse
+     */
     public float tangentImpulse;
 
-    /** uniquely identifies a contact point between two shapes */
+    /**
+     * uniquely identifies a contact point between two shapes
+     */
     public final ContactID id;
 
     /**

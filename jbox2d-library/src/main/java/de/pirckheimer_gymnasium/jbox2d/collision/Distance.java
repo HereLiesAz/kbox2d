@@ -55,17 +55,35 @@ public class Distance
      */
     private static class SimplexVertex
     {
-        public final Vec2 wA = new Vec2(); // support point in shapeA
+        /**
+         * support point in shapeA
+         */
+        public final Vec2 wA = new Vec2();
 
-        public final Vec2 wB = new Vec2(); // support point in shapeB
+        /**
+         * support point in shapeB
+         */
+        public final Vec2 wB = new Vec2();
 
-        public final Vec2 w = new Vec2(); // wB - wA
+        /**
+         * wB - wA
+         */
+        public final Vec2 w = new Vec2();
 
-        public float a; // barycentric coordinate for closest point
+        /**
+         * barycentric coordinate for closest point
+         */
+        public float a;
 
-        public int indexA; // wA index
+        /**
+         * wA index
+         */
+        public int indexA;
 
-        public int indexB; // wB index
+        /**
+         * wB index
+         */
+        public int indexB;
 
         public void set(SimplexVertex sv)
         {
@@ -85,16 +103,22 @@ public class Distance
      */
     public static class SimplexCache
     {
-        /** length or area */
+        /**
+         * length or area
+         */
         public float metric;
 
         public int count;
 
-        /** vertices on shape A */
-        public final int indexA[] = new int[3];
+        /**
+         * vertices on shape A
+         */
+        public final int[] indexA = new int[3];
 
-        /** vertices on shape B */
-        public final int indexB[] = new int[3];
+        /**
+         * vertices on shape B
+         */
+        public final int[] indexB = new int[3];
 
         public SimplexCache()
         {
@@ -117,7 +141,7 @@ public class Distance
         }
     }
 
-    private class Simplex
+    private static class Simplex
     {
         public final SimplexVertex v1 = new SimplexVertex();
 
@@ -125,7 +149,7 @@ public class Distance
 
         public final SimplexVertex v3 = new SimplexVertex();
 
-        public final SimplexVertex vertices[] = { v1, v2, v3 };
+        public final SimplexVertex[] vertices = { v1, v2, v3 };
 
         public int count;
 
@@ -218,7 +242,6 @@ public class Distance
             default:
                 assert (false);
                 out.setZero();
-                return;
             }
         }
 
@@ -252,7 +275,6 @@ public class Distance
             default:
                 assert (false);
                 out.setZero();
-                return;
             }
         }
 
@@ -406,8 +428,7 @@ public class Distance
             // a3 = 0
             e12.set(w2).subLocal(w1);
             float w1e12 = Vec2.dot(w1, e12);
-            float w2e12 = Vec2.dot(w2, e12);
-            float d12_1 = w2e12;
+            float d12_1 = Vec2.dot(w2, e12);
             float d12_2 = -w1e12;
             // Edge13
             // [1 1 ][a1] = [1]
@@ -415,8 +436,7 @@ public class Distance
             // a2 = 0
             e13.set(w3).subLocal(w1);
             float w1e13 = Vec2.dot(w1, e13);
-            float w3e13 = Vec2.dot(w3, e13);
-            float d13_1 = w3e13;
+            float d13_1 = Vec2.dot(w3, e13);
             float d13_2 = -w1e13;
             // Edge23
             // [1 1 ][a2] = [1]
@@ -424,8 +444,7 @@ public class Distance
             // a1 = 0
             e23.set(w3).subLocal(w2);
             float w2e23 = Vec2.dot(w2, e23);
-            float w3e23 = Vec2.dot(w3, e23);
-            float d23_1 = w3e23;
+            float d23_1 = Vec2.dot(w3, e23);
             float d23_2 = -w2e23;
             // Triangle123
             float n123 = Vec2.cross(e12, e13);
@@ -580,8 +599,6 @@ public class Distance
 
         /**
          * Get the supporting vertex index in the given direction.
-         *
-         * @param d
          */
         public final int getSupport(final Vec2 d)
         {
@@ -601,8 +618,6 @@ public class Distance
 
         /**
          * Get the supporting vertex in the given direction.
-         *
-         * @param d
          */
         public final Vec2 getSupportVertex(final Vec2 d)
         {
@@ -631,8 +646,6 @@ public class Distance
 
         /**
          * Get a vertex by index. Used by Distance.
-         *
-         * @param index
          */
         public final Vec2 getVertex(int index)
         {
@@ -675,7 +688,7 @@ public class Distance
         // These store the vertices of the last simplex so that we
         // can check for duplicates and prevent cycling.
         // (pooled above)
-        int saveCount = 0;
+        int saveCount;
         simplex.getClosestPoint(closestPoint);
         float distanceSqr1 = closestPoint.lengthSquared();
         float distanceSqr2 = distanceSqr1;
@@ -716,10 +729,7 @@ public class Distance
             simplex.getClosestPoint(closestPoint);
             distanceSqr2 = closestPoint.lengthSquared();
             // ensure progress
-            if (distanceSqr2 >= distanceSqr1)
-            {
-                // break;
-            }
+            // break;
             distanceSqr1 = distanceSqr2;
             // get search direction;
             simplex.getSearchDirection(d);

@@ -36,10 +36,14 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.normal.DefaultWorldPool;
  */
 public class AABB
 {
-    /** Bottom left vertex of bounding box. */
+    /**
+     * Bottom left vertex of bounding box.
+     */
     public final Vec2 lowerBound;
 
-    /** Top right vertex of bounding box. */
+    /**
+     * Top right vertex of bounding box.
+     */
     public final Vec2 upperBound;
 
     /**
@@ -88,7 +92,9 @@ public class AABB
         upperBound.y = v1.y;
     }
 
-    /** Verify that the bounds are sorted */
+    /**
+     * Verify that the bounds are sorted
+     */
     public final boolean isValid()
     {
         final float dx = upperBound.x - lowerBound.x;
@@ -106,7 +112,6 @@ public class AABB
 
     /**
      * Get the center of the AABB
-     *
      */
     public final Vec2 getCenter()
     {
@@ -124,7 +129,6 @@ public class AABB
 
     /**
      * Get the extents of the AABB (half-widths).
-     *
      */
     public final Vec2 getExtents()
     {
@@ -152,24 +156,13 @@ public class AABB
 
     /**
      * Combine two AABBs into this one.
-     *
-     * @param aabb1
-     * @param aab
      */
     public final void combine(final AABB aabb1, final AABB aab)
     {
-        lowerBound.x = aabb1.lowerBound.x < aab.lowerBound.x
-                ? aabb1.lowerBound.x
-                : aab.lowerBound.x;
-        lowerBound.y = aabb1.lowerBound.y < aab.lowerBound.y
-                ? aabb1.lowerBound.y
-                : aab.lowerBound.y;
-        upperBound.x = aabb1.upperBound.x > aab.upperBound.x
-                ? aabb1.upperBound.x
-                : aab.upperBound.x;
-        upperBound.y = aabb1.upperBound.y > aab.upperBound.y
-                ? aabb1.upperBound.y
-                : aab.upperBound.y;
+        lowerBound.x = Math.min(aabb1.lowerBound.x, aab.lowerBound.x);
+        lowerBound.y = Math.min(aabb1.lowerBound.y, aab.lowerBound.y);
+        upperBound.x = Math.max(aabb1.upperBound.x, aab.upperBound.x);
+        upperBound.y = Math.max(aabb1.upperBound.y, aab.upperBound.y);
     }
 
     /**
@@ -189,14 +182,10 @@ public class AABB
      */
     public final void combine(final AABB aabb)
     {
-        lowerBound.x = lowerBound.x < aabb.lowerBound.x ? lowerBound.x
-                : aabb.lowerBound.x;
-        lowerBound.y = lowerBound.y < aabb.lowerBound.y ? lowerBound.y
-                : aabb.lowerBound.y;
-        upperBound.x = upperBound.x > aabb.upperBound.x ? upperBound.x
-                : aabb.upperBound.x;
-        upperBound.y = upperBound.y > aabb.upperBound.y ? upperBound.y
-                : aabb.upperBound.y;
+        lowerBound.x = Math.min(lowerBound.x, aabb.lowerBound.x);
+        lowerBound.y = Math.min(lowerBound.y, aabb.lowerBound.y);
+        upperBound.x = Math.max(upperBound.x, aabb.upperBound.x);
+        upperBound.y = Math.max(upperBound.y, aabb.upperBound.y);
     }
 
     /**
@@ -225,8 +214,6 @@ public class AABB
      * @deprecated please use
      *             {@link #raycast(RayCastOutput, RayCastInput, IWorldPool)} for
      *             better performance
-     * @param output
-     * @param input
      */
     public final boolean raycast(final RayCastOutput output,
             final RayCastInput input)
@@ -236,9 +223,6 @@ public class AABB
 
     /**
      * From Real-time Collision Detection, p179.
-     *
-     * @param output
-     * @param input
      */
     public final boolean raycast(final RayCastOutput output,
             final RayCastInput input, IWorldPool argPool)
@@ -344,25 +328,20 @@ public class AABB
         return true;
     }
 
-    public static final boolean testOverlap(final AABB a, final AABB b)
+    public static boolean testOverlap(final AABB a, final AABB b)
     {
         if (b.lowerBound.x - a.upperBound.x > 0.0f
                 || b.lowerBound.y - a.upperBound.y > 0.0f)
         {
             return false;
         }
-        if (a.lowerBound.x - b.upperBound.x > 0.0f
-                || a.lowerBound.y - b.upperBound.y > 0.0f)
-        {
-            return false;
-        }
-        return true;
+        return !(a.lowerBound.x - b.upperBound.x > 0.0f)
+                && !(a.lowerBound.y - b.upperBound.y > 0.0f);
     }
 
     @Override
     public final String toString()
     {
-        final String s = "AABB[" + lowerBound + " . " + upperBound + "]";
-        return s;
+        return "AABB[" + lowerBound + " . " + upperBound + "]";
     }
 }

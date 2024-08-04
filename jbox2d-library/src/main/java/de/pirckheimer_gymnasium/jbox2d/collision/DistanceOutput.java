@@ -32,14 +32,20 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
  */
 public class DistanceOutput
 {
-    /** Closest point on shapeA */
+    /**
+     * Closest point on shapeA
+     */
     public final Vec2 pointA = new Vec2();
 
-    /** Closest point on shapeB */
+    /**
+     * Closest point on shapeB
+     */
     public final Vec2 pointB = new Vec2();
 
     public float distance;
 
-    /** number of gjk iterations used */
+    /**
+     * number of gjk iterations used
+     */
     public int iterations;
 }

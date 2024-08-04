@@ -30,7 +30,9 @@ import java.lang.reflect.Array;
  */
 public class BufferUtils
 {
-    /** Reallocate a buffer. */
+    /**
+     * Reallocate a buffer.
+     */
     public static <T> T[] reallocateBuffer(Class<T> klass, T[] oldBuffer,
             int oldCapacity, int newCapacity)
     {
@@ -55,7 +57,9 @@ public class BufferUtils
         return newBuffer;
     }
 
-    /** Reallocate a buffer. */
+    /**
+     * Reallocate a buffer.
+     */
     public static int[] reallocateBuffer(int[] oldBuffer, int oldCapacity,
             int newCapacity)
     {
@@ -68,7 +72,9 @@ public class BufferUtils
         return newBuffer;
     }
 
-    /** Reallocate a buffer. */
+    /**
+     * Reallocate a buffer.
+     */
     public static float[] reallocateBuffer(float[] oldBuffer, int oldCapacity,
             int newCapacity)
     {
@@ -137,7 +143,9 @@ public class BufferUtils
         return buffer;
     }
 
-    /** Rotate an array, see std::rotate */
+    /**
+     * Rotate an array, see std::rotate
+     */
     public static <T> void rotate(T[] ray, int first, int new_first, int last)
     {
         int next = new_first;
@@ -159,7 +167,9 @@ public class BufferUtils
         }
     }
 
-    /** Rotate an array, see std::rotate */
+    /**
+     * Rotate an array, see std::rotate
+     */
     public static void rotate(int[] ray, int first, int new_first, int last)
     {
         int next = new_first;
@@ -181,7 +191,9 @@ public class BufferUtils
         }
     }
 
-    /** Rotate an array, see std::rotate */
+    /**
+     * Rotate an array, see std::rotate
+     */
     public static void rotate(float[] ray, int first, int new_first, int last)
     {
         int next = new_first;

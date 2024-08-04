@@ -77,7 +77,7 @@ public class TimeOfImpact
         public float tMax;
     }
 
-    public static enum TOIOutputState
+    public enum TOIOutputState
     {
         UNKNOWN, FAILED, OVERLAPPED, TOUCHING, SEPARATED
     }
@@ -318,7 +318,7 @@ public class TimeOfImpact
 
 enum Type
 {
-    POINTS, FACE_A, FACE_B;
+    POINTS, FACE_A, FACE_B
 }
 
 class SeparationFunction
@@ -393,8 +393,7 @@ class SeparationFunction
             Transform.mulToOutUnsafe(xfa, localPointA, pointA);
             Transform.mulToOutUnsafe(xfb, localPointB, pointB);
             axis.set(pointB).subLocal(pointA);
-            float s = axis.normalize();
-            return s;
+            return axis.normalize();
         }
         else if (cache.indexA[0] == cache.indexA[1])
         {

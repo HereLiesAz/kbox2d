@@ -35,11 +35,11 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
  * </ul>
  * The local point usage depends on the manifold type:
  * <ul>
- * <li>e_circles: the local center of circleA</li>
- * <li>e_faceA: the center of faceA</li>
- * <li>e_faceB: the center of faceB</li>
+ * <li>circles: the local center of circleA</li>
+ * <li>faceA: the center of faceA</li>
+ * <li>faceB: the center of faceB</li>
  * </ul>
- * Similarly the local normal usage:
+ * Similarly, the local normal usage:
  * <ul>
  * <li>e_circles: not used</li>
  * <li>e_faceA: the normal on polygonA</li>
@@ -59,18 +59,26 @@ public class Manifold
         CIRCLES, FACE_A, FACE_B
     }
 
-    /** The points of contact. */
+    /**
+     * The points of contact.
+     */
     public final ManifoldPoint[] points;
 
-    /** not use for Type::e_points */
+    /**
+     * not use for Type::e_points
+     */
     public final Vec2 localNormal;
 
-    /** usage depends on manifold type */
+    /**
+     * usage depends on manifold type
+     */
     public final Vec2 localPoint;
 
     public ManifoldType type;
 
-    /** The number of manifold points. */
+    /**
+     * The number of manifold points.
+     */
     public int pointCount;
 
     /**
@@ -91,8 +99,6 @@ public class Manifold
 
     /**
      * Creates this manifold as a copy of the other
-     *
-     * @param other
      */
     public Manifold(Manifold other)
     {

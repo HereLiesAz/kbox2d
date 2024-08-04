@@ -139,11 +139,6 @@ public class PolygonShape extends Shape
             final Vec2Array vecPool, final IntArray intPool)
     {
         assert (3 <= num && num <= Settings.maxPolygonVertices);
-        if (num < 3)
-        {
-            setAsBox(1.0f, 1.0f);
-            return;
-        }
         int n = MathUtils.min(num, Settings.maxPolygonVertices);
         // Perform welding and copy vertices into local buffer.
         Vec2[] ps = (vecPool != null) ? vecPool.get(Settings.maxPolygonVertices)
@@ -362,10 +357,10 @@ public class PolygonShape extends Shape
             // Vec2 v = Mul(xf, vertices[i]);
             float vx = (xfqc * v2.x - xfqs * v2.y) + xfpx;
             float vy = (xfqs * v2.x + xfqc * v2.y) + xfpy;
-            lower.x = lower.x < vx ? lower.x : vx;
-            lower.y = lower.y < vy ? lower.y : vy;
-            upper.x = upper.x > vx ? upper.x : vx;
-            upper.y = upper.y > vy ? upper.y : vy;
+            lower.x = Math.min(lower.x, vx);
+            lower.y = Math.min(lower.y, vy);
+            upper.x = Math.max(upper.x, vx);
+            upper.y = Math.max(upper.y, vy);
         }
         lower.x -= radius;
         lower.y -= radius;
@@ -401,17 +396,17 @@ public class PolygonShape extends Shape
         float xfqs = xf.q.s;
         float tx = p.x - xf.p.x;
         float ty = p.y - xf.p.y;
-        float pLocalx = xfqc * tx + xfqs * ty;
-        float pLocaly = -xfqs * tx + xfqc * ty;
+        float pLocalX = xfqc * tx + xfqs * ty;
+        float pLocalY = -xfqs * tx + xfqc * ty;
         float maxDistance = -Float.MAX_VALUE;
-        float normalForMaxDistanceX = pLocalx;
-        float normalForMaxDistanceY = pLocaly;
+        float normalForMaxDistanceX = pLocalX;
+        float normalForMaxDistanceY = pLocalY;
         for (int i = 0; i < count; ++i)
         {
             Vec2 vertex = vertices[i];
             Vec2 normal = normals[i];
-            tx = pLocalx - vertex.x;
-            ty = pLocaly - vertex.y;
+            tx = pLocalX - vertex.x;
+            ty = pLocalY - vertex.y;
             float dot = normal.x * tx + normal.y * ty;
             if (dot > maxDistance)
             {
@@ -429,8 +424,8 @@ public class PolygonShape extends Shape
             for (int i = 0; i < count; ++i)
             {
                 Vec2 vertex = vertices[i];
-                float distanceVecX = pLocalx - vertex.x;
-                float distanceVecY = pLocaly - vertex.y;
+                float distanceVecX = pLocalX - vertex.x;
+                float distanceVecY = pLocalY - vertex.y;
                 float distance2 = (distanceVecX * distanceVecX
                         + distanceVecY * distanceVecY);
                 if (minDistance2 > distance2)
@@ -645,7 +640,6 @@ public class PolygonShape extends Shape
 
     /**
      * Validate convexity. This is a very time consuming operation.
-     *
      */
     public boolean validate()
     {
@@ -672,25 +666,33 @@ public class PolygonShape extends Shape
         return true;
     }
 
-    /** Get the vertices in local coordinates. */
+    /**
+     * Get the vertices in local coordinates.
+     */
     public Vec2[] getVertices()
     {
         return vertices;
     }
 
-    /** Get the edge normal vectors. There is one for each vertex. */
+    /**
+     * Get the edge normal vectors. There is one for each vertex.
+     */
     public Vec2[] getNormals()
     {
         return normals;
     }
 
-    /** Get the centroid and apply the supplied transform. */
+    /**
+     * Get the centroid and apply the supplied transform.
+     */
     public Vec2 centroid(final Transform xf)
     {
         return Transform.mul(xf, centroid);
     }
 
-    /** Get the centroid and apply the supplied transform. */
+    /**
+     * Get the centroid and apply the supplied transform.
+     */
     public Vec2 centroidToOut(final Transform xf, final Vec2 out)
     {
         Transform.mulToOutUnsafe(xf, centroid, out);
