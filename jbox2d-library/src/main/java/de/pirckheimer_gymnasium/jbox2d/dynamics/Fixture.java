@@ -310,6 +310,7 @@ public class Fixture
      * Compute the distance from this fixture.
      *
      * @param p a point in world coordinates.
+     *
      * @return distance
      */
     public float computeDistance(Vec2 p, int childIndex, Vec2 normalOut)

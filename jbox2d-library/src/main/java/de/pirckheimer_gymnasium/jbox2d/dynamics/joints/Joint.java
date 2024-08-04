@@ -181,17 +181,13 @@ public abstract class Joint
 
     /**
      * get the reaction force on body2 at the joint anchor in Newtons.
-     *
-     * @param inv_dt
      */
-    public abstract void getReactionForce(float inv_dt, Vec2 out);
+    public abstract void getReactionForce(float invDt, Vec2 out);
 
     /**
      * get the reaction torque on body2 in N*m.
-     *
-     * @param inv_dt
      */
-    public abstract float getReactionTorque(float inv_dt);
+    public abstract float getReactionTorque(float invDt);
 
     /**
      * get the next joint the world joint list.

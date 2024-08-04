@@ -35,15 +35,23 @@ public class ParticleDef
      */
     int flags;
 
-    /** The world position of the particle. */
+    /**
+     * The world position of the particle.
+     */
     public final Vec2 position = new Vec2();
 
-    /** The linear velocity of the particle in world co-ordinates. */
+    /**
+     * The linear velocity of the particle in world co-ordinates.
+     */
     public final Vec2 velocity = new Vec2();
 
-    /** The color of the particle. */
+    /**
+     * The color of the particle.
+     */
     public ParticleColor color;
 
-    /** Use this to store application-specific body data. */
+    /**
+     * Use this to store application-specific body data.
+     */
     public Object userData;
 }

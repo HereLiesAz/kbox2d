@@ -105,13 +105,13 @@ public class ContactManager implements PairCallback
             edge = edge.next;
         }
         // Does a joint override collision? is at least one body dynamic?
-        if (bodyB.shouldCollide(bodyA) == false)
+        if (!bodyB.shouldCollide(bodyA))
         {
             return;
         }
         // Check user filtering.
         if (contactFilter != null
-                && contactFilter.shouldCollide(fixtureA, fixtureB) == false)
+                && !contactFilter.shouldCollide(fixtureA, fixtureB))
         {
             return;
         }
@@ -245,7 +245,7 @@ public class ContactManager implements PairCallback
             if ((c.flags & Contact.FILTER_FLAG) == Contact.FILTER_FLAG)
             {
                 // Should these bodies collide?
-                if (bodyB.shouldCollide(bodyA) == false)
+                if (!bodyB.shouldCollide(bodyA))
                 {
                     Contact cNuke = c;
                     c = cNuke.getNext();
@@ -253,8 +253,8 @@ public class ContactManager implements PairCallback
                     continue;
                 }
                 // Check user filtering.
-                if (contactFilter != null && contactFilter
-                        .shouldCollide(fixtureA, fixtureB) == false)
+                if (contactFilter != null
+                        && !contactFilter.shouldCollide(fixtureA, fixtureB))
                 {
                     Contact cNuke = c;
                     c = cNuke.getNext();
@@ -266,9 +266,9 @@ public class ContactManager implements PairCallback
             }
             boolean activeA = bodyA.isAwake() && bodyA.type != BodyType.STATIC;
             boolean activeB = bodyB.isAwake() && bodyB.type != BodyType.STATIC;
-            // At least one body must be awake and it must be dynamic or
+            // At least one body must be awake, and it must be dynamic or
             // kinematic.
-            if (activeA == false && activeB == false)
+            if (!activeA && !activeB)
             {
                 c = c.getNext();
                 continue;
@@ -278,7 +278,7 @@ public class ContactManager implements PairCallback
             boolean overlap = broadPhase.testOverlap(proxyIdA, proxyIdB);
             // Here we destroy contacts that cease to overlap in the
             // broad-phase.
-            if (overlap == false)
+            if (!overlap)
             {
                 Contact cNuke = c;
                 c = cNuke.getNext();

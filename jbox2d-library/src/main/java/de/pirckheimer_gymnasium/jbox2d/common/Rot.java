@@ -109,9 +109,9 @@ public class Rot implements Serializable
 
     public static void mul(Rot q, Rot r, Rot out)
     {
-        float tempc = q.c * r.c - q.s * r.s;
+        float tempC = q.c * r.c - q.s * r.s;
         out.s = q.s * r.c + q.c * r.s;
-        out.c = tempc;
+        out.c = tempC;
     }
 
     public static void mulUnsafe(Rot q, Rot r, Rot out)
@@ -128,9 +128,9 @@ public class Rot implements Serializable
 
     public static void mulTrans(Rot q, Rot r, Rot out)
     {
-        final float tempc = q.c * r.c + q.s * r.s;
+        final float tempC = q.c * r.c + q.s * r.s;
         out.s = q.c * r.s - q.s * r.c;
-        out.c = tempc;
+        out.c = tempC;
     }
 
     public static void mulTransUnsafe(Rot q, Rot r, Rot out)
@@ -145,9 +145,9 @@ public class Rot implements Serializable
 
     public static void mulToOut(Rot q, Vec2 v, Vec2 out)
     {
-        float tempy = q.s * v.x + q.c * v.y;
+        float tempY = q.s * v.x + q.c * v.y;
         out.x = q.c * v.x - q.s * v.y;
-        out.y = tempy;
+        out.y = tempY;
     }
 
     public static void mulToOutUnsafe(Rot q, Vec2 v, Vec2 out)
@@ -158,9 +158,9 @@ public class Rot implements Serializable
 
     public static void mulTrans(Rot q, Vec2 v, Vec2 out)
     {
-        final float tempy = -q.s * v.x + q.c * v.y;
+        final float tempY = -q.s * v.x + q.c * v.y;
         out.x = q.c * v.x + q.s * v.y;
-        out.y = tempy;
+        out.y = tempY;
     }
 
     public static void mulTransUnsafe(Rot q, Vec2 v, Vec2 out)

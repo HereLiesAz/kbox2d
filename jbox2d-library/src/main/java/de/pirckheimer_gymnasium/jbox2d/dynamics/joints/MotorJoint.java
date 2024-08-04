@@ -116,14 +116,14 @@ public class MotorJoint extends Joint
         out.set(bodyB.getPosition());
     }
 
-    public void getReactionForce(float inv_dt, Vec2 out)
+    public void getReactionForce(float invDt, Vec2 out)
     {
-        out.set(linearImpulse).mulLocal(inv_dt);
+        out.set(linearImpulse).mulLocal(invDt);
     }
 
-    public float getReactionTorque(float inv_dt)
+    public float getReactionTorque(float invDt)
     {
-        return angularImpulse * inv_dt;
+        return angularImpulse * invDt;
     }
 
     public float getCorrectionFactor()
@@ -168,8 +168,6 @@ public class MotorJoint extends Joint
 
     /**
      * Set the target angular offset, in radians.
-     *
-     * @param angularOffset
      */
     public void setAngularOffset(float angularOffset)
     {
@@ -188,8 +186,6 @@ public class MotorJoint extends Joint
 
     /**
      * Set the maximum friction force in N.
-     *
-     * @param force
      */
     public void setMaxForce(float force)
     {

@@ -296,7 +296,7 @@ public class ContactSolver
                 float rtB = vcprB.x * tangentY - vcprB.y * tangentX;
                 float kTangent = mA + mB + iA * rtA * rtA + iB * rtB * rtB;
                 vcp.tangentMass = kTangent > 0.0f ? 1.0f / kTangent : 0.0f;
-                // Setup a velocity bias for restitution.
+                // Set up a velocity bias for restitution.
                 vcp.velocityBias = 0.0f;
                 float tempx = vB.x + -wB * vcprB.y - vA.x - (-wA * vcprA.y);
                 float tempy = vB.y + wB * vcprB.x - vA.y - (wA * vcprA.x);

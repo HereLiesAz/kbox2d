@@ -152,16 +152,16 @@ public class WeldJoint extends Joint
     }
 
     @Override
-    public void getReactionForce(float inv_dt, Vec2 argOut)
+    public void getReactionForce(float invDt, Vec2 argOut)
     {
         argOut.set(impulse.x, impulse.y);
-        argOut.mulLocal(inv_dt);
+        argOut.mulLocal(invDt);
     }
 
     @Override
-    public float getReactionTorque(float inv_dt)
+    public float getReactionTorque(float invDt)
     {
-        return inv_dt * impulse.z;
+        return invDt * impulse.z;
     }
 
     @Override
@@ -288,11 +288,10 @@ public class WeldJoint extends Joint
             Vec2.crossToOutUnsafe(wB, rB, Cdot1);
             Vec2.crossToOutUnsafe(wA, rA, temp);
             Cdot1.addLocal(vB).subLocal(vA).subLocal(temp);
-            final Vec2 impulse1 = P;
-            Mat33.mul22ToOutUnsafe(mass, Cdot1, impulse1);
-            impulse1.negateLocal();
-            impulse.x += impulse1.x;
-            impulse.y += impulse1.y;
+            Mat33.mul22ToOutUnsafe(mass, Cdot1, P);
+            P.negateLocal();
+            impulse.x += P.x;
+            impulse.y += P.y;
             vA.x -= mA * P.x;
             vA.y -= mA * P.y;
             wA -= iA * Vec2.cross(rA, P);

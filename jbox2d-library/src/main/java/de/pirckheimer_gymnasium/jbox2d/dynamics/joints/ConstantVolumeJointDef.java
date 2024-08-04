@@ -29,7 +29,7 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
 
 /**
  * Definition for a {@link ConstantVolumeJoint}, which connects a group a bodies
- * together so they maintain a constant volume within them.
+ * together, so they maintain a constant volume within them.
  *
  * @author Daniel Murphy
  */
@@ -46,7 +46,7 @@ public class ConstantVolumeJointDef extends JointDef
     public ConstantVolumeJointDef()
     {
         super(JointType.CONSTANT_VOLUME);
-        bodies = new ArrayList<Body>();
+        bodies = new ArrayList<>();
         joints = null;
         collideConnected = false;
         frequencyHz = 0.0f;
@@ -55,8 +55,6 @@ public class ConstantVolumeJointDef extends JointDef
 
     /**
      * Adds a body to the group
-     *
-     * @param argBody
      */
     public void addBody(Body argBody)
     {
@@ -80,7 +78,7 @@ public class ConstantVolumeJointDef extends JointDef
         addBody(argBody);
         if (joints == null)
         {
-            joints = new ArrayList<DistanceJoint>();
+            joints = new ArrayList<>();
         }
         joints.add(argJoint);
     }

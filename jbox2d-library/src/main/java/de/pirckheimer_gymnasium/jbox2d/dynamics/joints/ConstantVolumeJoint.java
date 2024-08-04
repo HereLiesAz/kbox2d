@@ -295,13 +295,13 @@ public class ConstantVolumeJoint extends Joint
 
     /** No-op */
     @Override
-    public void getReactionForce(float inv_dt, Vec2 argOut)
+    public void getReactionForce(float invDt, Vec2 argOut)
     {
     }
 
     /** No-op */
     @Override
-    public float getReactionTorque(float inv_dt)
+    public float getReactionTorque(float invDt)
     {
         return 0;
     }

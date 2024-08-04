@@ -31,8 +31,8 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
  */
 public interface ContactCreator
 {
-    public Contact contactCreateFcn(IWorldPool argPool, Fixture fixtureA,
+    Contact contactCreateFcn(IWorldPool argPool, Fixture fixtureA,
             Fixture fixtureB);
 
-    public void contactDestroyFcn(IWorldPool argPool, Contact contact);
+    void contactDestroyFcn(IWorldPool argPool, Contact contact);
 }

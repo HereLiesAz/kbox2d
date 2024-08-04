@@ -283,9 +283,9 @@ public class Vec2 implements Serializable
 
     public static void crossToOut(Vec2 a, float s, Vec2 out)
     {
-        final float tempy = -s * a.x;
+        final float tempY = -s * a.x;
         out.x = s * a.y;
-        out.y = tempy;
+        out.y = tempY;
     }
 
     public static void crossToOutUnsafe(Vec2 a, float s, Vec2 out)

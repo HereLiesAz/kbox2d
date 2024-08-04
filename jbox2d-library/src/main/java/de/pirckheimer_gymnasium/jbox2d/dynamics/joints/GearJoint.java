@@ -211,17 +211,17 @@ public class GearJoint extends Joint
     }
 
     @Override
-    public void getReactionForce(float inv_dt, Vec2 argOut)
+    public void getReactionForce(float invDt, Vec2 argOut)
     {
         argOut.set(JvAC).mulLocal(impulse);
-        argOut.mulLocal(inv_dt);
+        argOut.mulLocal(invDt);
     }
 
     @Override
-    public float getReactionTorque(float inv_dt)
+    public float getReactionTorque(float invDt)
     {
         float L = impulse * JwA;
-        return inv_dt * L;
+        return invDt * L;
     }
 
     public void setRatio(float argRatio)

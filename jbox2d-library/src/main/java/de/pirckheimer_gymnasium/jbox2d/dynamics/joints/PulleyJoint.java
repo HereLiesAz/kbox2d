@@ -162,13 +162,13 @@ public class PulleyJoint extends Joint
     }
 
     @Override
-    public void getReactionForce(float inv_dt, Vec2 argOut)
+    public void getReactionForce(float invDt, Vec2 argOut)
     {
-        argOut.set(uB).mulLocal(impulse).mulLocal(inv_dt);
+        argOut.set(uB).mulLocal(impulse).mulLocal(invDt);
     }
 
     @Override
-    public float getReactionTorque(float inv_dt)
+    public float getReactionTorque(float invDt)
     {
         return 0f;
     }

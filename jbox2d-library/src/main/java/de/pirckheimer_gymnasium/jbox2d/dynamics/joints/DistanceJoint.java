@@ -177,10 +177,10 @@ public class DistanceJoint extends Joint
      * Get the reaction force given the inverse time step. Unit is N.
      */
     @Override
-    public void getReactionForce(float inv_dt, Vec2 argOut)
+    public void getReactionForce(float invDt, Vec2 argOut)
     {
-        argOut.x = impulse * u.x * inv_dt;
-        argOut.y = impulse * u.y * inv_dt;
+        argOut.x = impulse * u.x * invDt;
+        argOut.y = impulse * u.y * invDt;
     }
 
     /**
@@ -188,7 +188,7 @@ public class DistanceJoint extends Joint
      * always zero for a distance joint.
      */
     @Override
-    public float getReactionTorque(float inv_dt)
+    public float getReactionTorque(float invDt)
     {
         return 0.0f;
     }

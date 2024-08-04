@@ -153,18 +153,18 @@ public class WheelJoint extends Joint
     }
 
     @Override
-    public void getReactionForce(float inv_dt, Vec2 argOut)
+    public void getReactionForce(float invDt, Vec2 argOut)
     {
         final Vec2 temp = pool.popVec2();
         temp.set(ay).mulLocal(impulse);
-        argOut.set(ax).mulLocal(springImpulse).addLocal(temp).mulLocal(inv_dt);
+        argOut.set(ax).mulLocal(springImpulse).addLocal(temp).mulLocal(invDt);
         pool.pushVec2(1);
     }
 
     @Override
-    public float getReactionTorque(float inv_dt)
+    public float getReactionTorque(float invDt)
     {
-        return inv_dt * motorImpulse;
+        return invDt * motorImpulse;
     }
 
     public float getJointTranslation()

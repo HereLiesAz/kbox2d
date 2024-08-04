@@ -211,18 +211,18 @@ public class PrismaticJoint extends Joint
     }
 
     @Override
-    public void getReactionForce(float inv_dt, Vec2 argOut)
+    public void getReactionForce(float invDt, Vec2 argOut)
     {
         Vec2 temp = pool.popVec2();
         temp.set(axis).mulLocal(motorImpulse + impulse.z);
-        argOut.set(perp).mulLocal(impulse.x).addLocal(temp).mulLocal(inv_dt);
+        argOut.set(perp).mulLocal(impulse.x).addLocal(temp).mulLocal(invDt);
         pool.pushVec2(1);
     }
 
     @Override
-    public float getReactionTorque(float inv_dt)
+    public float getReactionTorque(float invDt)
     {
-        return inv_dt * impulse.y;
+        return invDt * impulse.y;
     }
 
     /**
@@ -285,8 +285,6 @@ public class PrismaticJoint extends Joint
 
     /**
      * Enable/disable the joint limit.
-     *
-     * @param flag
      */
     public void enableLimit(boolean flag)
     {
@@ -319,9 +317,6 @@ public class PrismaticJoint extends Joint
 
     /**
      * Set the joint limits, usually in meters.
-     *
-     * @param lower
-     * @param upper
      */
     public void setLimits(float lower, float upper)
     {
@@ -347,8 +342,6 @@ public class PrismaticJoint extends Joint
 
     /**
      * Enable/disable the joint motor.
-     *
-     * @param flag
      */
     public void enableMotor(boolean flag)
     {
@@ -359,8 +352,6 @@ public class PrismaticJoint extends Joint
 
     /**
      * Set the motor speed, usually in meters per second.
-     *
-     * @param speed
      */
     public void setMotorSpeed(float speed)
     {
@@ -380,8 +371,6 @@ public class PrismaticJoint extends Joint
 
     /**
      * Set the maximum motor force, usually in N.
-     *
-     * @param force
      */
     public void setMaxMotorForce(float force)
     {
@@ -392,8 +381,6 @@ public class PrismaticJoint extends Joint
 
     /**
      * Get the current motor force, usually in N.
-     *
-     * @param inv_dt
      */
     public float getMotorForce(float inv_dt)
     {
@@ -517,7 +504,7 @@ public class PrismaticJoint extends Joint
             limitState = LimitState.INACTIVE;
             impulse.z = 0.0f;
         }
-        if (enableMotor == false)
+        if (!enableMotor)
         {
             motorImpulse = 0.0f;
         }
@@ -741,9 +728,9 @@ public class PrismaticJoint extends Joint
                 active = true;
             }
         }
+        float v = mA + mB + iA * s1 * s1 + iB * s2 * s2;
         if (active)
         {
-            float k11 = mA + mB + iA * s1 * s1 + iB * s2 * s2;
             float k12 = iA * s1 + iB * s2;
             float k13 = iA * s1 * a1 + iB * s2 * a2;
             float k22 = iA + iB;
@@ -755,7 +742,7 @@ public class PrismaticJoint extends Joint
             float k23 = iA * a1 + iB * a2;
             float k33 = mA + mB + iA * a1 * a1 + iB * a2 * a2;
             final Mat33 K = pool.popMat33();
-            K.ex.set(k11, k12, k13);
+            K.ex.set(v, k12, k13);
             K.ey.set(k12, k22, k23);
             K.ez.set(k13, k23, k33);
             final Vec3 C = pool.popVec3();
@@ -768,7 +755,6 @@ public class PrismaticJoint extends Joint
         }
         else
         {
-            float k11 = mA + mB + iA * s1 * s1 + iB * s2 * s2;
             float k12 = iA * s1 + iB * s2;
             float k22 = iA + iB;
             if (k22 == 0.0f)
@@ -776,7 +762,7 @@ public class PrismaticJoint extends Joint
                 k22 = 1.0f;
             }
             final Mat22 K = pool.popMat22();
-            K.ex.set(k11, k12);
+            K.ex.set(v, k12);
             K.ey.set(k12, k22);
             // temp is impulse1
             K.solveToOut(C1.negateLocal(), temp);

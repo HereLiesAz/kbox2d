@@ -61,13 +61,19 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
  */
 public class DistanceJointDef extends JointDef
 {
-    /** The local anchor point relative to body1's origin. */
+    /**
+     * The local anchor point relative to body1's origin.
+     */
     public final Vec2 localAnchorA;
 
-    /** The local anchor point relative to body2's origin. */
+    /**
+     * The local anchor point relative to body2's origin.
+     */
     public final Vec2 localAnchorB;
 
-    /** The equilibrium length between the anchor points. */
+    /**
+     * The equilibrium length between the anchor points.
+     */
     public float length;
 
     /**

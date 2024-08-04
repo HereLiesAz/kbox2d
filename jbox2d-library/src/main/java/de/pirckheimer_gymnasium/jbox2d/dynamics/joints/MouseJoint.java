@@ -120,7 +120,7 @@ public class MouseJoint extends Joint
 
     public void setTarget(Vec2 target)
     {
-        if (bodyB.isAwake() == false)
+        if (!bodyB.isAwake())
         {
             bodyB.setAwake(true);
         }
@@ -253,15 +253,14 @@ public class MouseJoint extends Joint
         temp.set(this.impulse).mulLocal(gamma).addLocal(C).addLocal(Cdot)
                 .negateLocal();
         Mat22.mulToOutUnsafe(mass, temp, impulse);
-        Vec2 oldImpulse = temp;
-        oldImpulse.set(this.impulse);
+        temp.set(this.impulse);
         this.impulse.addLocal(impulse);
         float maxImpulse = data.step.dt * maxForce;
         if (this.impulse.lengthSquared() > maxImpulse * maxImpulse)
         {
             this.impulse.mulLocal(maxImpulse / this.impulse.length());
         }
-        impulse.set(this.impulse).subLocal(oldImpulse);
+        impulse.set(this.impulse).subLocal(temp);
         vB.x += invMassB * impulse.x;
         vB.y += invMassB * impulse.y;
         wB += invIB * Vec2.cross(rB, impulse);

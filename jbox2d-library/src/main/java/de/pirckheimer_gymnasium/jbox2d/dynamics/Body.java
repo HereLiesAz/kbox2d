@@ -79,11 +79,11 @@ public class Body
 
     public final Vec2 linearVelocity = new Vec2();
 
-    public float angularVelocity = 0;
+    public float angularVelocity;
 
     public final Vec2 force = new Vec2();
 
-    public float torque = 0;
+    public float torque;
 
     public World world;
 
@@ -183,7 +183,7 @@ public class Body
 
     /**
      * Creates a fixture and attach it to this body. Use this function if you
-     * need to set some fixture parameters, like friction. Otherwise you can
+     * need to set some fixture parameters, like friction. Otherwise, you can
      * create the fixture directly from a shape. If the density is non-zero,
      * this function automatically updates the mass of the body. Contacts are
      * not created until the next time step.
@@ -193,8 +193,8 @@ public class Body
      */
     public final Fixture createFixture(FixtureDef def)
     {
-        assert (world.isLocked() == false);
-        if (world.isLocked() == true)
+        assert (!world.isLocked());
+        if (world.isLocked())
         {
             return null;
         }
@@ -252,8 +252,8 @@ public class Body
      */
     public final void destroyFixture(Fixture fixture)
     {
-        assert (world.isLocked() == false);
-        if (world.isLocked() == true)
+        assert (!world.isLocked());
+        if (world.isLocked())
         {
             return;
         }
@@ -676,7 +676,7 @@ public class Body
     /**
      * This resets the mass properties to the sum of the mass properties of the
      * fixtures. This normally does not need to be called unless you called
-     * setMassData to override the mass and you later want to reset the mass.
+     * setMassData to override the mass, and you later want to reset the mass.
      */
     public final void resetMassData()
     {
@@ -756,7 +756,7 @@ public class Body
     /**
      * Get the world coordinates of a point given the local coordinates.
      *
-     * @param localPoint a point on the body measured relative the the body's
+     * @param localPoint a point on the body measured relative the body's
      *                   origin.
      * @return the same point expressed in world coordinates.
      */
@@ -909,8 +909,6 @@ public class Body
 
     /**
      * Set the type of this body. This may alter the mass and velocity.
-     *
-     * @param type
      */
     public void setType(BodyType type)
     {
@@ -1001,7 +999,6 @@ public class Body
 
     /**
      * Is this body allowed to sleep
-     *
      */
     public boolean isSleepingAllowed()
     {
@@ -1098,7 +1095,6 @@ public class Body
 
     /**
      * Get the active state of the body.
-     *
      */
     public boolean isActive()
     {
@@ -1145,7 +1141,7 @@ public class Body
     /**
      * Get the list of all contacts attached to this body.
      *
-     * @warning this list changes during the time step and you may miss some
+     * @warning this list changes during the time step, and you may miss some
      *          collisions if you don't use ContactListener.
      */
     public final ContactEdge getContactList()
@@ -1237,7 +1233,7 @@ public class Body
         {
             if (jn.other == other)
             {
-                if (jn.joint.getCollideConnected() == false)
+                if (!jn.joint.getCollideConnected())
                 {
                     return false;
                 }

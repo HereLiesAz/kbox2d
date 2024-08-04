@@ -67,14 +67,14 @@ public class BodyDef
     public float angularVelocity;
 
     /**
-     * Linear damping is use to reduce the linear velocity. The damping
+     * Linear damping is used to reduce the linear velocity. The damping
      * parameter can be larger than 1.0f but the damping effect becomes
      * sensitive to the time step when the damping parameter is large.
      */
     public float linearDamping;
 
     /**
-     * Angular damping is use to reduce the angular velocity. The damping
+     * Angular damping is used to reduce the angular velocity. The damping
      * parameter can be larger than 1.0f but the damping effect becomes
      * sensitive to the time step when the damping parameter is large.
      */
@@ -236,7 +236,7 @@ public class BodyDef
     }
 
     /**
-     * Linear damping is use to reduce the linear velocity. The damping
+     * Linear damping is used to reduce the linear velocity. The damping
      * parameter can be larger than 1.0f but the damping effect becomes
      * sensitive to the time step when the damping parameter is large.
      */
@@ -246,7 +246,7 @@ public class BodyDef
     }
 
     /**
-     * Linear damping is use to reduce the linear velocity. The damping
+     * Linear damping is used to reduce the linear velocity. The damping
      * parameter can be larger than 1.0f but the damping effect becomes
      * sensitive to the time step when the damping parameter is large.
      */
@@ -256,7 +256,7 @@ public class BodyDef
     }
 
     /**
-     * Angular damping is use to reduce the angular velocity. The damping
+     * Angular damping is used to reduce the angular velocity. The damping
      * parameter can be larger than 1.0f but the damping effect becomes
      * sensitive to the time step when the damping parameter is large.
      */
@@ -266,7 +266,7 @@ public class BodyDef
     }
 
     /**
-     * Angular damping is use to reduce the angular velocity. The damping
+     * Angular damping is used to reduce the angular velocity. The damping
      * parameter can be larger than 1.0f but the damping effect becomes
      * sensitive to the time step when the damping parameter is large.
      */

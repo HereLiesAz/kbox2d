@@ -107,15 +107,15 @@ public class FrictionJoint extends Joint
     }
 
     @Override
-    public void getReactionForce(float inv_dt, Vec2 argOut)
+    public void getReactionForce(float invDt, Vec2 argOut)
     {
-        argOut.set(linearImpulse).mulLocal(inv_dt);
+        argOut.set(linearImpulse).mulLocal(invDt);
     }
 
     @Override
-    public float getReactionTorque(float inv_dt)
+    public float getReactionTorque(float invDt)
     {
-        return inv_dt * angularImpulse;
+        return invDt * angularImpulse;
     }
 
     public void setMaxForce(float force)
@@ -212,10 +212,8 @@ public class FrictionJoint extends Joint
             angularImpulse = 0.0f;
         }
 //    data.velocities[indexA].v.set(vA);
-        if (data.velocities[indexA].w != wA)
-        {
-            assert (data.velocities[indexA].w != wA);
-        }
+        assert data.velocities[indexA].w == wA
+                || (data.velocities[indexA].w != wA);
         data.velocities[indexA].w = wA;
 //    data.velocities[indexB].v.set(vB);
         data.velocities[indexB].w = wB;
@@ -274,10 +272,8 @@ public class FrictionJoint extends Joint
             wB += iB * Vec2.cross(rB, impulse);
         }
 //    data.velocities[indexA].v.set(vA);
-        if (data.velocities[indexA].w != wA)
-        {
-            assert (data.velocities[indexA].w != wA);
-        }
+        assert data.velocities[indexA].w == wA
+                || (data.velocities[indexA].w != wA);
         data.velocities[indexA].w = wA;
 //    data.velocities[indexB].v.set(vB);
         data.velocities[indexB].w = wB;

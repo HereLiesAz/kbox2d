@@ -179,11 +179,11 @@ public class RevoluteJoint extends Joint
         {
             motorMass = 1.0f / motorMass;
         }
-        if (enableMotor == false || fixedRotation)
+        if (!enableMotor || fixedRotation)
         {
             motorImpulse = 0.0f;
         }
-        if (enableLimit && fixedRotation == false)
+        if (enableLimit && !fixedRotation)
         {
             float jointAngle = aB - aA - referenceAngle;
             if (MathUtils.abs(upperAngle - lowerAngle) < 2.0f
@@ -258,8 +258,7 @@ public class RevoluteJoint extends Joint
         float iA = invIA, iB = invIB;
         boolean fixedRotation = (iA + iB == 0.0f);
         // Solve motor constraint.
-        if (enableMotor && limitState != LimitState.EQUAL
-                && fixedRotation == false)
+        if (enableMotor && limitState != LimitState.EQUAL && !fixedRotation)
         {
             float Cdot = wB - wA - motorSpeed;
             float impulse = -motorMass * Cdot;
@@ -273,8 +272,7 @@ public class RevoluteJoint extends Joint
         }
         final Vec2 temp = pool.popVec2();
         // Solve limit constraint.
-        if (enableLimit && limitState != LimitState.INACTIVE
-                && fixedRotation == false)
+        if (enableLimit && limitState != LimitState.INACTIVE && !fixedRotation)
         {
             final Vec2 Cdot1 = pool.popVec2();
             final Vec3 Cdot = pool.popVec3();
@@ -385,11 +383,10 @@ public class RevoluteJoint extends Joint
         qA.set(aA);
         qB.set(aB);
         float angularError = 0.0f;
-        float positionError = 0.0f;
+        float positionError;
         boolean fixedRotation = (invIA + invIB == 0.0f);
         // Solve angular limit constraint.
-        if (enableLimit && limitState != LimitState.INACTIVE
-                && fixedRotation == false)
+        if (enableLimit && limitState != LimitState.INACTIVE && !fixedRotation)
         {
             float angle = aB - aA - referenceAngle;
             float limitImpulse = 0.0f;
@@ -492,15 +489,15 @@ public class RevoluteJoint extends Joint
     }
 
     @Override
-    public void getReactionForce(float inv_dt, Vec2 argOut)
+    public void getReactionForce(float invDt, Vec2 argOut)
     {
-        argOut.set(impulse.x, impulse.y).mulLocal(inv_dt);
+        argOut.set(impulse.x, impulse.y).mulLocal(invDt);
     }
 
     @Override
-    public float getReactionTorque(float inv_dt)
+    public float getReactionTorque(float invDt)
     {
-        return inv_dt * impulse.z;
+        return invDt * impulse.z;
     }
 
     public float getJointAngle()

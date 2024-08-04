@@ -56,12 +56,12 @@ public class PulleyJointDef extends JointDef
     public Vec2 localAnchorB;
 
     /**
-     * The a reference length for the segment attached to bodyA.
+     * The reference length for the segment attached to bodyA.
      */
     public float lengthA;
 
     /**
-     * The a reference length for the segment attached to bodyB.
+     * The reference length for the segment attached to bodyB.
      */
     public float lengthB;
 

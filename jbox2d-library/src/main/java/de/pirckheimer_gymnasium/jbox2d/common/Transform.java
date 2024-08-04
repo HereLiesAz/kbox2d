@@ -106,9 +106,9 @@ public class Transform implements Serializable
 
     public static void mulToOut(final Transform T, final Vec2 v, final Vec2 out)
     {
-        final float tempy = (T.q.s * v.x + T.q.c * v.y) + T.p.y;
+        final float tempY = (T.q.s * v.x + T.q.c * v.y) + T.p.y;
         out.x = (T.q.c * v.x - T.q.s * v.y) + T.p.x;
-        out.y = tempy;
+        out.y = tempY;
     }
 
     public static void mulToOutUnsafe(final Transform T, final Vec2 v,
