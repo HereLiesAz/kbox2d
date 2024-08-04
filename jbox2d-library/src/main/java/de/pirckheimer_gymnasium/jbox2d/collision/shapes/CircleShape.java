@@ -108,11 +108,11 @@ public class CircleShape extends Shape
     @Override
     public final boolean testPoint(final Transform transform, final Vec2 p)
     {
-        // Rot.mulToOutUnsafe(transform.q, m_p, center);
+        // Rot.mulToOutUnsafe(transform.q, p, center);
         // center.addLocal(transform.p);
         //
         // final Vec2 d = center.subLocal(p).negateLocal();
-        // return Vec2.dot(d, d) <= m_radius * m_radius;
+        // return Vec2.dot(d, d) <= radius * radius;
         final Rot q = transform.q;
         final Vec2 tp = transform.p;
         float centerx = -(q.c * this.p.x - q.s * this.p.y + tp.x - p.x);
@@ -147,13 +147,13 @@ public class CircleShape extends Shape
         final Vec2 inputp2 = input.p2;
         final Rot tq = transform.q;
         final Vec2 tp = transform.p;
-        // Rot.mulToOutUnsafe(transform.q, m_p, position);
+        // Rot.mulToOutUnsafe(transform.q, p, position);
         // position.addLocal(transform.p);
         final float positionx = tq.c * p.x - tq.s * p.y + tp.x;
         final float positiony = tq.s * p.x + tq.c * p.y + tp.y;
         final float sx = inputp1.x - positionx;
         final float sy = inputp1.y - positiony;
-        // final float b = Vec2.dot(s, s) - m_radius * m_radius;
+        // final float b = Vec2.dot(s, s) - radius * radius;
         final float b = sx * sx + sy * sy - radius * radius;
         // Solve quadratic equation.
         final float rx = inputp2.x - inputp1.x;
@@ -204,8 +204,8 @@ public class CircleShape extends Shape
         massData.center.x = p.x;
         massData.center.y = p.y;
         // inertia about the local origin
-        // massData.I = massData.mass * (0.5f * m_radius * m_radius +
-        // Vec2.dot(m_p, m_p));
+        // massData.I = massData.mass * (0.5f * radius * radius +
+        // Vec2.dot(p, p));
         massData.I = massData.mass
                 * (0.5f * radius * radius + (p.x * p.x + p.y * p.y));
     }

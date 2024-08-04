@@ -43,46 +43,46 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
  */
 public class DefaultBroadPhaseBuffer implements TreeCallback, BroadPhase
 {
-    private final BroadPhaseStrategy m_tree;
+    private final BroadPhaseStrategy tree;
 
-    private int m_proxyCount;
+    private int proxyCount;
 
-    private int[] m_moveBuffer;
+    private int[] moveBuffer;
 
-    private int m_moveCapacity;
+    private int moveCapacity;
 
-    private int m_moveCount;
+    private int moveCount;
 
-    private long[] m_pairBuffer;
+    private long[] pairBuffer;
 
-    private int m_pairCapacity;
+    private int pairCapacity;
 
-    private int m_pairCount;
+    private int pairCount;
 
-    private int m_queryProxyId;
+    private int queryProxyId;
 
     public DefaultBroadPhaseBuffer(BroadPhaseStrategy strategy)
     {
-        m_proxyCount = 0;
-        m_pairCapacity = 16;
-        m_pairCount = 0;
-        m_pairBuffer = new long[m_pairCapacity];
-        for (int i = 0; i < m_pairCapacity; i++)
+        proxyCount = 0;
+        pairCapacity = 16;
+        pairCount = 0;
+        pairBuffer = new long[pairCapacity];
+        for (int i = 0; i < pairCapacity; i++)
         {
-            m_pairBuffer[i] = 0;
+            pairBuffer[i] = 0;
         }
-        m_moveCapacity = 16;
-        m_moveCount = 0;
-        m_moveBuffer = new int[m_moveCapacity];
-        m_tree = strategy;
-        m_queryProxyId = NULL_PROXY;
+        moveCapacity = 16;
+        moveCount = 0;
+        moveBuffer = new int[moveCapacity];
+        tree = strategy;
+        queryProxyId = NULL_PROXY;
     }
 
     @Override
     public final int createProxy(final AABB aabb, Object userData)
     {
-        int proxyId = m_tree.createProxy(aabb, userData);
-        ++m_proxyCount;
+        int proxyId = tree.createProxy(aabb, userData);
+        ++proxyCount;
         bufferMove(proxyId);
         return proxyId;
     }
@@ -91,15 +91,15 @@ public class DefaultBroadPhaseBuffer implements TreeCallback, BroadPhase
     public final void destroyProxy(int proxyId)
     {
         unbufferMove(proxyId);
-        --m_proxyCount;
-        m_tree.destroyProxy(proxyId);
+        --proxyCount;
+        tree.destroyProxy(proxyId);
     }
 
     @Override
     public final void moveProxy(int proxyId, final AABB aabb,
             final Vec2 displacement)
     {
-        boolean buffer = m_tree.moveProxy(proxyId, aabb, displacement);
+        boolean buffer = tree.moveProxy(proxyId, aabb, displacement);
         if (buffer)
         {
             bufferMove(proxyId);
@@ -115,22 +115,22 @@ public class DefaultBroadPhaseBuffer implements TreeCallback, BroadPhase
     @Override
     public Object getUserData(int proxyId)
     {
-        return m_tree.getUserData(proxyId);
+        return tree.getUserData(proxyId);
     }
 
     @Override
     public AABB getFatAABB(int proxyId)
     {
-        return m_tree.getFatAABB(proxyId);
+        return tree.getFatAABB(proxyId);
     }
 
     @Override
     public boolean testOverlap(int proxyIdA, int proxyIdB)
     {
         // return AABB.testOverlap(proxyA.aabb, proxyB.aabb);
-        // return m_tree.overlap(proxyIdA, proxyIdB);
-        final AABB a = m_tree.getFatAABB(proxyIdA);
-        final AABB b = m_tree.getFatAABB(proxyIdB);
+        // return tree.overlap(proxyIdA, proxyIdB);
+        final AABB a = tree.getFatAABB(proxyIdA);
+        final AABB b = tree.getFatAABB(proxyIdB);
         if (b.lowerBound.x - a.upperBound.x > 0.0f
                 || b.lowerBound.y - a.upperBound.y > 0.0f)
         {
@@ -147,54 +147,54 @@ public class DefaultBroadPhaseBuffer implements TreeCallback, BroadPhase
     @Override
     public final int getProxyCount()
     {
-        return m_proxyCount;
+        return proxyCount;
     }
 
     @Override
     public void drawTree(DebugDraw argDraw)
     {
-        m_tree.drawTree(argDraw);
+        tree.drawTree(argDraw);
     }
 
     @Override
     public final void updatePairs(PairCallback callback)
     {
         // Reset pair buffer
-        m_pairCount = 0;
+        pairCount = 0;
         // Perform tree queries for all moving proxies.
-        for (int i = 0; i < m_moveCount; ++i)
+        for (int i = 0; i < moveCount; ++i)
         {
-            m_queryProxyId = m_moveBuffer[i];
-            if (m_queryProxyId == NULL_PROXY)
+            queryProxyId = moveBuffer[i];
+            if (queryProxyId == NULL_PROXY)
             {
                 continue;
             }
             // We have to query the tree with the fat AABB so that
             // we don't fail to create a pair that may touch later.
-            final AABB fatAABB = m_tree.getFatAABB(m_queryProxyId);
+            final AABB fatAABB = tree.getFatAABB(queryProxyId);
             // Query tree, create pairs and add them pair buffer.
-            // log.debug("quering aabb: "+m_queryProxy.aabb);
-            m_tree.query(this, fatAABB);
+            // log.debug("quering aabb: "+queryProxy.aabb);
+            tree.query(this, fatAABB);
         }
-        // log.debug("Number of pairs found: "+m_pairCount);
+        // log.debug("Number of pairs found: "+pairCount);
         // Reset move buffer
-        m_moveCount = 0;
+        moveCount = 0;
         // Sort the pair buffer to expose duplicates.
-        Arrays.sort(m_pairBuffer, 0, m_pairCount);
+        Arrays.sort(pairBuffer, 0, pairCount);
         // Send the pairs back to the client.
         int i = 0;
-        while (i < m_pairCount)
+        while (i < pairCount)
         {
-            long primaryPair = m_pairBuffer[i];
-            Object userDataA = m_tree.getUserData((int) (primaryPair >> 32));
-            Object userDataB = m_tree.getUserData((int) (primaryPair));
+            long primaryPair = pairBuffer[i];
+            Object userDataA = tree.getUserData((int) (primaryPair >> 32));
+            Object userDataB = tree.getUserData((int) (primaryPair));
             // log.debug("returning pair: "+userDataA+", "+userDataB);
             callback.addPair(userDataA, userDataB);
             ++i;
             // Skip any duplicate pairs.
-            while (i < m_pairCount)
+            while (i < pairCount)
             {
-                long pair = m_pairBuffer[i];
+                long pair = pairBuffer[i];
                 if (pair != primaryPair)
                 {
                     break;
@@ -207,54 +207,54 @@ public class DefaultBroadPhaseBuffer implements TreeCallback, BroadPhase
     @Override
     public final void query(final TreeCallback callback, final AABB aabb)
     {
-        m_tree.query(callback, aabb);
+        tree.query(callback, aabb);
     }
 
     @Override
     public final void raycast(final TreeRayCastCallback callback,
             final RayCastInput input)
     {
-        m_tree.raycast(callback, input);
+        tree.raycast(callback, input);
     }
 
     @Override
     public final int getTreeHeight()
     {
-        return m_tree.getHeight();
+        return tree.getHeight();
     }
 
     @Override
     public int getTreeBalance()
     {
-        return m_tree.getMaxBalance();
+        return tree.getMaxBalance();
     }
 
     @Override
     public float getTreeQuality()
     {
-        return m_tree.getAreaRatio();
+        return tree.getAreaRatio();
     }
 
     protected final void bufferMove(int proxyId)
     {
-        if (m_moveCount == m_moveCapacity)
+        if (moveCount == moveCapacity)
         {
-            int[] old = m_moveBuffer;
-            m_moveCapacity *= 2;
-            m_moveBuffer = new int[m_moveCapacity];
-            System.arraycopy(old, 0, m_moveBuffer, 0, old.length);
+            int[] old = moveBuffer;
+            moveCapacity *= 2;
+            moveBuffer = new int[moveCapacity];
+            System.arraycopy(old, 0, moveBuffer, 0, old.length);
         }
-        m_moveBuffer[m_moveCount] = proxyId;
-        ++m_moveCount;
+        moveBuffer[moveCount] = proxyId;
+        ++moveCount;
     }
 
     protected final void unbufferMove(int proxyId)
     {
-        for (int i = 0; i < m_moveCount; i++)
+        for (int i = 0; i < moveCount; i++)
         {
-            if (m_moveBuffer[i] == proxyId)
+            if (moveBuffer[i] == proxyId)
             {
-                m_moveBuffer[i] = NULL_PROXY;
+                moveBuffer[i] = NULL_PROXY;
             }
         }
     }
@@ -265,31 +265,31 @@ public class DefaultBroadPhaseBuffer implements TreeCallback, BroadPhase
     public final boolean treeCallback(int proxyId)
     {
         // A proxy cannot form a pair with itself.
-        if (proxyId == m_queryProxyId)
+        if (proxyId == queryProxyId)
         {
             return true;
         }
         // Grow the pair buffer as needed.
-        if (m_pairCount == m_pairCapacity)
+        if (pairCount == pairCapacity)
         {
-            long[] oldBuffer = m_pairBuffer;
-            m_pairCapacity *= 2;
-            m_pairBuffer = new long[m_pairCapacity];
-            System.arraycopy(oldBuffer, 0, m_pairBuffer, 0, oldBuffer.length);
-            for (int i = oldBuffer.length; i < m_pairCapacity; i++)
+            long[] oldBuffer = pairBuffer;
+            pairCapacity *= 2;
+            pairBuffer = new long[pairCapacity];
+            System.arraycopy(oldBuffer, 0, pairBuffer, 0, oldBuffer.length);
+            for (int i = oldBuffer.length; i < pairCapacity; i++)
             {
-                m_pairBuffer[i] = 0;
+                pairBuffer[i] = 0;
             }
         }
-        if (proxyId < m_queryProxyId)
+        if (proxyId < queryProxyId)
         {
-            m_pairBuffer[m_pairCount] = ((long) proxyId << 32) | m_queryProxyId;
+            pairBuffer[pairCount] = ((long) proxyId << 32) | queryProxyId;
         }
         else
         {
-            m_pairBuffer[m_pairCount] = ((long) m_queryProxyId << 32) | proxyId;
+            pairBuffer[pairCount] = ((long) queryProxyId << 32) | proxyId;
         }
-        ++m_pairCount;
+        ++pairCount;
         return true;
     }
 }

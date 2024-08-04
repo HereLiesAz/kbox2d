@@ -40,7 +40,7 @@ public class VoronoiDiagram
     {
         int x, y, i;
 
-        Generator m_generator;
+        Generator generator;
 
         public VoronoiDiagramTask()
         {
@@ -51,7 +51,7 @@ public class VoronoiDiagram
             this.x = x;
             this.y = y;
             this.i = i;
-            m_generator = g;
+            generator = g;
         }
 
         public VoronoiDiagramTask set(int x, int y, int i, Generator g)
@@ -59,7 +59,7 @@ public class VoronoiDiagram
             this.x = x;
             this.y = y;
             this.i = i;
-            m_generator = g;
+            generator = g;
             return this;
         }
     }
@@ -69,7 +69,7 @@ public class VoronoiDiagram
         void callback(int aTag, int bTag, int cTag);
     }
 
-    private Generator[] generatorBuffer;
+    private final Generator[] generatorBuffer;
 
     private int generatorCount;
 
@@ -182,7 +182,7 @@ public class VoronoiDiagram
             int x = front.x;
             int y = front.y;
             int i = front.i;
-            Generator g = front.m_generator;
+            Generator g = front.generator;
             if (diagram[i] == null)
             {
                 diagram[i] = g;
@@ -243,7 +243,7 @@ public class VoronoiDiagram
                 int x = front.x;
                 int y = front.y;
                 int i = front.i;
-                Generator k = front.m_generator;
+                Generator k = front.generator;
                 Generator a = diagram[i];
                 Generator b = k;
                 if (a != b)

@@ -261,19 +261,19 @@ public class Island
         for (int i = 0; i < bodyCount; ++i)
         {
             final Body b = bodies[i];
-            final Sweep bm_sweep = b.sweep;
-            final Vec2 c = bm_sweep.c;
-            float a = bm_sweep.a;
+            final Sweep bmSweep = b.sweep;
+            final Vec2 c = bmSweep.c;
+            float a = bmSweep.a;
             final Vec2 v = b.linearVelocity;
             float w = b.angularVelocity;
             // Store positions for continuous collision.
-            bm_sweep.c0.set(bm_sweep.c);
-            bm_sweep.a0 = bm_sweep.a;
+            bmSweep.c0.set(bmSweep.c);
+            bmSweep.a0 = bmSweep.a;
             if (b.type == BodyType.DYNAMIC)
             {
                 // Integrate velocities.
-                // v += h * (b.m_gravityScale * gravity + b.m_invMass *
-                // b.m_force);
+                // v += h * (b.gravityScale * gravity + b.invMass *
+                // b.force);
                 v.x += h * (b.gravityScale * gravity.x + b.invMass * b.force.x);
                 v.y += h * (b.gravityScale * gravity.y + b.invMass * b.force.y);
                 w += h * b.invI * b.torque;

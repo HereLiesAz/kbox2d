@@ -25,7 +25,6 @@ package de.pirckheimer_gymnasium.jbox2d.collision;
 
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 
-
 /**
  * A manifold point is a contact point belonging to a contact manifold. It holds
  * details related to the geometry and dynamics of the contact points. The local

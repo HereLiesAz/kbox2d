@@ -55,13 +55,13 @@ public class PolygonShape extends Shape
 
     /**
      * The vertices of the shape. Note: use getVertexCount(), not
-     * m_vertices.length, to get number of active vertices.
+     * vertices.length, to get number of active vertices.
      */
     public final Vec2 vertices[];
 
     /**
-     * The normals of the shape. Note: use getVertexCount(), not
-     * m_normals.length, to get number of active normals.
+     * The normals of the shape. Note: use getVertexCount(), not normals.length,
+     * to get number of active normals.
      */
     public final Vec2 normals[];
 
@@ -359,7 +359,7 @@ public class PolygonShape extends Shape
         for (int i = 1; i < count; ++i)
         {
             Vec2 v2 = vertices[i];
-            // Vec2 v = Mul(xf, m_vertices[i]);
+            // Vec2 v = Mul(xf, vertices[i]);
             float vx = (xfqc * v2.x - xfqs * v2.y) + xfpx;
             float vy = (xfqs * v2.x + xfqc * v2.y) + xfpy;
             lower.x = lower.x < vx ? lower.x : vx;
@@ -526,7 +526,7 @@ public class PolygonShape extends Shape
         if (index >= 0)
         {
             output.fraction = lower;
-            // normal = Mul(xf.R, m_normals[index]);
+            // normal = Mul(xf.R, normals[index]);
             Vec2 normal = normals[index];
             Vec2 out = output.normal;
             out.x = xfqc * normal.x - xfqs * normal.y;

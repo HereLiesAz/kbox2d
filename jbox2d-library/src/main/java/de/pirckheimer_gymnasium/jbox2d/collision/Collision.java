@@ -184,8 +184,8 @@ public class Collision
     {
         manifold.pointCount = 0;
         // before inline:
-        // Transform.mulToOut(xfA, circle1.m_p, pA);
-        // Transform.mulToOut(xfB, circle2.m_p, pB);
+        // Transform.mulToOut(xfA, circle1.p, pA);
+        // Transform.mulToOut(xfB, circle2.p, pB);
         // d.set(pB).subLocal(pA);
         // float distSqr = d.x * d.x + d.y * d.y;
         // after inline:
@@ -221,10 +221,10 @@ public class Collision
             final CircleShape circle, final Transform xfB)
     {
         manifold.pointCount = 0;
-        // Vec2 v = circle.m_p;
+        // Vec2 v = circle.p;
         // Compute circle position in the frame of the polygon.
         // before inline:
-        // Transform.mulToOutUnsafe(xfB, circle.m_p, c);
+        // Transform.mulToOutUnsafe(xfB, circle.p, c);
         // Transform.mulTransToOut(xfA, c, cLocal);
         // final float cLocalx = cLocal.x;
         // final float cLocaly = cLocal.y;
@@ -282,7 +282,7 @@ public class Collision
             // before inline:
             // manifold.localNormal.set(normals[normalIndex]);
             // manifold.localPoint.set(v1).addLocal(v2).mulLocal(.5f);
-            // manifold.points[0].localPoint.set(circle.m_p);
+            // manifold.points[0].localPoint.set(circle.p);
             // after inline:
             final Vec2 normal = normals[normalIndex];
             manifold.localNormal.x = normal.x;
@@ -654,7 +654,7 @@ public class Collision
             if (separation <= totalRadius)
             {
                 ManifoldPoint cp = manifold.points[pointCount];
-                // cp.m_localPoint = MulT(xf2, clipPoints2[i].v);
+                // cp.localPoint = MulT(xf2, clipPoints2[i].v);
                 Vec2 out = cp.localPoint;
                 final float px = clipPoints2[i].v.x - xf2.p.x;
                 final float py = clipPoints2[i].v.y - xf2.p.y;
@@ -689,7 +689,7 @@ public class Collision
     {
         manifold.pointCount = 0;
         // Compute circle in frame of edge
-        // Vec2 Q = MulT(xfA, Mul(xfB, circleB.m_p));
+        // Vec2 Q = MulT(xfA, Mul(xfB, circleB.p));
         Transform.mulToOutUnsafe(xfB, circleB.p, temp);
         Transform.mulTransToOutUnsafe(xfA, temp, Q);
         final Vec2 A = edgeA.vertex1;
@@ -944,19 +944,19 @@ public class Collision
             ISOLATED, CONCAVE, CONVEX
         }
 
-        final TempPolygon m_polygonB = new TempPolygon();
+        final TempPolygon polygonB = new TempPolygon();
 
-        final Transform m_xf = new Transform();
+        final Transform xf = new Transform();
 
-        final Vec2 m_centroidB = new Vec2();
+        final Vec2 centroidB = new Vec2();
 
-        Vec2 m_v0 = new Vec2();
+        Vec2 v0 = new Vec2();
 
-        Vec2 m_v1 = new Vec2();
+        Vec2 v1 = new Vec2();
 
-        Vec2 m_v2 = new Vec2();
+        Vec2 v2 = new Vec2();
 
-        Vec2 m_v3 = new Vec2();
+        Vec2 v3 = new Vec2();
 
         final Vec2 normal0 = new Vec2();
 
@@ -966,7 +966,7 @@ public class Collision
 
         final Vec2 normal = new Vec2();
 
-        VertexType m_type1, m_type2;
+        VertexType type1, type2;
 
         final Vec2 lowerLimit = new Vec2();
 
@@ -1010,40 +1010,37 @@ public class Collision
                 final Transform xfA, final PolygonShape polygonB,
                 final Transform xfB)
         {
-            Transform.mulTransToOutUnsafe(xfA, xfB, m_xf);
-            Transform.mulToOutUnsafe(m_xf, polygonB.centroid, m_centroidB);
-            m_v0 = edgeA.vertex0;
-            m_v1 = edgeA.vertex1;
-            m_v2 = edgeA.vertex2;
-            m_v3 = edgeA.vertex3;
+            Transform.mulTransToOutUnsafe(xfA, xfB, xf);
+            Transform.mulToOutUnsafe(xf, polygonB.centroid, centroidB);
+            v0 = edgeA.vertex0;
+            v1 = edgeA.vertex1;
+            v2 = edgeA.vertex2;
+            v3 = edgeA.vertex3;
             boolean hasVertex0 = edgeA.hasVertex0;
             boolean hasVertex3 = edgeA.hasVertex3;
-            edge1.set(m_v2).subLocal(m_v1);
+            edge1.set(v2).subLocal(v1);
             edge1.normalize();
             normal1.set(edge1.y, -edge1.x);
-            float offset1 = Vec2.dot(normal1,
-                    temp.set(m_centroidB).subLocal(m_v1));
+            float offset1 = Vec2.dot(normal1, temp.set(centroidB).subLocal(v1));
             float offset0 = 0.0f, offset2 = 0.0f;
             boolean convex1 = false, convex2 = false;
             // Is there a preceding edge?
             if (hasVertex0)
             {
-                edge0.set(m_v1).subLocal(m_v0);
+                edge0.set(v1).subLocal(v0);
                 edge0.normalize();
                 normal0.set(edge0.y, -edge0.x);
                 convex1 = Vec2.cross(edge0, edge1) >= 0.0f;
-                offset0 = Vec2.dot(normal0,
-                        temp.set(m_centroidB).subLocal(m_v0));
+                offset0 = Vec2.dot(normal0, temp.set(centroidB).subLocal(v0));
             }
             // Is there a following edge?
             if (hasVertex3)
             {
-                edge2.set(m_v3).subLocal(m_v2);
+                edge2.set(v3).subLocal(v2);
                 edge2.normalize();
                 normal2.set(edge2.y, -edge2.x);
                 convex2 = Vec2.cross(edge1, edge2) > 0.0f;
-                offset2 = Vec2.dot(normal2,
-                        temp.set(m_centroidB).subLocal(m_v2));
+                offset2 = Vec2.dot(normal2, temp.set(centroidB).subLocal(v2));
             }
             // Determine front or back collision. Determine collision normal
             // limits.
@@ -1259,13 +1256,13 @@ public class Collision
                 }
             }
             // Get polygonB in frameA
-            m_polygonB.count = polygonB.count;
+            this.polygonB.count = polygonB.count;
             for (int i = 0; i < polygonB.count; ++i)
             {
-                Transform.mulToOutUnsafe(m_xf, polygonB.vertices[i],
-                        m_polygonB.vertices[i]);
-                Rot.mulToOutUnsafe(m_xf.q, polygonB.normals[i],
-                        m_polygonB.normals[i]);
+                Transform.mulToOutUnsafe(xf, polygonB.vertices[i],
+                        this.polygonB.vertices[i]);
+                Rot.mulToOutUnsafe(xf.q, polygonB.normals[i],
+                        this.polygonB.normals[i]);
             }
             radius = 2.0f * Settings.polygonRadius;
             manifold.pointCount = 0;
@@ -1311,10 +1308,10 @@ public class Collision
                 // Search for the polygon normal that is most anti-parallel to
                 // the edge normal.
                 int bestIndex = 0;
-                float bestValue = Vec2.dot(normal, m_polygonB.normals[0]);
-                for (int i = 1; i < m_polygonB.count; ++i)
+                float bestValue = Vec2.dot(normal, this.polygonB.normals[0]);
+                for (int i = 1; i < this.polygonB.count; ++i)
                 {
-                    float value = Vec2.dot(normal, m_polygonB.normals[i]);
+                    float value = Vec2.dot(normal, this.polygonB.normals[i]);
                     if (value < bestValue)
                     {
                         bestValue = value;
@@ -1322,13 +1319,13 @@ public class Collision
                     }
                 }
                 int i1 = bestIndex;
-                int i2 = i1 + 1 < m_polygonB.count ? i1 + 1 : 0;
-                ie0.v.set(m_polygonB.vertices[i1]);
+                int i2 = i1 + 1 < this.polygonB.count ? i1 + 1 : 0;
+                ie0.v.set(this.polygonB.vertices[i1]);
                 ie0.id.indexA = 0;
                 ie0.id.indexB = (byte) i1;
                 ie0.id.typeA = (byte) ContactID.Type.FACE.ordinal();
                 ie0.id.typeB = (byte) ContactID.Type.VERTEX.ordinal();
-                ie1.v.set(m_polygonB.vertices[i2]);
+                ie1.v.set(this.polygonB.vertices[i2]);
                 ie1.id.indexA = 0;
                 ie1.id.indexB = (byte) i2;
                 ie1.id.typeA = (byte) ContactID.Type.FACE.ordinal();
@@ -1337,37 +1334,37 @@ public class Collision
                 {
                     rf.i1 = 0;
                     rf.i2 = 1;
-                    rf.v1.set(m_v1);
-                    rf.v2.set(m_v2);
+                    rf.v1.set(v1);
+                    rf.v2.set(v2);
                     rf.normal.set(normal1);
                 }
                 else
                 {
                     rf.i1 = 1;
                     rf.i2 = 0;
-                    rf.v1.set(m_v2);
-                    rf.v2.set(m_v1);
+                    rf.v1.set(v2);
+                    rf.v2.set(v1);
                     rf.normal.set(normal1).negateLocal();
                 }
             }
             else
             {
                 manifold.type = Manifold.ManifoldType.FACE_B;
-                ie0.v.set(m_v1);
+                ie0.v.set(v1);
                 ie0.id.indexA = 0;
                 ie0.id.indexB = (byte) primaryAxis.index;
                 ie0.id.typeA = (byte) ContactID.Type.VERTEX.ordinal();
                 ie0.id.typeB = (byte) ContactID.Type.FACE.ordinal();
-                ie1.v.set(m_v2);
+                ie1.v.set(v2);
                 ie1.id.indexA = 0;
                 ie1.id.indexB = (byte) primaryAxis.index;
                 ie1.id.typeA = (byte) ContactID.Type.VERTEX.ordinal();
                 ie1.id.typeB = (byte) ContactID.Type.FACE.ordinal();
                 rf.i1 = primaryAxis.index;
-                rf.i2 = rf.i1 + 1 < m_polygonB.count ? rf.i1 + 1 : 0;
-                rf.v1.set(m_polygonB.vertices[rf.i1]);
-                rf.v2.set(m_polygonB.vertices[rf.i2]);
-                rf.normal.set(m_polygonB.normals[rf.i1]);
+                rf.i2 = rf.i1 + 1 < this.polygonB.count ? rf.i1 + 1 : 0;
+                rf.v1.set(this.polygonB.vertices[rf.i1]);
+                rf.v2.set(this.polygonB.vertices[rf.i2]);
+                rf.normal.set(this.polygonB.normals[rf.i1]);
             }
             rf.sideNormal1.set(rf.normal.y, -rf.normal.x);
             rf.sideNormal2.set(rf.sideNormal1).negateLocal();
@@ -1411,8 +1408,8 @@ public class Collision
                     ManifoldPoint cp = manifold.points[pointCount];
                     if (primaryAxis.type == EPAxis.Type.EDGE_A)
                     {
-                        // cp.localPoint = MulT(m_xf, clipPoints2[i].v);
-                        Transform.mulTransToOutUnsafe(m_xf, clipPoints2[i].v,
+                        // cp.localPoint = MulT(xf, clipPoints2[i].v);
+                        Transform.mulTransToOutUnsafe(xf, clipPoints2[i].v,
                                 cp.localPoint);
                         cp.id.set(clipPoints2[i].id);
                     }
@@ -1437,11 +1434,11 @@ public class Collision
             axis.separation = Float.MAX_VALUE;
             float nx = normal.x;
             float ny = normal.y;
-            for (int i = 0; i < m_polygonB.count; ++i)
+            for (int i = 0; i < polygonB.count; ++i)
             {
-                Vec2 v = m_polygonB.vertices[i];
-                float tempx = v.x - m_v1.x;
-                float tempy = v.y - m_v1.y;
+                Vec2 v = polygonB.vertices[i];
+                float tempx = v.x - v1.x;
+                float tempy = v.y - v1.y;
                 float s = nx * tempx + ny * tempy;
                 if (s < axis.separation)
                 {
@@ -1461,19 +1458,19 @@ public class Collision
             axis.separation = -Float.MAX_VALUE;
             perp.x = -normal.y;
             perp.y = normal.x;
-            for (int i = 0; i < m_polygonB.count; ++i)
+            for (int i = 0; i < polygonB.count; ++i)
             {
-                Vec2 normalB = m_polygonB.normals[i];
-                Vec2 vB = m_polygonB.vertices[i];
+                Vec2 normalB = polygonB.normals[i];
+                Vec2 vB = polygonB.vertices[i];
                 n.x = -normalB.x;
                 n.y = -normalB.y;
-                // float s1 = Vec2.dot(n, temp.set(vB).subLocal(m_v1));
-                // float s2 = Vec2.dot(n, temp.set(vB).subLocal(m_v2));
-                float tempx = vB.x - m_v1.x;
-                float tempy = vB.y - m_v1.y;
+                // float s1 = Vec2.dot(n, temp.set(vB).subLocal(v1));
+                // float s2 = Vec2.dot(n, temp.set(vB).subLocal(v2));
+                float tempx = vB.x - v1.x;
+                float tempy = vB.y - v1.y;
                 float s1 = n.x * tempx + n.y * tempy;
-                tempx = vB.x - m_v2.x;
-                tempy = vB.y - m_v2.y;
+                tempx = vB.x - v2.x;
+                tempy = vB.y - v2.y;
                 float s2 = n.x * tempx + n.y * tempy;
                 float s = MathUtils.min(s1, s2);
                 if (s > radius)

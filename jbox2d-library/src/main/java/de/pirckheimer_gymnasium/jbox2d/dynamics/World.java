@@ -1664,7 +1664,7 @@ public class World
         case CIRCLE:
         {
             CircleShape circle = (CircleShape) fixture.getShape();
-            // Vec2 center = Mul(xf, circle.m_p);
+            // Vec2 center = Mul(xf, circle.p);
             Transform.mulToOutUnsafe(xf, circle.p, center);
             float radius = circle.radius;
             xf.q.getXAxis(axis);
@@ -1708,7 +1708,7 @@ public class World
             Vec2[] vertices = tlvertices.get(Settings.maxPolygonVertices);
             for (int i = 0; i < vertexCount; ++i)
             {
-                // vertices[i] = Mul(xf, poly.m_vertices[i]);
+                // vertices[i] = Mul(xf, poly.vertices[i]);
                 Transform.mulToOutUnsafe(xf, poly.vertices[i], vertices[i]);
             }
             if (wireframe)

@@ -762,11 +762,11 @@ public class ContactSolver
      * ContactSolver::SolvePositionConstraints(float baumgarte) { float
      * minSeparation = 0.0f;
      *
-     * for (int i = 0; i < m_constraintCount; ++i) { ContactConstraint* c =
-     * m_constraints + i; Body* bodyA = c.bodyA; Body* bodyB = c.bodyB; float
-     * invMassA = bodyA.m_mass * bodyA.m_invMass; float invIA = bodyA.m_mass *
-     * bodyA.m_invI; float invMassB = bodyB.m_mass * bodyB.m_invMass; float
-     * invIB = bodyB.m_mass * bodyB.m_invI;
+     * for (int i = 0; i < constraintCount; ++i) { ContactConstraint* c =
+     * constraints + i; Body* bodyA = c.bodyA; Body* bodyB = c.bodyB; float
+     * invMassA = bodyA.mass * bodyA.invMass; float invIA = bodyA.mass *
+     * bodyA.invI; float invMassB = bodyB.mass * bodyB.invMass; float invIB =
+     * bodyB.mass * bodyB.invI;
      *
      * Vec2 normal = c.normal;
      *
@@ -777,8 +777,8 @@ public class ContactSolver
      * bodyA.GetLocalCenter()); Vec2 r2 = Mul(bodyB.GetXForm().R,
      * ccp.localAnchorB - bodyB.GetLocalCenter());
      *
-     * Vec2 p1 = bodyA.m_sweep.c + r1; Vec2 p2 = bodyB.m_sweep.c + r2; Vec2 dp =
-     * p2 - p1;
+     * Vec2 p1 = bodyA.sweep.c + r1; Vec2 p2 = bodyB.sweep.c + r2; Vec2 dp = p2
+     * - p1;
      *
      * // Approximate the current separation. float separation = Dot(dp, normal)
      * + ccp.separation;
@@ -793,10 +793,10 @@ public class ContactSolver
      *
      * Vec2 P = impulse * normal;
      *
-     * bodyA.m_sweep.c -= invMassA * P; bodyA.m_sweep.a -= invIA * Cross(r1, P);
+     * bodyA.sweep.c -= invMassA * P; bodyA.sweep.a -= invIA * Cross(r1, P);
      * bodyA.SynchronizeTransform();
      *
-     * bodyB.m_sweep.c += invMassB * P; bodyB.m_sweep.a += invIB * Cross(r2, P);
+     * bodyB.sweep.c += invMassB * P; bodyB.sweep.a += invIB * Cross(r2, P);
      * bodyB.SynchronizeTransform(); } }
      *
      * // We can't expect minSpeparation >= -_linearSlop because we don't //
@@ -877,9 +877,9 @@ public class ContactSolver
                 cB.y += Py * mB;
                 aB += iB * (rBx * Py - rBy * Px);
             }
-            // m_positions[indexA].c.set(cA);
+            // positions[indexA].c.set(cA);
             positions[indexA].a = aA;
-            // m_positions[indexB].c.set(cB);
+            // positions[indexB].c.set(cB);
             positions[indexB].a = aB;
         }
         // We can't expect minSpeparation >= -linearSlop because we don't
@@ -967,9 +967,9 @@ public class ContactSolver
                 cB.y += Py * mB;
                 aB += iB * (rBx * Py - rBy * Px);
             }
-            // m_positions[indexA].c.set(cA);
+            // positions[indexA].c.set(cA);
             positions[indexA].a = aA;
-            // m_positions[indexB].c.set(cB);
+            // positions[indexB].c.set(cB);
             positions[indexB].a = aB;
         }
         // We can't expect minSpeparation >= -_linearSlop because we don't

@@ -639,8 +639,8 @@ public class ParticleSystem
             float w = accumulationBuffer[i];
             depthBuffer[i] = w < 0.8f ? 0 : Float.MAX_VALUE;
         }
-        int interationCount = group.getParticleCount();
-        for (int t = 0; t < interationCount; t++)
+        int iterationCount = group.getParticleCount();
+        for (int t = 0; t < iterationCount; t++)
         {
             boolean updated = false;
             for (int k = 0; k < contactCount; k++)
@@ -1491,9 +1491,9 @@ public class ParticleSystem
             proxy.index = newIndices[proxy.index];
         }
         // Proxy lastProxy = std.remove_if(
-        // m_proxyBuffer, m_proxyBuffer + m_proxyCount,
+        // proxyBuffer, proxyBuffer + proxyCount,
         // Test.IsProxyInvalid);
-        // m_proxyCount = (int) (lastProxy - m_proxyBuffer);
+        // proxyCount = (int) (lastProxy - proxyBuffer);
         int j = proxyCount;
         for (int i = 0; i < j; i++)
         {
@@ -1515,9 +1515,9 @@ public class ParticleSystem
             contact.indexB = newIndices[contact.indexB];
         }
         // ParticleContact lastContact = std.remove_if(
-        // m_contactBuffer, m_contactBuffer + m_contactCount,
+        // contactBuffer, contactBuffer + contactCount,
         // Test.IsContactInvalid);
-        // m_contactCount = (int) (lastContact - m_contactBuffer);
+        // contactCount = (int) (lastContact - contactBuffer);
         j = contactCount;
         for (int i = 0; i < j; i++)
         {
@@ -1538,9 +1538,9 @@ public class ParticleSystem
             contact.index = newIndices[contact.index];
         }
         // ParticleBodyContact lastBodyContact = std.remove_if(
-        // m_bodyContactBuffer, m_bodyContactBuffer + m_bodyContactCount,
+        // bodyContactBuffer, bodyContactBuffer + bodyContactCount,
         // Test.IsBodyContactInvalid);
-        // m_bodyContactCount = (int) (lastBodyContact - m_bodyContactBuffer);
+        // bodyContactCount = (int) (lastBodyContact - bodyContactBuffer);
         j = bodyContactCount;
         for (int i = 0; i < j; i++)
         {
@@ -1561,9 +1561,9 @@ public class ParticleSystem
             pair.indexA = newIndices[pair.indexA];
             pair.indexB = newIndices[pair.indexB];
         }
-        // Pair lastPair = std.remove_if(m_pairBuffer, m_pairBuffer +
-        // m_pairCount, Test.IsPairInvalid);
-        // m_pairCount = (int) (lastPair - m_pairBuffer);
+        // Pair lastPair = std.remove_if(pairBuffer, pairBuffer +
+        // pairCount, Test.IsPairInvalid);
+        // pairCount = (int) (lastPair - pairBuffer);
         j = pairCount;
         for (int i = 0; i < j; i++)
         {
@@ -1586,9 +1586,9 @@ public class ParticleSystem
             triad.indexC = newIndices[triad.indexC];
         }
         // Triad lastTriad =
-        // std.remove_if(m_triadBuffer, m_triadBuffer + m_triadCount,
+        // std.remove_if(triadBuffer, triadBuffer + triadCount,
         // Test.isTriadInvalid);
-        // m_triadCount = (int) (lastTriad - m_triadBuffer);
+        // triadCount = (int) (lastTriad - triadBuffer);
         j = triadCount;
         for (int i = 0; i < j; i++)
         {
@@ -1647,7 +1647,7 @@ public class ParticleSystem
         }
         // update particle count
         count = newCount;
-        // m_world.m_stackAllocator.Free(newIndices);
+        // world.stackAllocator.Free(newIndices);
         // destroy bodies with no particles
         for (ParticleGroup group = groupList; group != null;)
         {
@@ -1883,8 +1883,8 @@ public class ParticleSystem
                 || (newData == null && newCapacity == 0));
         if (buffer.userSuppliedCapacity != 0)
         {
-            // m_world.m_blockAllocator.Free(buffer.data, sizeof(T) *
-            // m_internalAllocatedCapacity);
+            // world.blockAllocator.Free(buffer.data, sizeof(T) *
+            // internalAllocatedCapacity);
         }
         buffer.data = newData;
         buffer.userSuppliedCapacity = newCapacity;
@@ -1897,8 +1897,8 @@ public class ParticleSystem
                 || (newData == null && newCapacity == 0));
         if (buffer.userSuppliedCapacity != 0)
         {
-            // m_world.m_blockAllocator.Free(buffer.data, sizeof(T) *
-            // m_internalAllocatedCapacity);
+            // world.blockAllocator.Free(buffer.data, sizeof(T) *
+            // internalAllocatedCapacity);
         }
         buffer.data = newData;
         buffer.userSuppliedCapacity = newCapacity;
@@ -2092,7 +2092,7 @@ public class ParticleSystem
 
     public float computeParticleCollisionEnergy()
     {
-        float sum_v2 = 0;
+        float sumV2 = 0;
         for (int k = 0; k < contactCount; k++)
         {
             final ParticleContact contact = contactBuffer[k];
@@ -2106,10 +2106,10 @@ public class ParticleSystem
             float vn = vx * n.x + vy * n.y;
             if (vn < 0)
             {
-                sum_v2 += vn * vn;
+                sumV2 += vn * vn;
             }
         }
-        return 0.5f * getParticleMass() * sum_v2;
+        return 0.5f * getParticleMass() * sumV2;
     }
 
     // reallocate a buffer
