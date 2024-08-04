@@ -48,13 +48,19 @@ import de.pirckheimer_gymnasium.jbox2d.particle.VoronoiDiagram.VoronoiDiagramCal
 
 public class ParticleSystem
 {
-    /** All particle types that require creating pairs */
+    /**
+     * All particle types that require creating pairs
+     */
     private static final int pairFlags = ParticleType.springParticle;
 
-    /** All particle types that require creating triads */
+    /**
+     * All particle types that require creating triads
+     */
     private static final int triadFlags = ParticleType.elasticParticle;
 
-    /** All particle types that require computing depth */
+    /**
+     * All particle types that require computing depth
+     */
     private static final int noPressureFlags = ParticleType.powderParticle;
 
     static final int xTruncBits = 12;
@@ -85,7 +91,7 @@ public class ParticleSystem
 
     static long computeRelativeTag(long tag, int x, int y)
     {
-        return tag + (y << yShift) + (x << xShift);
+        return tag + ((long) y << yShift) + ((long) x << xShift);
     }
 
     static int limitCapacity(int capacity, int maxCount)
@@ -228,10 +234,10 @@ public class ParticleSystem
         ejectionStrength = 0.5f;
         colorMixingStrength = 0.5f;
         flagsBuffer = new ParticleBufferInt();
-        positionBuffer = new ParticleBuffer<Vec2>(Vec2.class);
-        velocityBuffer = new ParticleBuffer<Vec2>(Vec2.class);
-        colorBuffer = new ParticleBuffer<ParticleColor>(ParticleColor.class);
-        userDataBuffer = new ParticleBuffer<Object>(Object.class);
+        positionBuffer = new ParticleBuffer<>(Vec2.class);
+        velocityBuffer = new ParticleBuffer<>(Vec2.class);
+        colorBuffer = new ParticleBuffer<>(ParticleColor.class);
+        userDataBuffer = new ParticleBuffer<>(Object.class);
     }
 //  public void assertNotSamePosition() {
 //    for (int i = 0; i < count; i++) {
@@ -247,19 +253,7 @@ public class ParticleSystem
     {
         if (count >= internalAllocatedCapacity)
         {
-            int capacity = count != 0 ? 2 * count
-                    : Settings.minParticleBufferCapacity;
-            capacity = limitCapacity(capacity, maxCount);
-            capacity = limitCapacity(capacity,
-                    flagsBuffer.userSuppliedCapacity);
-            capacity = limitCapacity(capacity,
-                    positionBuffer.userSuppliedCapacity);
-            capacity = limitCapacity(capacity,
-                    velocityBuffer.userSuppliedCapacity);
-            capacity = limitCapacity(capacity,
-                    colorBuffer.userSuppliedCapacity);
-            capacity = limitCapacity(capacity,
-                    userDataBuffer.userSuppliedCapacity);
+            int capacity = getCapacity();
             if (internalAllocatedCapacity < capacity)
             {
                 flagsBuffer.data = reallocateBuffer(flagsBuffer,
@@ -325,6 +319,19 @@ public class ParticleSystem
         return index;
     }
 
+    private int getCapacity()
+    {
+        int capacity = count != 0 ? 2 * count
+                : Settings.minParticleBufferCapacity;
+        capacity = limitCapacity(capacity, maxCount);
+        capacity = limitCapacity(capacity, flagsBuffer.userSuppliedCapacity);
+        capacity = limitCapacity(capacity, positionBuffer.userSuppliedCapacity);
+        capacity = limitCapacity(capacity, velocityBuffer.userSuppliedCapacity);
+        capacity = limitCapacity(capacity, colorBuffer.userSuppliedCapacity);
+        capacity = limitCapacity(capacity, userDataBuffer.userSuppliedCapacity);
+        return capacity;
+    }
+
     public void destroyParticle(int index, boolean callDestructionListener)
     {
         int flags = ParticleType.zombieParticle;
@@ -365,7 +372,7 @@ public class ParticleSystem
 
     private final Transform tempTransform2 = new Transform();
 
-    private CreateParticleGroupCallback createParticleGroupCallback = new CreateParticleGroupCallback();
+    private final CreateParticleGroupCallback createParticleGroupCallback = new CreateParticleGroupCallback();
 
     private final ParticleDef tempParticleDef = new ParticleDef();
 
@@ -808,7 +815,7 @@ public class ParticleSystem
         world.queryAABB(ubccallback, aabb);
     }
 
-    private SolveCollisionCallback sccallback = new SolveCollisionCallback();
+    private final SolveCollisionCallback sccallback = new SolveCollisionCallback();
 
     public void solveCollision(TimeStep step)
     {
@@ -1949,7 +1956,7 @@ public class ParticleSystem
         setParticleBuffer(userDataBuffer, buffer, capacity);
     }
 
-    private static final int lowerBound(Proxy[] ray, int length, long tag)
+    private static int lowerBound(Proxy[] ray, int length, long tag)
     {
         int left = 0;
         int step, curr;
@@ -1970,7 +1977,7 @@ public class ParticleSystem
         return left;
     }
 
-    private static final int upperBound(Proxy[] ray, int length, long tag)
+    private static int upperBound(Proxy[] ray, int length, long tag)
     {
         int left = 0;
         int step, curr;
@@ -2020,11 +2027,6 @@ public class ParticleSystem
         }
     }
 
-    /**
-     * @param callback
-     * @param point1
-     * @param point2
-     */
     public void raycast(ParticleRaycastCallback callback, final Vec2 point1,
             final Vec2 point2)
     {
@@ -2205,9 +2207,7 @@ public class ParticleSystem
             if (getClass() != obj.getClass())
                 return false;
             Proxy other = (Proxy) obj;
-            if (tag != other.tag)
-                return false;
-            return true;
+            return tag == other.tag;
         }
     }
 
@@ -2375,7 +2375,7 @@ public class ParticleSystem
         ParticleGroup groupA;
 
         ParticleGroup groupB;
-    };
+    }
 
     static class DestroyParticlesInShapeCallback
             implements ParticleQueryCallback
@@ -2621,5 +2621,5 @@ public class ParticleSystem
         {
             return triad.indexA < 0 || triad.indexB < 0 || triad.indexC < 0;
         }
-    };
+    }
 }

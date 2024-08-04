@@ -29,8 +29,9 @@ public class ParticleDef
 {
     /**
      * Specifies the type of particle. A particle may be more than one type.
-     * Multiple types are chained by logical sums, for example: pd.flags =
-     * ParticleType.b2_elasticParticle | ParticleType.b2_viscousParticle.
+     * Multiple types are chained by logical sums, for example:
+     * {@code pd.flags =
+     * ParticleType.b2_elasticParticle | ParticleType.b2_viscousParticle}.
      */
     int flags;
 

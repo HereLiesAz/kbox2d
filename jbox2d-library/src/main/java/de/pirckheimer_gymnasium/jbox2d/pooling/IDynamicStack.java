@@ -36,12 +36,10 @@ public interface IDynamicStack<E>
     /**
      * Pops an item off the stack
      */
-    public E pop();
+    E pop();
 
     /**
      * Pushes an item back on the stack
-     *
-     * @param argObject
      */
-    public void push(E argObject);
+    void push(E argObject);
 }

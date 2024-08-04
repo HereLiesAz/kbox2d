@@ -25,9 +25,13 @@ package de.pirckheimer_gymnasium.jbox2d.particle;
 
 public class ParticleGroupType
 {
-    /** resists penetration */
+    /**
+     * resists penetration
+     */
     public static final int solidParticleGroup = 1;
 
-    /** keeps its shape */
+    /**
+     * keeps its shape
+     */
     public static final int rigidParticleGroup = 1 << 1;
 }

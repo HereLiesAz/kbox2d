@@ -64,7 +64,7 @@ public class VoronoiDiagram
         }
     }
 
-    public static interface VoronoiDiagramCallback
+    public interface VoronoiDiagramCallback
     {
         void callback(int aTag, int bTag, int cTag);
     }
@@ -129,7 +129,7 @@ public class VoronoiDiagram
 
     private final Vec2 upper = new Vec2();
 
-    private MutableStack<VoronoiDiagramTask> taskPool = new MutableStack<VoronoiDiagram.VoronoiDiagramTask>(
+    private final MutableStack<VoronoiDiagramTask> taskPool = new MutableStack<>(
             50)
     {
         @Override
@@ -145,7 +145,7 @@ public class VoronoiDiagram
         }
     };
 
-    private final StackQueue<VoronoiDiagramTask> queue = new StackQueue<VoronoiDiagramTask>();
+    private final StackQueue<VoronoiDiagramTask> queue = new StackQueue<>();
 
     public void generate(float radius)
     {
@@ -245,35 +245,34 @@ public class VoronoiDiagram
                 int i = front.i;
                 Generator k = front.generator;
                 Generator a = diagram[i];
-                Generator b = k;
-                if (a != b)
+                if (a != k)
                 {
                     float ax = a.center.x - x;
                     float ay = a.center.y - y;
-                    float bx = b.center.x - x;
-                    float by = b.center.y - y;
+                    float bx = k.center.x - x;
+                    float by = k.center.y - y;
                     float a2 = ax * ax + ay * ay;
                     float b2 = bx * bx + by * by;
                     if (a2 > b2)
                     {
-                        diagram[i] = b;
+                        diagram[i] = k;
                         if (x > 0)
                         {
-                            queue.push(taskPool.pop().set(x - 1, y, i - 1, b));
+                            queue.push(taskPool.pop().set(x - 1, y, i - 1, k));
                         }
                         if (y > 0)
                         {
                             queue.push(taskPool.pop().set(x, y - 1, i - countX,
-                                    b));
+                                    k));
                         }
                         if (x < countX - 1)
                         {
-                            queue.push(taskPool.pop().set(x + 1, y, i + 1, b));
+                            queue.push(taskPool.pop().set(x + 1, y, i + 1, k));
                         }
                         if (y < countY - 1)
                         {
                             queue.push(taskPool.pop().set(x, y + 1, i + countX,
-                                    b));
+                                    k));
                         }
                         updated = true;
                     }

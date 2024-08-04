@@ -48,8 +48,8 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
 
 /**
  * Provides object pooling for all objects used in the engine. Objects retrieved
- * from here should only be used temporarily, and then pushed back (with the
- * exception of arrays).
+ * from here should only be used temporarily, and then pushed back (except *
+ * arrays).
  *
  * @author Daniel Murphy
  */
@@ -67,15 +67,15 @@ public class DefaultWorldPool implements IWorldPool
 
     private final OrderedStack<Rot> rots;
 
-    private final HashMap<Integer, float[]> afloats = new HashMap<Integer, float[]>();
+    private final HashMap<Integer, float[]> afloats = new HashMap<>();
 
-    private final HashMap<Integer, int[]> aints = new HashMap<Integer, int[]>();
+    private final HashMap<Integer, int[]> aints = new HashMap<>();
 
-    private final HashMap<Integer, Vec2[]> avecs = new HashMap<Integer, Vec2[]>();
+    private final HashMap<Integer, Vec2[]> avecs = new HashMap<>();
 
     private final IWorldPool world = this;
 
-    private final MutableStack<Contact> pcstack = new MutableStack<Contact>(
+    private final MutableStack<Contact> pcstack = new MutableStack<>(
             Settings.CONTACT_STACK_INIT_SIZE)
     {
         protected Contact newInstance()
@@ -89,7 +89,7 @@ public class DefaultWorldPool implements IWorldPool
         }
     };
 
-    private final MutableStack<Contact> ccstack = new MutableStack<Contact>(
+    private final MutableStack<Contact> ccstack = new MutableStack<>(
             Settings.CONTACT_STACK_INIT_SIZE)
     {
         protected Contact newInstance()
@@ -103,7 +103,7 @@ public class DefaultWorldPool implements IWorldPool
         }
     };
 
-    private final MutableStack<Contact> cpstack = new MutableStack<Contact>(
+    private final MutableStack<Contact> cpstack = new MutableStack<>(
             Settings.CONTACT_STACK_INIT_SIZE)
     {
         protected Contact newInstance()
@@ -117,7 +117,7 @@ public class DefaultWorldPool implements IWorldPool
         }
     };
 
-    private final MutableStack<Contact> ecstack = new MutableStack<Contact>(
+    private final MutableStack<Contact> ecstack = new MutableStack<>(
             Settings.CONTACT_STACK_INIT_SIZE)
     {
         protected Contact newInstance()
@@ -131,7 +131,7 @@ public class DefaultWorldPool implements IWorldPool
         }
     };
 
-    private final MutableStack<Contact> epstack = new MutableStack<Contact>(
+    private final MutableStack<Contact> epstack = new MutableStack<>(
             Settings.CONTACT_STACK_INIT_SIZE)
     {
         protected Contact newInstance()
@@ -145,7 +145,7 @@ public class DefaultWorldPool implements IWorldPool
         }
     };
 
-    private final MutableStack<Contact> chcstack = new MutableStack<Contact>(
+    private final MutableStack<Contact> chcstack = new MutableStack<>(
             Settings.CONTACT_STACK_INIT_SIZE)
     {
         protected Contact newInstance()
@@ -159,7 +159,7 @@ public class DefaultWorldPool implements IWorldPool
         }
     };
 
-    private final MutableStack<Contact> chpstack = new MutableStack<Contact>(
+    private final MutableStack<Contact> chpstack = new MutableStack<>(
             Settings.CONTACT_STACK_INIT_SIZE)
     {
         protected Contact newInstance()
@@ -181,42 +181,42 @@ public class DefaultWorldPool implements IWorldPool
 
     public DefaultWorldPool(int argSize, int argContainerSize)
     {
-        vecs = new OrderedStack<Vec2>(argSize, argContainerSize)
+        vecs = new OrderedStack<>(argSize, argContainerSize)
         {
             protected Vec2 newInstance()
             {
                 return new Vec2();
             }
         };
-        vec3s = new OrderedStack<Vec3>(argSize, argContainerSize)
+        vec3s = new OrderedStack<>(argSize, argContainerSize)
         {
             protected Vec3 newInstance()
             {
                 return new Vec3();
             }
         };
-        mats = new OrderedStack<Mat22>(argSize, argContainerSize)
+        mats = new OrderedStack<>(argSize, argContainerSize)
         {
             protected Mat22 newInstance()
             {
                 return new Mat22();
             }
         };
-        aabbs = new OrderedStack<AABB>(argSize, argContainerSize)
+        aabbs = new OrderedStack<>(argSize, argContainerSize)
         {
             protected AABB newInstance()
             {
                 return new AABB();
             }
         };
-        rots = new OrderedStack<Rot>(argSize, argContainerSize)
+        rots = new OrderedStack<>(argSize, argContainerSize)
         {
             protected Rot newInstance()
             {
                 return new Rot();
             }
         };
-        mat33s = new OrderedStack<Mat33>(argSize, argContainerSize)
+        mat33s = new OrderedStack<>(argSize, argContainerSize)
         {
             protected Mat33 newInstance()
             {

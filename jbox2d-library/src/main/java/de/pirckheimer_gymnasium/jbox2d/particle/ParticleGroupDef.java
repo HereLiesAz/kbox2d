@@ -32,10 +32,14 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
  */
 public class ParticleGroupDef
 {
-    /** The particle-behavior flags. */
+    /**
+     * The particle-behavior flags.
+     */
     public int flags;
 
-    /** The group-construction flags. */
+    /**
+     * The group-construction flags.
+     */
     public int groupFlags;
 
     /**
@@ -50,13 +54,19 @@ public class ParticleGroupDef
      */
     public float angle;
 
-    /** The linear velocity of the group's origin in world co-ordinates. */
+    /**
+     * The linear velocity of the group's origin in world co-ordinates.
+     */
     public final Vec2 linearVelocity = new Vec2();
 
-    /** The angular velocity of the group. */
+    /**
+     * The angular velocity of the group.
+     */
     public float angularVelocity;
 
-    /** The color of all particles in the group. */
+    /**
+     * The color of all particles in the group.
+     */
     public ParticleColor color;
 
     /**
@@ -65,7 +75,9 @@ public class ParticleGroupDef
      */
     public float strength;
 
-    /** Shape containing the particle group. */
+    /**
+     * Shape containing the particle group.
+     */
     public Shape shape;
 
     /**
@@ -74,7 +86,9 @@ public class ParticleGroupDef
      */
     public boolean destroyAutomatically;
 
-    /** Use this to store application-specific group data. */
+    /**
+     * Use this to store application-specific group data.
+     */
     public Object userData;
 
     public ParticleGroupDef()
