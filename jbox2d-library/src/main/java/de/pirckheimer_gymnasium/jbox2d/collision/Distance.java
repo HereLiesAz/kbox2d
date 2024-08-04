@@ -173,7 +173,7 @@ public class Distance
                 v.a = 0.0f;
             }
             // Compute the new simplex metric, if it is substantially different
-            // than
+            // from
             // old metric then flush the simplex.
             if (count > 1)
             {
@@ -671,7 +671,7 @@ public class Distance
     /**
      * Compute the closest points between two shapes. Supports any combination
      * of: CircleShape and PolygonShape. The simplex cache is input/output. On
-     * the first call set SimplexCache.count to zero.
+     * the first call set {@code SimplexCache.count} to zero.
      */
     public final void distance(final DistanceOutput output,
             final SimplexCache cache, final DistanceInput input)
@@ -690,8 +690,6 @@ public class Distance
         // (pooled above)
         int saveCount;
         simplex.getClosestPoint(closestPoint);
-        float distanceSqr1 = closestPoint.lengthSquared();
-        float distanceSqr2 = distanceSqr1;
         // Main iteration loop
         int iter = 0;
         while (iter < MAX_ITERS)
@@ -727,17 +725,15 @@ public class Distance
             }
             // Compute closest point.
             simplex.getClosestPoint(closestPoint);
-            distanceSqr2 = closestPoint.lengthSquared();
             // ensure progress
             // break;
-            distanceSqr1 = distanceSqr2;
             // get search direction;
             simplex.getSearchDirection(d);
             // Ensure the search direction is numerically fit.
             if (d.lengthSquared() < Settings.EPSILON * Settings.EPSILON)
             {
                 // The origin is probably contained by a line segment
-                // or triangle. Thus the shapes are overlapped.
+                // or triangle. Thus, the shapes are overlapped.
                 // We can't return zero here even though there may be overlap.
                 // In case the simplex is a point, segment, or triangle it is
                 // difficult

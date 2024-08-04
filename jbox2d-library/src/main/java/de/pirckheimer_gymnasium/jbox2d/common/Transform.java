@@ -23,6 +23,7 @@
  */
 package de.pirckheimer_gymnasium.jbox2d.common;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -33,6 +34,7 @@ import java.io.Serializable;
  */
 public class Transform implements Serializable
 {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**

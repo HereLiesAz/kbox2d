@@ -23,6 +23,7 @@
  */
 package de.pirckheimer_gymnasium.jbox2d.common;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -32,6 +33,7 @@ import java.io.Serializable;
  */
 public class Mat33 implements Serializable
 {
+    @Serial
     private static final long serialVersionUID = 2L;
 
     public static final Mat33 IDENTITY = new Mat33(new Vec3(1, 0, 0),

@@ -187,7 +187,7 @@ public class Settings
 
     /**
      * This scale factor controls how fast overlap is resolved. Ideally this
-     * would be 1 so that overlap is removed in one time step. However using
+     * would be 1 so that overlap is removed in one time step. However, using
      * values close to 1 often lead to overshoot.
      */
     public static float baumgarte = 0.2f;

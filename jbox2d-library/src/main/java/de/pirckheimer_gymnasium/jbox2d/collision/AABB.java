@@ -167,7 +167,6 @@ public class AABB
 
     /**
      * Gets the perimeter length
-     *
      */
     public final float getPerimeter()
     {
@@ -177,8 +176,6 @@ public class AABB
 
     /**
      * Combines another aabb with this one
-     *
-     * @param aabb
      */
     public final void combine(final AABB aabb)
     {

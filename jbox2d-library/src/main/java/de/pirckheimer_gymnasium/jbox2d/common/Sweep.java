@@ -23,6 +23,7 @@
  */
 package de.pirckheimer_gymnasium.jbox2d.common;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -35,6 +36,7 @@ import java.io.Serializable;
  */
 public class Sweep implements Serializable
 {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**
@@ -97,19 +99,17 @@ public class Sweep implements Serializable
      *
      * @param xf   the result is placed here - must not be null
      * @param beta the normalized time in [0,1].
+     *
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L688-L697
      */
     public final void getTransform(final Transform xf, final float beta)
     {
         assert (xf != null);
-        // xf->p = (1.0f - beta) * c0 + beta * c;
-        // float32 angle = (1.0f - beta) * a0 + beta * a;
-        // xf->q.Set(angle);
         xf.p.x = (1.0f - beta) * c0.x + beta * c.x;
         xf.p.y = (1.0f - beta) * c0.y + beta * c.y;
         float angle = (1.0f - beta) * a0 + beta * a;
         xf.q.set(angle);
         // Shift to origin
-        // xf->p -= b2Mul(xf->q, localCenter);
         final Rot q = xf.q;
         xf.p.x -= q.c * localCenter.x - q.s * localCenter.y;
         xf.p.y -= q.s * localCenter.x + q.c * localCenter.y;
@@ -119,14 +119,12 @@ public class Sweep implements Serializable
      * Advance the sweep forward, yielding a new initial state.
      *
      * @param alpha the new initial time.
+     *
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L699-L706
      */
     public final void advance(final float alpha)
     {
         assert (alpha0 < 1.0f);
-        // float32 beta = (alpha - alpha0) / (1.0f - alpha0);
-        // c0 += beta * (c - c0);
-        // a0 += beta * (a - a0);
-        // alpha0 = alpha;
         float beta = (alpha - alpha0) / (1.0f - alpha0);
         c0.x += beta * (c.x - c0.x);
         c0.y += beta * (c.y - c0.y);
