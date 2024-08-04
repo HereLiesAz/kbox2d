@@ -26,6 +26,11 @@ package de.pirckheimer_gymnasium.jbox2d.particle;
 import de.pirckheimer_gymnasium.jbox2d.common.Transform;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 
+/**
+ * A group of particles
+ *
+ * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleGroup.h#L172-L287
+ */
 public class ParticleGroup
 {
     ParticleSystem system;
@@ -62,6 +67,9 @@ public class ParticleGroup
 
     boolean toBeSplit;
 
+    /**
+     * Use this to store application-specific group data.
+     */
     Object userData;
 
     public ParticleGroup()
@@ -81,81 +89,187 @@ public class ParticleGroup
         toBeSplit = false;
     }
 
+    /**
+     * Get the next particle group from the list in world.
+     *
+     * @return The next particle group from the list in world
+     */
     public ParticleGroup getNext()
     {
         return next;
     }
 
+    /**
+     * Get the number of particles.
+     *
+     * @return The number of particles.
+     *
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleGroup.h#L185-L186
+     */
     public int getParticleCount()
     {
         return lastIndex - firstIndex;
     }
 
+    /**
+     * Get the offset of this group in the global particle buffer.
+     *
+     * @return The offset of this group in the global particle buffer.
+     *
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleGroup.h#L188-L189
+     */
     public int getBufferIndex()
     {
         return firstIndex;
     }
 
+    /**
+     * Get the construction flags for the group.
+     *
+     * @return The construction flags for the group.
+     *
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleGroup.h#L197-L198
+     */
     public int getGroupFlags()
     {
         return groupFlags;
     }
 
+    /**
+     * Set the construction flags for the group.
+     *
+     * @param flags The construction flags for the group
+     *
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleGroup.h#L200-L201
+     */
     public void setGroupFlags(int flags)
     {
         groupFlags = flags;
     }
 
+    /**
+     * Get the total mass of the group: the sum of all particles in it.
+     *
+     * @return The total mass of the group: the sum of all particles in it.
+     *
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleGroup.h#L203-L204
+     */
     public float getMass()
     {
         updateStatistics();
         return mass;
     }
 
+    /**
+     * Get the moment of inertia for the group.
+     *
+     * @return The moment of inertia for the group.
+     *
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleGroup.h#L206-L207
+     */
     public float getInertia()
     {
         updateStatistics();
         return inertia;
     }
 
+    /**
+     * Get the center of gravity for the group.
+     *
+     * @return The center of gravity for the group.
+     *
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleGroup.h#L209-L210
+     */
     public Vec2 getCenter()
     {
         updateStatistics();
         return center;
     }
 
+    /**
+     * Get the linear velocity of the group.
+     *
+     * @return The linear velocity of the group.
+     *
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleGroup.h#L212-L213
+     */
     public Vec2 getLinearVelocity()
     {
         updateStatistics();
         return linearVelocity;
     }
 
+    /**
+     * Get the angular velocity of the group.
+     *
+     * @return The angular velocity of the group.
+     *
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleGroup.h#L215-L216
+     */
     public float getAngularVelocity()
     {
         updateStatistics();
         return angularVelocity;
     }
 
+    /**
+     * Get the position of the group's origin and rotation. Used only with
+     * groups of rigid particles.
+     *
+     * @return The position of the group's origin and rotation.
+     *
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleGroup.h#L218-L220
+     */
     public Transform getTransform()
     {
         return transform;
     }
 
+    /**
+     * Get the position of the particle group as a whole. Used only with groups
+     * of rigid particles.
+     *
+     * @return The position of the particle group as a whole.
+     *
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleGroup.h#L222-L224
+     */
     public Vec2 getPosition()
     {
         return transform.p;
     }
 
+    /**
+     * Get the rotational angle of the particle group as a whole. Used only with
+     * groups of rigid particles.
+     *
+     * @return The rotational angle of the particle group as a whole.
+     *
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleGroup.h#L226-L228
+     */
     public float getAngle()
     {
         return transform.q.getAngle();
     }
 
+    /**
+     * Get the user data pointer that was provided in the group definition.
+     *
+     * @return The user data pointer that was provided in the group definition.
+     *
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleGroup.h#L236-L237
+     */
     public Object getUserData()
     {
         return userData;
     }
 
+    /**
+     * Set the user data. Use this to store your application specific data.
+     *
+     * @param data The user data.
+     *
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleGroup.h#L239-L240
+     */
     public void setUserData(Object data)
     {
         userData = data;

@@ -239,15 +239,15 @@ public class ParticleSystem
         colorBuffer = new ParticleBuffer<>(ParticleColor.class);
         userDataBuffer = new ParticleBuffer<>(Object.class);
     }
-//  public void assertNotSamePosition() {
-//    for (int i = 0; i < count; i++) {
-//      Vec2 vi = positionBuffer.data[i];
-//      for (int j = i + 1; j < count; j++) {
-//        Vec2 vj = positionBuffer.data[j];
-//        assert(vi.x != vj.x || vi.y != vj.y);
-//      }
-//    }
-//  }
+    // public void assertNotSamePosition() {
+    // for (int i = 0; i < count; i++) {
+    // Vec2 vi = positionBuffer.data[i];
+    // for (int j = i + 1; j < count; j++) {
+    // Vec2 vj = positionBuffer.data[j];
+    // assert(vi.x != vj.x || vi.y != vj.y);
+    // }
+    // }
+    // }
 
     public int createParticle(ParticleDef def)
     {
@@ -287,7 +287,7 @@ public class ParticleSystem
         int index = count++;
         flagsBuffer.data[index] = def.flags;
         positionBuffer.data[index].set(def.position);
-//    assertNotSamePosition();
+        // assertNotSamePosition();
         velocityBuffer.data[index].set(def.velocity);
         groupBuffer[index] = null;
         if (depthBuffer != null)
@@ -702,7 +702,7 @@ public class ParticleSystem
         float dx = pb.x - pa.x;
         float dy = pb.y - pa.y;
         float d2 = dx * dx + dy * dy;
-//    assert(d2 != 0);
+        // assert(d2 != 0);
         if (d2 < squaredDiameter)
         {
             if (contactCount >= contactCapacity)
@@ -1946,6 +1946,9 @@ public class ParticleSystem
         return groupBuffer;
     }
 
+    /**
+     * Get the number of particles.
+     */
     public int getParticleCount()
     {
         return count;
@@ -1998,6 +2001,15 @@ public class ParticleSystem
         return left;
     }
 
+    /**
+     * Query the particle system for all particles that potentially overlap the
+     * provided AABB.
+     *
+     * @param callback a user implemented callback class.
+     * @param aabb     the query box.
+     *
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L668-L673
+     */
     public void queryAABB(ParticleQueryCallback callback, final AABB aabb)
     {
         if (proxyCount == 0)
@@ -2027,6 +2039,17 @@ public class ParticleSystem
         }
     }
 
+    /**
+     * Ray-cast the particle system for all particles in the path of the ray.
+     * Your callback controls whether you get the closest point, any point, or
+     * n-points. The ray-cast ignores particles that contain the starting point.
+     *
+     * @param callback a user implemented callback class.
+     * @param point1   the ray starting point
+     * @param point2   the ray ending point
+     *
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L684-L692
+     */
     public void raycast(ParticleRaycastCallback callback, final Vec2 point1,
             final Vec2 point2)
     {
@@ -2211,25 +2234,87 @@ public class ParticleSystem
         }
     }
 
-    /** Connection between two particles */
+    /**
+     * Connection between two particles.
+     *
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L120-L134
+     */
     public static class Pair
     {
-        int indexA, indexB;
+        /**
+         * Index of the respective particle making a pair.
+         *
+         * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L123-L124
+         */
+        int indexA;
 
+        /**
+         * Index of the respective particle making a pair.
+         *
+         * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L123-L124
+         */
+        int indexB;
+
+        /**
+         * The logical sum of the particle flags. See the b2ParticleFlag enum.
+         *
+         * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L126-L127
+         */
         int flags;
 
+        /**
+         * The strength of cohesion among the particles.
+         *
+         * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L129-L130
+         */
         float strength;
 
+        /**
+         * The initial distance of the particles.
+         *
+         * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L132-L133
+         */
         float distance;
     }
 
-    /** Connection between three particles */
+    /**
+     * Connection between three particles.
+     */
     public static class Triad
     {
-        int indexA, indexB, indexC;
+        /**
+         * Index of the respective particle making triad.
+         *
+         * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L139-L140
+         */
+        int indexA;
 
+        /**
+         * Index of the respective particle making triad.
+         *
+         * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L139-L140
+         */
+        int indexB;
+
+        /**
+         * Index of the respective particle making triad.
+         *
+         * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L139-L140
+         */
+        int indexC;
+
+        /**
+         * The logical sum of the particle flags.
+         *
+         * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L142-L143
+         */
         int flags;
 
+        /**
+         * The strength of cohesion among the particles.
+         *
+         * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L145-L146
+         */
         float strength;
 
         final Vec2 pa = new Vec2(), pb = new Vec2(), pc = new Vec2();
@@ -2237,7 +2322,9 @@ public class ParticleSystem
         float ka, kb, kc, s;
     }
 
-    // Callback used with VoronoiDiagram.
+    /**
+     * Callback used with VoronoiDiagram.
+     */
     static class CreateParticleGroupCallback implements VoronoiDiagramCallback
     {
         public void callback(int a, int b, int c)
