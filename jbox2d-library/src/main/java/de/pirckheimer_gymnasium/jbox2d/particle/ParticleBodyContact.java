@@ -30,26 +30,36 @@ public class ParticleBodyContact
 {
     /**
      * Index of the particle making contact.
+     *
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L101-L102
      */
     public int index;
 
     /**
      * The body making contact.
+     *
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L104-L105
      */
     public Body body;
 
     /**
      * Weight of the contact. A value between 0.0f and 1.0f.
+     *
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L110-L111
      */
     float weight;
 
     /**
      * The normalized direction from the particle to the body.
+     *
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L113-L114
      */
     public final Vec2 normal = new Vec2();
 
     /**
      * The effective mass used in calculating force.
+     *
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L116-L117
      */
     float mass;
 }

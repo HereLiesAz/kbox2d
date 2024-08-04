@@ -2102,7 +2102,6 @@ public class World
 
     /**
      * Get contacts between particles
-     *
      */
     public ParticleContact[] getParticleContacts()
     {
@@ -2116,7 +2115,6 @@ public class World
 
     /**
      * Get contacts between particles and bodies
-     *
      */
     public ParticleBodyContact[] getParticleBodyContacts()
     {
@@ -2130,7 +2128,6 @@ public class World
 
     /**
      * Compute the kinetic energy that can be lost by damping force
-     *
      */
     public float computeParticleCollisionEnergy()
     {

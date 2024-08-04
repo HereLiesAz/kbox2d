@@ -28,9 +28,14 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 public class ParticleContact
 {
     /**
-     * Indices of the respective particles making contact.
+     * Index of the respective particle making contact.
      */
-    public int indexA, indexB;
+    public int indexA;
+
+    /**
+     * Index of the respective particle making contact.
+     */
+    public int indexB;
 
     /**
      * The logical sum of the particle behaviors that have been set.

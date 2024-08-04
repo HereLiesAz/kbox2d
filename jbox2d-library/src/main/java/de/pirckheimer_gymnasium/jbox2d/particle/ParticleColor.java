@@ -29,6 +29,8 @@ import de.pirckheimer_gymnasium.jbox2d.common.Color3f;
  * Small color object for each particle
  *
  * @author Daniel Murphy
+ *
+ * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2Particle.h#L80-L266
  */
 public class ParticleColor
 {
@@ -42,6 +44,17 @@ public class ParticleColor
         a = (byte) 50;
     }
 
+    /**
+     * Constructor with four elements: r (red), g (green), b (blue), and a
+     * (opacity). Each element can be specified 0 to 255.
+     *
+     * @param r red
+     * @param g green
+     * @param b blue
+     * @param a alpha (opacity)
+     *
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2Particle.h#L84-L91
+     */
     public ParticleColor(byte r, byte g, byte b, byte a)
     {
         set(r, g, b, a);
@@ -68,11 +81,29 @@ public class ParticleColor
         a = color.a;
     }
 
+    /**
+     * True when all four color elements equal 0. When true, a particle color
+     * buffer isn't allocated.
+     *
+     * @return True when all four color elements equal 0.
+     *
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2Particle.h#L97-L103
+     */
     public boolean isZero()
     {
         return r == 0 && g == 0 && b == 0 && a == 0;
     }
 
+    /**
+     * Sets color for current object using the four elements described above.
+     *
+     * @param r red
+     * @param g green
+     * @param b blue
+     * @param a alpha (opacity)
+     *
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2Particle.h#L109-L117
+     */
     public void set(byte r, byte g, byte b, byte a)
     {
         this.r = r;
