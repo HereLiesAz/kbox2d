@@ -21,9 +21,6 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-/**
- * Created at 7:23:39 AM Jan 20, 2011
- */
 package de.pirckheimer_gymnasium.jbox2d.dynamics.joints;
 
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;

@@ -21,9 +21,6 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-/**
- * Created at 3:43:53 AM Jul 7, 2010
- */
 package de.pirckheimer_gymnasium.jbox2d.callbacks;
 
 import de.pirckheimer_gymnasium.jbox2d.common.Settings;

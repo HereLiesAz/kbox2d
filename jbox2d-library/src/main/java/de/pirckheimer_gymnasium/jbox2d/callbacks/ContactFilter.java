@@ -21,15 +21,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-/**
- * Created at 4:25:42 AM Jul 15, 2010
- */
 package de.pirckheimer_gymnasium.jbox2d.callbacks;
 
 import de.pirckheimer_gymnasium.jbox2d.dynamics.Filter;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.Fixture;
 
-// updated to rev 100
 /**
  * Implement this class to provide collision filtering. In other words, you can
  * implement this class if you want finer control over contact creation.

@@ -21,9 +21,6 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-/**
- * Created at 3:26:14 AM Jan 11, 2011
- */
 package de.pirckheimer_gymnasium.jbox2d.pooling.normal;
 
 import java.util.HashMap;

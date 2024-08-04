@@ -21,9 +21,6 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-/**
- * Created at 12:52:04 AM Jan 20, 2011
- */
 package de.pirckheimer_gymnasium.jbox2d.pooling.normal;
 
 /**

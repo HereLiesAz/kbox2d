@@ -21,9 +21,6 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-/**
- * Created at 3:59:59 AM Jul 7, 2010
- */
 package de.pirckheimer_gymnasium.jbox2d.dynamics;
 
 // updated to rev 100

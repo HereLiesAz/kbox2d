@@ -21,9 +21,6 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-/**
- * created at 12:22:58 AM Jan 13, 2011
- */
 package de.pirckheimer_gymnasium.jbox2d.testbed.tests;
 
 import de.pirckheimer_gymnasium.jbox2d.collision.shapes.CircleShape;

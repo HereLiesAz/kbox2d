@@ -16,9 +16,6 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-/**
- * Created at 3:29:28 AM Jul 17, 2010
- */
 package de.pirckheimer_gymnasium.jbox2d.testbed.pooling;
 
 import java.util.HashMap;

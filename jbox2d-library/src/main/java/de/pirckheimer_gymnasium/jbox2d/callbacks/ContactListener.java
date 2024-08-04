@@ -26,7 +26,6 @@ package de.pirckheimer_gymnasium.jbox2d.callbacks;
 import de.pirckheimer_gymnasium.jbox2d.collision.Manifold;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.contacts.Contact;
 
-// updated to rev 100
 /**
  * Implement this class to get contact information. You can use these results
  * for things like sounds and game logic. You can also get contact results by
