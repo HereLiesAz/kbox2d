@@ -34,7 +34,7 @@ import de.pirckheimer_gymnasium.jbox2d.collision.broadphase.DynamicTree;
 public interface TreeRayCastCallback
 {
     /**
-     * @return the fraction to the node
+     * @return The fraction to the node
      */
     public float raycastCallback(RayCastInput input, int nodeId);
 }

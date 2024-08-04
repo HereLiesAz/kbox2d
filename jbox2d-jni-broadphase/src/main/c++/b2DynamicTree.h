@@ -80,7 +80,7 @@ public:
 	bool MoveProxy(int32 proxyId, const b2AABB& aabb1, const b2Vec2& displacement);
 
 	/// Get proxy user data.
-	/// @return the proxy user data or 0 if the id is invalid.
+	/// @return The proxy user data or 0 if the id is invalid.
 	void* GetUserData(int32 proxyId) const;
 
 	/// Get the fat AABB for a proxy.

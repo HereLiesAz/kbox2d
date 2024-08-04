@@ -939,7 +939,7 @@ public class World
      * the next body in the world list. A null body indicates the end of the
      * list.
      *
-     * @return the head of the world body list.
+     * @return The head of the world body list.
      */
     public Body getBodyList()
     {
@@ -951,7 +951,7 @@ public class World
      * get the next joint in the world list. A null joint indicates the end of
      * the list.
      *
-     * @return the head of the world joint list.
+     * @return The head of the world joint list.
      */
     public Joint getJointList()
     {
@@ -963,7 +963,7 @@ public class World
      * Contact.getNext to get the next contact in the world list. A null contact
      * indicates the end of the list.
      *
-     * @return the head of the world contact list.
+     * @return The head of the world contact list.
      * @warning contacts are created and destroyed in the middle of a time step.
      *          Use ContactListener to avoid missing contacts.
      */
@@ -1781,7 +1781,7 @@ public class World
      * been called.
      *
      * @warning This function is locked during callbacks.
-     * @return the index of the particle.
+     * @return The index of the particle.
      */
     public int createParticle(ParticleDef def)
     {
@@ -1926,7 +1926,7 @@ public class World
      * ParticleGroup::GetNext to get the next group in the world list. A NULL
      * group indicates the end of the list.
      *
-     * @return the head of the world particle group list.
+     * @return The head of the world particle group list.
      */
     public ParticleGroup[] getParticleGroupList()
     {
@@ -2037,7 +2037,7 @@ public class World
     /**
      * Get the particle data.
      *
-     * @return the pointer to the head of the particle data.
+     * @return The pointer to the head of the particle data.
      */
     public int[] getParticleFlagsBuffer()
     {

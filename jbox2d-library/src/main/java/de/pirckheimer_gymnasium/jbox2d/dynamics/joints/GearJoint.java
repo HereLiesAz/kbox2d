@@ -61,6 +61,7 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
  *          (which must be body1 on those joints).
  * @warning You have to manually destroy the gear joint if joint1 or joint2 is
  *          destroyed.
+ *
  * @author Daniel Murphy
  */
 public class GearJoint extends Joint

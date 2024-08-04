@@ -85,7 +85,7 @@ public class Fixture
      * Get the type of the child shape. You can use this to down cast to the
      * concrete shape.
      *
-     * @return the shape type.
+     * @return The shape type.
      */
     public ShapeType getType()
     {
@@ -105,7 +105,7 @@ public class Fixture
     /**
      * Is this fixture a sensor (non-solid)?
      *
-     * @return the true if the shape is a sensor.
+     * @return The true if the shape is a sensor.
      */
     public boolean isSensor()
     {
@@ -184,7 +184,7 @@ public class Fixture
      * Get the parent body of this fixture. This is NULL if the fixture is not
      * attached.
      *
-     * @return the parent body.
+     * @return The parent body.
      */
     public Body getBody()
     {
@@ -194,7 +194,7 @@ public class Fixture
     /**
      * Get the next fixture in the parent body's fixture list.
      *
-     * @return the next shape.
+     * @return The next shape.
      */
     public Fixture getNext()
     {

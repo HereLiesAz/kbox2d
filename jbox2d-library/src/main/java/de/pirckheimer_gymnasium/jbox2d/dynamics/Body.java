@@ -320,8 +320,8 @@ public class Body
      * cause non-physical behavior. Note: contacts are updated on the next call
      * to World.step().
      *
-     * @param position the world position of the body's local origin.
-     * @param angle    the world rotation in radians.
+     * @param position The world position of the body's local origin.
+     * @param angle    The world rotation in radians.
      */
     public final void setTransform(Vec2 position, float angle)
     {
@@ -347,7 +347,7 @@ public class Body
     /**
      * Get the body transform for the body's origin.
      *
-     * @return the world transform of the body's origin.
+     * @return The world transform of the body's origin.
      */
     public final Transform getTransform()
     {
@@ -357,7 +357,7 @@ public class Body
     /**
      * Get the world body origin position. Do not modify.
      *
-     * @return the world position of the body's origin.
+     * @return The world position of the body's origin.
      */
     public final Vec2 getPosition()
     {
@@ -367,7 +367,7 @@ public class Body
     /**
      * Get the angle in radians.
      *
-     * @return the current world rotation angle in radians.
+     * @return The current world rotation angle in radians.
      */
     public final float getAngle()
     {
@@ -412,7 +412,7 @@ public class Body
      * Get the linear velocity of the center of mass. Do not modify, instead use
      * {@link #setLinearVelocity(Vec2)}.
      *
-     * @return the linear velocity of the center of mass.
+     * @return The linear velocity of the center of mass.
      */
     public final Vec2 getLinearVelocity()
     {
@@ -440,7 +440,7 @@ public class Body
     /**
      * Get the angular velocity.
      *
-     * @return the angular velocity in radians/second.
+     * @return The angular velocity in radians/second.
      */
     public final float getAngularVelocity()
     {
@@ -584,7 +584,7 @@ public class Body
     /**
      * Get the total mass of the body.
      *
-     * @return the mass, usually in kilograms (kg).
+     * @return The mass, usually in kilograms (kg).
      */
     public final float getMass()
     {
@@ -594,7 +594,7 @@ public class Body
     /**
      * Get the central rotational inertia of the body.
      *
-     * @return the rotational inertia, usually in kg-m^2.
+     * @return The rotational inertia, usually in kg-m^2.
      */
     public final float getInertia()
     {
@@ -758,7 +758,7 @@ public class Body
      *
      * @param localPoint a point on the body measured relative the body's
      *                   origin.
-     * @return the same point expressed in world coordinates.
+     * @return The same point expressed in world coordinates.
      */
     public final Vec2 getWorldPoint(Vec2 localPoint)
     {
@@ -776,7 +776,7 @@ public class Body
      * Get the world coordinates of a vector given the local coordinates.
      *
      * @param localVector a vector fixed in the body.
-     * @return the same vector expressed in world coordinates.
+     * @return The same vector expressed in world coordinates.
      */
     public final Vec2 getWorldVector(Vec2 localVector)
     {
@@ -799,7 +799,7 @@ public class Body
      * Gets a local point relative to the body's origin given a world point.
      *
      * @param worldPoint point in world coordinates.
-     * @return the corresponding local point relative to the body's origin.
+     * @return The corresponding local point relative to the body's origin.
      */
     public final Vec2 getLocalPoint(Vec2 worldPoint)
     {
@@ -817,7 +817,7 @@ public class Body
      * Gets a local vector given a world vector.
      *
      * @param worldVector a vector in world coordinates.
-     * @return the corresponding local vector.
+     * @return The corresponding local vector.
      */
     public final Vec2 getLocalVector(Vec2 worldVector)
     {
@@ -840,7 +840,7 @@ public class Body
      * Get the world linear velocity of a world point attached to this body.
      *
      * @param worldPoint a point in world coordinates.
-     * @return the world velocity of a point.
+     * @return The world velocity of a point.
      */
     public final Vec2 getLinearVelocityFromWorldPoint(Vec2 worldPoint)
     {
@@ -862,7 +862,7 @@ public class Body
      * Get the world velocity of a local point.
      *
      * @param localPoint a point in local coordinates.
-     * @return the world velocity of a point.
+     * @return The world velocity of a point.
      */
     public final Vec2 getLinearVelocityFromLocalPoint(Vec2 localPoint)
     {

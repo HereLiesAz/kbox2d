@@ -117,31 +117,31 @@ public interface JbSerializer
     {
         /**
          * @param world
-         * @return the tag for the world. can be null.
+         * @return The tag for the world. can be null.
          */
         public Long getTag(World world);
 
         /**
          * @param body
-         * @return the tag for the body. can be null.
+         * @return The tag for the body. can be null.
          */
         public Long getTag(Body body);
 
         /**
          * @param shape
-         * @return the tag for the shape. can be null.
+         * @return The tag for the shape. can be null.
          */
         public Long getTag(Shape shape);
 
         /**
          * @param fixture
-         * @return the tag for the fixture. can be null.
+         * @return The tag for the fixture. can be null.
          */
         public Long getTag(Fixture fixture);
 
         /**
          * @param joint
-         * @return the tag for the joint. can be null.
+         * @return The tag for the joint. can be null.
          */
         public Long getTag(Joint joint);
     }

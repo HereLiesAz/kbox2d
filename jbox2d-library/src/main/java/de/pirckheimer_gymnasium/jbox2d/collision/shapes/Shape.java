@@ -51,7 +51,7 @@ public abstract class Shape
      * Get the type of this shape. You can use this to down cast to the concrete
      * shape.
      *
-     * @return the shape type.
+     * @return The shape type.
      */
     public ShapeType getType()
     {
