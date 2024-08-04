@@ -16,55 +16,72 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.pirckheimer_gymnasium.jbox2d.testbed.framework.javafx;
+package de.pirckheimer_gymnasium.jbox2d.testbed;
 
-import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestList;
+import java.awt.BorderLayout;
+import java.awt.Component;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
+
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.AbstractTestbedController;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.AbstractTestbedController.MouseBehavior;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.AbstractTestbedController.UpdateBehavior;
+import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestList;
+import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedController;
+import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedErrorHandler;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedModel;
-
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
+import de.pirckheimer_gymnasium.jbox2d.testbed.framework.j2d.DebugDrawJ2D;
+import de.pirckheimer_gymnasium.jbox2d.testbed.framework.j2d.TestPanelJ2D;
+import de.pirckheimer_gymnasium.jbox2d.testbed.framework.j2d.TestbedSidePanel;
 
 /**
  * The entry point for the testbed application
  *
  * @author Daniel Murphy
  */
-public class TestbedMain extends Application
+public class TestbedMain
 {
     // private static final Logger log =
     // LoggerFactory.getLogger(TestbedMain.class);
-    @Override
-    public void start(Stage primaryStage) throws Exception
+    public static void main(String[] args)
     {
+        // try {
+        // UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+        // } catch (Exception e) {
+        // log.warn("Could not set the look and feel to nimbus. "
+        // + "Hopefully you're on a mac so the window isn't ugly as crap.");
+        // }
         TestbedModel model = new TestbedModel();
-        final AbstractTestbedController controller = new TestbedControllerJavaFX(
+        final AbstractTestbedController controller = new TestbedController(
                 model, UpdateBehavior.UPDATE_CALLED, MouseBehavior.NORMAL,
-                (Exception e, String message) -> {
-                    new Alert(Alert.AlertType.ERROR).showAndWait();
+                new TestbedErrorHandler()
+                {
+                    @Override
+                    public void serializationError(Exception e, String message)
+                    {
+                        JOptionPane.showMessageDialog(null, message,
+                                "Serialization Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
                 });
-        BorderPane testbed = new BorderPane();
-        TestPanelJavaFX panel = new TestPanelJavaFX(model, controller, testbed);
+        TestPanelJ2D panel = new TestPanelJ2D(model, controller);
         model.setPanel(panel);
-        model.setDebugDraw(new DebugDrawJavaFX(panel, true));
+        model.setDebugDraw(new DebugDrawJ2D(panel, true));
         TestList.populateModel(model);
-        testbed.setCenter(panel);
-        testbed.setRight(
-                new ScrollPane(new TestbedSidePanel(model, controller)));
-        Scene scene = new Scene(testbed, TestPanelJavaFX.INIT_WIDTH + 175,
-                TestPanelJavaFX.INIT_HEIGHT);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("JBox2D Testbed");
-        primaryStage.show();
+        JFrame testbed = new JFrame();
+        testbed.setTitle("JBox2D Testbed");
+        testbed.setLayout(new BorderLayout());
+        TestbedSidePanel side = new TestbedSidePanel(model, controller);
+        testbed.add((Component) panel, "Center");
+        testbed.add(new JScrollPane(side), "East");
+        testbed.pack();
+        testbed.setVisible(true);
+        testbed.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         System.out.println(System.getProperty("java.home"));
-        Platform.runLater(new Runnable()
+        SwingUtilities.invokeLater(new Runnable()
         {
             @Override
             public void run()
@@ -73,10 +90,5 @@ public class TestbedMain extends Application
                 controller.start();
             }
         });
-    }
-
-    public static void main(String[] args)
-    {
-        launch(TestbedMain.class, args);
     }
 }
