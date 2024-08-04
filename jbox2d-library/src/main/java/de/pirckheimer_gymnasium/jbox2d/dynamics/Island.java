@@ -123,7 +123,7 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.joints.Joint;
  to body data. The raint structures are iterated over linearly, which leads
  to few cache misses.
 
- The bodies are not accessed during iteration. Instead read only data, such as
+ The bodies are not accessed during iteration. Instead, read only data, such as
  the mass values are stored with the constraints. The mutable data are the raint
  impulses and the bodies velocities/positions. The impulses are held inside the
  raint structures. The body velocities/positions are held in compact, temporary

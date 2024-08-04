@@ -337,26 +337,25 @@ public class MotorJoint extends Joint
                     + inv_h * correctionFactor * linearError.x;
             Cdot.y = vB.y + wB * rB.x - vA.y - wA * rA.x
                     + inv_h * correctionFactor * linearError.y;
-            final Vec2 impulse = temp;
-            Mat22.mulToOutUnsafe(linearMass, Cdot, impulse);
-            impulse.negateLocal();
+            Mat22.mulToOutUnsafe(linearMass, Cdot, temp);
+            temp.negateLocal();
             final Vec2 oldImpulse = pool.popVec2();
             oldImpulse.set(linearImpulse);
-            linearImpulse.addLocal(impulse);
+            linearImpulse.addLocal(temp);
             float maxImpulse = h * maxForce;
             if (linearImpulse.lengthSquared() > maxImpulse * maxImpulse)
             {
                 linearImpulse.normalize();
                 linearImpulse.mulLocal(maxImpulse);
             }
-            impulse.x = linearImpulse.x - oldImpulse.x;
-            impulse.y = linearImpulse.y - oldImpulse.y;
-            vA.x -= mA * impulse.x;
-            vA.y -= mA * impulse.y;
-            wA -= iA * (rA.x * impulse.y - rA.y * impulse.x);
-            vB.x += mB * impulse.x;
-            vB.y += mB * impulse.y;
-            wB += iB * (rB.x * impulse.y - rB.y * impulse.x);
+            temp.x = linearImpulse.x - oldImpulse.x;
+            temp.y = linearImpulse.y - oldImpulse.y;
+            vA.x -= mA * temp.x;
+            vA.y -= mA * temp.y;
+            wA -= iA * (rA.x * temp.y - rA.y * temp.x);
+            vB.x += mB * temp.x;
+            vB.y += mB * temp.y;
+            wB += iB * (rB.x * temp.y - rB.y * temp.x);
         }
         pool.pushVec2(3);
         // data.velocities[indexA].v.set(vA);

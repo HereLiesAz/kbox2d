@@ -1435,14 +1435,14 @@ public class ParticleSystem
                         * ((colorB.b & 0xFF) - (colorA.b & 0xFF))) >> 8;
                 int da = (colorMixing256
                         * ((colorB.a & 0xFF) - (colorA.a & 0xFF))) >> 8;
-                colorA.r += dr;
-                colorA.g += dg;
-                colorA.b += db;
-                colorA.a += da;
-                colorB.r -= dr;
-                colorB.g -= dg;
-                colorB.b -= db;
-                colorB.a -= da;
+                colorA.r += (byte) dr;
+                colorA.g += (byte) dg;
+                colorA.b += (byte) db;
+                colorA.a += (byte) da;
+                colorB.r -= (byte) dr;
+                colorB.g -= (byte) dg;
+                colorB.b -= (byte) db;
+                colorB.a -= (byte) da;
             }
         }
     }

@@ -40,48 +40,27 @@ public abstract class Joint
     public static Joint create(World world, JointDef def)
     {
         // Joint joint = null;
-        switch (def.type)
+        return switch (def.type)
         {
-        case MOUSE:
-            return new MouseJoint(world.getPool(), (MouseJointDef) def);
-
-        case DISTANCE:
-            return new DistanceJoint(world.getPool(), (DistanceJointDef) def);
-
-        case PRISMATIC:
-            return new PrismaticJoint(world.getPool(), (PrismaticJointDef) def);
-
-        case REVOLUTE:
-            return new RevoluteJoint(world.getPool(), (RevoluteJointDef) def);
-
-        case WELD:
-            return new WeldJoint(world.getPool(), (WeldJointDef) def);
-
-        case FRICTION:
-            return new FrictionJoint(world.getPool(), (FrictionJointDef) def);
-
-        case WHEEL:
-            return new WheelJoint(world.getPool(), (WheelJointDef) def);
-
-        case GEAR:
-            return new GearJoint(world.getPool(), (GearJointDef) def);
-
-        case PULLEY:
-            return new PulleyJoint(world.getPool(), (PulleyJointDef) def);
-
-        case CONSTANT_VOLUME:
-            return new ConstantVolumeJoint(world, (ConstantVolumeJointDef) def);
-
-        case ROPE:
-            return new RopeJoint(world.getPool(), (RopeJointDef) def);
-
-        case MOTOR:
-            return new MotorJoint(world.getPool(), (MotorJointDef) def);
-
-        case UNKNOWN:
-        default:
-            return null;
-        }
+        case MOUSE -> new MouseJoint(world.getPool(), (MouseJointDef) def);
+        case DISTANCE ->
+            new DistanceJoint(world.getPool(), (DistanceJointDef) def);
+        case PRISMATIC ->
+            new PrismaticJoint(world.getPool(), (PrismaticJointDef) def);
+        case REVOLUTE ->
+            new RevoluteJoint(world.getPool(), (RevoluteJointDef) def);
+        case WELD -> new WeldJoint(world.getPool(), (WeldJointDef) def);
+        case FRICTION ->
+            new FrictionJoint(world.getPool(), (FrictionJointDef) def);
+        case WHEEL -> new WheelJoint(world.getPool(), (WheelJointDef) def);
+        case GEAR -> new GearJoint(world.getPool(), (GearJointDef) def);
+        case PULLEY -> new PulleyJoint(world.getPool(), (PulleyJointDef) def);
+        case CONSTANT_VOLUME ->
+            new ConstantVolumeJoint(world, (ConstantVolumeJointDef) def);
+        case ROPE -> new RopeJoint(world.getPool(), (RopeJointDef) def);
+        case MOTOR -> new MotorJoint(world.getPool(), (MotorJointDef) def);
+        default -> null;
+        };
     }
 
     public static void destroy(Joint joint)

@@ -155,11 +155,10 @@ public class GearJoint extends Joint
             localAnchorA.set(prismatic.localAnchorB);
             referenceAngleA = prismatic.referenceAngle;
             localAxisC.set(prismatic.localXAxisA);
-            Vec2 pC = localAnchorC;
             Rot.mulToOutUnsafe(xfA.q, localAnchorA, temp);
             temp.addLocal(xfA.p).subLocal(xfC.p);
             Rot.mulTransUnsafe(xfC.q, temp, pA);
-            coordinateA = Vec2.dot(pA.subLocal(pC), localAxisC);
+            coordinateA = Vec2.dot(pA.subLocal(localAnchorC), localAxisC);
             pool.pushVec2(2);
         }
         bodyD = joint2.getBodyA();
@@ -187,11 +186,10 @@ public class GearJoint extends Joint
             localAnchorB.set(prismatic.localAnchorB);
             referenceAngleB = prismatic.referenceAngle;
             localAxisD.set(prismatic.localXAxisA);
-            Vec2 pD = localAnchorD;
             Rot.mulToOutUnsafe(xfB.q, localAnchorB, temp);
             temp.addLocal(xfB.p).subLocal(xfD.p);
             Rot.mulTransUnsafe(xfD.q, temp, pB);
-            coordinateB = Vec2.dot(pB.subLocal(pD), localAxisD);
+            coordinateB = Vec2.dot(pB.subLocal(localAnchorD), localAxisD);
             pool.pushVec2(2);
         }
         ratio = def.ratio;

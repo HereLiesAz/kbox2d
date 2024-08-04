@@ -39,8 +39,6 @@ public class ConstantVolumeJoint extends Joint
 {
     private final Body[] bodies;
 
-    private float[] targetLengths;
-
     private float targetVolume;
 
     private final Vec2[] normals;
@@ -76,7 +74,7 @@ public class ConstantVolumeJoint extends Joint
                     "You cannot create a constant volume joint with less than three bodies.");
         }
         bodies = def.bodies.toArray(new Body[0]);
-        targetLengths = new float[bodies.length];
+        float[] targetLengths = new float[bodies.length];
         for (int i = 0; i < targetLengths.length; ++i)
         {
             final int next = (i == targetLengths.length - 1) ? 0 : i + 1;
@@ -120,9 +118,9 @@ public class ConstantVolumeJoint extends Joint
     @Override
     public void destructor()
     {
-        for (int i = 0; i < distanceJoints.length; ++i)
+        for (DistanceJoint distanceJoint : distanceJoints)
         {
-            world.destroyJoint(distanceJoints[i]);
+            world.destroyJoint(distanceJoint);
         }
     }
 
@@ -255,7 +253,7 @@ public class ConstantVolumeJoint extends Joint
         float dotMassSum = 0.0f;
         Velocity[] velocities = step.velocities;
         Position[] positions = step.positions;
-        final Vec2 d[] = pool.getVec2Array(bodies.length);
+        final Vec2[] d = pool.getVec2Array(bodies.length);
         for (int i = 0; i < bodies.length; ++i)
         {
             final int prev = (i == 0) ? bodies.length - 1 : i - 1;
