@@ -224,8 +224,8 @@ public class DynamicTreeTest extends TestbedTest
     {
         Vec2 w = new Vec2();
         w.set(2.0f * proxyExtent, 2.0f * proxyExtent);
-        // aabb.lowerBound.x = -m_proxyExtent;
-        // aabb.lowerBound.y = -m_proxyExtent + worldExtent;
+        // aabb.lowerBound.x = -proxyExtent;
+        // aabb.lowerBound.y = -proxyExtent + worldExtent;
         aabb.lowerBound.x = MathUtils.randomFloat(rand, -worldExtent,
                 worldExtent);
         aabb.lowerBound.y = MathUtils.randomFloat(rand, 0.0f,
