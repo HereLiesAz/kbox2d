@@ -53,7 +53,11 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
  * relative rotation about the shared point. A maximum motor torque is provided
  * so that infinite forces are not generated.
  *
- * <p><img src="https://github.com/engine-pi/jbox2d/blob/main/misc/images/joints/revolute_joint.svg" alt="revolute joint"></p>
+ * <p>
+ * <img src=
+ * "https://github.com/engine-pi/jbox2d/blob/main/misc/images/joints/revolute_joint.svg"
+ * alt="revolute joint">
+ * </p>
  *
  * @author Daniel Murphy
  */

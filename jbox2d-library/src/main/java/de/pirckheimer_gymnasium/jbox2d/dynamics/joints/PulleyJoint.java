@@ -39,7 +39,11 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
  * should also cover the anchor points with static shapes to prevent one side
  * from going to zero length.
  *
- * <p><img src="https://github.com/engine-pi/jbox2d/blob/main/misc/images/joints/pulley_joint.gif" alt="pulley joint"></p>
+ * <p>
+ * <img src=
+ * "https://github.com/engine-pi/jbox2d/blob/main/misc/images/joints/pulley_joint.gif"
+ * alt="pulley joint">
+ * </p>
  *
  * @author Daniel Murphy
  */

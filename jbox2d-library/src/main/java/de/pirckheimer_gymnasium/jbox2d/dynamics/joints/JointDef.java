@@ -38,9 +38,8 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
  * <p>
  * You can specify user data for any joint type and you can provide a flag to
  * prevent the attached bodies from colliding with each other. This is actually
- * the default behavior and you must set the
- * {@link JointDef#collideConnectedcollideConnected} Boolean to allow collision
- * between to connected bodies.
+ * the default behavior and you must set the {@link JointDef#collideConnected}
+ * Boolean to allow collision between to connected bodies.
  * </p>
  *
  * <p>
@@ -48,8 +47,8 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
  * joint will be defined by anchor points. These are points fixed in the
  * attached bodies. jbox2d requires these points to be specified in local
  * coordinates. This way the joint can be specified even when the current body
- * transforms violate the joint constraint - a common occurrence when a game
- * is saved and reloaded. Additionally, some joint definitions need to know the
+ * transforms violate the joint constraint - a common occurrence when a game is
+ * saved and reloaded. Additionally, some joint definitions need to know the
  * default relative angle between the bodies. This is necessary to constrain
  * rotation correctly.
  * </p>

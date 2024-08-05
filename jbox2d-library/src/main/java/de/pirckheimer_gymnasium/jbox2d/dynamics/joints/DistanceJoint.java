@@ -49,7 +49,11 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
  * These points imply the length of the distance constraint.
  * </p>
  *
- * <p><img src="https://github.com/engine-pi/jbox2d/blob/main/misc/images/joints/distance_joint.svg" alt="distance joint"></p>
+ * <p>
+ * <img src=
+ * "https://github.com/engine-pi/jbox2d/blob/main/misc/images/joints/distance_joint.svg"
+ * alt="distance joint">
+ * </p>
  *
  * <p>
  * Here is an example of a distance joint definition. In this case we decide to
