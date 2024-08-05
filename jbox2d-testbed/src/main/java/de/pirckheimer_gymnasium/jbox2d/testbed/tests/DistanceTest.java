@@ -35,6 +35,11 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedSettings;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
+/**
+ * @author Daniel Murphy
+ *
+ * @permalink https://github.com/google/liquidfun/blob/master/liquidfun/Box2D/Testbed/Tests/DistanceTest.h
+ */
 public class DistanceTest extends TestbedTest
 {
     Vec2 positionB;

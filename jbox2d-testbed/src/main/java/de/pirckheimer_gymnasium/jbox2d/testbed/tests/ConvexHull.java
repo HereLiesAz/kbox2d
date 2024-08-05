@@ -31,6 +31,11 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedSettings;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
+/**
+ * @author Daniel Murphy
+ *
+ * @permalink https://github.com/google/liquidfun/blob/master/liquidfun/Box2D/Testbed/Tests/ConvexHull.h
+ */
 public class ConvexHull extends TestbedTest
 {
     private final int count = Settings.maxPolygonVertices;

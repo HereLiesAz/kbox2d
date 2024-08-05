@@ -32,6 +32,11 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.BodyType;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.FixtureDef;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
+/**
+ * @author Daniel Murphy
+ *
+ * @permalink https://github.com/google/liquidfun/blob/master/liquidfun/Box2D/Testbed/Tests/VaryingFriction.h
+ */
 public class VaryingFrictionTest extends TestbedTest
 {
     @Override

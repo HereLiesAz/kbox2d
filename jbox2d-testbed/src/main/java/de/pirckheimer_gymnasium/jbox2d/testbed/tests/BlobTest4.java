@@ -56,6 +56,9 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.FixtureDef;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.joints.ConstantVolumeJointDef;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
+/**
+ * @author Daniel Murphy
+ */
 public class BlobTest4 extends TestbedTest
 {
     @Override

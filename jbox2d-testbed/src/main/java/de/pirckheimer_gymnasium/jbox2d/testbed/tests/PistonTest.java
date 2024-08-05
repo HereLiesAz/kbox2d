@@ -36,6 +36,9 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.joints.PrismaticJointDef;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.joints.RevoluteJointDef;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
+/**
+ * @author Daniel Murphy
+ */
 public class PistonTest extends TestbedTest
 {
     private boolean bullet = false;

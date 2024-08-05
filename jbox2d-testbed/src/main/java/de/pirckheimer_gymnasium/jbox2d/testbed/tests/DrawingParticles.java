@@ -12,6 +12,11 @@ import de.pirckheimer_gymnasium.jbox2d.particle.ParticleType;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedSettings;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
+/**
+ * @author Daniel Murphy
+ *
+ * @permalink https://github.com/google/liquidfun/blob/master/liquidfun/Box2D/Testbed/Tests/DrawingParticles.h
+ */
 public class DrawingParticles extends TestbedTest
 {
     ParticleGroup lastGroup;

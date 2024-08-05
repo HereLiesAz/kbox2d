@@ -21,9 +21,6 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-/**
- *.created at 3:31:07 PM Jan 14, 2011
- */
 package de.pirckheimer_gymnasium.jbox2d.testbed.tests;
 
 import de.pirckheimer_gymnasium.jbox2d.callbacks.RayCastCallback;
@@ -43,6 +40,8 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
 /**
  * @author Daniel Murphy
+ *
+ * @permalink https://github.com/google/liquidfun/blob/master/liquidfun/Box2D/Testbed/Tests/EdgeShapes.h
  */
 public class EdgeShapes extends TestbedTest
 {

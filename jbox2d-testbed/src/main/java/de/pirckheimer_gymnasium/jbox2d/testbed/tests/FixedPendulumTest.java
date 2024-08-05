@@ -32,6 +32,9 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.BodyType;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.joints.RevoluteJointDef;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
+/**
+ * @author Daniel Murphy
+ */
 public class FixedPendulumTest extends TestbedTest
 {
     private final boolean switchBodiesInJoint;

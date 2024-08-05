@@ -11,6 +11,11 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.joints.RevoluteJointDef;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedSettings;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
+/**
+ * @author Daniel Murphy
+ *
+ * @permalink https://github.com/google/liquidfun/blob/master/liquidfun/Box2D/Testbed/Tests/Tumbler.h
+ */
 public class Tumbler extends TestbedTest
 {
     private static final int MAX_NUM = 800;

@@ -10,6 +10,11 @@ import de.pirckheimer_gymnasium.jbox2d.particle.ParticleGroupDef;
 import de.pirckheimer_gymnasium.jbox2d.particle.ParticleType;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
+/**
+ * @author Daniel Murphy
+ *
+ * @permalink https://github.com/google/liquidfun/blob/master/liquidfun/Box2D/Testbed/Tests/Particles.h
+ */
 public class Particles extends TestbedTest
 {
     @Override

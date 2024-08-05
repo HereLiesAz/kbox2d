@@ -12,6 +12,9 @@ import de.pirckheimer_gymnasium.jbox2d.particle.ParticleType;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedSettings;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
+/**
+ * @author Daniel Murphy
+ */
 public class ParticleTypes extends TestbedTest
 {
     Body circle;
