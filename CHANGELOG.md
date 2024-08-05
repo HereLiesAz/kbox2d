@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [v3.1.0](https://github.com/engine-pi/jbox2d/releases/tag/v3.1.0) - 2024-08-05
+
+<small>[Compare with v3.0.0](https://github.com/engine-pi/jbox2d/compare/v3.0.0...v3.1.0)</small>
+
+### Added
+
+35ffd6f676c55b0126ac01a3b0351a161abbf025) by Josef Friedrich).
+- Add animated gifs ([daf7ff2](https://github.com/engine-pi/jbox2d/commit/daf7ff2ee13a101109616875a3f5b1d6040f8536) by Josef Friedrich).
+- Add some permalinks ([55c5fc1](https://github.com/engine-pi/jbox2d/commit/55c5fc17c2fa352e494dae26e5c3505d643948f2) by Josef Friedrich).
+
+### Removed
+
+- Remove some hungarian m_ prefixes ([1506f20](https://github.com/engine-pi/jbox2d/commit/1506f200d70463628a3c0634d395a7fee1783728) by Josef Friedrich).
+
 ## [v3.0.0](https://github.com/engine-pi/jbox2d/releases/tag/v3.0.0) - 2024-08-02
 
 <small>[Compare with v2.3.1](https://github.com/engine-pi/jbox2d/compare/v2.3.1...v3.0.0)</small>
