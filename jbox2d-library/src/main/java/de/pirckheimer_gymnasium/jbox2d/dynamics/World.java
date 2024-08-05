@@ -1041,7 +1041,7 @@ public class World
     }
 
     /**
-     * Gets the height of the dynamic tree
+     * Get the height of the dynamic tree.
      */
     public int getTreeHeight()
     {
@@ -1049,7 +1049,7 @@ public class World
     }
 
     /**
-     * Gets the balance of the dynamic tree
+     * Get the balance of the dynamic tree.
      */
     public int getTreeBalance()
     {
@@ -1057,7 +1057,7 @@ public class World
     }
 
     /**
-     * Gets the quality of the dynamic tree
+     * Get the quality of the dynamic tree.
      */
     public float getTreeQuality()
     {

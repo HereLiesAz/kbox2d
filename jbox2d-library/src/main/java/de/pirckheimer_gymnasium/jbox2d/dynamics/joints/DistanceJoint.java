@@ -21,28 +21,6 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-/*
- * JBox2D - A Java Port of Erin Catto's Box2D
- *
- * JBox2D homepage: http://jbox2d.sourceforge.net/
- * Box2D homepage: http://www.box2d.org
- *
- * This software is provided 'as-is', without any express or implied
- * warranty.  In no event will the authors be held liable for any damages
- * arising from the use of this software.
- *
- * Permission is granted to anyone to use this software for any purpose,
- * including commercial applications, and to alter it and redistribute it
- * freely, subject to the following restrictions:
- *
- * 1. The origin of this software must not be misrepresented; you must not
- * claim that you wrote the original software. If you use this software
- * in a product, an acknowledgment in the product documentation would be
- * appreciated but is not required.
- * 2. Altered source versions must be plainly marked as such, and must not be
- * misrepresented as being the original software.
- * 3. This notice may not be removed or altered from any source distribution.
- */
 package de.pirckheimer_gymnasium.jbox2d.dynamics.joints;
 
 import de.pirckheimer_gymnasium.jbox2d.common.MathUtils;
@@ -62,19 +40,73 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
  * A distance joint constrains two points on two bodies to remain at a fixed
  * distance from each other. You can view this as a massless, rigid rod.
  *
+ * <p>
+ * One of the simplest joint is a distance joint which says that the distance
+ * between two points on two bodies must be constant. When you specify a
+ * distance joint the two bodies should already be in place. Then you specify
+ * the two anchor points in world coordinates. The first anchor point is
+ * connected to body 1, and the second anchor point is connected to body 2.
+ * These points imply the length of the distance constraint.
+ * </p>
+ *
+ * <p>
+ * Here is an example of a distance joint definition. In this case we decide to
+ * allow the bodies to collide.
+ * </p>
+ *
+ * <p>
+ * The distance joint can also be made soft, like a spring-damper connection.
+ * </p>
+ *
+ * <p>
+ * Softness is achieved by tuning two constants in the definition: stiffness and
+ * damping. It can be non-intuitive setting these values directly since they
+ * have units in terms on Newtons.
+ * </p>
+ *
+ * <p>
+ * Think of the frequency as the frequency of a harmonic oscillator (like a
+ * guitar string). The frequency is specified in Hertz. Typically the frequency
+ * should be less than a half the frequency of the time step. So if you are
+ * using a 60Hz time step, the frequency of the distance joint should be less
+ * than 30Hz. The reason is related to the Nyquist frequency.
+ * </p>
+ *
+ * <p>
+ * The damping ratio is non-dimensional and is typically between 0 and 1, but
+ * can be larger. At 1, the damping is critical (all oscillations should
+ * vanish).
+ * </p>
+ *
+ * <p>
+ * It is also possible to define a minimum and maximum length for the distance
+ * joint.
+ * </p>
+ *
  * @author Daniel Murphy
  */
 public class DistanceJoint extends Joint
 {
+    /**
+     * The mass-spring-damper frequency in Hertz.
+     */
     private float frequencyHz;
 
+    /**
+     * The damping ratio. 0 = no damping, 1 = critical damping.
+     */
     private float dampingRatio;
 
     private float bias;
 
-    // Solver shared
+    /**
+     * The local anchor point relative to body1's origin.
+     */
     private final Vec2 localAnchorA;
 
+    /**
+     * The local anchor point relative to body2's origin.
+     */
     private final Vec2 localAnchorB;
 
     private float gamma;
@@ -278,9 +310,9 @@ public class DistanceJoint extends Joint
         {
             impulse = 0.0f;
         }
-//    data.velocities[indexA].v.set(vA);
+        // data.velocities[indexA].v.set(vA);
         data.velocities[indexA].w = wA;
-//    data.velocities[indexB].v.set(vB);
+        // data.velocities[indexB].v.set(vB);
         data.velocities[indexB].w = wB;
     }
 
@@ -309,9 +341,9 @@ public class DistanceJoint extends Joint
         vB.x += invMassB * Px;
         vB.y += invMassB * Py;
         wB += invIB * (rB.x * Py - rB.y * Px);
-//    data.velocities[indexA].v.set(vA);
+        // data.velocities[indexA].v.set(vA);
         data.velocities[indexA].w = wA;
-//    data.velocities[indexB].v.set(vB);
+        // data.velocities[indexB].v.set(vB);
         data.velocities[indexB].w = wB;
         pool.pushVec2(2);
     }
@@ -350,9 +382,9 @@ public class DistanceJoint extends Joint
         cB.x += invMassB * Px;
         cB.y += invMassB * Py;
         aB += invIB * (rB.x * Py - rB.y * Px);
-//    data.positions[indexA].c.set(cA);
+        // data.positions[indexA].c.set(cA);
         data.positions[indexA].a = aA;
-//    data.positions[indexB].c.set(cB);
+        // data.positions[indexB].c.set(cB);
         data.positions[indexB].a = aB;
         pool.pushVec2(3);
         pool.pushRot(2);

@@ -33,6 +33,23 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
  * The base joint class. Joints are used to constrain two bodies together in
  * various fashions. Some joints also feature limits and motors.
  *
+ * <p>Joints are used to constrain bodies to the world or to each other. Typical
+ * examples in games include ragdolls, teeters, and pulleys. Joints can be
+ * combined in many different ways to create interesting motions.</p>
+ *
+ * <p>Some joints provide limits so you can control the range of motion. Some joint
+ * provide motors which can be used to drive the joint at a prescribed speed
+ * until a prescribed force/torque is exceeded.</p>
+ *
+ * <p>Joint motors can be used in many ways. You can use motors to control position
+ * by specifying a joint velocity that is proportional to the difference between
+ * the actual and desired position. You can also use motors to simulate joint
+ * friction: set the joint velocity to zero and provide a small, but significant
+ * maximum motor force/torque. Then the motor will attempt to keep the joint
+ * from moving until the load becomes too strong.</p>
+ *
+ * https://box2d.org/documentation/md__d_1__git_hub_box2d_docs_dynamics.html#autotoc_md81
+ *
  * @author Daniel Murphy
  */
 public abstract class Joint
