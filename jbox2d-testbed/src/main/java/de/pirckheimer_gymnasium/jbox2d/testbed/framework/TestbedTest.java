@@ -423,7 +423,7 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
     /**
      * Initializes the current test.
      *
-     * @param deserialized if the test was deserialized from a file. If so, all
+     * @param deserialized If the test was deserialized from a file. If so, all
      *                     physics objects are already added.
      */
     public abstract void initTest(boolean deserialized);

@@ -37,6 +37,8 @@ public interface BroadPhaseStrategy
 {
     /**
      * Create a proxy. Provide a tight fitting AABB and a userData pointer.
+     *
+     * @param aabb The axis-aligned bounding box.
      */
     int createProxy(AABB aabb, Object userData);
 
@@ -50,6 +52,8 @@ public interface BroadPhaseStrategy
      * fattened AABB, then the proxy is removed from the tree and re-inserted.
      * Otherwise the function returns immediately.
      *
+     * @param aabb The axis-aligned bounding box.
+     *
      * @return true if the proxy was re-inserted.
      */
     boolean moveProxy(int proxyId, AABB aabb, Vec2 displacement);
@@ -61,6 +65,8 @@ public interface BroadPhaseStrategy
     /**
      * Query an AABB for overlapping proxies. The callback class is called for
      * each proxy that overlaps the supplied AABB.
+     *
+     * @param aabb The axis-aligned bounding box.
      */
     void query(TreeCallback callback, AABB aabb);
 
@@ -71,9 +77,9 @@ public interface BroadPhaseStrategy
      * roughly equal to k * log(n), where k is the number of collisions and n is
      * the number of proxies in the tree.
      *
-     * @param input    the ray-cast input data. The ray extends from p1 to p1 +
+     * @param input    The ray-cast input data. The ray extends from p1 to p1 +
      *                 maxFraction * (p2 - p1).
-     * @param callback a callback class that is called for each proxy that is
+     * @param callback A callback class that is called for each proxy that is
      *                 hit by the ray.
      */
     void raycast(TreeRayCastCallback callback, RayCastInput input);

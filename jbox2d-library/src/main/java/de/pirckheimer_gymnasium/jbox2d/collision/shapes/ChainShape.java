@@ -201,8 +201,8 @@ public class ChainShape extends Shape
     /**
      * Create a loop. This automatically adjusts connectivity.
      *
-     * @param vertices an array of vertices, these are copied
-     * @param count    the vertex count
+     * @param vertices An array of vertices, these are copied.
+     * @param count    The vertex count.
      */
     public void createLoop(final Vec2[] vertices, int count)
     {
@@ -237,8 +237,8 @@ public class ChainShape extends Shape
     /**
      * Create a chain with isolated end vertices.
      *
-     * @param vertices an array of vertices, these are copied
-     * @param count    the vertex count
+     * @param vertices An array of vertices, these are copied.
+     * @param count    The vertex count.
      */
     public void createChain(final Vec2 vertices[], int count)
     {

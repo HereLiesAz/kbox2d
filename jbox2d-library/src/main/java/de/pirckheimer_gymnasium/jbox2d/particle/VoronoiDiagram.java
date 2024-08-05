@@ -105,7 +105,7 @@ public class VoronoiDiagram
     /**
      * Enumerate all nodes that contain at least one necessary generator.
      *
-     * @param callback a callback function object called for each node.
+     * @param callback A callback function object called for each node.
      *
      * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.h#L56-L58
      * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.cpp#L195-L221
@@ -139,8 +139,8 @@ public class VoronoiDiagram
     /**
      * Add a generator.
      *
-     * @param center the position of the generator.
-     * @param tag    a tag used to identify the generator in callback functions.
+     * @param center The position of the generator.
+     * @param tag    A tag used to identify the generator in callback functions.
      *
      * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.cpp#L45-L53
      * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.h#L35-L39
@@ -179,7 +179,7 @@ public class VoronoiDiagram
      * Generate the Voronoi diagram. It is rasterized with a given interval in
      * the same range as the necessary generators exist.
      *
-     * @param radius the interval of the diagram.
+     * @param radius The interval of the diagram.
      *
      * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.cpp#L55-L193
      * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.h#L41-L45

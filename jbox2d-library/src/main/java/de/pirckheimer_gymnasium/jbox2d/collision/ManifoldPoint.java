@@ -75,7 +75,7 @@ public class ManifoldPoint
     /**
      * Creates a manifold point as a copy of the given point
      *
-     * @param cp point to copy from
+     * @param cp The point to copy from.
      */
     public ManifoldPoint(final ManifoldPoint cp)
     {
@@ -88,7 +88,7 @@ public class ManifoldPoint
     /**
      * Sets this manifold point form the given one
      *
-     * @param cp the point to copy from
+     * @param cp The point to copy from.
      */
     public void set(final ManifoldPoint cp)
     {

@@ -82,6 +82,8 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.normal.DefaultWorldPool;
  * facilities.
  *
  * @author Daniel Murphy
+ *
+ * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_world.h#L43-L346
  */
 public class World
 {
@@ -123,6 +125,9 @@ public class World
 
     private DebugDraw debugDraw;
 
+    /**
+     * The world pool that provides pooling for all objects used in the engine.
+     */
     private final IWorldPool pool;
 
     /**
@@ -150,7 +155,9 @@ public class World
     /**
      * Construct a world object.
      *
-     * @param gravity the world gravity vector.
+     * @param gravity The world gravity vector.
+     *
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_world.h#L49-L51
      */
     public World(Vec2 gravity)
     {
@@ -161,18 +168,34 @@ public class World
     /**
      * Construct a world object.
      *
-     * @param gravity the world gravity vector.
+     * @param gravity The world gravity vector.
+     * @param pool    The world pool that provides pooling for all objects used
+     *                in the engine.
      */
     public World(Vec2 gravity, IWorldPool pool)
     {
         this(gravity, pool, new DynamicTree());
     }
 
+    /**
+     * Construct a world object.
+     *
+     * @param gravity  The world gravity vector.
+     * @param pool     The world pool that provides pooling for all objects used
+     *                 in the engine.
+     * @param strategy The broad phase strategy.
+     *
+     */
     public World(Vec2 gravity, IWorldPool pool, BroadPhaseStrategy strategy)
     {
         this(gravity, pool, new DefaultBroadPhaseBuffer(strategy));
     }
 
+    /**
+     * Construct a world object.
+     *
+     * @param gravity The world gravity vector.
+     */
     public World(Vec2 gravity, IWorldPool pool, BroadPhase broadPhase)
     {
         this.pool = pool;
@@ -623,12 +646,15 @@ public class World
      * Take a time step. This performs collision detection, integration, and
      * constraint solution.
      *
-     * @param dt                 the amount of time to simulate, this should not
+     * @param timeStep           The amount of time to simulate, this should not
      *                           vary.
-     * @param velocityIterations for the velocity constraint solver.
-     * @param positionIterations for the position constraint solver.
+     * @param velocityIterations For the velocity constraint solver.
+     * @param positionIterations For the position constraint solver.
+     *
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_world.h#L94-L101
      */
-    public void step(float dt, int velocityIterations, int positionIterations)
+    public void step(float timeStep, int velocityIterations,
+            int positionIterations)
     {
         stepTimer.reset();
         tempTimer.reset();
@@ -641,18 +667,18 @@ public class World
             flags &= ~NEW_FIXTURE;
         }
         flags |= LOCKED;
-        step.dt = dt;
+        step.dt = timeStep;
         step.velocityIterations = velocityIterations;
         step.positionIterations = positionIterations;
-        if (dt > 0.0f)
+        if (timeStep > 0.0f)
         {
-            step.inv_dt = 1.0f / dt;
+            step.inv_dt = 1.0f / timeStep;
         }
         else
         {
             step.inv_dt = 0.0f;
         }
-        step.dtRatio = invDt0 * dt;
+        step.dtRatio = invDt0 * timeStep;
         step.warmStarting = warmStarting;
         profile.stepInit.record(tempTimer.getMilliseconds());
         // Update contacts. This is where some contacts are destroyed.
@@ -697,6 +723,8 @@ public class World
      * need to call this function.
      *
      * @see #setAutoClearForces(boolean)
+     *
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_world.h#L103-L110
      */
     public void clearForces()
     {
@@ -719,6 +747,8 @@ public class World
 
     /**
      * Call this to draw shapes and other debug draw data.
+     *
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_world.h#L112-L113
      */
     public void drawDebugData()
     {
@@ -835,8 +865,8 @@ public class World
      * Query the world for all fixtures that potentially overlap the provided
      * AABB.
      *
-     * @param callback a user implemented callback class.
-     * @param aabb     the query box.
+     * @param callback A user implemented callback class.
+     * @param aabb     The query box. The axis-aligned bounding box.
      */
     public void queryAABB(QueryCallback callback, AABB aabb)
     {
@@ -849,9 +879,9 @@ public class World
      * Query the world for all fixtures and particles that potentially overlap
      * the provided AABB.
      *
-     * @param callback         a user implemented callback class.
-     * @param particleCallback callback for particles.
-     * @param aabb             the query box.
+     * @param callback         A user implemented callback class.
+     * @param particleCallback A callback for particles.
+     * @param aabb             The query box. The axis-aligned bounding box.
      */
     public void queryAABB(QueryCallback callback,
             ParticleQueryCallback particleCallback, AABB aabb)
@@ -866,8 +896,8 @@ public class World
      * Query the world for all particles that potentially overlap the provided
      * AABB.
      *
-     * @param particleCallback callback for particles.
-     * @param aabb             the query box.
+     * @param particleCallback The callback for particles.
+     * @param aabb             The query box. The axis-aligned bounding box.
      */
     public void queryAABB(ParticleQueryCallback particleCallback, AABB aabb)
     {
@@ -883,9 +913,9 @@ public class World
      * controls whether you get the closest point, any point, or n-points. The
      * ray-cast ignores shapes that contain the starting point.
      *
-     * @param callback a user implemented callback class.
-     * @param point1   the ray starting point
-     * @param point2   the ray ending point
+     * @param callback A user implemented callback class.
+     * @param point1   The ray starting point.
+     * @param point2   The ray ending point.
      */
     public void raycast(RayCastCallback callback, Vec2 point1, Vec2 point2)
     {
@@ -902,10 +932,10 @@ public class World
      * Your callback controls whether you get the closest point, any point, or
      * n-points. The ray-cast ignores shapes that contain the starting point.
      *
-     * @param callback         a user implemented callback class.
-     * @param particleCallback the particle callback class.
-     * @param point1           the ray starting point
-     * @param point2           the ray ending point
+     * @param callback         A user implemented callback class.
+     * @param particleCallback The particle callback class.
+     * @param point1           The ray starting point
+     * @param point2           The ray ending point
      */
     public void raycast(RayCastCallback callback,
             ParticleRaycastCallback particleCallback, Vec2 point1, Vec2 point2)
@@ -924,9 +954,9 @@ public class World
      * callback controls whether you get the closest point, any point, or
      * n-points.
      *
-     * @param particleCallback the particle callback class.
-     * @param point1           the ray starting point
-     * @param point2           the ray ending point
+     * @param particleCallback The particle callback class.
+     * @param point1           The ray starting point
+     * @param point2           The ray ending point
      */
     public void raycast(ParticleRaycastCallback particleCallback, Vec2 point1,
             Vec2 point2)
@@ -1875,8 +1905,8 @@ public class World
     /**
      * Join two particle groups.
      *
-     * @param groupA the first group. Expands to encompass the second group.
-     * @param groupB the second group. It is destroyed.
+     * @param groupA The first group. Expands to encompass the second group.
+     * @param groupB The second group. It is destroyed.
      * @warning This function is locked during callbacks.
      */
     public void joinParticleGroups(ParticleGroup groupA, ParticleGroup groupB)
@@ -2072,8 +2102,8 @@ public class World
     /**
      * Set a buffer for particle data.
      *
-     * @param buffer   is a pointer to a block of memory.
-     * @param capacity is the number of values in the block.
+     * @param buffer   Is a pointer to a block of memory.
+     * @param capacity Is the number of values in the block.
      */
     public void setParticleFlagsBuffer(int[] buffer, int capacity)
     {

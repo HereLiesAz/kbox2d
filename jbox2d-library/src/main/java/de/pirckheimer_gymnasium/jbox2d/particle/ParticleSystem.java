@@ -2005,8 +2005,8 @@ public class ParticleSystem
      * Query the particle system for all particles that potentially overlap the
      * provided AABB.
      *
-     * @param callback a user implemented callback class.
-     * @param aabb     the query box.
+     * @param callback A user implemented callback class.
+     * @param aabb     The query box.
      *
      * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L668-L673
      */
@@ -2044,9 +2044,9 @@ public class ParticleSystem
      * Your callback controls whether you get the closest point, any point, or
      * n-points. The ray-cast ignores particles that contain the starting point.
      *
-     * @param callback a user implemented callback class.
-     * @param point1   the ray starting point
-     * @param point2   the ray ending point
+     * @param callback A user implemented callback class.
+     * @param point1   The ray starting point.
+     * @param point2   The ray ending point.
      *
      * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L684-L692
      */

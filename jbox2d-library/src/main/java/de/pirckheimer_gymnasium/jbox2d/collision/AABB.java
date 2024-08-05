@@ -58,7 +58,7 @@ public class AABB
     /**
      * Copies from the given object
      *
-     * @param copy the object to copy from
+     * @param copy The object to copy from
      */
     public AABB(final AABB copy)
     {
@@ -68,8 +68,8 @@ public class AABB
     /**
      * Creates an AABB object using the given bounding vertices.
      *
-     * @param lowerVertex the bottom left vertex of the bounding box
-     * @param upperVertex the top right vertex of the bounding box
+     * @param lowerVertex The bottom left vertex of the bounding box
+     * @param upperVertex The top right vertex of the bounding box
      */
     public AABB(final Vec2 lowerVertex, final Vec2 upperVertex)
     {
@@ -80,7 +80,7 @@ public class AABB
     /**
      * Sets this object from the given object
      *
-     * @param aabb the object to copy from
+     * @param aabb The object to copy from
      */
     public final void set(final AABB aabb)
     {

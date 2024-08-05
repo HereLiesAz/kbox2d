@@ -233,7 +233,7 @@ public class Fixture
      * Test a point for containment in this fixture. This only works for convex
      * shapes.
      *
-     * @param p a point in world coordinates.
+     * @param p A point in world coordinates.
      */
     public boolean testPoint(final Vec2 p)
     {
@@ -243,8 +243,8 @@ public class Fixture
     /**
      * Cast a ray against this shape.
      *
-     * @param output the ray-cast results.
-     * @param input  the ray-cast input parameters.
+     * @param output The ray-cast results.
+     * @param input  The ray-cast input parameters.
      */
     public boolean raycast(RayCastOutput output, RayCastInput input,
             int childIndex)
@@ -309,7 +309,7 @@ public class Fixture
     /**
      * Compute the distance from this fixture.
      *
-     * @param p a point in world coordinates.
+     * @param p A point in world coordinates.
      *
      * @return distance
      */

@@ -98,7 +98,7 @@ public class Manifold
     }
 
     /**
-     * Creates this manifold as a copy of the other
+     * Creates this manifold as a copy of the other.
      */
     public Manifold(Manifold other)
     {
@@ -115,9 +115,9 @@ public class Manifold
     }
 
     /**
-     * copies this manifold from the given one
+     * Copies this manifold from the given one.
      *
-     * @param cp manifold to copy from
+     * @param cp The manifold to copy from.
      */
     public void set(Manifold cp)
     {

@@ -179,7 +179,7 @@ public abstract class DebugDraw
     /**
      * Draw a particle array
      *
-     * @param colors can be null
+     * @param colors Can be null
      */
     public abstract void drawParticles(Vec2[] centers, float radius,
             ParticleColor[] colors, int count);
@@ -187,7 +187,7 @@ public abstract class DebugDraw
     /**
      * Draw a particle array
      *
-     * @param colors can be null
+     * @param colors Can be null
      */
     public abstract void drawParticlesWireframe(Vec2[] centers, float radius,
             ParticleColor[] colors, int count);

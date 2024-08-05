@@ -204,7 +204,7 @@ public class Mat33 implements Serializable
      * computing the inverse in one-shot cases.
      *
      * @param b
-     * @param out the result
+     * @param out The result.
      */
     public final void solve33ToOut(Vec3 b, Vec3 out)
     {

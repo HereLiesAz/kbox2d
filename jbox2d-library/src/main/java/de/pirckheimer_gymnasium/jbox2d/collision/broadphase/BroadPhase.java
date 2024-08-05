@@ -32,6 +32,32 @@ import de.pirckheimer_gymnasium.jbox2d.collision.RayCastInput;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 
 /**
+ * The broad-phase is used for computing pairs and performing volume queries and
+ * ray casts. This broad-phase does not persist pairs. Instead, this reports
+ * potentially new pairs. It is up to the client to consume the new pairs and to
+ * track subsequent overlap.
+ *
+ * <p>
+ * Collision processing in a physics step can be divided into narrow-phase and
+ * broad-phase. In the narrow-phase we compute contact points between pairs of
+ * shapes. Imagine we have N shapes. Using brute force, we would need to perform
+ * the narrow-phase for N*N/2 pairs.
+ * </p>
+ *
+ * <p>
+ * The b2BroadPhase class reduces this load by using a dynamic tree for pair
+ * management. This greatly reduces the number of narrow-phase calls.
+ * </p>
+ *
+ * <p>
+ * Normally you do not interact with the broad-phase directly. Instead, Box2D
+ * creates and manages a broad-phase internally. Also, b2BroadPhase is designed
+ * with Box2D's simulation loop in mind, so it is likely not suited for other
+ * use cases.
+ * </p>
+ *
+ * https://box2d.org/documentation/md__d_1__git_hub_box2d_docs_collision.html
+ *
  * @author Daniel Murphy
  */
 public interface BroadPhase
@@ -55,6 +81,12 @@ public interface BroadPhase
      */
     void moveProxy(int proxyId, AABB aabb, Vec2 displacement);
 
+    /**
+     * Call to trigger a re-processing of it's pairs on the next call to
+     * UpdatePairs.
+     *
+     * @param proxyId
+     */
     void touchProxy(int proxyId);
 
     Object getUserData(int proxyId);
@@ -89,9 +121,9 @@ public interface BroadPhase
      * roughly equal to k * log(n), where k is the number of collisions and n is
      * the number of proxies in the tree.
      *
-     * @param input    the ray-cast input data. The ray extends from p1 to p1 +
+     * @param input    The ray-cast input data. The ray extends from p1 to p1 +
      *                 maxFraction * (p2 - p1).
-     * @param callback a callback class that is called for each proxy that is
+     * @param callback A callback class that is called for each proxy that is
      *                 hit by the ray.
      */
     void raycast(TreeRayCastCallback callback, RayCastInput input);

@@ -31,7 +31,7 @@ import de.pirckheimer_gymnasium.jbox2d.collision.AABB;
 public class DynamicTreeNode
 {
     /**
-     * Enlarged AABB
+     * The enlarged axis-aligned bounding box.
      */
     public final AABB aabb = new AABB();
 

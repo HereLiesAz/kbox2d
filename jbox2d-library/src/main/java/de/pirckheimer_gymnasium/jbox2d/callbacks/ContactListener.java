@@ -73,7 +73,7 @@ public interface ContactListener
      * solid, and awake.
      *
      * @param contact
-     * @param impulse this is usually a pooled variable, so it will be modified
+     * @param impulse This is usually a pooled variable, so it will be modified
      *                after this call
      */
     public void postSolve(Contact contact, ContactImpulse impulse);

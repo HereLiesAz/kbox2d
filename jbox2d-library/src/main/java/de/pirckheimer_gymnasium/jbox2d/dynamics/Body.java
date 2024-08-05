@@ -188,7 +188,8 @@ public class Body
      * this function automatically updates the mass of the body. Contacts are
      * not created until the next time step.
      *
-     * @param def the fixture definition.
+     * @param def The fixture definition.
+     *
      * @warning This function is locked during callbacks.
      */
     public final Fixture createFixture(FixtureDef def)
@@ -229,8 +230,9 @@ public class Body
      * friction, restitution, user data, or filtering. If the density is
      * non-zero, this function automatically updates the mass of the body.
      *
-     * @param shape   the shape to be cloned.
-     * @param density the shape density (set to zero for static bodies).
+     * @param shape   The shape to be cloned.
+     * @param density The shape density (set to zero for static bodies).
+     *
      * @warning This function is locked during callbacks.
      */
     public final Fixture createFixture(Shape shape, float density)
@@ -247,7 +249,8 @@ public class Body
      * fixture has positive density. All fixtures attached to a body are
      * implicitly destroyed when the body is destroyed.
      *
-     * @param fixture the fixture to be removed.
+     * @param fixture The fixture to be removed.
+     *
      * @warning This function is locked during callbacks.
      */
     public final void destroyFixture(Fixture fixture)
@@ -393,7 +396,7 @@ public class Body
     /**
      * Set the linear velocity of the center of mass.
      *
-     * @param v the new linear velocity of the center of mass.
+     * @param v The new linear velocity of the center of mass.
      */
     public final void setLinearVelocity(Vec2 v)
     {
@@ -422,7 +425,7 @@ public class Body
     /**
      * Set the angular velocity.
      *
-     * @param w the new angular velocity in radians/second.
+     * @param w The new angular velocity in radians/second.
      */
     public final void setAngularVelocity(float w)
     {
@@ -469,8 +472,8 @@ public class Body
      * of mass, it will generate a torque and affect the angular velocity. This
      * wakes up the body.
      *
-     * @param force the world force vector, usually in Newtons (N).
-     * @param point the world position of the point of application.
+     * @param force The world force vector, usually in Newtons (N).
+     * @param point The world position of the point of application.
      */
     public final void applyForce(Vec2 force, Vec2 point)
     {
@@ -495,7 +498,7 @@ public class Body
     /**
      * Apply a force to the center of mass. This wakes up the body.
      *
-     * @param force the world force vector, usually in Newtons (N).
+     * @param force The world force vector, usually in Newtons (N).
      */
     public final void applyForceToCenter(Vec2 force)
     {
@@ -515,7 +518,7 @@ public class Body
      * Apply a torque. This affects the angular velocity without affecting the
      * linear velocity of the center of mass. This wakes up the body.
      *
-     * @param torque about the z-axis (out of the screen), usually in N-m.
+     * @param torque About the z-axis (out of the screen), usually in N-m.
      */
     public final void applyTorque(float torque)
     {
@@ -536,9 +539,9 @@ public class Body
      * the center of mass. This wakes up the body if 'wake' is set to true. If
      * the body is sleeping and 'wake' is false, then there is no effect.
      *
-     * @param impulse the world impulse vector, usually in N-seconds or kg-m/s.
-     * @param point   the world position of the point of application.
-     * @param wake    also wake up the body
+     * @param impulse The world impulse vector, usually in N-seconds or kg-m/s.
+     * @param point   The world position of the point of application.
+     * @param wake    Also wake up the body
      */
     public final void applyLinearImpulse(Vec2 impulse, Vec2 point, boolean wake)
     {
@@ -566,7 +569,7 @@ public class Body
     /**
      * Apply an angular impulse.
      *
-     * @param impulse the angular impulse in units of kg*m*m/s
+     * @param impulse The angular impulse in units of kg*m*m/s
      */
     public void applyAngularImpulse(float impulse)
     {
@@ -625,7 +628,7 @@ public class Body
      * destroying fixtures can also alter the mass. This function has no effect
      * if the body isn't dynamic.
      *
-     * @param massData the mass properties.
+     * @param massData The mass properties.
      */
     public final void setMassData(MassData massData)
     {
@@ -756,8 +759,9 @@ public class Body
     /**
      * Get the world coordinates of a point given the local coordinates.
      *
-     * @param localPoint a point on the body measured relative the body's
+     * @param localPoint A point on the body measured relative the body's
      *                   origin.
+     *
      * @return The same point expressed in world coordinates.
      */
     public final Vec2 getWorldPoint(Vec2 localPoint)
@@ -775,7 +779,8 @@ public class Body
     /**
      * Get the world coordinates of a vector given the local coordinates.
      *
-     * @param localVector a vector fixed in the body.
+     * @param localVector A vector fixed in the body.
+     *
      * @return The same vector expressed in world coordinates.
      */
     public final Vec2 getWorldVector(Vec2 localVector)
@@ -798,7 +803,8 @@ public class Body
     /**
      * Gets a local point relative to the body's origin given a world point.
      *
-     * @param worldPoint point in world coordinates.
+     * @param worldPoint Point in world coordinates.
+     *
      * @return The corresponding local point relative to the body's origin.
      */
     public final Vec2 getLocalPoint(Vec2 worldPoint)
@@ -816,7 +822,8 @@ public class Body
     /**
      * Gets a local vector given a world vector.
      *
-     * @param worldVector a vector in world coordinates.
+     * @param worldVector A vector in world coordinates.
+     *
      * @return The corresponding local vector.
      */
     public final Vec2 getLocalVector(Vec2 worldVector)
@@ -839,7 +846,8 @@ public class Body
     /**
      * Get the world linear velocity of a world point attached to this body.
      *
-     * @param worldPoint a point in world coordinates.
+     * @param worldPoint A point in world coordinates.
+     *
      * @return The world velocity of a point.
      */
     public final Vec2 getLinearVelocityFromWorldPoint(Vec2 worldPoint)
@@ -861,7 +869,8 @@ public class Body
     /**
      * Get the world velocity of a local point.
      *
-     * @param localPoint a point in local coordinates.
+     * @param localPoint A point in local coordinates.
+     *
      * @return The world velocity of a point.
      */
     public final Vec2 getLinearVelocityFromLocalPoint(Vec2 localPoint)
@@ -878,25 +887,33 @@ public class Body
         getLinearVelocityFromWorldPointToOut(out, out);
     }
 
-    /** Get the linear damping of the body. */
+    /**
+     * Get the linear damping of the body.
+     */
     public final float getLinearDamping()
     {
         return linearDamping;
     }
 
-    /** Set the linear damping of the body. */
+    /**
+     * Set the linear damping of the body.
+     */
     public final void setLinearDamping(float linearDamping)
     {
         this.linearDamping = linearDamping;
     }
 
-    /** Get the angular damping of the body. */
+    /**
+     * Get the angular damping of the body.
+     */
     public final float getAngularDamping()
     {
         return angularDamping;
     }
 
-    /** Set the angular damping of the body. */
+    /**
+     * Set the angular damping of the body.
+     */
     public final void setAngularDamping(float angularDamping)
     {
         this.angularDamping = angularDamping;
@@ -1009,7 +1026,7 @@ public class Body
      * Set the sleep state of the body. A sleeping body has very low CPU cost.
      * Note that putting it to sleep will set its velocities and forces to zero.
      *
-     * @param flag set to true to wake the body, false to put it to sleep
+     * @param flag Set to true to wake the body, false to put it to sleep.
      */
     public void setAwake(boolean flag)
     {

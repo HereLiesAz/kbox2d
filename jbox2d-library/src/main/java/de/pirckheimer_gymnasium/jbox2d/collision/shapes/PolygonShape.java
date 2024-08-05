@@ -248,8 +248,8 @@ public class PolygonShape extends Shape
     /**
      * Build vertices to represent an axis-aligned box.
      *
-     * @param hx the half-width.
-     * @param hy the half-height.
+     * @param hx The half-width.
+     * @param hy The half-height.
      */
     public final void setAsBox(final float hx, final float hy)
     {
@@ -268,10 +268,10 @@ public class PolygonShape extends Shape
     /**
      * Build vertices to represent an oriented box.
      *
-     * @param hx     the half-width.
-     * @param hy     the half-height.
-     * @param center the center of the box in local coordinates.
-     * @param angle  the rotation of the box in local coordinates.
+     * @param hx     The half-width.
+     * @param hy     The half-height.
+     * @param center The center of the box in local coordinates.
+     * @param angle  The rotation of the box in local coordinates.
      */
     public final void setAsBox(final float hx, final float hy,
             final Vec2 center, final float angle)

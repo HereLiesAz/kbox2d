@@ -48,10 +48,10 @@ public class ParticleColor
      * Constructor with four elements: r (red), g (green), b (blue), and a
      * (opacity). Each element can be specified 0 to 255.
      *
-     * @param r red
-     * @param g green
-     * @param b blue
-     * @param a alpha (opacity)
+     * @param r The color red.
+     * @param g The color green.
+     * @param b The color blue.
+     * @param a The alpha channel (opacity).
      *
      * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2Particle.h#L84-L91
      */
@@ -97,10 +97,10 @@ public class ParticleColor
     /**
      * Sets color for current object using the four elements described above.
      *
-     * @param r red
-     * @param g green
-     * @param b blue
-     * @param a alpha (opacity)
+     * @param r The color red.
+     * @param g The color green.
+     * @param b The color blue.
+     * @param a The alpha channel (opacity).
      *
      * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2Particle.h#L109-L117
      */

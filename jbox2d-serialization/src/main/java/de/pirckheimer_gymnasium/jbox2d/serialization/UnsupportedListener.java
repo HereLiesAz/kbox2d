@@ -12,8 +12,8 @@ public interface UnsupportedListener
     /**
      * Called when an object is unsupported by the de/serializer.
      *
-     * @param argException the exception describing the error
-     * @return if the process should stop and the exception be thrown
+     * @param argException The exception describing the error.
+     * @return if the process should stop and the exception be thrown.
      */
     public boolean isUnsupported(UnsupportedObjectException argException);
 }

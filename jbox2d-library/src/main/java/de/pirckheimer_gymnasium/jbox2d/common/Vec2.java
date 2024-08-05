@@ -27,22 +27,36 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * A 2D column vector
+ * A 2D column vector.
  *
  * @author Daniel Murphy
+ *
+ * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L40-L129
  */
 public class Vec2 implements Serializable
 {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public float x, y;
+    public float x;
 
+    public float y;
+
+    /**
+     * Default constructor does nothing (for performance).
+     *
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L43-L44
+     */
     public Vec2()
     {
         this(0, 0);
     }
 
+    /**
+     * Construct using coordinates.
+     *
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L46-L47
+     */
     public Vec2(float x, float y)
     {
         this.x = x;
@@ -85,6 +99,8 @@ public class Vec2 implements Serializable
 
     /**
      * Return the sum of this vector and another; does not alter either one.
+     *
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L149-L153
      */
     public final Vec2 add(Vec2 v)
     {
@@ -94,6 +110,8 @@ public class Vec2 implements Serializable
     /**
      * Return the difference of this vector and another; does not alter either
      * one.
+     *
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L155-L159
      */
     public final Vec2 sub(Vec2 v)
     {
@@ -102,6 +120,8 @@ public class Vec2 implements Serializable
 
     /**
      * Return this vector multiplied by a scalar; does not alter this vector.
+     *
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L161-L165
      */
     public final Vec2 mul(float a)
     {
@@ -110,6 +130,8 @@ public class Vec2 implements Serializable
 
     /**
      * Return the negation of this vector; does not alter this vector.
+     *
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L146-L147
      */
     public final Vec2 negate()
     {
@@ -185,22 +207,33 @@ public class Vec2 implements Serializable
     }
 
     /**
-     * Return the length of this vector.
+     * Get the length of this vector (the norm). Return the length of this
+     * vector.
+     *
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L88-L92
      */
     public final float length()
     {
         return MathUtils.sqrt(x * x + y * y);
     }
 
-    /** Return the squared length of this vector. */
+    /**
+     * Get the length squared. For performance, use this instead of
+     * {@link Vec2#length()}. Return the squared length of this vector.
+     *
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L94-L99
+     */
     public final float lengthSquared()
     {
         return (x * x + y * y);
     }
 
     /**
-     * Normalize this vector and return the length before normalization. Alters
-     * this vector.
+     * Convert this vector into a unit vector. Returns the length. Normalize
+     * this vector and return the length before normalization. Alters this
+     * vector.
+     *
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L101-L114
      */
     public final float normalize()
     {
@@ -216,8 +249,10 @@ public class Vec2 implements Serializable
     }
 
     /**
-     * True if the vector represents a pair of valid, non-infinite floating
-     * point numbers.
+     * Does this vector contain finite coordinates? True if the vector
+     * represents a pair of valid, non-infinite floating point numbers.
+     *
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L116-L120
      */
     public final boolean isValid()
     {
