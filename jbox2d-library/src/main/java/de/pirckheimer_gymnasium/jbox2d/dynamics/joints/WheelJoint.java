@@ -50,6 +50,8 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
  * to restrict the range of motion and a joint motor to drive the rotation or to
  * model rotational friction. This joint is designed for vehicle suspensions.
  *
+ * <p><img src="https://github.com/engine-pi/jbox2d/blob/main/misc/images/joints/wheel_joint.svg" alt="wheel joint"></p>
+ *
  * @author Daniel Murphy
  */
 public class WheelJoint extends Joint

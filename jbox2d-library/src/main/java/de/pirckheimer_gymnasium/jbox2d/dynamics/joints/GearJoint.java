@@ -57,6 +57,8 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
  * a prismatic joint, then the ratio will have units of length or units of
  * 1/length.
  *
+ * <p><img src="https://github.com/engine-pi/jbox2d/blob/main/misc/images/joints/gear_joint.gif" alt="gear joint"></p>
+ *
  * @warning The revolute and prismatic joints must be attached to fixed bodies
  *          (which must be body1 on those joints).
  * @warning You have to manually destroy the gear joint if joint1 or joint2 is
