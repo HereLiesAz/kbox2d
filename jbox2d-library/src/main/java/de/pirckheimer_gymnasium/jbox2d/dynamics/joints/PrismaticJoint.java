@@ -196,17 +196,11 @@ public class PrismaticJoint extends Joint
         perp = new Vec2();
     }
 
-    /**
-     *
-     */
     public Vec2 getLocalAnchorA()
     {
         return localAnchorA;
     }
 
-    /**
-     *
-     */
     public Vec2 getLocalAnchorB()
     {
         return localAnchorB;
@@ -248,9 +242,6 @@ public class PrismaticJoint extends Joint
         pool.pushVec2(1);
     }
 
-    /**
-     *
-     */
     @Override
     public float getReactionTorque(float invDt)
     {

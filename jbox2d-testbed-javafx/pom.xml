@@ -5,7 +5,7 @@
     <parent>
         <artifactId>jbox2d</artifactId>
         <groupId>de.pirckheimer-gymnasium</groupId>
-        <version>3.0.0</version>
+        <version>3.1.0</version>
     </parent>
     <artifactId>jbox2d-testbed-javafx</artifactId>
     <name>jbox2d-testbed-javafx</name>
@@ -27,21 +27,21 @@
         <dependency>
             <groupId>de.pirckheimer-gymnasium</groupId>
             <artifactId>jbox2d-library</artifactId>
-            <version>3.0.0</version>
+            <version>3.1.0</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>de.pirckheimer-gymnasium</groupId>
             <artifactId>jbox2d-serialization</artifactId>
-            <version>3.0.0</version>
+            <version>3.1.0</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>de.pirckheimer-gymnasium</groupId>
             <artifactId>jbox2d-testbed</artifactId>
-            <version>3.0.0</version>
+            <version>3.1.0</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
