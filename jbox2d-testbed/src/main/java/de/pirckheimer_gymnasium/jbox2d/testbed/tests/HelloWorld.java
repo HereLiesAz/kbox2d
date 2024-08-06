@@ -1,4 +1,4 @@
-package de.pirckheimer_gymnasium.jbox2d.testbed;
+package de.pirckheimer_gymnasium.jbox2d.testbed.tests;
 
 import de.pirckheimer_gymnasium.jbox2d.collision.shapes.PolygonShape;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
@@ -7,17 +7,21 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.BodyDef;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.BodyType;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.FixtureDef;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.World;
+import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
 /**
  * https://box2d.org/documentation/md__d_1__git_hub_box2d_docs_hello.html
  */
-public class HelloWorld
+public class HelloWorld extends TestbedTest
 {
-    public static void main(String[] args)
+
+    @Override
+    public void initTest(boolean deserialized)
     {
         // Static Body
         Vec2 gravity = new Vec2(0, -10);
-        World world = new World(gravity);
+        World world = getWorld();
+        world.setGravity(gravity);
         BodyDef groundBodyDef = new BodyDef();
         groundBodyDef.position.set(0, -10);
         Body groundBody = world.createBody(groundBodyDef);
@@ -36,18 +40,12 @@ public class HelloWorld
         fixtureDef.density = 1;
         fixtureDef.friction = 0.3f;
         body.createFixture(fixtureDef);
-        // Setup world
-        float timeStep = 1.0f / 60.0f;
-        int velocityIterations = 6;
-        int positionIterations = 2;
-        // Run loop
-        for (int i = 0; i < 60; ++i)
-        {
-            world.step(timeStep, velocityIterations, positionIterations);
-            Vec2 position = body.getPosition();
-            float angle = body.getAngle();
-            System.out.printf("%4.2f %4.2f %4.2f\n", position.x, position.y,
-                    angle);
-        }
+
+    }
+
+    @Override
+    public String getTestName()
+    {
+        return "Hello World";
     }
 }

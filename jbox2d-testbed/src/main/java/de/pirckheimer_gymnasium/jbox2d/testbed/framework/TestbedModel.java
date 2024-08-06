@@ -130,7 +130,6 @@ public class TestbedModel
 
     /**
      * Gets the array of keys, index corresponding to the char value.
-     *
      */
     public boolean[] getKeys()
     {
@@ -139,7 +138,6 @@ public class TestbedModel
 
     /**
      * Gets the array of coded keys, index corresponding to the coded key value.
-     *
      */
     public boolean[] getCodedKeys()
     {

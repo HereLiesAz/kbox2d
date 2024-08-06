@@ -73,6 +73,7 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.tests.VaryingRestitution;
 import de.pirckheimer_gymnasium.jbox2d.testbed.tests.VerticalStack;
 import de.pirckheimer_gymnasium.jbox2d.testbed.tests.WaveMachine;
 import de.pirckheimer_gymnasium.jbox2d.testbed.tests.Web;
+import de.pirckheimer_gymnasium.jbox2d.testbed.tests.HelloWorld;
 
 /**
  * @author Daniel Murphy
@@ -148,5 +149,6 @@ public class TestList
         model.addTest(new ConvexHull());
         model.addTest(new DynamicTreeTest());
         model.addTest(new DistanceTest());
+        model.addTest(new HelloWorld());
     }
 }
