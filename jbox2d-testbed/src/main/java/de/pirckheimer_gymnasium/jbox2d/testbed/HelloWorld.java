@@ -24,7 +24,6 @@ public class HelloWorld
         PolygonShape groundBox = new PolygonShape();
         groundBox.setAsBox(50, 10);
         groundBody.createFixture(groundBox, 0);
-
         // Dynamic Body
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyType.DYNAMIC;
@@ -37,12 +36,10 @@ public class HelloWorld
         fixtureDef.density = 1;
         fixtureDef.friction = 0.3f;
         body.createFixture(fixtureDef);
-
         // Setup world
         float timeStep = 1.0f / 60.0f;
         int velocityIterations = 6;
         int positionIterations = 2;
-
         // Run loop
         for (int i = 0; i < 60; ++i)
         {
@@ -52,6 +49,5 @@ public class HelloWorld
             System.out.printf("%4.2f %4.2f %4.2f\n", position.x, position.y,
                     angle);
         }
-
     }
 }
