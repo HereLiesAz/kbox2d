@@ -48,12 +48,12 @@ public abstract class AbstractTestbedController
     private static final Logger log = LoggerFactory
             .getLogger(AbstractTestbedController.class);
 
-    public static enum UpdateBehavior
+    public enum UpdateBehavior
     {
         UPDATE_CALLED, UPDATE_IGNORED
     }
 
-    public static enum MouseBehavior
+    public enum MouseBehavior
     {
         NORMAL, FORCE_Y_FLIP
     }
@@ -104,14 +104,9 @@ public abstract class AbstractTestbedController
     private void addListeners()
     {
         // time for our controlling
-        model.addTestChangeListener(new TestbedModel.TestChangedListener()
-        {
-            @Override
-            public void testChanged(TestbedTest test, int index)
-            {
-                model.getPanel().grabFocus();
-                nextTest = test;
-            }
+        model.addTestChangeListener((test, index) -> {
+            model.getPanel().grabFocus();
+            nextTest = test;
         });
     }
 
@@ -437,7 +432,7 @@ public abstract class AbstractTestbedController
 
     public synchronized void start()
     {
-        if (isAnimating() != true)
+        if (!isAnimating())
         {
             startAnimator();
         }
@@ -525,7 +520,7 @@ public abstract class AbstractTestbedController
             log.error("Error serializing world", e1);
             if (errorHandler != null)
                 errorHandler.serializationError(e1,
-                        "Error serializing the object: " + e1.toString());
+                        "Error serializing the object: " + e1);
             return;
         }
         try
@@ -548,9 +543,9 @@ public abstract class AbstractTestbedController
             log.error("Exception while writing world", e);
             if (errorHandler != null)
                 errorHandler.serializationError(e,
-                        "Error while writing world: " + e.toString());
+                        "Error while writing world: " + e);
         }
-        log.debug("Serialed world to " + currTest.getFilename());
+        log.debug("Serialized world to {}", currTest.getFilename());
     }
 
     private void _load()
@@ -576,7 +571,7 @@ public abstract class AbstractTestbedController
             log.error("Error deserializing object", e);
             if (errorHandler != null)
                 errorHandler.serializationError(e,
-                        "Error deserializing the object: " + e.toString());
+                        "Error deserializing the object: " + e);
             return;
         }
         catch (IOException e)
@@ -584,10 +579,10 @@ public abstract class AbstractTestbedController
             log.error("Exception while reading world", e);
             if (errorHandler != null)
                 errorHandler.serializationError(e,
-                        "Error while reading world: " + e.toString());
+                        "Error while reading world: " + e);
             return;
         }
-        log.debug("Deserialized world from " + currTest.getFilename());
+        log.debug("Deserialized world from {}", currTest.getFilename());
         currTest.init(w, true);
     }
 }
@@ -602,7 +597,7 @@ class QueueItem
 {
     public QueueItemType type;
 
-    public Vec2 p = new Vec2();;
+    public Vec2 p = new Vec2();
 
     public char c;
 

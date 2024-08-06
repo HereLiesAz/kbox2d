@@ -46,7 +46,7 @@ public class TestbedModel
 
     private TestbedTest test;
 
-    private final Vector<TestChangedListener> listeners = new Vector<TestChangedListener>();
+    private final Vector<TestChangedListener> listeners = new Vector<>();
 
     private final boolean[] keys = new boolean[512];
 
@@ -160,7 +160,7 @@ public class TestbedModel
                     "No test at " + argCurrTestIndex);
         }
         currTestIndex = argCurrTestIndex;
-        ListItem item = (ListItem) tests.getElementAt(argCurrTestIndex);
+        ListItem item = tests.getElementAt(argCurrTestIndex);
         test = item.test;
         for (TestChangedListener listener : listeners)
         {
@@ -205,7 +205,7 @@ public class TestbedModel
 
     public TestbedTest getTestAt(int argIndex)
     {
-        ListItem item = (ListItem) tests.getElementAt(argIndex);
+        ListItem item = tests.getElementAt(argIndex);
         if (item.isCategory())
         {
             return null;
@@ -215,7 +215,7 @@ public class TestbedModel
 
     public boolean isTestAt(int argIndex)
     {
-        ListItem item = (ListItem) tests.getElementAt(argIndex);
+        ListItem item = tests.getElementAt(argIndex);
         return !item.isCategory();
     }
 
@@ -239,7 +239,7 @@ public class TestbedModel
         return settings;
     }
 
-    public class ListItem
+    public static class ListItem
     {
         public String category;
 
@@ -267,8 +267,8 @@ public class TestbedModel
         }
     }
 
-    public static interface TestChangedListener
+    public interface TestChangedListener
     {
-        public void testChanged(TestbedTest test, int index);
+        void testChanged(TestbedTest test, int index);
     }
 }

@@ -44,16 +44,10 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.j2d.TestbedSidePanel;
  */
 public class TestbedMain
 {
-    // private static final Logger log =
-    // LoggerFactory.getLogger(TestbedMain.class);
+
     public static void main(String[] args)
     {
-        // try {
-        // UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-        // } catch (Exception e) {
-        // log.warn("Could not set the look and feel to nimbus. "
-        // + "Hopefully you're on a mac so the window isn't ugly as crap.");
-        // }
+
         TestbedModel model = new TestbedModel();
         final AbstractTestbedController controller = new TestbedController(
                 model, UpdateBehavior.UPDATE_CALLED, MouseBehavior.NORMAL,

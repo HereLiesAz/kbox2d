@@ -64,20 +64,15 @@ public class AWTPanelHelper
         help.add("Scroll to zoom in/out on the mouse position");
         help.add("Press '[' or ']' to change tests, and 'r' to restart.");
         model.setImplSpecificHelp(help);
-        panel.addMouseWheelListener(new MouseWheelListener()
-        {
-            public void mouseWheelMoved(MouseWheelEvent e)
+        panel.addMouseWheelListener(e -> {
+            int notches = e.getWheelRotation();
+            TestbedTest currTest = model.getCurrTest();
+            if (currTest == null)
             {
-                int notches = e.getWheelRotation();
-                TestbedTest currTest = model.getCurrTest();
-                if (currTest == null)
-                {
-                    return;
-                }
-                ZoomType zoom = notches < 0 ? ZoomType.ZOOM_IN
-                        : ZoomType.ZOOM_OUT;
-                currTest.getCamera().zoomToPoint(mouse, zoom);
+                return;
             }
+            ZoomType zoom = notches < 0 ? ZoomType.ZOOM_IN : ZoomType.ZOOM_OUT;
+            currTest.getCamera().zoomToPoint(mouse, zoom);
         });
         panel.addMouseListener(new MouseAdapter()
         {
@@ -112,7 +107,6 @@ public class AWTPanelHelper
                 {
                     screenDragButtonDown = true;
                     oldDragMouse.set(arg0.getX(), arg0.getY());
-                    return;
                 }
                 else if (model.getCodedKeys()[KeyEvent.VK_SHIFT])
                 {

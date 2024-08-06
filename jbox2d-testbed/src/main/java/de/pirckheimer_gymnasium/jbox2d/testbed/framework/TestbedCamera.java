@@ -32,14 +32,14 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 
 public class TestbedCamera
 {
-    public static enum ZoomType
+    public enum ZoomType
     {
         ZOOM_IN, ZOOM_OUT
     }
 
     private final Vec2 initPosition = new Vec2();
 
-    private float initScale;
+    private final float initScale;
 
     private final IViewportTransform transform;
 

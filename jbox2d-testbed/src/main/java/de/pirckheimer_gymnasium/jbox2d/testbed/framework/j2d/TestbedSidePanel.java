@@ -48,14 +48,12 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedModel.ListItem;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedSetting;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedSetting.SettingType;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedSettings;
-import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
 /**
  * The testbed side panel. Facilitates test and setting changes.
  *
  * @author Daniel Murphy
  */
-@SuppressWarnings("serial")
 public class TestbedSidePanel extends JPanel
         implements ChangeListener, ActionListener
 {
@@ -69,13 +67,13 @@ public class TestbedSidePanel extends JPanel
 
     public JComboBox<ListItem> tests;
 
-    private JButton pauseButton = new JButton("Pause");
+    private final JButton pauseButton = new JButton("Pause");
 
-    private JButton stepButton = new JButton("Step");
+    private final JButton stepButton = new JButton("Step");
 
-    private JButton resetButton = new JButton("Reset");
+    private final JButton resetButton = new JButton("Reset");
 
-    private JButton quitButton = new JButton("Quit");
+    private final JButton quitButton = new JButton("Quit");
 
     public JButton saveButton = new JButton("Save");
 
@@ -88,15 +86,10 @@ public class TestbedSidePanel extends JPanel
         controller = argController;
         initComponents();
         addListeners();
-        model.addTestChangeListener(new TestbedModel.TestChangedListener()
-        {
-            @Override
-            public void testChanged(TestbedTest argTest, int argIndex)
-            {
-                tests.setSelectedIndex(argIndex);
-                saveButton.setEnabled(argTest.isSaveLoadEnabled());
-                loadButton.setEnabled(argTest.isSaveLoadEnabled());
-            }
+        model.addTestChangeListener((argTest, argIndex) -> {
+            tests.setSelectedIndex(argIndex);
+            saveButton.setEnabled(argTest.isSaveLoadEnabled());
+            loadButton.setEnabled(argTest.isSaveLoadEnabled());
         });
     }
 
@@ -110,7 +103,7 @@ public class TestbedSidePanel extends JPanel
         top.setBorder(BorderFactory.createCompoundBorder(
                 new EtchedBorder(EtchedBorder.LOWERED),
                 BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-        tests = new JComboBox<ListItem>(model.getComboModel());
+        tests = new JComboBox<>(model.getComboModel());
         tests.setMaximumRowCount(30);
         tests.setMaximumSize(new Dimension(250, 20));
         tests.addActionListener(this);
@@ -122,10 +115,10 @@ public class TestbedSidePanel extends JPanel
 
             @Override
             public Component getListCellRendererComponent(JList list,
-                    Object ovalue, int index, boolean isSelected,
+                    Object objectValue, int index, boolean isSelected,
                     boolean cellHasFocus)
             {
-                ListItem value = (ListItem) ovalue;
+                ListItem value = (ListItem) objectValue;
                 if (value.isCategory())
                 {
                     if (categoryLabel == null)
@@ -203,68 +196,32 @@ public class TestbedSidePanel extends JPanel
 
     public void addListeners()
     {
-        pauseButton.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
+        pauseButton.addActionListener(e -> {
+            if (model.getSettings().pause)
             {
-                if (model.getSettings().pause)
-                {
-                    model.getSettings().pause = false;
-                    pauseButton.setText("Pause");
-                }
-                else
-                {
-                    model.getSettings().pause = true;
-                    pauseButton.setText("Resume");
-                }
-                model.getPanel().grabFocus();
+                model.getSettings().pause = false;
+                pauseButton.setText("Pause");
             }
-        });
-        stepButton.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
+            else
             {
-                model.getSettings().singleStep = true;
-                if (!model.getSettings().pause)
-                {
-                    model.getSettings().pause = true;
-                    pauseButton.setText("Resume");
-                }
-                model.getPanel().grabFocus();
+                model.getSettings().pause = true;
+                pauseButton.setText("Resume");
             }
+            model.getPanel().grabFocus();
         });
-        resetButton.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
+        stepButton.addActionListener(e -> {
+            model.getSettings().singleStep = true;
+            if (!model.getSettings().pause)
             {
-                controller.reset();
+                model.getSettings().pause = true;
+                pauseButton.setText("Resume");
             }
+            model.getPanel().grabFocus();
         });
-        quitButton.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                System.exit(0);
-            }
-        });
-        saveButton.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                controller.save();
-            }
-        });
-        loadButton.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                controller.load();
-            }
-        });
+        resetButton.addActionListener(e -> controller.reset());
+        quitButton.addActionListener(e -> System.exit(0));
+        saveButton.addActionListener(e -> controller.save());
+        loadButton.addActionListener(e -> controller.load());
     }
 
     private void addSettings(JPanel argPanel, TestbedSettings argSettings,

@@ -31,10 +31,9 @@ package de.pirckheimer_gymnasium.jbox2d.testbed.framework;
 public class TestbedSetting
 {
     /**
-     * Whether the setting effects the engine's behavior or modifies drawing.
-     *
+     * Whether the setting affects the engine's behavior or modifies drawing.
      */
-    public static enum SettingType
+    public enum SettingType
     {
         DRAWING, ENGINE
     }
@@ -42,7 +41,7 @@ public class TestbedSetting
     /**
      * The type of value this setting pertains to
      */
-    public static enum ConstraintType
+    public enum ConstraintType
     {
         BOOLEAN, RANGE
     }

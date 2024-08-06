@@ -29,7 +29,7 @@ public class TestbedController extends AbstractTestbedController
         implements Runnable
 {
 
-    private Thread animator;
+    private final Thread animator;
 
     public TestbedController(TestbedModel argModel, UpdateBehavior behavior,
             MouseBehavior mouseBehavior, TestbedErrorHandler errorHandler)
@@ -78,7 +78,7 @@ public class TestbedController extends AbstractTestbedController
             {
                 Thread.sleep(sleepTime);
             }
-            catch (InterruptedException ex)
+            catch (InterruptedException ignored)
             {
             }
         }

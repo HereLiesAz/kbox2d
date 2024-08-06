@@ -40,7 +40,6 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Daniel Murphy
  */
-@SuppressWarnings("serial")
 public class TestPanelJ2D extends JPanel implements TestbedPanel
 {
     private static final Logger log = LoggerFactory
@@ -91,7 +90,7 @@ public class TestPanelJ2D extends JPanel implements TestbedPanel
     {
         panelWidth = width;
         panelHeight = height;
-        controller.updateExtents(width / 2, height / 2);
+        controller.updateExtents((float) width / 2, (float) height / 2);
     }
 
     public boolean render()

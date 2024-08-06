@@ -81,7 +81,7 @@ public class TestbedSettings
 
     public boolean singleStep = false;
 
-    private List<TestbedSetting> settings;
+    private final List<TestbedSetting> settings;
 
     private final Map<String, TestbedSetting> settingsMap;
 
@@ -125,8 +125,6 @@ public class TestbedSettings
 
     /**
      * Adds a settings to the settings list
-     *
-     * @param argSetting
      */
     public void addSetting(TestbedSetting argSetting)
     {
@@ -150,8 +148,6 @@ public class TestbedSettings
 
     /**
      * Gets a setting by name.
-     *
-     * @param argName
      */
     public TestbedSetting getSetting(String argName)
     {
