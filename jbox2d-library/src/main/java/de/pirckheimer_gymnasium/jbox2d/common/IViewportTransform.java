@@ -32,12 +32,12 @@ package de.pirckheimer_gymnasium.jbox2d.common;
 public interface IViewportTransform
 {
     /**
-     * @return If the transform flips the y axis.
+     * @return If the transform flips the y-axis.
      */
     boolean isYFlip();
 
     /**
-     * @param yFlip If we flip the y axis when transforming.
+     * @param yFlip If we flip the y-axis when transforming.
      */
     void setYFlip(boolean yFlip);
 

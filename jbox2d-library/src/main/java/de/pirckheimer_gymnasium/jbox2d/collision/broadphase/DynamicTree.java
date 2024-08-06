@@ -230,7 +230,7 @@ public class DynamicTree implements BroadPhaseStrategy
         float absVx, absVy;
         float cx, cy;
         float hx, hy;
-        float tempx, tempy;
+        float tempX, tempY;
         r.x = p2x - p1x;
         r.y = p2y - p1y;
         assert ((r.x * r.x + r.y * r.y) > 0f);
@@ -252,12 +252,12 @@ public class DynamicTree implements BroadPhaseStrategy
         // temp.set(p2).subLocal(p1).mulLocal(maxFraction).addLocal(p1);
         // Vec2.minToOut(p1, temp, segAABB.lowerBound);
         // Vec2.maxToOut(p1, temp, segAABB.upperBound);
-        tempx = (p2x - p1x) * maxFraction + p1x;
-        tempy = (p2y - p1y) * maxFraction + p1y;
-        segAABB.lowerBound.x = Math.min(p1x, tempx);
-        segAABB.lowerBound.y = Math.min(p1y, tempy);
-        segAABB.upperBound.x = Math.max(p1x, tempx);
-        segAABB.upperBound.y = Math.max(p1y, tempy);
+        tempX = (p2x - p1x) * maxFraction + p1x;
+        tempY = (p2y - p1y) * maxFraction + p1y;
+        segAABB.lowerBound.x = Math.min(p1x, tempX);
+        segAABB.lowerBound.y = Math.min(p1y, tempY);
+        segAABB.upperBound.x = Math.max(p1x, tempX);
+        segAABB.upperBound.y = Math.max(p1y, tempY);
         // end inline
         nodeStackIndex = 0;
         nodeStack[nodeStackIndex++] = root;
@@ -281,9 +281,9 @@ public class DynamicTree implements BroadPhaseStrategy
             cy = (nodeAABB.lowerBound.y + nodeAABB.upperBound.y) * .5f;
             hx = (nodeAABB.upperBound.x - nodeAABB.lowerBound.x) * .5f;
             hy = (nodeAABB.upperBound.y - nodeAABB.lowerBound.y) * .5f;
-            tempx = p1x - cx;
-            tempy = p1y - cy;
-            float separation = MathUtils.abs(vx * tempx + vy * tempy)
+            tempX = p1x - cx;
+            tempY = p1y - cy;
+            float separation = MathUtils.abs(vx * tempX + vy * tempY)
                     - (absVx * hx + absVy * hy);
             if (separation > 0.0f)
             {
@@ -309,12 +309,12 @@ public class DynamicTree implements BroadPhaseStrategy
                     // temp.set(p2).subLocal(p1).mulLocal(maxFraction).addLocal(p1);
                     // Vec2.minToOut(p1, temp, segAABB.lowerBound);
                     // Vec2.maxToOut(p1, temp, segAABB.upperBound);
-                    tempx = (p2x - p1x) * maxFraction + p1x;
-                    tempy = (p2y - p1y) * maxFraction + p1y;
-                    segAABB.lowerBound.x = p1x < tempx ? p1x : tempx;
-                    segAABB.lowerBound.y = p1y < tempy ? p1y : tempy;
-                    segAABB.upperBound.x = p1x > tempx ? p1x : tempx;
-                    segAABB.upperBound.y = p1y > tempy ? p1y : tempy;
+                    tempX = (p2x - p1x) * maxFraction + p1x;
+                    tempY = (p2y - p1y) * maxFraction + p1y;
+                    segAABB.lowerBound.x = Math.min(p1x, tempX);
+                    segAABB.lowerBound.y = Math.min(p1y, tempY);
+                    segAABB.upperBound.x = Math.max(p1x, tempX);
+                    segAABB.upperBound.y = Math.max(p1y, tempY);
                 }
             }
             else
@@ -339,7 +339,7 @@ public class DynamicTree implements BroadPhaseStrategy
         return computeHeight(root);
     }
 
-    private final int computeHeight(DynamicTreeNode node)
+    private int computeHeight(DynamicTreeNode node)
     {
         assert (0 <= node.id && node.id < nodeCapacity);
         if (node.child1 == null)
@@ -762,7 +762,6 @@ public class DynamicTree implements BroadPhaseStrategy
             }
             else
             {
-                iC.child2 = iG;
                 iA.child2 = iF;
                 iF.parent = iA;
                 iA.aabb.combine(iB.aabb, iF.aabb);
@@ -901,7 +900,7 @@ public class DynamicTree implements BroadPhaseStrategy
         color.set(1, (height - spot) * 1f / height,
                 (height - spot) * 1f / height);
         argDraw.drawPolygon(drawVecs, 4, color);
-        argDraw.getViewportTranform().getWorldToScreen(node.aabb.upperBound,
+        argDraw.getViewportTransform().getWorldToScreen(node.aabb.upperBound,
                 textVec);
         argDraw.drawString(textVec.x, textVec.y,
                 node.id + "-" + (spot + 1) + "/" + height, color);

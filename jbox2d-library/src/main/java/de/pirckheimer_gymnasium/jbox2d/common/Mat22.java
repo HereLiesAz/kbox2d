@@ -453,9 +453,9 @@ public class Mat22 implements Serializable
         {
             det = 1.0f / det;
         }
-        final float tempy = det * (a11 * b.y - a21 * b.x);
+        final float tempY = det * (a11 * b.y - a21 * b.x);
         out.x = det * (a22 * b.x - a12 * b.y);
-        out.y = tempy;
+        out.y = tempY;
     }
 
     public static Vec2 mul(final Mat22 R, final Vec2 v)
@@ -467,9 +467,9 @@ public class Mat22 implements Serializable
 
     public static void mulToOut(final Mat22 R, final Vec2 v, final Vec2 out)
     {
-        final float tempy = R.ex.y * v.x + R.ey.y * v.y;
+        final float tempY = R.ex.y * v.x + R.ey.y * v.y;
         out.x = R.ex.x * v.x + R.ey.x * v.y;
-        out.y = tempy;
+        out.y = tempY;
     }
 
     public static void mulToOutUnsafe(final Mat22 R, final Vec2 v,
@@ -493,14 +493,14 @@ public class Mat22 implements Serializable
 
     public static void mulToOut(final Mat22 A, final Mat22 B, final Mat22 out)
     {
-        final float tempy1 = A.ex.y * B.ex.x + A.ey.y * B.ex.y;
-        final float tempx1 = A.ex.x * B.ex.x + A.ey.x * B.ex.y;
-        final float tempy2 = A.ex.y * B.ey.x + A.ey.y * B.ey.y;
-        final float tempx2 = A.ex.x * B.ey.x + A.ey.x * B.ey.y;
-        out.ex.x = tempx1;
-        out.ex.y = tempy1;
-        out.ey.x = tempx2;
-        out.ey.y = tempy2;
+        final float tempY1 = A.ex.y * B.ex.x + A.ey.y * B.ex.y;
+        final float tempX1 = A.ex.x * B.ex.x + A.ey.x * B.ex.y;
+        final float tempY2 = A.ex.y * B.ey.x + A.ey.y * B.ey.y;
+        final float tempX2 = A.ex.x * B.ey.x + A.ey.x * B.ey.y;
+        out.ex.x = tempX1;
+        out.ex.y = tempY1;
+        out.ey.x = tempX2;
+        out.ey.y = tempY2;
     }
 
     public static void mulToOutUnsafe(final Mat22 A, final Mat22 B,
@@ -523,9 +523,9 @@ public class Mat22 implements Serializable
     public static void mulTransToOut(final Mat22 R, final Vec2 v,
             final Vec2 out)
     {
-        float outx = v.x * R.ex.x + v.y * R.ex.y;
+        float outX = v.x * R.ex.x + v.y * R.ex.y;
         out.y = v.x * R.ey.x + v.y * R.ey.y;
-        out.x = outx;
+        out.x = outX;
     }
 
     public static void mulTransToOutUnsafe(final Mat22 R, final Vec2 v,

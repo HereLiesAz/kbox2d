@@ -62,7 +62,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
  */
 public interface BroadPhase
 {
-    public static final int NULL_PROXY = -1;
+    int NULL_PROXY = -1;
 
     /**
      * Create a proxy with an initial AABB. Pairs are not reported until
@@ -77,15 +77,13 @@ public interface BroadPhase
 
     /**
      * Call MoveProxy as many times as you like, then when you are done call
-     * UpdatePairs to finalized the proxy pairs (for your time step).
+     * UpdatePairs to finalize the proxy pairs (for your time step).
      */
     void moveProxy(int proxyId, AABB aabb, Vec2 displacement);
 
     /**
-     * Call to trigger a re-processing of it's pairs on the next call to
+     * Call to trigger a re-processing of its pairs on the next call to
      * UpdatePairs.
-     *
-     * @param proxyId
      */
     void touchProxy(int proxyId);
 
@@ -116,8 +114,8 @@ public interface BroadPhase
 
     /**
      * Ray-cast against the proxies in the tree. This relies on the callback to
-     * perform a exact ray-cast in the case were the proxy contains a shape. The
-     * callback also performs the any collision filtering. This has performance
+     * perform an exact ray-cast in the case were the proxy contains a shape. The
+     * callback also performs any collision filtering. This has performance
      * roughly equal to k * log(n), where k is the number of collisions and n is
      * the number of proxies in the tree.
      *

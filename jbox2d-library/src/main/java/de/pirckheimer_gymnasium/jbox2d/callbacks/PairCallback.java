@@ -28,5 +28,5 @@ package de.pirckheimer_gymnasium.jbox2d.callbacks;
  */
 public interface PairCallback
 {
-    public void addPair(Object userDataA, Object userDataB);
+    void addPair(Object userDataA, Object userDataB);
 }

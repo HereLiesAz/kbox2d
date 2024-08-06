@@ -38,5 +38,5 @@ public interface TreeCallback
      * @param proxyId The id of the proxy.
      * @return if the query should be continued.
      */
-    public boolean treeCallback(int proxyId);
+    boolean treeCallback(int proxyId);
 }

@@ -202,13 +202,13 @@ public abstract class DebugDraw
         drawString(pos.x, pos.y, s, color);
     }
 
-    public IViewportTransform getViewportTranform()
+    public IViewportTransform getViewportTransform()
     {
         return viewportTransform;
     }
 
     /**
-     * @deprecated use the viewport transform in {@link #getViewportTranform()}
+     * @deprecated use the viewport transform in {@link #getViewportTransform()}
      */
     public void setCamera(float x, float y, float scale)
     {

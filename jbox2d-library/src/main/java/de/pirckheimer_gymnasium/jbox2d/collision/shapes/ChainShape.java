@@ -39,7 +39,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
  * smooth collisions. WARNING: The chain will not collide properly if there are
  * self-intersections.
  *
- * https://github.com/erincatto/box2d/blob/main/src/collision/b2_chain_shape.cpp
+ * @permalink https://github.com/erincatto/box2d/blob/main/src/collision/b2_chain_shape.cpp
  *
  * @author Daniel Murphy
  */
@@ -137,13 +137,12 @@ public class ChainShape extends Shape
     {
         assert (childIndex < count);
         final EdgeShape edgeShape = pool0;
-        int i1 = childIndex;
         int i2 = childIndex + 1;
         if (i2 == count)
         {
             i2 = 0;
         }
-        Vec2 v = vertices[i1];
+        Vec2 v = vertices[childIndex];
         edgeShape.vertex1.x = v.x;
         edgeShape.vertex1.y = v.y;
         Vec2 v1 = vertices[i2];
@@ -158,13 +157,12 @@ public class ChainShape extends Shape
         assert (childIndex < count);
         final Vec2 lower = aabb.lowerBound;
         final Vec2 upper = aabb.upperBound;
-        int i1 = childIndex;
         int i2 = childIndex + 1;
         if (i2 == count)
         {
             i2 = 0;
         }
-        final Vec2 vi1 = vertices[i1];
+        final Vec2 vi1 = vertices[childIndex];
         final Vec2 vi2 = vertices[i2];
         final Rot xfq = xf.q;
         final Vec2 xfp = xf.p;
@@ -240,7 +238,7 @@ public class ChainShape extends Shape
      * @param vertices An array of vertices, these are copied.
      * @param count    The vertex count.
      */
-    public void createChain(final Vec2 vertices[], int count)
+    public void createChain(final Vec2[] vertices, int count)
     {
         assert (this.vertices == null && this.count == 0);
         assert (count >= 2);

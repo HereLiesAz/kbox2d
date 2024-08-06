@@ -49,8 +49,7 @@ public class ContactFilter
         {
             return filterA.groupIndex > 0;
         }
-        boolean collide = (filterA.maskBits & filterB.categoryBits) != 0
+        return (filterA.maskBits & filterB.categoryBits) != 0
                 && (filterA.categoryBits & filterB.maskBits) != 0;
-        return collide;
     }
 }

@@ -30,7 +30,7 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.contacts.Contact;
  * Implement this class to get contact information. You can use these results
  * for things like sounds and game logic. You can also get contact results by
  * traversing the contact lists after the time step. However, you might miss
- * some contacts because continuous physics leads to sub-stepping. Additionally
+ * some contacts because continuous physics leads to sub-stepping. Additionally,
  * you may receive multiple callbacks for the same contact in a single time
  * step. You should strive to make your callbacks efficient because there may be
  * many callbacks per time step.
@@ -43,12 +43,12 @@ public interface ContactListener
     /**
      * Called when two fixtures begin to touch.
      */
-    public void beginContact(Contact contact);
+     void beginContact(Contact contact);
 
     /**
      * Called when two fixtures cease to touch.
      */
-    public void endContact(Contact contact);
+     void endContact(Contact contact);
 
     /**
      * This is called after a contact is updated. This allows you to inspect a
@@ -62,13 +62,13 @@ public interface ContactListener
      * Note: the oldManifold parameter is pooled, so it will be the same object
      * for every callback for each thread.
      */
-    public void preSolve(Contact contact, Manifold oldManifold);
+     void preSolve(Contact contact, Manifold oldManifold);
 
     /**
      * This lets you inspect a contact after the solver is finished. This is
      * useful for inspecting impulses. Note: the contact manifold does not
      * include time of impact impulses, which can be arbitrarily large if the
-     * sub-step is small. Hence the impulse is provided explicitly in a separate
+     * sub-step is small. Hence, the impulse is provided explicitly in a separate
      * data structure. Note: this is only called for contacts that are touching,
      * solid, and awake.
      *
@@ -76,5 +76,5 @@ public interface ContactListener
      * @param impulse This is usually a pooled variable, so it will be modified
      *                after this call
      */
-    public void postSolve(Contact contact, ContactImpulse impulse);
+     void postSolve(Contact contact, ContactImpulse impulse);
 }

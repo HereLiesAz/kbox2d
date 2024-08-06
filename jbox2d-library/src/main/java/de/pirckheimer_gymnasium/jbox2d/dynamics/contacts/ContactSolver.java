@@ -204,14 +204,14 @@ public class ContactSolver
             Vec2 vB = velocities[indexB].v;
             float wB = velocities[indexB].w;
             Vec2 normal = vc.normal;
-            float tangentx = 1.0f * normal.y;
-            float tangenty = -1.0f * normal.x;
+            float tangentX = normal.y;
+            float tangentY = -1.0f * normal.x;
             for (int j = 0; j < pointCount; ++j)
             {
                 VelocityConstraintPoint vcp = vc.points[j];
-                float Px = tangentx * vcp.tangentImpulse
+                float Px = tangentX * vcp.tangentImpulse
                         + normal.x * vcp.normalImpulse;
-                float Py = tangenty * vcp.tangentImpulse
+                float Py = tangentY * vcp.tangentImpulse
                         + normal.y * vcp.normalImpulse;
                 wA -= iA * (vcp.rA.x * Py - vcp.rA.y * Px);
                 vA.x -= Px * mA;
@@ -272,9 +272,9 @@ public class ContactSolver
             xfB.p.y = cB.y
                     - (xfBq.s * localCenterB.x + xfBq.c * localCenterB.y);
             worldManifold.initialize(manifold, xfA, radiusA, xfB, radiusB);
-            final Vec2 vcnormal = vc.normal;
-            vcnormal.x = worldManifold.normal.x;
-            vcnormal.y = worldManifold.normal.y;
+            final Vec2 vcNormal = vc.normal;
+            vcNormal.x = worldManifold.normal.x;
+            vcNormal.y = worldManifold.normal.y;
             int pointCount = vc.pointCount;
             for (int j = 0; j < pointCount; ++j)
             {
@@ -286,21 +286,21 @@ public class ContactSolver
                 vcprA.y = wmPj.y - cA.y;
                 vcprB.x = wmPj.x - cB.x;
                 vcprB.y = wmPj.y - cB.y;
-                float rnA = vcprA.x * vcnormal.y - vcprA.y * vcnormal.x;
-                float rnB = vcprB.x * vcnormal.y - vcprB.y * vcnormal.x;
+                float rnA = vcprA.x * vcNormal.y - vcprA.y * vcNormal.x;
+                float rnB = vcprB.x * vcNormal.y - vcprB.y * vcNormal.x;
                 float kNormal = mA + mB + iA * rnA * rnA + iB * rnB * rnB;
                 vcp.normalMass = kNormal > 0.0f ? 1.0f / kNormal : 0.0f;
-                float tangentX = vcnormal.y;
-                float tangentY = -1.0f * vcnormal.x;
+                float tangentX = vcNormal.y;
+                float tangentY = -1.0f * vcNormal.x;
                 float rtA = vcprA.x * tangentY - vcprA.y * tangentX;
                 float rtB = vcprB.x * tangentY - vcprB.y * tangentX;
                 float kTangent = mA + mB + iA * rtA * rtA + iB * rtB * rtB;
                 vcp.tangentMass = kTangent > 0.0f ? 1.0f / kTangent : 0.0f;
                 // Set up a velocity bias for restitution.
                 vcp.velocityBias = 0.0f;
-                float tempx = vB.x + -wB * vcprB.y - vA.x - (-wA * vcprA.y);
-                float tempy = vB.y + wB * vcprB.x - vA.y - (wA * vcprA.x);
-                float vRel = vcnormal.x * tempx + vcnormal.y * tempy;
+                float tempX = vB.x + -wB * vcprB.y - vA.x - (-wA * vcprA.y);
+                float tempY = vB.y + wB * vcprB.x - vA.y - (wA * vcprA.x);
+                float vRel = vcNormal.x * tempX + vcNormal.y * tempY;
                 if (vRel < -Settings.velocityThreshold)
                 {
                     vcp.velocityBias = -vc.restitution * vRel;
@@ -311,10 +311,10 @@ public class ContactSolver
             {
                 VelocityConstraintPoint vcp1 = vc.points[0];
                 VelocityConstraintPoint vcp2 = vc.points[1];
-                float rn1A = vcp1.rA.x * vcnormal.y - vcp1.rA.y * vcnormal.x;
-                float rn1B = vcp1.rB.x * vcnormal.y - vcp1.rB.y * vcnormal.x;
-                float rn2A = vcp2.rA.x * vcnormal.y - vcp2.rA.y * vcnormal.x;
-                float rn2B = vcp2.rB.x * vcnormal.y - vcp2.rB.y * vcnormal.x;
+                float rn1A = vcp1.rA.x * vcNormal.y - vcp1.rA.y * vcNormal.x;
+                float rn1B = vcp1.rB.x * vcNormal.y - vcp1.rB.y * vcNormal.x;
+                float rn2A = vcp2.rA.x * vcNormal.y - vcp2.rA.y * vcNormal.x;
+                float rn2B = vcp2.rB.x * vcNormal.y - vcp2.rB.y * vcNormal.x;
                 float k11 = mA + mB + iA * rn1A * rn1A + iB * rn1B * rn1B;
                 float k22 = mA + mB + iA * rn2A * rn2A + iB * rn2B * rn2B;
                 float k12 = mA + mB + iA * rn1A * rn2A + iB * rn1B * rn2B;
@@ -578,7 +578,6 @@ public class ContactSolver
                     //
                     xx = -cp1.normalMass * bx;
                     xy = 0.0f;
-                    vn1 = 0.0f;
                     vn2 = vc.K.ex.y * xx + by;
                     if (xx >= 0.0f && vn2 >= 0.0f)
                     {
@@ -641,7 +640,6 @@ public class ContactSolver
                     xx = 0.0f;
                     xy = -cp2.normalMass * by;
                     vn1 = vc.K.ey.x * xy + bx;
-                    vn2 = 0.0f;
                     if (xy >= 0.0f && vn1 >= 0.0f)
                     {
                         // Resubstitute for the incremental impulse

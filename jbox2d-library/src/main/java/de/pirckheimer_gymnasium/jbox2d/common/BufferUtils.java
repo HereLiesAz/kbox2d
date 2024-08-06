@@ -47,7 +47,7 @@ public class BufferUtils
         {
             try
             {
-                newBuffer[i] = klass.newInstance();
+                newBuffer[i] = klass.getDeclaredConstructor().newInstance();
             }
             catch (Exception e)
             {

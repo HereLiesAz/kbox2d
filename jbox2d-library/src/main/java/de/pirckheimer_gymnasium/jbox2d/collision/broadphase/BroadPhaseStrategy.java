@@ -36,7 +36,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 public interface BroadPhaseStrategy
 {
     /**
-     * Create a proxy. Provide a tight fitting AABB and a userData pointer.
+     * Create a proxy. Provide a tight-fitting AABB and a userData pointer.
      *
      * @param aabb The axis-aligned bounding box.
      */
@@ -48,9 +48,9 @@ public interface BroadPhaseStrategy
     void destroyProxy(int proxyId);
 
     /**
-     * Move a proxy with a swepted AABB. If the proxy has moved outside of its
+     * Move a proxy with a swepted AABB. If the proxy has moved outside its
      * fattened AABB, then the proxy is removed from the tree and re-inserted.
-     * Otherwise the function returns immediately.
+     * Otherwise, the function returns immediately.
      *
      * @param aabb The axis-aligned bounding box.
      *
@@ -72,8 +72,8 @@ public interface BroadPhaseStrategy
 
     /**
      * Ray-cast against the proxies in the tree. This relies on the callback to
-     * perform a exact ray-cast in the case were the proxy contains a shape. The
-     * callback also performs the any collision filtering. This has performance
+     * perform an exact ray-cast in the case were the proxy contains a shape. The
+     * callback also performs any collision filtering. This has performance
      * roughly equal to k * log(n), where k is the number of collisions and n is
      * the number of proxies in the tree.
      *
@@ -96,7 +96,7 @@ public interface BroadPhaseStrategy
     int getHeight();
 
     /**
-     * Get the maximum balance of an node in the tree. The balance is the
+     * Get the maximum balance of a node in the tree. The balance is the
      * difference in height of the two children of a node.
      */
     int getMaxBalance();

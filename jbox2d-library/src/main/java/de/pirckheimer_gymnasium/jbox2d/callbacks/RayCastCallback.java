@@ -49,6 +49,6 @@ public interface RayCastCallback
      * @return -1 to filter, 0 to terminate, fraction to clip the ray for
      *         closest hit, 1 to continue
      */
-    public float reportFixture(Fixture fixture, Vec2 point, Vec2 normal,
+    float reportFixture(Fixture fixture, Vec2 point, Vec2 normal,
             float fraction);
 }

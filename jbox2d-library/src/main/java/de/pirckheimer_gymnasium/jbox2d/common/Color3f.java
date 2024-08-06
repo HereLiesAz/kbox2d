@@ -24,7 +24,7 @@
 package de.pirckheimer_gymnasium.jbox2d.common;
 
 /**
- * Similar to javax.vecmath.Color3f holder
+ * Similar to {@link javax.vecmath.Color3f} holder
  *
  * @author ewjordan
  */

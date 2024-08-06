@@ -37,12 +37,12 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.normal.DefaultWorldPool;
 public class AABB
 {
     /**
-     * Bottom left vertex of bounding box.
+     * The bottom left vertex of the bounding box.
      */
     public final Vec2 lowerBound;
 
     /**
-     * Top right vertex of bounding box.
+     * The top right vertex of the bounding box.
      */
     public final Vec2 upperBound;
 
@@ -56,9 +56,9 @@ public class AABB
     }
 
     /**
-     * Copies from the given object
+     * Copies from the given object.
      *
-     * @param copy The object to copy from
+     * @param copy The object to copy from.
      */
     public AABB(final AABB copy)
     {
@@ -68,8 +68,8 @@ public class AABB
     /**
      * Creates an AABB object using the given bounding vertices.
      *
-     * @param lowerVertex The bottom left vertex of the bounding box
-     * @param upperVertex The top right vertex of the bounding box
+     * @param lowerVertex The bottom left vertex of the bounding box.
+     * @param upperVertex The top right vertex of the bounding box.
      */
     public AABB(final Vec2 lowerVertex, final Vec2 upperVertex)
     {
@@ -78,9 +78,9 @@ public class AABB
     }
 
     /**
-     * Sets this object from the given object
+     * Sets this object from the given object.
      *
-     * @param aabb The object to copy from
+     * @param aabb The object to copy from.
      */
     public final void set(final AABB aabb)
     {
@@ -93,7 +93,7 @@ public class AABB
     }
 
     /**
-     * Verify that the bounds are sorted
+     * Verify that the bounds are sorted.
      */
     public final boolean isValid()
     {
@@ -111,7 +111,7 @@ public class AABB
     }
 
     /**
-     * Get the center of the AABB
+     * Get the center of the AABB.
      */
     public final Vec2 getCenter()
     {
@@ -166,7 +166,7 @@ public class AABB
     }
 
     /**
-     * Gets the perimeter length
+     * Gets the perimeter length.
      */
     public final float getPerimeter()
     {
@@ -175,7 +175,7 @@ public class AABB
     }
 
     /**
-     * Combines another aabb with this one
+     * Combines another aabb with this one.
      */
     public final void combine(final AABB aabb)
     {
@@ -224,8 +224,8 @@ public class AABB
     public final boolean raycast(final RayCastOutput output,
             final RayCastInput input, IWorldPool argPool)
     {
-        float tmin = -Float.MAX_VALUE;
-        float tmax = Float.MAX_VALUE;
+        float tMin = -Float.MAX_VALUE;
+        float tMax = Float.MAX_VALUE;
         final Vec2 p = argPool.popVec2();
         final Vec2 d = argPool.popVec2();
         final Vec2 absD = argPool.popVec2();
@@ -258,15 +258,15 @@ public class AABB
                 s = 1.0f;
             }
             // Push the min up
-            if (t1 > tmin)
+            if (t1 > tMin)
             {
                 normal.setZero();
                 normal.x = s;
-                tmin = t1;
+                tMin = t1;
             }
             // Pull the max down
-            tmax = MathUtils.min(tmax, t2);
-            if (tmin > tmax)
+            tMax = MathUtils.min(tMax, t2);
+            if (tMin > tMax)
             {
                 argPool.pushVec2(4);
                 return false;
@@ -296,15 +296,15 @@ public class AABB
                 s = 1.0f;
             }
             // Push the min up
-            if (t1 > tmin)
+            if (t1 > tMin)
             {
                 normal.setZero();
                 normal.y = s;
-                tmin = t1;
+                tMin = t1;
             }
             // Pull the max down
-            tmax = MathUtils.min(tmax, t2);
-            if (tmin > tmax)
+            tMax = MathUtils.min(tMax, t2);
+            if (tMin > tMax)
             {
                 argPool.pushVec2(4);
                 return false;
@@ -312,13 +312,13 @@ public class AABB
         }
         // Does the ray start inside the box?
         // Does the ray intersect beyond the max fraction?
-        if (tmin < 0.0f || input.maxFraction < tmin)
+        if (tMin < 0.0f || input.maxFraction < tMin)
         {
             argPool.pushVec2(4);
             return false;
         }
         // Intersection.
-        output.fraction = tmin;
+        output.fraction = tMin;
         output.normal.x = normal.x;
         output.normal.y = normal.y;
         argPool.pushVec2(4);

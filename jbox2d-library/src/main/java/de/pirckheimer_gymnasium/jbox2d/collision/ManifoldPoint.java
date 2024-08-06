@@ -31,7 +31,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
  * point usage depends on the manifold type:
  * <ul>
  * <li>circles: the local center of circleB</li>
- * <li>faceA: the local center of cirlceB or the clip point of polygonB</li>
+ * <li>faceA: the local center of circleB or the clip point of polygonB</li>
  * <li>faceB: the clip point of polygonA</li>
  * </ul>
  * This structure is stored across time steps, so we keep it small.<br/>

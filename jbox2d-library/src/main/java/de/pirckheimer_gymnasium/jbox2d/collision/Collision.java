@@ -1282,7 +1282,7 @@ public class Collision
             if (primaryAxis.type == EPAxis.Type.EDGE_A)
             {
                 manifold.type = Manifold.ManifoldType.FACE_A;
-                // Search for the polygon normal that is the most anti-parallel
+                // Search for the polygon normal that is the most antiparallel
                 // to
                 // the edge normal.
                 int i1 = getI1();
