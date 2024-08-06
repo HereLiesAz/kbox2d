@@ -672,11 +672,11 @@ public class World
         step.positionIterations = positionIterations;
         if (timeStep > 0.0f)
         {
-            step.inv_dt = 1.0f / timeStep;
+            step.inverseDt = 1.0f / timeStep;
         }
         else
         {
-            step.inv_dt = 0.0f;
+            step.inverseDt = 0.0f;
         }
         step.dtRatio = invDt0 * timeStep;
         step.warmStarting = warmStarting;
@@ -705,7 +705,7 @@ public class World
         }
         if (step.dt > 0.0f)
         {
-            invDt0 = step.inv_dt;
+            invDt0 = step.inverseDt;
         }
         if ((flags & CLEAR_FORCES) == CLEAR_FORCES)
         {
@@ -1578,7 +1578,7 @@ public class World
                 }
             }
             subStep.dt = (1.0f - minAlpha) * step.dt;
-            subStep.inv_dt = 1.0f / subStep.dt;
+            subStep.inverseDt = 1.0f / subStep.dt;
             subStep.dtRatio = 1.0f;
             subStep.positionIterations = 20;
             subStep.velocityIterations = step.velocityIterations;

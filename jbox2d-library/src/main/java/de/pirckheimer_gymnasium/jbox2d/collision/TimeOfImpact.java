@@ -57,7 +57,7 @@ public class TimeOfImpact
     public static int toiMaxRootIters = 0;
 
     /**
-     * Input parameters for TOI
+     * Input parameters for TOI (time of impact)
      *
      * @author Daniel Murphy
      */
@@ -126,6 +126,13 @@ public class TimeOfImpact
      * axis and may miss some intermediate, non-tunneling collision. If you
      * change the time interval, you should call this function again. Note: use
      * Distance to compute the contact point and normal at the time of impact.
+     *
+     * <p>
+     * CCD via the local separating axis method. This seeks progression
+     * by computing the largest time at which separation is maintained.
+     * </p>
+     *
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/collision/b2_time_of_impact.cpp#L258-L490
      */
     public final void timeOfImpact(TOIOutput output, TOIInput input)
     {
@@ -361,8 +368,10 @@ class SeparationFunction
     private final Transform xfa = new Transform();
 
     private final Transform xfb = new Transform();
-    // TODO_ERIN might not need to return the separation
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/collision/b2_time_of_impact.cpp#L48-L126
+     */
     public float initialize(final SimplexCache cache,
             final DistanceProxy proxyA, final Sweep sweepA,
             final DistanceProxy proxyB, final Sweep sweepB, float t1)
@@ -447,7 +456,9 @@ class SeparationFunction
 
     private final Vec2 axisB = new Vec2();
 
-    // float FindMinSeparation(int* indexA, int* indexB, float t) const
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/collision/b2_time_of_impact.cpp#L129-L195
+      */
     public float findMinSeparation(int[] indexes, float t)
     {
         sweepA.getTransform(xfa, t);
@@ -502,6 +513,9 @@ class SeparationFunction
         }
     }
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/collision/b2_time_of_impact.cpp#L198-L254
+     */
     public float evaluate(int indexA, int indexB, float t)
     {
         sweepA.getTransform(xfa, t);

@@ -37,12 +37,12 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 public class WorldManifold
 {
     /**
-     * World vector pointing from A to B
+     * The world vector pointing from A to B.
      */
     public final Vec2 normal;
 
     /**
-     * World contact point (point of intersection)
+     * The world contact point (point of intersection).
      */
     public final Vec2[] points;
 
@@ -66,6 +66,9 @@ public class WorldManifold
 
     private final Vec2 pool4 = new Vec2();
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/collision/b2_collision.cpp#L26-L90
+     */
     public final void initialize(final Manifold manifold, final Transform xfA,
             float radiusA, final Transform xfB, float radiusB)
     {

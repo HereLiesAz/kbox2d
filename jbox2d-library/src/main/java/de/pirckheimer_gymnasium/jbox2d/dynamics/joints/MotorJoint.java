@@ -313,7 +313,7 @@ public class MotorJoint extends Joint
         float mA = invMassA, mB = invMassB;
         float iA = invIA, iB = invIB;
         float h = data.step.dt;
-        float inv_h = data.step.inv_dt;
+        float inv_h = data.step.inverseDt;
         final Vec2 temp = pool.popVec2();
         // Solve angular friction
         {

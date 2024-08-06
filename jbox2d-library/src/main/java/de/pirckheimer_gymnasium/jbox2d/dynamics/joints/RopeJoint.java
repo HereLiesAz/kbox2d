@@ -196,7 +196,7 @@ public class RopeJoint extends Joint
         // Predictive constraint.
         if (C < 0.0f)
         {
-            Cdot += data.step.inv_dt * C;
+            Cdot += data.step.inverseDt * C;
         }
         float impulse = -mass * Cdot;
         float oldImpulse = this.impulse;

@@ -82,7 +82,7 @@ public class Manifold
     public int pointCount;
 
     /**
-     * creates a manifold with 0 points, with it's points array full of
+     * Creates a manifold with 0 points, with it's points array full of
      * instantiated ManifoldPoints.
      */
     public Manifold()

@@ -31,17 +31,17 @@ package de.pirckheimer_gymnasium.jbox2d.dynamics;
 public class TimeStep
 {
     /**
-     * time step
+     * The time step.
      */
     public float dt;
 
     /**
-     * inverse time step (0 if dt == 0).
+     * The inverse time step (0 if dt == 0).
      */
-    public float inv_dt;
+    public float inverseDt;
 
     /**
-     * dt * inv_dt0
+     * {@code dt * inverseDt}
      */
     public float dtRatio;
 

@@ -791,8 +791,11 @@ public class ParticleSystem
         }
     }
 
-    private final UpdateBodyContactsCallback ubccallback = new UpdateBodyContactsCallback();
+    private final UpdateBodyContactsCallback ubcCallback = new UpdateBodyContactsCallback();
 
+    /**
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L2608-L2708
+     */
     public void updateBodyContacts()
     {
         final AABB aabb = temp;
@@ -811,12 +814,15 @@ public class ParticleSystem
         aabb.upperBound.x += particleDiameter;
         aabb.upperBound.y += particleDiameter;
         bodyContactCount = 0;
-        ubccallback.system = this;
-        world.queryAABB(ubccallback, aabb);
+        ubcCallback.system = this;
+        world.queryAABB(ubcCallback, aabb);
     }
 
-    private final SolveCollisionCallback sccallback = new SolveCollisionCallback();
+    private final SolveCollisionCallback scCallback = new SolveCollisionCallback();
 
+    /**
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L2752-L2852
+     */
     public void solveCollision(TimeStep step)
     {
         final AABB aabb = temp;
@@ -843,11 +849,14 @@ public class ParticleSystem
             upperBound.x = Math.max(upperBound.x, b1x);
             upperBound.y = Math.max(upperBound.y, b1y);
         }
-        sccallback.step = step;
-        sccallback.system = this;
-        world.queryAABB(sccallback, aabb);
+        scCallback.step = step;
+        scCallback.system = this;
+        world.queryAABB(scCallback, aabb);
     }
 
+    /**
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L2973-L3095
+     */
     public void solve(TimeStep step)
     {
         ++timestamp;
@@ -874,19 +883,19 @@ public class ParticleSystem
         {
             allGroupFlags |= group.groupFlags;
         }
-        final float gravityx = step.dt * gravityScale * world.getGravity().x;
-        final float gravityy = step.dt * gravityScale * world.getGravity().y;
-        float criticalVelocytySquared = getCriticalVelocitySquared(step);
+        final float gravityX = step.dt * gravityScale * world.getGravity().x;
+        final float gravityY = step.dt * gravityScale * world.getGravity().y;
+        float criticalVelocityYSquared = getCriticalVelocitySquared(step);
         for (int i = 0; i < count; i++)
         {
             Vec2 v = velocityBuffer.data[i];
-            v.x += gravityx;
-            v.y += gravityy;
+            v.x += gravityX;
+            v.y += gravityY;
             float v2 = v.x * v.x + v.y * v.y;
-            if (v2 > criticalVelocytySquared)
+            if (v2 > criticalVelocityYSquared)
             {
                 float a = v2 == 0 ? Float.MAX_VALUE
-                        : MathUtils.sqrt(criticalVelocytySquared / v2);
+                        : MathUtils.sqrt(criticalVelocityYSquared / v2);
                 v.x *= a;
                 v.y *= a;
             }
@@ -941,6 +950,9 @@ public class ParticleSystem
         solveDamping(step);
     }
 
+    /**
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3195-L3258
+     */
     void solvePressure(TimeStep step)
     {
         // calculates the sum of contact-weights for each particle
@@ -1027,6 +1039,9 @@ public class ParticleSystem
         }
     }
 
+    /**
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3260-L3304
+     */
     void solveDamping(TimeStep step)
     {
         // reduces the normal velocity of each contact
@@ -1085,6 +1100,9 @@ public class ParticleSystem
         }
     }
 
+    /**
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3506-L3515
+     */
     public void solveWall(TimeStep step)
     {
         for (int i = 0; i < count; i++)
@@ -1106,6 +1124,9 @@ public class ParticleSystem
 
     private final Transform tempXf2 = new Transform();
 
+    /**
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3517-L3541
+     */
     void solveRigid(final TimeStep step)
     {
         for (ParticleGroup group = groupList; group != null; group = group
@@ -1125,10 +1146,10 @@ public class ParticleSystem
                 tempXf.q.set(rotation);
                 Transform.mulToOut(tempXf, group.transform, group.transform);
                 final Transform velocityTransform = tempXf2;
-                velocityTransform.p.x = step.inv_dt * tempXf.p.x;
-                velocityTransform.p.y = step.inv_dt * tempXf.p.y;
-                velocityTransform.q.s = step.inv_dt * tempXf.q.s;
-                velocityTransform.q.c = step.inv_dt * (tempXf.q.c - 1);
+                velocityTransform.p.x = step.inverseDt * tempXf.p.x;
+                velocityTransform.p.y = step.inverseDt * tempXf.p.y;
+                velocityTransform.q.s = step.inverseDt * tempXf.q.s;
+                velocityTransform.q.c = step.inverseDt * (tempXf.q.c - 1);
                 for (int i = group.firstIndex; i < group.lastIndex; i++)
                 {
                     Transform.mulToOutUnsafe(velocityTransform,
@@ -1138,9 +1159,12 @@ public class ParticleSystem
         }
     }
 
+    /**
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3543-L3583
+     */
     void solveElastic(final TimeStep step)
     {
-        float elasticStrength = step.inv_dt * this.elasticStrength;
+        float elasticStrength = step.inverseDt * this.elasticStrength;
         for (int k = 0; k < triadCount; k++)
         {
             final Triad triad = triadBuffer[k];
@@ -1186,9 +1210,12 @@ public class ParticleSystem
         }
     }
 
+    /**
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3585-L3610
+     */
     void solveSpring(final TimeStep step)
     {
-        float springStrength = step.inv_dt * this.springStrength;
+        float springStrength = step.inverseDt * this.springStrength;
         for (int k = 0; k < pairCount; k++)
         {
             final Pair pair = pairBuffer[k];
@@ -1217,6 +1244,9 @@ public class ParticleSystem
         }
     }
 
+    /**
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3612-L3658
+     */
     void solveTensile(final TimeStep step)
     {
         accumulation2Buffer = requestParticleBuffer(Vec2.class,
@@ -1276,6 +1306,9 @@ public class ParticleSystem
         }
     }
 
+    /**
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3660-L3694
+     */
     void solveViscous(final TimeStep step)
     {
         float viscousStrength = this.viscousStrength;
@@ -1329,6 +1362,9 @@ public class ParticleSystem
         }
     }
 
+    /**
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3719-L3740
+     */
     void solvePowder(final TimeStep step)
     {
         float powderStrength = this.powderStrength * getCriticalVelocity(step);
@@ -1383,11 +1419,14 @@ public class ParticleSystem
         }
     }
 
+    /**
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3742-L3762
+     */
     void solveSolid(final TimeStep step)
     {
         // applies extra repulsive force from solid particle groups
         depthBuffer = requestParticleBuffer(depthBuffer);
-        float ejectionStrength = step.inv_dt * this.ejectionStrength;
+        float ejectionStrength = step.inverseDt * this.ejectionStrength;
         for (int k = 0; k < contactCount; k++)
         {
             final ParticleContact contact = contactBuffer[k];
@@ -1411,6 +1450,9 @@ public class ParticleSystem
         }
     }
 
+    /**
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3774-L3796
+     */
     void solveColorMixing(final TimeStep step)
     {
         // mixes color between contacting particles
@@ -1447,6 +1489,9 @@ public class ParticleSystem
         }
     }
 
+    /**
+     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3798-L3892
+     */
     void solveZombie()
     {
         // removes particles with a zombie flag
@@ -1813,7 +1858,7 @@ public class ParticleSystem
 
     float getCriticalVelocity(final TimeStep step)
     {
-        return particleDiameter * step.inv_dt;
+        return particleDiameter * step.inverseDt;
     }
 
     float getCriticalVelocitySquared(final TimeStep step)
@@ -2661,8 +2706,8 @@ public class ParticleSystem
                             p.y = (1 - output.fraction) * input.p1.y
                                     + output.fraction * input.p2.y
                                     + Settings.linearSlop * output.normal.y;
-                            final float vx = step.inv_dt * (p.x - ap.x);
-                            final float vy = step.inv_dt * (p.y - ap.y);
+                            final float vx = step.inverseDt * (p.x - ap.x);
+                            final float vy = step.inverseDt * (p.y - ap.y);
                             av.x = vx;
                             av.y = vy;
                             final float particleMass = system.getParticleMass();
