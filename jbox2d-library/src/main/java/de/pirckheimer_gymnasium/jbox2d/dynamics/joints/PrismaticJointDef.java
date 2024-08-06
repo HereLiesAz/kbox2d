@@ -35,6 +35,7 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
  * game.
  *
  * @warning at least one body should be dynamic with a non-fixed rotation.
+ *
  * @author Daniel Murphy
  *
  */

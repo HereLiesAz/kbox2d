@@ -118,7 +118,7 @@ public class PolygonShape extends Shape
      * the range [3, Settings.maxPolygonVertices].
      *
      * @warning the points may be re-ordered, even if they form a convex
-     *          polygon.
+     *     polygon.
      * @warning collinear points are removed.
      */
     public final void set(final Vec2[] vertices, final int count)
@@ -132,7 +132,7 @@ public class PolygonShape extends Shape
      * arraypool for pooling.
      *
      * @warning the points may be re-ordered, even if they form a convex
-     *          polygon.
+     *     polygon.
      * @warning collinear points are removed.
      */
     public final void set(final Vec2[] verts, final int num,
@@ -268,10 +268,10 @@ public class PolygonShape extends Shape
     /**
      * Build vertices to represent an oriented box.
      *
-     * @param hx     The half-width.
-     * @param hy     The half-height.
+     * @param hx The half-width.
+     * @param hy The half-height.
      * @param center The center of the box in local coordinates.
-     * @param angle  The rotation of the box in local coordinates.
+     * @param angle The rotation of the box in local coordinates.
      */
     public final void setAsBox(final float hx, final float hy,
             final Vec2 center, final float angle)

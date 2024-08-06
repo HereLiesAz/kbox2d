@@ -244,7 +244,7 @@ public class Fixture
      * Cast a ray against this shape.
      *
      * @param output The ray-cast results.
-     * @param input  The ray-cast input parameters.
+     * @param input The ray-cast input parameters.
      */
     public boolean raycast(RayCastOutput output, RayCastInput input,
             int childIndex)

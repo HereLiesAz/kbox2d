@@ -295,7 +295,7 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
     }
 
     /**
-     * Gets the current world
+     * Get the current world.
      */
     public World getWorld()
     {
@@ -303,7 +303,7 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
     }
 
     /**
-     * Gets the testbed model
+     * Get the testbed model.
      */
     public TestbedModel getModel()
     {
@@ -424,7 +424,7 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
      * Initializes the current test.
      *
      * @param deserialized If the test was deserialized from a file. If so, all
-     *                     physics objects are already added.
+     *     physics objects are already added.
      */
     public abstract void initTest(boolean deserialized);
 

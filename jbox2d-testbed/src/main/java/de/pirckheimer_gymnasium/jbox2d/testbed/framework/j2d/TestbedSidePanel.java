@@ -67,7 +67,7 @@ public class TestbedSidePanel extends JPanel
 
     final AbstractTestbedController controller;
 
-    public JComboBox tests;
+    public JComboBox<ListItem> tests;
 
     private JButton pauseButton = new JButton("Pause");
 
@@ -110,7 +110,7 @@ public class TestbedSidePanel extends JPanel
         top.setBorder(BorderFactory.createCompoundBorder(
                 new EtchedBorder(EtchedBorder.LOWERED),
                 BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-        tests = new JComboBox(model.getComboModel());
+        tests = new JComboBox<ListItem>(model.getComboModel());
         tests.setMaximumRowCount(30);
         tests.setMaximumSize(new Dimension(250, 20));
         tests.addActionListener(this);

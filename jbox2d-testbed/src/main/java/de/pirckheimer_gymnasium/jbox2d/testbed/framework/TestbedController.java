@@ -18,9 +18,6 @@
  */
 package de.pirckheimer_gymnasium.jbox2d.testbed.framework;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * This class contains most control logic for the testbed and the update loop.
  * It also watches the model to switch tests and populates the model with some
@@ -31,8 +28,6 @@ import org.slf4j.LoggerFactory;
 public class TestbedController extends AbstractTestbedController
         implements Runnable
 {
-    private static final Logger log = LoggerFactory
-            .getLogger(TestbedController.class);
 
     private Thread animator;
 
@@ -57,7 +52,7 @@ public class TestbedController extends AbstractTestbedController
     public void stopAnimator()
     {
         super.stopAnimator();
-        animator.stop();
+        animator.interrupt();
     }
 
     @Override

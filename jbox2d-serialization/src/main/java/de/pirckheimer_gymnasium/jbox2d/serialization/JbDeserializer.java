@@ -55,8 +55,10 @@ public interface JbDeserializer
      * Deserializes a world
      *
      * @param input * @throws IOException
+     *
      * @throws UnsupportedObjectException if a read physics object is
-     *                                    unsupported by this library
+     *     unsupported by this library
+     *
      * @see #setUnsupportedListener(UnsupportedListener)
      */
     public World deserializeWorld(InputStream input)
@@ -67,8 +69,10 @@ public interface JbDeserializer
      *
      * @param world
      * @param input * @throws IOException
+     *
      * @throws UnsupportedObjectException if a read physics object is
-     *                                    unsupported by this library
+     *     unsupported by this library
+     *
      * @see #setUnsupportedListener(UnsupportedListener)
      */
     public Body deserializeBody(World world, InputStream input)
@@ -79,8 +83,10 @@ public interface JbDeserializer
      *
      * @param body
      * @param input * @throws IOException
+     *
      * @throws UnsupportedObjectException if a read physics object is
-     *                                    unsupported by this library
+     *     unsupported by this library
+     *
      * @see #setUnsupportedListener(UnsupportedListener)
      */
     public Fixture deserializeFixture(Body body, InputStream input)
@@ -90,8 +96,10 @@ public interface JbDeserializer
      * Deserializes a shape
      *
      * @param input * @throws IOException
+     *
      * @throws UnsupportedObjectException if a read physics object is
-     *                                    unsupported by this library
+     *     unsupported by this library
+     *
      * @see #setUnsupportedListener(UnsupportedListener)
      */
     public Shape deserializeShape(InputStream input)
@@ -104,8 +112,10 @@ public interface JbDeserializer
      * @param input
      * @param bodyMap
      * @param jointMap * @throws IOException
+     *
      * @throws UnsupportedObjectException if a read physics object is
-     *                                    unsupported by this library
+     *     unsupported by this library
+     *
      * @see #setUnsupportedListener(UnsupportedListener)
      */
     public Joint deserializeJoint(World world, InputStream input,

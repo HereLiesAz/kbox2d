@@ -262,6 +262,7 @@ public class Mat22 implements Serializable
      * Multiply a vector by this matrix.
      *
      * @param v Vector to multiply by matrix.
+     *
      * @return Resulting vector
      */
     public final Vec2 mul(final Vec2 v)

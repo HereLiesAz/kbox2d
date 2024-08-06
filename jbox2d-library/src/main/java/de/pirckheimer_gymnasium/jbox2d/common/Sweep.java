@@ -97,7 +97,7 @@ public class Sweep implements Serializable
     /**
      * Get the interpolated transform at a specific time.
      *
-     * @param xf   The result is placed here - must not be null.
+     * @param xf The result is placed here - must not be null.
      * @param beta The normalized time in [0,1].
      *
      * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L688-L697

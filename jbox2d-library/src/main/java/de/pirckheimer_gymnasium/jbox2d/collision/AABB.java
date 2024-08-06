@@ -209,8 +209,8 @@ public class AABB
 
     /**
      * @deprecated please use
-     *             {@link #raycast(RayCastOutput, RayCastInput, IWorldPool)} for
-     *             better performance
+     *     {@link #raycast(RayCastOutput, RayCastInput, IWorldPool)} for better
+     *     performance
      */
     public final boolean raycast(final RayCastOutput output,
             final RayCastInput input)

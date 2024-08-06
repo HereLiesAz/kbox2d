@@ -99,8 +99,8 @@ public class DistanceJointDef extends JointDef
     /**
      * Initialize the bodies, anchors, and length using the world anchors.
      *
-     * @param b1      First body
-     * @param b2      Second body
+     * @param b1 First body
+     * @param b2 Second body
      * @param anchor1 World anchor on first body
      * @param anchor2 World anchor on second body
      */

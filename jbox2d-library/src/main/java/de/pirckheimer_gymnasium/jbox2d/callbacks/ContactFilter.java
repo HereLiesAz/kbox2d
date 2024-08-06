@@ -39,7 +39,7 @@ public class ContactFilter
      * shapes.
      *
      * @warning for performance reasons this is only called when the AABBs begin
-     *          to overlap.
+     *     to overlap.
      */
     public boolean shouldCollide(Fixture fixtureA, Fixture fixtureB)
     {

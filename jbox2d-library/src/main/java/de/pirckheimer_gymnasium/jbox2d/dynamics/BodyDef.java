@@ -103,7 +103,7 @@ public class BodyDef
      * considered on dynamic bodies.
      *
      * @warning You should use this flag sparingly since it increases processing
-     *          time.
+     *     time.
      */
     public boolean bullet;
 
@@ -332,7 +332,7 @@ public class BodyDef
      * considered on dynamic bodies.
      *
      * @warning You should use this flag sparingly since it increases processing
-     *          time.
+     *     time.
      */
     public boolean isBullet()
     {
@@ -346,7 +346,7 @@ public class BodyDef
      * considered on dynamic bodies.
      *
      * @warning You should use this flag sparingly since it increases processing
-     *          time.
+     *     time.
      */
     public void setBullet(boolean bullet)
     {

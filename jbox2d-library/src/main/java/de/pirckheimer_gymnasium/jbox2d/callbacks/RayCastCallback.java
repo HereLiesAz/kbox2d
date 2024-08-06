@@ -41,13 +41,13 @@ public interface RayCastCallback
      * continue return 0: terminate the ray cast return fraction: clip the ray
      * to this point return 1: don't clip the ray and continue
      *
-     * @param fixture  The fixture hit by the ray
-     * @param point    The point of initial intersection
-     * @param normal   The normal vector at the point of intersection
+     * @param fixture The fixture hit by the ray
+     * @param point The point of initial intersection
+     * @param normal The normal vector at the point of intersection
      * @param fraction
      *
      * @return -1 to filter, 0 to terminate, fraction to clip the ray for
-     *         closest hit, 1 to continue
+     *     closest hit, 1 to continue
      */
     float reportFixture(Fixture fixture, Vec2 point, Vec2 normal,
             float fraction);

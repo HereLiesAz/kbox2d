@@ -38,7 +38,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.IViewportTransform;
  */
 public class TestbedModel
 {
-    private final DefaultComboBoxModel tests = new DefaultComboBoxModel();
+    private final DefaultComboBoxModel<ListItem> tests = new DefaultComboBoxModel<>();
 
     private final TestbedSettings settings = new TestbedSettings();
 
@@ -229,7 +229,7 @@ public class TestbedModel
         return tests.getSize();
     }
 
-    public DefaultComboBoxModel getComboModel()
+    public DefaultComboBoxModel<ListItem> getComboModel()
     {
         return tests;
     }

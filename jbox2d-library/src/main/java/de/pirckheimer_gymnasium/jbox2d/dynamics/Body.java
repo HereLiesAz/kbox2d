@@ -230,7 +230,7 @@ public class Body
      * friction, restitution, user data, or filtering. If the density is
      * non-zero, this function automatically updates the mass of the body.
      *
-     * @param shape   The shape to be cloned.
+     * @param shape The shape to be cloned.
      * @param density The shape density (set to zero for static bodies).
      *
      * @warning This function is locked during callbacks.
@@ -324,7 +324,7 @@ public class Body
      * to World.step().
      *
      * @param position The world position of the body's local origin.
-     * @param angle    The world rotation in radians.
+     * @param angle The world rotation in radians.
      */
     public final void setTransform(Vec2 position, float angle)
     {
@@ -540,8 +540,8 @@ public class Body
      * the body is sleeping and 'wake' is false, then there is no effect.
      *
      * @param impulse The world impulse vector, usually in N-seconds or kg-m/s.
-     * @param point   The world position of the point of application.
-     * @param wake    Also wake up the body
+     * @param point The world position of the point of application.
+     * @param wake Also wake up the body
      */
     public final void applyLinearImpulse(Vec2 impulse, Vec2 point, boolean wake)
     {
@@ -760,7 +760,7 @@ public class Body
      * Get the world coordinates of a point given the local coordinates.
      *
      * @param localPoint A point on the body measured relative the body's
-     *                   origin.
+     *     origin.
      *
      * @return The same point expressed in world coordinates.
      */
@@ -1159,7 +1159,7 @@ public class Body
      * Get the list of all contacts attached to this body.
      *
      * @warning this list changes during the time step, and you may miss some
-     *          collisions if you don't use ContactListener.
+     *     collisions if you don't use ContactListener.
      */
     public final ContactEdge getContactList()
     {

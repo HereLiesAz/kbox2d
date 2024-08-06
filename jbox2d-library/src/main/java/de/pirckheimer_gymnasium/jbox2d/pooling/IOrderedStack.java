@@ -42,7 +42,7 @@ public interface IOrderedStack<E>
      * Returns the next 'argNum' objects in the pool in an array
      *
      * @return an array containing the next pool objects in items 0-argNum.
-     *         Array length and uniqueness not guaranteed.
+     *     Array length and uniqueness not guaranteed.
      */
     E[] pop(int argNum);
 

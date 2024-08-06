@@ -128,8 +128,8 @@ public class TimeOfImpact
      * Distance to compute the contact point and normal at the time of impact.
      *
      * <p>
-     * CCD via the local separating axis method. This seeks progression
-     * by computing the largest time at which separation is maintained.
+     * CCD via the local separating axis method. This seeks progression by
+     * computing the largest time at which separation is maintained.
      * </p>
      *
      * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/collision/b2_time_of_impact.cpp#L258-L490
@@ -458,7 +458,7 @@ class SeparationFunction
 
     /**
      * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/collision/b2_time_of_impact.cpp#L129-L195
-      */
+     */
     public float findMinSeparation(int[] indexes, float t)
     {
         sweepA.getTransform(xfa, t);

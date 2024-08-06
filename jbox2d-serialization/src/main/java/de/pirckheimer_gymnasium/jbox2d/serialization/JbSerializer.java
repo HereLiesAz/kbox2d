@@ -60,7 +60,8 @@ public interface JbSerializer
      * Serializes the world
      *
      * @param world * @throws UnsupportedObjectException if a physics object is
-     *              unsupported by this library.
+     *     unsupported by this library.
+     *
      * @see #setUnsupportedListener(UnsupportedListener)
      */
     public SerializationResult serialize(World world)
@@ -70,7 +71,8 @@ public interface JbSerializer
      * Serializes a body
      *
      * @param body * @throws UnsupportedObjectException if a physics object is
-     *             unsupported by this library.
+     *     unsupported by this library.
+     *
      * @see #setUnsupportedListener(UnsupportedListener)
      */
     public SerializationResult serialize(Body body)
@@ -80,7 +82,8 @@ public interface JbSerializer
      * Serializes a fixture
      *
      * @param fixture * @throws UnsupportedObjectException if a physics object
-     *                is unsupported by this library.
+     *     is unsupported by this library.
+     *
      * @see #setUnsupportedListener(UnsupportedListener)
      */
     public SerializationResult serialize(Fixture fixture)
@@ -90,7 +93,8 @@ public interface JbSerializer
      * Serializes a shape
      *
      * @param shape * @throws UnsupportedObjectException if a physics object is
-     *              unsupported by this library.
+     *     unsupported by this library.
+     *
      * @see #setUnsupportedListener(UnsupportedListener)
      */
     public SerializationResult serialize(Shape shape)
@@ -117,30 +121,35 @@ public interface JbSerializer
     {
         /**
          * @param world
+         *
          * @return The tag for the world. can be null.
          */
         public Long getTag(World world);
 
         /**
          * @param body
+         *
          * @return The tag for the body. can be null.
          */
         public Long getTag(Body body);
 
         /**
          * @param shape
+         *
          * @return The tag for the shape. can be null.
          */
         public Long getTag(Shape shape);
 
         /**
          * @param fixture
+         *
          * @return The tag for the fixture. can be null.
          */
         public Long getTag(Fixture fixture);
 
         /**
          * @param joint
+         *
          * @return The tag for the joint. can be null.
          */
         public Long getTag(Joint joint);

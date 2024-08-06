@@ -46,6 +46,7 @@ public interface SerializationResult
      * Writes the result to the given output stream.
      *
      * @param argOutputStream
+     *
      * @throws IOException
      */
     public void writeTo(OutputStream argOutputStream) throws IOException;

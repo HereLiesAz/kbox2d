@@ -86,16 +86,16 @@ public abstract class Shape
      * shapes.
      *
      * @param xf The shape world transform.
-     * @param p  A point in world coordinates.
+     * @param p A point in world coordinates.
      */
     public abstract boolean testPoint(final Transform xf, final Vec2 p);
 
     /**
      * Cast a ray against a child shape.
      *
-     * @param output     The ray-cast results.
-     * @param input      The ray-cast input parameters.
-     * @param transform  The transform to be applied to the shape.
+     * @param output The ray-cast results.
+     * @param input The ray-cast input parameters.
+     * @param transform The transform to be applied to the shape.
      * @param childIndex The child shape index
      *
      * @return if hit
@@ -108,7 +108,7 @@ public abstract class Shape
      * child shape.
      *
      * @param aabb Returns the axis aligned box.
-     * @param xf   The world transform of the shape.
+     * @param xf The world transform of the shape.
      */
     public abstract void computeAABB(final AABB aabb, final Transform xf,
             int childIndex);
@@ -118,7 +118,7 @@ public abstract class Shape
      * density. The inertia tensor is computed about the local origin.
      *
      * @param massData Returns the mass data for this shape.
-     * @param density  The density in kilograms per meter squared.
+     * @param density The density in kilograms per meter squared.
      */
     public abstract void computeMass(final MassData massData,
             final float density);
@@ -127,8 +127,8 @@ public abstract class Shape
      * Compute the distance from the current shape to the specified point. This
      * only works for convex shapes.
      *
-     * @param xf        The shape world transform.
-     * @param p         A point in world coordinates.
+     * @param xf The shape world transform.
+     * @param p A point in world coordinates.
      * @param normalOut Returns the direction in which the distance increases.
      *
      * @return distance returns the distance from the current shape.

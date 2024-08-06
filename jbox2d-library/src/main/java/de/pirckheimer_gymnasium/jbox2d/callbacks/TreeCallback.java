@@ -36,6 +36,7 @@ public interface TreeCallback
      * Callback from a query request.
      *
      * @param proxyId The id of the proxy.
+     *
      * @return if the query should be continued.
      */
     boolean treeCallback(int proxyId);

@@ -2051,7 +2051,7 @@ public class ParticleSystem
      * provided AABB.
      *
      * @param callback A user implemented callback class.
-     * @param aabb     The query box.
+     * @param aabb The query box.
      *
      * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L668-L673
      */
@@ -2090,8 +2090,8 @@ public class ParticleSystem
      * n-points. The ray-cast ignores particles that contain the starting point.
      *
      * @param callback A user implemented callback class.
-     * @param point1   The ray starting point.
-     * @param point2   The ray ending point.
+     * @param point1 The ray starting point.
+     * @param point2 The ray ending point.
      *
      * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L684-L692
      */

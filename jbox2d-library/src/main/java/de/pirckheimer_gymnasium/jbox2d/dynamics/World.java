@@ -169,8 +169,8 @@ public class World
      * Construct a world object.
      *
      * @param gravity The world gravity vector.
-     * @param pool    The world pool that provides pooling for all objects used
-     *                in the engine.
+     * @param pool The world pool that provides pooling for all objects used in
+     *     the engine.
      */
     public World(Vec2 gravity, IWorldPool pool)
     {
@@ -180,9 +180,9 @@ public class World
     /**
      * Construct a world object.
      *
-     * @param gravity  The world gravity vector.
-     * @param pool     The world pool that provides pooling for all objects used
-     *                 in the engine.
+     * @param gravity The world gravity vector.
+     * @param pool The world pool that provides pooling for all objects used in
+     *     the engine.
      * @param strategy The broad phase strategy.
      *
      */
@@ -646,8 +646,7 @@ public class World
      * Take a time step. This performs collision detection, integration, and
      * constraint solution.
      *
-     * @param timeStep           The amount of time to simulate, this should not
-     *                           vary.
+     * @param timeStep The amount of time to simulate, this should not vary.
      * @param velocityIterations For the velocity constraint solver.
      * @param positionIterations For the position constraint solver.
      *
@@ -866,7 +865,7 @@ public class World
      * AABB.
      *
      * @param callback A user implemented callback class.
-     * @param aabb     The query box. The axis-aligned bounding box.
+     * @param aabb The query box. The axis-aligned bounding box.
      */
     public void queryAABB(QueryCallback callback, AABB aabb)
     {
@@ -879,9 +878,9 @@ public class World
      * Query the world for all fixtures and particles that potentially overlap
      * the provided AABB.
      *
-     * @param callback         A user implemented callback class.
+     * @param callback A user implemented callback class.
      * @param particleCallback A callback for particles.
-     * @param aabb             The query box. The axis-aligned bounding box.
+     * @param aabb The query box. The axis-aligned bounding box.
      */
     public void queryAABB(QueryCallback callback,
             ParticleQueryCallback particleCallback, AABB aabb)
@@ -897,7 +896,7 @@ public class World
      * AABB.
      *
      * @param particleCallback The callback for particles.
-     * @param aabb             The query box. The axis-aligned bounding box.
+     * @param aabb The query box. The axis-aligned bounding box.
      */
     public void queryAABB(ParticleQueryCallback particleCallback, AABB aabb)
     {
@@ -914,8 +913,8 @@ public class World
      * ray-cast ignores shapes that contain the starting point.
      *
      * @param callback A user implemented callback class.
-     * @param point1   The ray starting point.
-     * @param point2   The ray ending point.
+     * @param point1 The ray starting point.
+     * @param point2 The ray ending point.
      */
     public void raycast(RayCastCallback callback, Vec2 point1, Vec2 point2)
     {
@@ -932,10 +931,10 @@ public class World
      * Your callback controls whether you get the closest point, any point, or
      * n-points. The ray-cast ignores shapes that contain the starting point.
      *
-     * @param callback         A user implemented callback class.
+     * @param callback A user implemented callback class.
      * @param particleCallback The particle callback class.
-     * @param point1           The ray starting point
-     * @param point2           The ray ending point
+     * @param point1 The ray starting point
+     * @param point2 The ray ending point
      */
     public void raycast(RayCastCallback callback,
             ParticleRaycastCallback particleCallback, Vec2 point1, Vec2 point2)
@@ -955,8 +954,8 @@ public class World
      * n-points.
      *
      * @param particleCallback The particle callback class.
-     * @param point1           The ray starting point
-     * @param point2           The ray ending point
+     * @param point1 The ray starting point
+     * @param point2 The ray ending point
      */
     public void raycast(ParticleRaycastCallback particleCallback, Vec2 point1,
             Vec2 point2)
@@ -994,8 +993,9 @@ public class World
      * indicates the end of the list.
      *
      * @return The head of the world contact list.
+     *
      * @warning contacts are created and destroyed in the middle of a time step.
-     *          Use ContactListener to avoid missing contacts.
+     *     Use ContactListener to avoid missing contacts.
      */
     public Contact getContactList()
     {
@@ -1811,6 +1811,7 @@ public class World
      * been called.
      *
      * @warning This function is locked during callbacks.
+     *
      * @return The index of the particle.
      */
     public int createParticle(ParticleDef def)
@@ -1834,9 +1835,9 @@ public class World
     /**
      * Destroy a particle. The particle is removed after the next step.
      *
-     * @param index                   Index of the particle to destroy.
+     * @param index Index of the particle to destroy.
      * @param callDestructionListener Whether to call the destruction listener
-     *                                just before the particle is destroyed.
+     *     just before the particle is destroyed.
      */
     public void destroyParticle(int index, boolean callDestructionListener)
     {
@@ -1850,8 +1851,10 @@ public class World
      * {@code DestroyParticleInShape(Shape&, Transform&,bool)}.
      *
      * @param shape Shape which encloses particles that should be destroyed.
-     * @param xf    Transform applied to the shape.
+     * @param xf Transform applied to the shape.
+     *
      * @warning This function is locked during callbacks.
+     *
      * @return Number of particles destroyed.
      */
     public int destroyParticlesInShape(Shape shape, Transform xf)
@@ -1865,13 +1868,13 @@ public class World
      * the shape in contrast to DestroyParticle() which defers the destruction
      * until the next simulation step.
      *
-     * @param shape                   Shape which encloses particles that should
-     *                                be destroyed.
-     * @param xf                      Transform applied to the shape.
+     * @param shape Shape which encloses particles that should be destroyed.
+     * @param xf Transform applied to the shape.
      * @param callDestructionListener Whether to call the world
-     *                                b2DestructionListener for each particle
-     *                                destroyed.
+     *     b2DestructionListener for each particle destroyed.
+     *
      * @warning This function is locked during callbacks.
+     *
      * @return Number of particles destroyed.
      */
     public int destroyParticlesInShape(Shape shape, Transform xf,
@@ -1907,6 +1910,7 @@ public class World
      *
      * @param groupA The first group. Expands to encompass the second group.
      * @param groupB The second group. It is destroyed.
+     *
      * @warning This function is locked during callbacks.
      */
     public void joinParticleGroups(ParticleGroup groupA, ParticleGroup groupB)
@@ -1922,10 +1926,10 @@ public class World
     /**
      * Destroy particles in a group. This function is locked during callbacks.
      *
-     * @param group                   The particle group to destroy.
+     * @param group The particle group to destroy.
      * @param callDestructionListener Whether to call the world
-     *                                b2DestructionListener for each particle is
-     *                                destroyed.
+     *     b2DestructionListener for each particle is destroyed.
+     *
      * @warning This function is locked during callbacks.
      */
     public void destroyParticlesInGroup(ParticleGroup group,
@@ -1944,6 +1948,7 @@ public class World
      * for destroyed particles. This function is locked during callbacks.
      *
      * @param group The particle group to destroy.
+     *
      * @warning This function is locked during callbacks.
      */
     public void destroyParticlesInGroup(ParticleGroup group)
@@ -2102,7 +2107,7 @@ public class World
     /**
      * Set a buffer for particle data.
      *
-     * @param buffer   Is a pointer to a block of memory.
+     * @param buffer Is a pointer to a block of memory.
      * @param capacity Is the number of values in the block.
      */
     public void setParticleFlagsBuffer(int[] buffer, int capacity)

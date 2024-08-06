@@ -64,9 +64,9 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
  * </p>
  *
  * @warning The revolute and prismatic joints must be attached to fixed bodies
- *          (which must be body1 on those joints).
+ *     (which must be body1 on those joints).
  * @warning You have to manually destroy the gear joint if joint1 or joint2 is
- *          destroyed.
+ *     destroyed.
  *
  * @author Daniel Murphy
  */
