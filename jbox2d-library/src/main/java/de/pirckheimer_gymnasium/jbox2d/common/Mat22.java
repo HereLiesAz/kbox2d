@@ -51,7 +51,7 @@ public class Mat22 implements Serializable
     }
 
     /**
-     * Construct zero matrix. Note: this is NOT an identity matrix! djm fixed
+     * Construct zero matrixes. Note: this is NOT an identity matrix! djm fixed
      * double allocation problem
      */
     public Mat22()
@@ -141,7 +141,7 @@ public class Mat22 implements Serializable
     }
 
     /**
-     * Set as the zero matrix.
+     * Set as the zero matrixes.
      */
     public final void setZero()
     {

@@ -120,6 +120,9 @@ public class WheelJoint extends Joint
 
     private float gamma;
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L44-L87
+     */
     protected WheelJoint(WorldPool argPool, WheelJointDef def)
     {
         super(argPool, def);
@@ -173,6 +176,9 @@ public class WheelJoint extends Joint
         return invDt * motorImpulse;
     }
 
+    /**
+     * @permalink
+     */
     public float getJointTranslation()
     {
         Body b1 = bodyA;
@@ -268,6 +274,9 @@ public class WheelJoint extends Joint
 
     private final Vec2 d = new Vec2();
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L89-L235
+     */
     @Override
     public void initVelocityConstraints(SolverData data)
     {
@@ -397,6 +406,9 @@ public class WheelJoint extends Joint
         data.velocities[indexB].w = wB;
     }
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L237-L342
+     */
     @Override
     public void solveVelocityConstraints(SolverData data)
     {
@@ -461,6 +473,9 @@ public class WheelJoint extends Joint
         data.velocities[indexB].w = wB;
     }
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L344-L444
+     */
     @Override
     public boolean solvePositionConstraints(SolverData data)
     {
