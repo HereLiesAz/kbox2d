@@ -25,7 +25,7 @@ package de.pirckheimer_gymnasium.jbox2d.testbed.perf;
 
 import de.pirckheimer_gymnasium.jbox2d.common.MathUtils;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 import de.pirckheimer_gymnasium.jbox2d.pooling.normal.DefaultWorldPool;
 import de.pirckheimer_gymnasium.jbox2d.profile.BasicPerformanceTest;
 //Test Name               Milliseconds Avg
@@ -56,9 +56,9 @@ import de.pirckheimer_gymnasium.jbox2d.profile.BasicPerformanceTest;
  */
 public class PoolingPerf extends BasicPerformanceTest
 {
-    public static final int INNER_ITERS = 50000;
+    public static final int INNER_ITERATIONS = 50000;
 
-    public static final int OUTER_ITERS = 1000;
+    public static final int OUTER_ITERATIONS = 1000;
 
     public static class CirclePool
     {
@@ -131,7 +131,7 @@ public class PoolingPerf extends BasicPerformanceTest
 
     public float aStore = 0;
 
-    public IWorldPool wp = new DefaultWorldPool(100, 10);
+    public WorldPool wp = new DefaultWorldPool(100, 10);
 
     public CirclePool cp = new CirclePool();
 
@@ -143,7 +143,7 @@ public class PoolingPerf extends BasicPerformanceTest
 
     public PoolingPerf()
     {
-        super(6, OUTER_ITERS, INNER_ITERS);
+        super(6, OUTER_ITERATIONS, INNER_ITERATIONS);
     }
 
     public float op(Vec2 argVec)
@@ -191,7 +191,7 @@ public class PoolingPerf extends BasicPerformanceTest
     {
         Vec2 v;
         float a = 0;
-        for (int i = 0; i < INNER_ITERS; i++)
+        for (int i = 0; i < INNER_ITERATIONS; i++)
         {
             v = new Vec2();
             a += op(v);
@@ -203,7 +203,7 @@ public class PoolingPerf extends BasicPerformanceTest
     {
         Vec2 v;
         float a = 0;
-        for (int i = 0; i < INNER_ITERS; i++)
+        for (int i = 0; i < INNER_ITERATIONS; i++)
         {
             v = wp.popVec2();
             a += op(v);
@@ -216,7 +216,7 @@ public class PoolingPerf extends BasicPerformanceTest
     {
         Vec2 v;
         float a = 0;
-        for (int i = 0; i < INNER_ITERS; i++)
+        for (int i = 0; i < INNER_ITERATIONS; i++)
         {
             v = cp.get();
             a += op(v);
@@ -228,7 +228,7 @@ public class PoolingPerf extends BasicPerformanceTest
     {
         Vec2 v;
         float a = 0;
-        for (int i = 0; i < INNER_ITERS; i++)
+        for (int i = 0; i < INNER_ITERATIONS; i++)
         {
             v = tlv.get();
             a += op(v);
@@ -240,7 +240,7 @@ public class PoolingPerf extends BasicPerformanceTest
     {
         Vec2 v;
         float a = 0;
-        for (int i = 0; i < INNER_ITERS; i++)
+        for (int i = 0; i < INNER_ITERATIONS; i++)
         {
             v = stack.get();
             a += op(v);
@@ -252,7 +252,7 @@ public class PoolingPerf extends BasicPerformanceTest
     public void runMemberTest()
     {
         float a = 0;
-        for (int i = 0; i < INNER_ITERS; i++)
+        for (int i = 0; i < INNER_ITERATIONS; i++)
         {
             a += op(mv);
         }

@@ -107,7 +107,7 @@ public class TestList
         model.addTest(new PyramidTest());
         model.addTest(new CircleStress());
         model.addTest(new DominoTower());
-        // more interactive..
+        // more interactive.
         model.addCategory("- Interactive -");
         model.addTest(new VerticalStack());
         model.addTest(new Breakable());

@@ -28,14 +28,14 @@ import de.pirckheimer_gymnasium.jbox2d.collision.shapes.CircleShape;
 import de.pirckheimer_gymnasium.jbox2d.collision.shapes.ShapeType;
 import de.pirckheimer_gymnasium.jbox2d.common.Transform;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.Fixture;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 
 /**
  * @author Daniel Murphy
  */
 public class CircleContact extends Contact
 {
-    public CircleContact(IWorldPool argPool)
+    public CircleContact(WorldPool argPool)
     {
         super(argPool);
     }

@@ -30,7 +30,7 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.normal.MutableStack;
 /**
  * A field representing the nearest generator from each point.
  *
- * https://github.com/google/liquidfun/blob/master/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.h
+ * @permalink https://github.com/google/liquidfun/blob/master/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.h
  */
 public class VoronoiDiagram
 {
@@ -103,7 +103,7 @@ public class VoronoiDiagram
     }
 
     /**
-     * Enumerate all nodes that contain at least one necessary generator.
+     * List all nodes that contain at least one necessary generator.
      *
      * @param callback A callback function object called for each node.
      *

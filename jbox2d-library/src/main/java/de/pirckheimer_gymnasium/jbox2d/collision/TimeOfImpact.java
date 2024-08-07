@@ -31,12 +31,12 @@ import de.pirckheimer_gymnasium.jbox2d.common.Settings;
 import de.pirckheimer_gymnasium.jbox2d.common.Sweep;
 import de.pirckheimer_gymnasium.jbox2d.common.Transform;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 
 /**
  * Class used for computing the time of impact. This class should not be
  * constructed usually, just retrieve from the
- * {@link IWorldPool#getTimeOfImpact()}.
+ * {@link WorldPool#getTimeOfImpact()}.
  *
  * @author Daniel Murphy
  */
@@ -113,9 +113,9 @@ public class TimeOfImpact
 
     private final Sweep sweepB = new Sweep();
 
-    private final IWorldPool pool;
+    private final WorldPool pool;
 
-    public TimeOfImpact(IWorldPool argPool)
+    public TimeOfImpact(WorldPool argPool)
     {
         pool = argPool;
     }

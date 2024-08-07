@@ -40,7 +40,7 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.BodyDef;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.BodyType;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.Fixture;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.FixtureDef;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedSettings;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
@@ -244,9 +244,9 @@ class PolyShapesCallback implements QueryCallback
 
     int count;
 
-    IWorldPool p;
+    WorldPool p;
 
-    public PolyShapesCallback(IWorldPool argWorld)
+    public PolyShapesCallback(WorldPool argWorld)
     {
         count = 0;
         p = argWorld;

@@ -59,9 +59,9 @@ import de.pirckheimer_gymnasium.jbox2d.profile.BasicPerformanceTest;
  */
 public class MathPerf extends BasicPerformanceTest
 {
-    public static int INNER_ITERS = 5000;
+    public static int INNER_ITERATIONS = 5000;
 
-    public static int OUTER_ITERS = 5000;
+    public static int OUTER_ITERATIONS = 5000;
 
     String[] tests = new String[] { "Sin", "SinLUT", "Pow", "FastPow", "Max",
             "FastMax", "Floor", "fastFloor", "aTan2", "fastATan2", "ceil",
@@ -71,7 +71,7 @@ public class MathPerf extends BasicPerformanceTest
 
     public MathPerf()
     {
-        super(12, OUTER_ITERS, INNER_ITERS);
+        super(12, OUTER_ITERATIONS, INNER_ITERATIONS);
     }
 
     @Override

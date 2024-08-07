@@ -18,9 +18,9 @@ public class PistonWorld implements PerformanceTestWorld
 {
     public float timeStep = 1f / 60;
 
-    public int velIters = 8;
+    public int velIterations = 8;
 
-    public int posIters = 3;
+    public int posIterations = 3;
 
     public RevoluteJoint joint1;
 
@@ -36,7 +36,7 @@ public class PistonWorld implements PerformanceTestWorld
     public void setupWorld(World world)
     {
         this.world = world;
-        Body ground = null;
+        Body ground;
         {
             BodyDef bd = new BodyDef();
             ground = world.createBody(bd);
@@ -103,7 +103,7 @@ public class PistonWorld implements PerformanceTestWorld
                 body.createFixture(shape, 2.0f);
                 RevoluteJointDef rjd = new RevoluteJointDef();
                 rjd.initialize(prevBody, body, new Vec2(0.0f, 5.0f));
-                rjd.motorSpeed = 1.0f * MathUtils.PI;
+                rjd.motorSpeed = MathUtils.PI;
                 rjd.maxMotorTorque = 20000;
                 rjd.enableMotor = true;
                 joint1 = (RevoluteJoint) world.createJoint(rjd);
@@ -182,7 +182,7 @@ public class PistonWorld implements PerformanceTestWorld
                 }
                 float angle = 0.0f;
                 float delta = MathUtils.PI / 3.0f;
-                Vec2 vertices[] = new Vec2[6];
+                Vec2[] vertices = new Vec2[6];
                 for (int i = 0; i < 6; ++i)
                 {
                     vertices[i] = new Vec2(0.3f * MathUtils.cos(angle),
@@ -211,6 +211,6 @@ public class PistonWorld implements PerformanceTestWorld
     @Override
     public void step()
     {
-        world.step(timeStep, posIters, velIters);
+        world.step(timeStep, posIterations, velIterations);
     }
 }

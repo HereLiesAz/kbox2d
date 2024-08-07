@@ -151,7 +151,7 @@ public class PbSerializer implements JbSerializer
         builder.setSubStepping(argWorld.isSubStepping());
         Body cbody = argWorld.getBodyList();
         int cnt = 0;
-        HashMap<Body, Integer> bodies = new HashMap<Body, Integer>();
+        HashMap<Body, Integer> bodies = new HashMap<>();
         while (cbody != null)
         {
             builder.addBodies(serializeBody(cbody));
@@ -160,7 +160,7 @@ public class PbSerializer implements JbSerializer
             cbody = cbody.next;
         }
         cnt = 0;
-        HashMap<Joint, Integer> joints = new HashMap<Joint, Integer>();
+        HashMap<Joint, Integer> joints = new HashMap<>();
         Joint cjoint = argWorld.getJointList();
         // first pass
         while (cjoint != null)
@@ -572,19 +572,19 @@ public class PbSerializer implements JbSerializer
             for (int i = 0; i < j.getBodies().length; i++)
             {
                 Body b = j.getBodies()[i];
-                DistanceJoint djoint = j.getJoints()[i];
+                DistanceJoint distanceJoint = j.getJoints()[i];
                 if (!argBodyIndexMap.containsKey(b))
                 {
                     throw new IllegalArgumentException(
                             "Body " + b + " is not present in the index map");
                 }
                 builder.addBodies(argBodyIndexMap.get(b));
-                if (!argJointIndexMap.containsKey(djoint))
+                if (!argJointIndexMap.containsKey(distanceJoint))
                 {
-                    throw new IllegalArgumentException("Joint " + djoint
+                    throw new IllegalArgumentException("Joint " + distanceJoint
                             + " is not present in the index map");
                 }
-                builder.addJoints(argJointIndexMap.get(djoint));
+                builder.addJoints(argJointIndexMap.get(distanceJoint));
             }
             break;
         }

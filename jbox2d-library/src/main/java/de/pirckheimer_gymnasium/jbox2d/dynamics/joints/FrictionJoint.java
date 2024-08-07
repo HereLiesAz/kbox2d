@@ -28,7 +28,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.MathUtils;
 import de.pirckheimer_gymnasium.jbox2d.common.Rot;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.SolverData;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 
 /**
  * @author Daniel Murphy
@@ -73,7 +73,7 @@ public class FrictionJoint extends Joint
 
     private float angularMass;
 
-    protected FrictionJoint(IWorldPool argWorldPool, FrictionJointDef def)
+    protected FrictionJoint(WorldPool argWorldPool, FrictionJointDef def)
     {
         super(argWorldPool, def);
         localAnchorA = new Vec2(def.localAnchorA);

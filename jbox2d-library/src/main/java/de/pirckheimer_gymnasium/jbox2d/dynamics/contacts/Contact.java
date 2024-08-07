@@ -33,7 +33,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.MathUtils;
 import de.pirckheimer_gymnasium.jbox2d.common.Transform;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.Fixture;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 
 /**
  * The class manages contact between two shapes. A contact exists for each
@@ -109,9 +109,9 @@ public abstract class Contact
 
     public float tangentSpeed;
 
-    protected final IWorldPool pool;
+    protected final WorldPool pool;
 
-    protected Contact(IWorldPool argPool)
+    protected Contact(WorldPool argPool)
     {
         fixtureA = null;
         fixtureB = null;

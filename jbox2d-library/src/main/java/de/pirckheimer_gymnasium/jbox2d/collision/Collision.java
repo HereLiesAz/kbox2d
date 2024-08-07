@@ -34,7 +34,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Rot;
 import de.pirckheimer_gymnasium.jbox2d.common.Settings;
 import de.pirckheimer_gymnasium.jbox2d.common.Transform;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 
 /**
  * Functions used for computing contact points, distance queries, and TOI
@@ -47,9 +47,9 @@ public class Collision
 {
     public static final int NULL_FEATURE = Integer.MAX_VALUE;
 
-    private final IWorldPool pool;
+    private final WorldPool pool;
 
-    public Collision(IWorldPool argPool)
+    public Collision(WorldPool argPool)
     {
         incidentEdge[0] = new ClipVertex();
         incidentEdge[1] = new ClipVertex();

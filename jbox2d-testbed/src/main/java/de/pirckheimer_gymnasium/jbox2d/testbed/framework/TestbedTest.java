@@ -111,9 +111,9 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
 
     protected boolean mouseTracing;
 
-    private Vec2 mouseTracerPosition = new Vec2();
+    private final Vec2 mouseTracerPosition = new Vec2();
 
-    private Vec2 mouseTracerVelocity = new Vec2();
+    private final Vec2 mouseTracerVelocity = new Vec2();
 
     private final Vec2 mouseWorld = new Vec2();
 
@@ -131,13 +131,13 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
 
     protected int textLine;
 
-    private final LinkedList<String> textList = new LinkedList<String>();
+    private final LinkedList<String> textList = new LinkedList<>();
 
-    private TestbedCamera camera;
+    private final TestbedCamera camera;
 
-    private JbSerializer serializer;
+    private final JbSerializer serializer;
 
-    private JbDeserializer deserializer;
+    private final JbDeserializer deserializer;
 
     private final Transform identity = new Transform();
 
@@ -400,8 +400,8 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
     }
 
     /**
-     * Gets the filename of the current test. Default implementation uses the
-     * test name with no spaces".
+     * Gets the filename of the current test. The default implementation uses
+     * the test name with no spaces.
      */
     public String getFilename()
     {
@@ -442,7 +442,7 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
     }
 
     /**
-     * called when the tests exits
+     * called when the tests exit
      */
     public void exit()
     {
@@ -466,7 +466,7 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
 
     private final Vec2 tangent = new Vec2();
 
-    private final List<String> statsList = new ArrayList<String>();
+    private final List<String> statsList = new ArrayList<>();
 
     private final Vec2 acceleration = new Vec2();
 
@@ -561,8 +561,7 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
                     Color3f.WHITE);
             textLine += TEXT_LINE_SPACE;
             debugDraw.drawString(5, textLine,
-                    "World mouse position: " + mouseWorld.toString(),
-                    Color3f.WHITE);
+                    "World mouse position: " + mouseWorld, Color3f.WHITE);
             textLine += TEXT_LINE_SPACE;
             statsList.clear();
             Profile p = getWorld().getProfile();
@@ -670,7 +669,6 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
         }
     }
 
-    /************ INPUT ************/
     /**
      * Called for mouse-up
      */
@@ -778,7 +776,7 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
 
     private final Vec2 v = new Vec2();
 
-    public void lanchBomb()
+    public void launchBomb()
     {
         p.set((float) (Math.random() * 30 - 15), 30f);
         v.set(p).mulLocal(-5f);
@@ -827,7 +825,7 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
 
     private void completeBombSpawn(Vec2 p)
     {
-        if (bombSpawning == false)
+        if (!bombSpawning)
         {
             return;
         }
@@ -838,7 +836,6 @@ public abstract class TestbedTest implements ContactListener, ObjectListener,
         bombSpawning = false;
     }
 
-    /************ SERIALIZATION *************/
     /**
      * Override to enable saving and loading. Remember to also override the
      * {@link ObjectListener} and {@link ObjectSigner} methods if you need to

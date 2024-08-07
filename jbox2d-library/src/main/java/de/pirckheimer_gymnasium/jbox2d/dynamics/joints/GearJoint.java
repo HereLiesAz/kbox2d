@@ -29,7 +29,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Transform;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.SolverData;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 //Gear Joint:
 //C0 = (coordinate1 + ratio * coordinate2)_initial
 //C = (coordinate1 + ratio * coordinate2) - C0 = 0
@@ -125,7 +125,7 @@ public class GearJoint extends Joint
 
     private float mass;
 
-    protected GearJoint(IWorldPool argWorldPool, GearJointDef def)
+    protected GearJoint(WorldPool argWorldPool, GearJointDef def)
     {
         super(argWorldPool, def);
         joint1 = def.joint1;

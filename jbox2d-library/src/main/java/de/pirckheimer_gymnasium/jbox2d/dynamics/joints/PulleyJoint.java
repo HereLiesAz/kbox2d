@@ -28,7 +28,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Rot;
 import de.pirckheimer_gymnasium.jbox2d.common.Settings;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.SolverData;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 
 /**
  * The pulley joint is connected to two bodies and two fixed ground points. The
@@ -100,7 +100,7 @@ public class PulleyJoint extends Joint
     /**
      * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_pulley_joint.cpp#L39-L56
      */
-    protected PulleyJoint(IWorldPool argWorldPool, PulleyJointDef def)
+    protected PulleyJoint(WorldPool argWorldPool, PulleyJointDef def)
     {
         super(argWorldPool, def);
         groundAnchorA.set(def.groundAnchorA);

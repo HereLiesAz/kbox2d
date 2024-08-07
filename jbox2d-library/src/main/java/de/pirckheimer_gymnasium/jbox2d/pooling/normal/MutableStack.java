@@ -23,9 +23,9 @@
  */
 package de.pirckheimer_gymnasium.jbox2d.pooling.normal;
 
-import de.pirckheimer_gymnasium.jbox2d.pooling.IDynamicStack;
+import de.pirckheimer_gymnasium.jbox2d.pooling.DynamicStack;
 
-public abstract class MutableStack<E> implements IDynamicStack<E>
+public abstract class MutableStack<E> implements DynamicStack<E>
 {
     private E[] stack;
 
@@ -35,7 +35,6 @@ public abstract class MutableStack<E> implements IDynamicStack<E>
 
     public MutableStack(int argInitSize)
     {
-        index = 0;
         stack = null;
         index = 0;
         extendStack(argInitSize);

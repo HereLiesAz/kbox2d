@@ -39,21 +39,21 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.contacts.Contact;
  *
  * @author Daniel Murphy
  */
-public interface IWorldPool
+public interface WorldPool
 {
-    IDynamicStack<Contact> getPolyContactStack();
+    DynamicStack<Contact> getPolyContactStack();
 
-    IDynamicStack<Contact> getCircleContactStack();
+    DynamicStack<Contact> getCircleContactStack();
 
-    IDynamicStack<Contact> getPolyCircleContactStack();
+    DynamicStack<Contact> getPolyCircleContactStack();
 
-    IDynamicStack<Contact> getEdgeCircleContactStack();
+    DynamicStack<Contact> getEdgeCircleContactStack();
 
-    IDynamicStack<Contact> getEdgePolyContactStack();
+    DynamicStack<Contact> getEdgePolyContactStack();
 
-    IDynamicStack<Contact> getChainCircleContactStack();
+    DynamicStack<Contact> getChainCircleContactStack();
 
-    IDynamicStack<Contact> getChainPolyContactStack();
+    DynamicStack<Contact> getChainPolyContactStack();
 
     Vec2 popVec2();
 

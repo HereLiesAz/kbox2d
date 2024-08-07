@@ -26,7 +26,7 @@ package de.pirckheimer_gymnasium.jbox2d.collision;
 import de.pirckheimer_gymnasium.jbox2d.common.MathUtils;
 import de.pirckheimer_gymnasium.jbox2d.common.Settings;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 import de.pirckheimer_gymnasium.jbox2d.pooling.normal.DefaultWorldPool;
 
 /**
@@ -209,7 +209,7 @@ public class AABB
 
     /**
      * @deprecated please use
-     *     {@link #raycast(RayCastOutput, RayCastInput, IWorldPool)} for better
+     *     {@link #raycast(RayCastOutput, RayCastInput, WorldPool)} for better
      *     performance
      */
     public final boolean raycast(final RayCastOutput output,
@@ -222,7 +222,7 @@ public class AABB
      * From Real-time Collision Detection, p179.
      */
     public final boolean raycast(final RayCastOutput output,
-            final RayCastInput input, IWorldPool argPool)
+            final RayCastInput input, WorldPool argPool)
     {
         float tMin = -Float.MAX_VALUE;
         float tMax = Float.MAX_VALUE;

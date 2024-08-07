@@ -35,7 +35,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.MathUtils;
  */
 public abstract class BasicPerformanceTest
 {
-    public static enum ResultFormat
+    public enum ResultFormat
     {
         MILLISECONDS(1000000, "Milliseconds"),
         MICROSECONDS(1000, "Microseconds"), NANOSECONDS(1, "Nanoseconds");
@@ -44,7 +44,7 @@ public abstract class BasicPerformanceTest
 
         private final String name;
 
-        private ResultFormat(int divisor, String name)
+        ResultFormat(int divisor, String name)
         {
             assert (divisor != 0);
             this.divisor = divisor;
@@ -54,21 +54,21 @@ public abstract class BasicPerformanceTest
 
     private ResultFormat format = ResultFormat.MICROSECONDS;
 
-    private final int numTests, iters, frames;
+    private final int numTests, iterations, frames;
 
     protected final DescriptiveStatistics[] stats;
 
-    private ArrayList<Integer> testOrder = new ArrayList<Integer>();
+    private final ArrayList<Integer> testOrder = new ArrayList<>();
 
-    public BasicPerformanceTest(int numTests, int iters, int frames)
+    public BasicPerformanceTest(int numTests, int iterations, int frames)
     {
         this.numTests = numTests;
-        this.iters = iters;
+        this.iterations = iterations;
         this.frames = frames;
         stats = new DescriptiveStatistics[numTests];
         for (int i = 0; i < numTests; i++)
         {
-            stats[i] = new DescriptiveStatistics(iters * frames + 1);
+            stats[i] = new DescriptiveStatistics(iterations * frames + 1);
             testOrder.add(i);
         }
     }
@@ -83,10 +83,10 @@ public abstract class BasicPerformanceTest
         long prev, after;
         // warmup
         println("Warmup");
-        int warmupIters = iters / 10;
-        for (int i = 0; i < warmupIters; i++)
+        int warmupIterations = iterations / 10;
+        for (int i = 0; i < warmupIterations; i++)
         {
-            println(i * 100.0 / warmupIters + "%");
+            println(i * 100.0 / warmupIterations + "%");
             Collections.shuffle(testOrder);
             for (int test = 0; test < numTests; test++)
             {
@@ -104,9 +104,9 @@ public abstract class BasicPerformanceTest
             }
         }
         println("Testing");
-        for (int i = 0; i < iters; i++)
+        for (int i = 0; i < iterations; i++)
         {
-            println(i * 100.0 / iters + "%");
+            println(i * 100.0 / iterations + "%");
             for (int test = 0; test < numTests; test++)
             {
                 setupTest(test);
@@ -135,10 +135,12 @@ public abstract class BasicPerformanceTest
         for (int i = 0; i < numTests; i++)
         {
             double mean = stats[i].getMean() / format.divisor;
-            double stddev = stats[i].getStandardDeviation() / format.divisor;
-            double diff = 1.96 * stddev / MathUtils.sqrt(stats[i].getN());
+            double standardDeviation = stats[i].getStandardDeviation()
+                    / format.divisor;
+            double diff = 1.96 * standardDeviation
+                    / MathUtils.sqrt(stats[i].getN());
             printf("%-20s%20.3f%20.3f  (%7.3f,%7.3f)\n", getTestName(i), mean,
-                    stddev, mean - diff, mean + diff);
+                    standardDeviation, mean - diff, mean + diff);
         }
     }
 

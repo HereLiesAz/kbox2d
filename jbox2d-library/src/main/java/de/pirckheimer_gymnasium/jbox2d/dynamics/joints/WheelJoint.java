@@ -29,7 +29,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Settings;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.SolverData;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 //Linear constraint (point-to-line)
 //d = pB - pA = xB + rB - xA - rA
 //C = dot(ay, d)
@@ -120,7 +120,7 @@ public class WheelJoint extends Joint
 
     private float gamma;
 
-    protected WheelJoint(IWorldPool argPool, WheelJointDef def)
+    protected WheelJoint(WorldPool argPool, WheelJointDef def)
     {
         super(argPool, def);
         localAnchorA.set(def.localAnchorA);

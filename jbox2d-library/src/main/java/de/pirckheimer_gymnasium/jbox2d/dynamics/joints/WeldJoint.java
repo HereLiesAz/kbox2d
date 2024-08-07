@@ -30,7 +30,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Settings;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec3;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.SolverData;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 //Point-to-point constraint
 //C = p2 - p1
 //Cdot = v2 - v1
@@ -92,7 +92,7 @@ public class WeldJoint extends Joint
 
     private final Mat33 mass = new Mat33();
 
-    protected WeldJoint(IWorldPool argWorld, WeldJointDef def)
+    protected WeldJoint(WorldPool argWorld, WeldJointDef def)
     {
         super(argWorld, def);
         localAnchorA = new Vec2(def.localAnchorA);

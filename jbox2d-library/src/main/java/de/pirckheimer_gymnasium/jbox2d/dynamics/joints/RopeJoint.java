@@ -28,7 +28,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Rot;
 import de.pirckheimer_gymnasium.jbox2d.common.Settings;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.SolverData;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 
 /**
  * A rope joint enforces a maximum distance between two points on two bodies. It
@@ -80,7 +80,7 @@ public class RopeJoint extends Joint
 
     private LimitState state;
 
-    protected RopeJoint(IWorldPool worldPool, RopeJointDef def)
+    protected RopeJoint(WorldPool worldPool, RopeJointDef def)
     {
         super(worldPool, def);
         localAnchorA.set(def.localAnchorA);

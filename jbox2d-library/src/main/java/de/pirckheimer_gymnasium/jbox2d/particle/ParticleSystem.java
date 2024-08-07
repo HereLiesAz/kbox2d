@@ -2211,7 +2211,7 @@ public class ParticleSystem
             {
                 try
                 {
-                    buffer[i] = klass.newInstance();
+                    buffer[i] = klass.getDeclaredConstructor().newInstance();
                 }
                 catch (Exception e)
                 {

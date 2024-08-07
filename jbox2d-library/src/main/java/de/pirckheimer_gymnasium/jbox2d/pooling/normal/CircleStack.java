@@ -23,9 +23,9 @@
  */
 package de.pirckheimer_gymnasium.jbox2d.pooling.normal;
 
-import de.pirckheimer_gymnasium.jbox2d.pooling.IOrderedStack;
+import de.pirckheimer_gymnasium.jbox2d.pooling.OrderedStack;
 
-public abstract class CircleStack<E> implements IOrderedStack<E>
+public abstract class CircleStack<E> implements OrderedStack<E>
 {
     private final Object[] pool;
 

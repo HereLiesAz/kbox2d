@@ -71,8 +71,8 @@ import de.pirckheimer_gymnasium.jbox2d.particle.ParticleDef;
 import de.pirckheimer_gymnasium.jbox2d.particle.ParticleGroup;
 import de.pirckheimer_gymnasium.jbox2d.particle.ParticleGroupDef;
 import de.pirckheimer_gymnasium.jbox2d.particle.ParticleSystem;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IDynamicStack;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.DynamicStack;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 import de.pirckheimer_gymnasium.jbox2d.pooling.arrays.Vec2Array;
 import de.pirckheimer_gymnasium.jbox2d.pooling.normal.DefaultWorldPool;
 
@@ -128,7 +128,7 @@ public class World
     /**
      * The world pool that provides pooling for all objects used in the engine.
      */
-    private final IWorldPool pool;
+    private final WorldPool pool;
 
     /**
      * This is used to compute the time step ratio to support a variable time
@@ -172,7 +172,7 @@ public class World
      * @param pool The world pool that provides pooling for all objects used in
      *     the engine.
      */
-    public World(Vec2 gravity, IWorldPool pool)
+    public World(Vec2 gravity, WorldPool pool)
     {
         this(gravity, pool, new DynamicTree());
     }
@@ -186,7 +186,7 @@ public class World
      * @param strategy The broad phase strategy.
      *
      */
-    public World(Vec2 gravity, IWorldPool pool, BroadPhaseStrategy strategy)
+    public World(Vec2 gravity, WorldPool pool, BroadPhaseStrategy strategy)
     {
         this(gravity, pool, new DefaultBroadPhaseBuffer(strategy));
     }
@@ -196,7 +196,7 @@ public class World
      *
      * @param gravity The world gravity vector.
      */
-    public World(Vec2 gravity, IWorldPool pool, BroadPhase broadPhase)
+    public World(Vec2 gravity, WorldPool pool, BroadPhase broadPhase)
     {
         this.pool = pool;
         destructionListener = null;
@@ -250,7 +250,7 @@ public class World
         return allowSleep;
     }
 
-    private void addType(IDynamicStack<Contact> creator, ShapeType type1,
+    private void addType(DynamicStack<Contact> creator, ShapeType type1,
             ShapeType type2)
     {
         ContactRegister register = new ContactRegister();
@@ -338,12 +338,12 @@ public class World
         }
         ShapeType type1 = fixtureA.getType();
         ShapeType type2 = fixtureB.getType();
-        IDynamicStack<Contact> creator = contactStacks[type1.ordinal()][type2
+        DynamicStack<Contact> creator = contactStacks[type1.ordinal()][type2
                 .ordinal()].creator;
         creator.push(contact);
     }
 
-    public IWorldPool getPool()
+    public WorldPool getPool()
     {
         return pool;
     }
@@ -359,7 +359,7 @@ public class World
 
     /**
      * Register a contact filter to provide specific control over collision.
-     * Otherwise the default filter is used (_defaultFilter). The listener is
+     * Otherwise, the default filter is used (_defaultFilter). The listener is
      * owned by you and must remain in scope.
      */
     public void setContactFilter(ContactFilter filter)
@@ -401,7 +401,7 @@ public class World
         }
         // TODO djm pooling
         Body b = new Body(def, this);
-        // add to world doubly linked list
+        // add to the world a doubly linked list
         b.prev = null;
         b.next = bodyList;
         if (bodyList != null)
@@ -414,7 +414,7 @@ public class World
     }
 
     /**
-     * destroy a rigid body given a definition. No reference to the definition
+     * Destroy a rigid body given a definition. No reference to the definition
      * is retained. This function is locked during callbacks.
      *
      * @warning This automatically deletes all associated shapes and joints.
@@ -441,7 +441,6 @@ public class World
             destroyJoint(je0.joint);
             body.jointList = je;
         }
-        body.jointList = null;
         // Delete the attached contacts.
         ContactEdge ce = body.contactList;
         while (ce != null)
@@ -466,7 +465,6 @@ public class World
             body.fixtureList = f;
             body.fixtureCount -= 1;
         }
-        body.fixtureList = null;
         body.fixtureCount = 0;
         // Remove world body list.
         if (body.prev != null)
@@ -1375,7 +1373,7 @@ public class World
                 {
                     continue;
                 }
-                float alpha = 1.0f;
+                float alpha;
                 if ((c.flags & Contact.TOI_FLAG) != 0)
                 {
                     // This contact has a valid cached TOI.

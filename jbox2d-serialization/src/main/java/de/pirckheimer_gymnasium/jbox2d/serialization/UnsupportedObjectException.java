@@ -23,6 +23,8 @@
  */
 package de.pirckheimer_gymnasium.jbox2d.serialization;
 
+import java.io.Serial;
+
 /**
  * Called when an object is unsupported by the serializer or deserializer.
  * Pertains to shapes, joints and other objects that might not be in some
@@ -32,9 +34,10 @@ package de.pirckheimer_gymnasium.jbox2d.serialization;
  */
 public class UnsupportedObjectException extends RuntimeException
 {
+    @Serial
     private static final long serialVersionUID = 5915827472093183385L;
 
-    public static enum Type
+    public enum Type
     {
         BODY, JOINT, SHAPE, OTHER
     }

@@ -28,7 +28,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Rot;
 import de.pirckheimer_gymnasium.jbox2d.common.Settings;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.SolverData;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 //C = norm(p2 - p1) - L
 //u = (p2 - p1) / norm(p2 - p1)
 //Cdot = dot(u, v2 + cross(w2, r2) - v1 - cross(w1, r1))
@@ -146,7 +146,7 @@ public class DistanceJoint extends Joint
 
     private float mass;
 
-    protected DistanceJoint(IWorldPool argWorld, final DistanceJointDef def)
+    protected DistanceJoint(WorldPool argWorld, final DistanceJointDef def)
     {
         super(argWorld, def);
         localAnchorA = def.localAnchorA.clone();

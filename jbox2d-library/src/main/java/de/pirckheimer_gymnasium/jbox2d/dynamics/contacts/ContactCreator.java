@@ -24,15 +24,15 @@
 package de.pirckheimer_gymnasium.jbox2d.dynamics.contacts;
 
 import de.pirckheimer_gymnasium.jbox2d.dynamics.Fixture;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 
 /**
  * @author Daniel Murphy
  */
 public interface ContactCreator
 {
-    Contact contactCreateFcn(IWorldPool argPool, Fixture fixtureA,
+    Contact contactCreateFcn(WorldPool argPool, Fixture fixtureA,
             Fixture fixtureB);
 
-    void contactDestroyFcn(IWorldPool argPool, Contact contact);
+    void contactDestroyFcn(WorldPool argPool, Contact contact);
 }

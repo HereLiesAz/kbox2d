@@ -32,7 +32,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec3;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.SolverData;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 //Point-to-point constraint
 //C = p2 - p1
 //Cdot = v2 - v1
@@ -115,7 +115,7 @@ public class RevoluteJoint extends Joint
 
     private LimitState limitState;
 
-    protected RevoluteJoint(IWorldPool argWorld, RevoluteJointDef def)
+    protected RevoluteJoint(WorldPool argWorld, RevoluteJointDef def)
     {
         super(argWorld, def);
         localAnchorA.set(def.localAnchorA);

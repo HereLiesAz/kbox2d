@@ -29,7 +29,7 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
 public class ParticleBodyContact
 {
     /**
-     * Index of the particle making contact.
+     * Index of the particle-making contact.
      *
      * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L101-L102
      */

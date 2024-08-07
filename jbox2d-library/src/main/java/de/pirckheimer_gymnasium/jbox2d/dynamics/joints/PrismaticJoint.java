@@ -32,7 +32,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec3;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.SolverData;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 //Linear constraint (point-to-line)
 //d = p2 - p1 = x2 + r2 - x1 - r1
 //C = dot(perp, d)
@@ -171,7 +171,7 @@ public class PrismaticJoint extends Joint
      */
     private float motorMass;
 
-    protected PrismaticJoint(IWorldPool argWorld, PrismaticJointDef def)
+    protected PrismaticJoint(WorldPool argWorld, PrismaticJointDef def)
     {
         super(argWorld, def);
         localAnchorA = new Vec2(def.localAnchorA);

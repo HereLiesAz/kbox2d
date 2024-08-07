@@ -43,8 +43,8 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.contacts.EdgeAndCircleContact;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.contacts.EdgeAndPolygonContact;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.contacts.PolygonAndCircleContact;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.contacts.PolygonContact;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IDynamicStack;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.DynamicStack;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 
 /**
  * Provides object pooling for all objects used in the engine. Objects retrieved
@@ -53,7 +53,7 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
  *
  * @author Daniel Murphy
  */
-public class DefaultWorldPool implements IWorldPool
+public class DefaultWorldPool implements WorldPool
 {
     private final OrderedStack<Vec2> vecs;
 
@@ -73,7 +73,7 @@ public class DefaultWorldPool implements IWorldPool
 
     private final HashMap<Integer, Vec2[]> avecs = new HashMap<>();
 
-    private final IWorldPool world = this;
+    private final WorldPool world = this;
 
     private final MutableStack<Contact> pcstack = new MutableStack<>(
             Settings.CONTACT_STACK_INIT_SIZE)
@@ -228,41 +228,41 @@ public class DefaultWorldPool implements IWorldPool
         toi = new TimeOfImpact(this);
     }
 
-    public final IDynamicStack<Contact> getPolyContactStack()
+    public final DynamicStack<Contact> getPolyContactStack()
     {
         return pcstack;
     }
 
-    public final IDynamicStack<Contact> getCircleContactStack()
+    public final DynamicStack<Contact> getCircleContactStack()
     {
         return ccstack;
     }
 
-    public final IDynamicStack<Contact> getPolyCircleContactStack()
+    public final DynamicStack<Contact> getPolyCircleContactStack()
     {
         return cpstack;
     }
 
     @Override
-    public IDynamicStack<Contact> getEdgeCircleContactStack()
+    public DynamicStack<Contact> getEdgeCircleContactStack()
     {
         return ecstack;
     }
 
     @Override
-    public IDynamicStack<Contact> getEdgePolyContactStack()
+    public DynamicStack<Contact> getEdgePolyContactStack()
     {
         return epstack;
     }
 
     @Override
-    public IDynamicStack<Contact> getChainCircleContactStack()
+    public DynamicStack<Contact> getChainCircleContactStack()
     {
         return chcstack;
     }
 
     @Override
-    public IDynamicStack<Contact> getChainPolyContactStack()
+    public DynamicStack<Contact> getChainPolyContactStack()
     {
         return chpstack;
     }

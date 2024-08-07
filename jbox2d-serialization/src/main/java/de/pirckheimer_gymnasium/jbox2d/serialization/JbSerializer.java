@@ -41,20 +41,16 @@ public interface JbSerializer
 {
     /**
      * Sets the object signer for the serializer. This allows the user to
-     * specify an 'tag' for each main physics object, which is then referenced
+     * specify a 'tag' for each main physics object, which is then referenced
      * later at deserialization for the user.
-     *
-     * @param signer
      */
-    public void setObjectSigner(ObjectSigner signer);
+    void setObjectSigner(ObjectSigner signer);
 
     /**
      * Sets a listener for unsupported exception instead of stopping the whole
      * serialization process by throwing and exception.
-     *
-     * @param listener
      */
-    public void setUnsupportedListener(UnsupportedListener listener);
+    void setUnsupportedListener(UnsupportedListener listener);
 
     /**
      * Serializes the world
@@ -64,7 +60,7 @@ public interface JbSerializer
      *
      * @see #setUnsupportedListener(UnsupportedListener)
      */
-    public SerializationResult serialize(World world)
+    SerializationResult serialize(World world)
             throws UnsupportedObjectException;
 
     /**
@@ -75,8 +71,7 @@ public interface JbSerializer
      *
      * @see #setUnsupportedListener(UnsupportedListener)
      */
-    public SerializationResult serialize(Body body)
-            throws UnsupportedObjectException;
+    SerializationResult serialize(Body body) throws UnsupportedObjectException;
 
     /**
      * Serializes a fixture
@@ -86,7 +81,7 @@ public interface JbSerializer
      *
      * @see #setUnsupportedListener(UnsupportedListener)
      */
-    public SerializationResult serialize(Fixture fixture)
+    SerializationResult serialize(Fixture fixture)
             throws UnsupportedObjectException;
 
     /**
@@ -97,19 +92,15 @@ public interface JbSerializer
      *
      * @see #setUnsupportedListener(UnsupportedListener)
      */
-    public SerializationResult serialize(Shape shape)
+    SerializationResult serialize(Shape shape)
             throws UnsupportedObjectException;
 
     /**
      * Serializes joints. Joints need to reference bodies and sometimes other
      * joints.
-     *
-     * @param joint
-     * @param bodyIndexMap
-     * @param jointIndexMap
      */
-    public SerializationResult serialize(Joint joint,
-            Map<Body, Integer> bodyIndexMap, Map<Joint, Integer> jointIndexMap);
+    SerializationResult serialize(Joint joint, Map<Body, Integer> bodyIndexMap,
+            Map<Joint, Integer> jointIndexMap);
 
     /**
      * Interface that allows the serializer to look up tags for each object,
@@ -117,41 +108,31 @@ public interface JbSerializer
      *
      * @author Daniel Murphy
      */
-    public static interface ObjectSigner
+    interface ObjectSigner
     {
         /**
-         * @param world
-         *
-         * @return The tag for the world. can be null.
+         * @return The tag for the world. Can be null.
          */
-        public Long getTag(World world);
+        Long getTag(World world);
 
         /**
-         * @param body
-         *
-         * @return The tag for the body. can be null.
+         * @return The tag for the body. Can be null.
          */
-        public Long getTag(Body body);
+        Long getTag(Body body);
 
         /**
-         * @param shape
-         *
-         * @return The tag for the shape. can be null.
+         * @return The tag for the shape. Can be null.
          */
-        public Long getTag(Shape shape);
+        Long getTag(Shape shape);
 
         /**
-         * @param fixture
-         *
-         * @return The tag for the fixture. can be null.
+         * @return The tag for the fixture. Can be null.
          */
-        public Long getTag(Fixture fixture);
+        Long getTag(Fixture fixture);
 
         /**
-         * @param joint
-         *
-         * @return The tag for the joint. can be null.
+         * @return The tag for the joint. Can be null.
          */
-        public Long getTag(Joint joint);
+        Long getTag(Joint joint);
     }
 }

@@ -24,22 +24,28 @@
 package de.pirckheimer_gymnasium.jbox2d.pooling;
 
 /**
- * Same functionality of a regular java.util stack. Object return order does not
- * matter.
+ * This stack assumes that when you push 'n' items back, you're pushing back the
+ * last 'n' items popped.
  *
  * @author Daniel Murphy
- *
- * @param <E>
  */
-public interface IDynamicStack<E>
+public interface OrderedStack<E>
 {
     /**
-     * Pops an item off the stack
+     * Returns the next object in the pool
      */
     E pop();
 
     /**
-     * Pushes an item back on the stack
+     * Returns the next 'argNum' objects in the pool in an array
+     *
+     * @return an array containing the next pool objects in items 0-argNum.
+     *     Array length and uniqueness not guaranteed.
      */
-    void push(E argObject);
+    E[] pop(int argNum);
+
+    /**
+     * Tells the stack to take back the last 'argNum' items
+     */
+    void push(int argNum);
 }

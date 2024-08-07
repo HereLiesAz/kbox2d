@@ -28,12 +28,12 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 public class ParticleContact
 {
     /**
-     * Index of the respective particle making contact.
+     * Index of the respective particle-making contact.
      */
     public int indexA;
 
     /**
-     * Index of the respective particle making contact.
+     * Index of the respective particle-making contact.
      */
     public int indexB;
 

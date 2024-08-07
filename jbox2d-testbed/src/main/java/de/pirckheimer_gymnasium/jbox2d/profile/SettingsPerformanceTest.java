@@ -8,9 +8,9 @@ import de.pirckheimer_gymnasium.jbox2d.profile.worlds.PistonWorld;
 
 public class SettingsPerformanceTest extends BasicPerformanceTest
 {
-    private static int NUM_TESTS = 14;
+    private static final int NUM_TESTS = 14;
 
-    private PerformanceTestWorld world;
+    private final PerformanceTestWorld world;
 
     public SettingsPerformanceTest(int iters, PerformanceTestWorld world)
     {
@@ -70,52 +70,23 @@ public class SettingsPerformanceTest extends BasicPerformanceTest
     @Override
     public String getTestName(int testNum)
     {
-        switch (testNum)
+        return switch (testNum)
         {
-        case 0:
-            return "No optimizations";
-
-        case 1:
-            return "Fast abs";
-
-        case 2:
-            return "Fast atan2";
-
-        case 3:
-            return "Fast ceil";
-
-        case 4:
-            return "Fast floor";
-
-        case 5:
-            return "Fast round";
-
-        case 6:
-            return "Sincos lookup table";
-
-        case 7:
-            return "All optimizations on";
-
-        case 8:
-            return "no Fast abs";
-
-        case 9:
-            return "no Fast atan2";
-
-        case 10:
-            return "no Fast ceil";
-
-        case 11:
-            return "no Fast floor";
-
-        case 12:
-            return "no Fast round";
-
-        case 13:
-            return "no Sincos lookup";
-
-        default:
-            return "";
-        }
+        case 0 -> "No optimizations";
+        case 1 -> "Fast abs";
+        case 2 -> "Fast atan2";
+        case 3 -> "Fast ceil";
+        case 4 -> "Fast floor";
+        case 5 -> "Fast round";
+        case 6 -> "Sincos lookup table";
+        case 7 -> "All optimizations on";
+        case 8 -> "no Fast abs";
+        case 9 -> "no Fast atan2";
+        case 10 -> "no Fast ceil";
+        case 11 -> "no Fast floor";
+        case 12 -> "no Fast round";
+        case 13 -> "no Sincos lookup";
+        default -> "";
+        };
     }
 }

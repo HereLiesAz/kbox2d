@@ -326,7 +326,7 @@ public abstract class AbstractTestbedController
                 break;
 
             case LaunchBomb:
-                currTest.lanchBomb();
+                currTest.launchBomb();
                 break;
 
             case Pause:

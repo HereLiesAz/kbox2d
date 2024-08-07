@@ -16,5 +16,5 @@ public interface UnsupportedListener
      *
      * @return if the process should stop and the exception be thrown.
      */
-    public boolean isUnsupported(UnsupportedObjectException argException);
+    boolean isUnsupported(UnsupportedObjectException argException);
 }

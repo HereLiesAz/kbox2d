@@ -27,7 +27,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.SolverData;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.World;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 
 /**
  * The base joint class. Joints are used to constrain two bodies together in
@@ -111,13 +111,13 @@ public abstract class Joint
 
     public Object userData;
 
-    protected IWorldPool pool;
+    protected WorldPool pool;
     // Cache here per time step to reduce cache misses.
     // final Vec2 localCenterA, localCenterB;
     // float invMassA, invIA;
     // float invMassB, invIB;
 
-    protected Joint(IWorldPool worldPool, JointDef def)
+    protected Joint(WorldPool worldPool, JointDef def)
     {
         assert (def.bodyA != def.bodyB);
         pool = worldPool;

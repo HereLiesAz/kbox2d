@@ -29,14 +29,14 @@ import de.pirckheimer_gymnasium.jbox2d.collision.shapes.EdgeShape;
 import de.pirckheimer_gymnasium.jbox2d.collision.shapes.ShapeType;
 import de.pirckheimer_gymnasium.jbox2d.common.Transform;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.Fixture;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 
 /**
  * @author Daniel Murphy
  */
 public class EdgeAndCircleContact extends Contact
 {
-    public EdgeAndCircleContact(IWorldPool argPool)
+    public EdgeAndCircleContact(WorldPool argPool)
     {
         super(argPool);
     }

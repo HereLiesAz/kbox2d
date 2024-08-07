@@ -25,7 +25,7 @@ package de.pirckheimer_gymnasium.jbox2d.testbed.perf;
 
 import de.pirckheimer_gymnasium.jbox2d.common.MathUtils;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 import de.pirckheimer_gymnasium.jbox2d.pooling.normal.DefaultWorldPool;
 import de.pirckheimer_gymnasium.jbox2d.profile.BasicPerformanceTest;
 //Test Name               Milliseconds Avg
@@ -43,9 +43,9 @@ import de.pirckheimer_gymnasium.jbox2d.profile.BasicPerformanceTest;
  */
 public class StackTest extends BasicPerformanceTest
 {
-    public static final int INNER_ITERS = 50000;
+    public static final int INNER_ITERATIONS = 50000;
 
-    public static final int OUTER_ITERS = 200;
+    public static final int OUTER_ITERATIONS = 200;
 
     public static String[] tests = new String[] { "Pop2Sep", "Pop2Cont",
             "Pop3Sep", "Pop3Cont", "Pop4Sep", "Pop4Cont", "Pop9Sep",
@@ -55,7 +55,7 @@ public class StackTest extends BasicPerformanceTest
 
     public StackTest()
     {
-        super(8, OUTER_ITERS, INNER_ITERS);
+        super(8, OUTER_ITERATIONS, INNER_ITERATIONS);
     }
 
     public float op(Vec2 argVec)
@@ -68,13 +68,13 @@ public class StackTest extends BasicPerformanceTest
         return s;
     }
 
-    private final IWorldPool wp = new DefaultWorldPool(100, 10);
+    private final WorldPool wp = new DefaultWorldPool(100, 10);
 
     @Override
     public void step(int argNum)
     {
         float a = 0;
-        for (int i = 0; i < INNER_ITERS; i++)
+        for (int i = 0; i < INNER_ITERATIONS; i++)
         {
             switch (argNum)
             {

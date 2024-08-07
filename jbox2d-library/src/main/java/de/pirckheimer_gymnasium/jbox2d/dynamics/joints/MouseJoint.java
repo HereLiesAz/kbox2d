@@ -30,7 +30,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Settings;
 import de.pirckheimer_gymnasium.jbox2d.common.Transform;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.SolverData;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 
 /**
  * A mouse joint is used to make a point on a body track a specified world
@@ -76,7 +76,7 @@ public class MouseJoint extends Joint
 
     private final Vec2 C = new Vec2();
 
-    protected MouseJoint(IWorldPool argWorld, MouseJointDef def)
+    protected MouseJoint(WorldPool argWorld, MouseJointDef def)
     {
         super(argWorld, def);
         assert (def.target.isValid());

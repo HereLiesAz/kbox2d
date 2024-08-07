@@ -29,8 +29,7 @@ public class ParticleDef
 {
     /**
      * Specifies the type of particle. A particle may be more than one type.
-     * Multiple types are chained by logical sums, for example:
-     * {@code pd.flags =
+     * Logical sums chain multiple types, for example: {@code pd.flags =
      * ParticleType.b2_elasticParticle | ParticleType.b2_viscousParticle}.
      */
     int flags;
@@ -41,7 +40,7 @@ public class ParticleDef
     public final Vec2 position = new Vec2();
 
     /**
-     * The linear velocity of the particle in world co-ordinates.
+     * The linear velocity of the particle in the world co-ordinates.
      */
     public final Vec2 velocity = new Vec2();
 

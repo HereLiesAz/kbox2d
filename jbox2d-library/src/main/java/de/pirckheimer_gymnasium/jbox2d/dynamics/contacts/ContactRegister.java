@@ -23,14 +23,14 @@
  */
 package de.pirckheimer_gymnasium.jbox2d.dynamics.contacts;
 
-import de.pirckheimer_gymnasium.jbox2d.pooling.IDynamicStack;
+import de.pirckheimer_gymnasium.jbox2d.pooling.DynamicStack;
 
 /**
  * @author Daniel Murphy
  */
 public class ContactRegister
 {
-    public IDynamicStack<Contact> creator;
+    public DynamicStack<Contact> creator;
 
     public boolean primary;
 }

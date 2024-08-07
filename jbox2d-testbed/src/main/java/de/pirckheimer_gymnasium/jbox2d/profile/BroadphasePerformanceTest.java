@@ -3,20 +3,20 @@ package de.pirckheimer_gymnasium.jbox2d.profile;
 import de.pirckheimer_gymnasium.jbox2d.collision.broadphase.DynamicTreeFlatNodes;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.World;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 import de.pirckheimer_gymnasium.jbox2d.pooling.normal.DefaultWorldPool;
 import de.pirckheimer_gymnasium.jbox2d.profile.worlds.PerformanceTestWorld;
 import de.pirckheimer_gymnasium.jbox2d.profile.worlds.PistonWorld;
 
 public class BroadphasePerformanceTest extends BasicPerformanceTest
 {
-    private static int NUM_TESTS = 2;
+    private static final int NUM_TESTS = 2;
 
-    private PerformanceTestWorld world;
+    private final PerformanceTestWorld world;
 
-    public BroadphasePerformanceTest(int iters, PerformanceTestWorld world)
+    public BroadphasePerformanceTest(int iterations, PerformanceTestWorld world)
     {
-        super(NUM_TESTS, iters, 1000);
+        super(NUM_TESTS, iterations, 1000);
         this.world = world;
         setFormat(ResultFormat.MILLISECONDS);
     }
@@ -31,7 +31,7 @@ public class BroadphasePerformanceTest extends BasicPerformanceTest
     public void setupTest(int testNum)
     {
         World w;
-        IWorldPool pool = new DefaultWorldPool(50, 50);
+        WorldPool pool = new DefaultWorldPool(50, 50);
         if (testNum == 0)
         {
             w = new World(new Vec2(0.0f, -10.0f), pool);
@@ -52,16 +52,11 @@ public class BroadphasePerformanceTest extends BasicPerformanceTest
     @Override
     public String getTestName(int testNum)
     {
-        switch (testNum)
+        return switch (testNum)
         {
-        case 0:
-            return "Normal";
-
-        case 1:
-            return "Flat";
-
-        default:
-            return "";
-        }
+        case 0 -> "Normal";
+        case 1 -> "Flat";
+        default -> "";
+        };
     }
 }

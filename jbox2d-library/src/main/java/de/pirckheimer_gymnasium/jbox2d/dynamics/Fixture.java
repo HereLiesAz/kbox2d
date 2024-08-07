@@ -48,27 +48,51 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.contacts.ContactEdge;
  */
 public class Fixture
 {
-    public float density;
 
     public Fixture next;
 
     public Body body;
 
+    /**
+     * The shape, this must be set. The shape will be cloned, so you can create
+     * the shape on the stack.
+     */
     public Shape shape;
 
+    /**
+     * Use this to store application specific fixture data.
+     */
+    public Object userData;
+
+    /**
+     * The friction coefficient, usually in the range [0,1].
+     */
     public float friction;
 
+    /**
+     * The restitution (elasticity) usually in the range [0,1].
+     */
     public float restitution;
+
+    /**
+     * The density, usually in kg/m^2
+     */
+    public float density;
+
+    /**
+     * A sensor shape collects contact information but never generates a
+     * collision response.
+     */
+    public boolean isSensor;
+
+    /**
+     * Contact filtering data;
+     */
+    public final Filter filter;
 
     public FixtureProxy[] proxies;
 
     public int proxyCount;
-
-    public final Filter filter;
-
-    public boolean isSensor;
-
-    public Object userData;
 
     public Fixture()
     {
@@ -82,7 +106,7 @@ public class Fixture
     }
 
     /**
-     * Get the type of the child shape. You can use this to down cast to the
+     * Get the type of the child shape. You can use this to downcast to the
      * concrete shape.
      *
      * @return The shape type.
@@ -93,7 +117,7 @@ public class Fixture
     }
 
     /**
-     * Get the child shape. You can modify the child shape, however you should
+     * Get the child shape. You can modify the child shape, however, you should
      * not change the number of vertices because this will crash some collision
      * caching mechanisms.
      */
@@ -145,8 +169,8 @@ public class Fixture
     }
 
     /**
-     * Call this if you want to establish collision that was previously disabled
-     * by ContactFilter::ShouldCollide.
+     * Call this if you want to establish a collision that was previously
+     * disabled by ContactFilter::ShouldCollide.
      */
     public void refilter()
     {
@@ -214,7 +238,7 @@ public class Fixture
 
     /**
      * Get the user data that was assigned in the fixture definition. Use this
-     * to store your application specific data.
+     * to store your application-specific data.
      */
     public Object getUserData()
     {
@@ -222,7 +246,7 @@ public class Fixture
     }
 
     /**
-     * Set the user data. Use this to store your application specific data.
+     * Set the user data. Use this to store your application-specific data.
      */
     public void setUserData(Object data)
     {
@@ -233,7 +257,7 @@ public class Fixture
      * Test a point for containment in this fixture. This only works for convex
      * shapes.
      *
-     * @param p A point in world coordinates.
+     * @param p A point in the world coordinates.
      */
     public boolean testPoint(final Vec2 p)
     {
@@ -395,8 +419,6 @@ public class Fixture
 
     /**
      * Internal method
-     *
-     * @param broadPhase
      */
     public void destroyProxies(BroadPhase broadPhase)
     {
@@ -435,18 +457,14 @@ public class Fixture
             final AABB aab = pool2;
             shape.computeAABB(aabb1, transform1, proxy.childIndex);
             shape.computeAABB(aab, transform2, proxy.childIndex);
-            proxy.aabb.lowerBound.x = aabb1.lowerBound.x < aab.lowerBound.x
-                    ? aabb1.lowerBound.x
-                    : aab.lowerBound.x;
-            proxy.aabb.lowerBound.y = aabb1.lowerBound.y < aab.lowerBound.y
-                    ? aabb1.lowerBound.y
-                    : aab.lowerBound.y;
-            proxy.aabb.upperBound.x = aabb1.upperBound.x > aab.upperBound.x
-                    ? aabb1.upperBound.x
-                    : aab.upperBound.x;
-            proxy.aabb.upperBound.y = aabb1.upperBound.y > aab.upperBound.y
-                    ? aabb1.upperBound.y
-                    : aab.upperBound.y;
+            proxy.aabb.lowerBound.x = Math.min(aabb1.lowerBound.x,
+                    aab.lowerBound.x);
+            proxy.aabb.lowerBound.y = Math.min(aabb1.lowerBound.y,
+                    aab.lowerBound.y);
+            proxy.aabb.upperBound.x = Math.max(aabb1.upperBound.x,
+                    aab.upperBound.x);
+            proxy.aabb.upperBound.y = Math.max(aabb1.upperBound.y,
+                    aab.upperBound.y);
             displacement.x = transform2.p.x - transform1.p.x;
             displacement.y = transform2.p.y - transform1.p.y;
             broadPhase.moveProxy(proxy.proxyId, proxy.aabb, displacement);

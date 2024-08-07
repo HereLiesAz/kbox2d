@@ -28,7 +28,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.MathUtils;
 import de.pirckheimer_gymnasium.jbox2d.common.Rot;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.SolverData;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 //Point-to-point constraint
 //Cdot = v2 - v1
 //   = v2 + cross(w2, r2) - v1 - cross(w1, r1)
@@ -93,7 +93,7 @@ public class MotorJoint extends Joint
 
     private float angularMass;
 
-    public MotorJoint(IWorldPool pool, MotorJointDef def)
+    public MotorJoint(WorldPool pool, MotorJointDef def)
     {
         super(pool, def);
         linearOffset.set(def.linearOffset);

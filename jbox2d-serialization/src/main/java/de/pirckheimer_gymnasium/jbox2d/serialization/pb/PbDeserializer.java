@@ -71,7 +71,7 @@ public class PbDeserializer implements JbDeserializer
 {
     private ObjectListener listener = null;
 
-    private UnsupportedListener ulistener = null;
+    private UnsupportedListener unsupportedlistener = null;
 
     public PbDeserializer()
     {
@@ -79,19 +79,19 @@ public class PbDeserializer implements JbDeserializer
 
     public PbDeserializer(UnsupportedListener argListener)
     {
-        ulistener = argListener;
+        unsupportedlistener = argListener;
     }
 
-    public PbDeserializer(ObjectListener argObjectListner)
+    public PbDeserializer(ObjectListener argObjectListener)
     {
-        listener = argObjectListner;
+        listener = argObjectListener;
     }
 
     public PbDeserializer(UnsupportedListener argListener,
-            ObjectListener argObjectListner)
+            ObjectListener argObjectListener)
     {
-        ulistener = argListener;
-        listener = argObjectListner;
+        unsupportedlistener = argListener;
+        listener = argObjectListener;
     }
 
     @Override
@@ -103,7 +103,7 @@ public class PbDeserializer implements JbDeserializer
     @Override
     public void setUnsupportedListener(UnsupportedListener argListener)
     {
-        ulistener = argListener;
+        unsupportedlistener = argListener;
     }
 
     private boolean isIndependentJoint(PbJointType argType)
@@ -126,15 +126,15 @@ public class PbDeserializer implements JbDeserializer
         world.setContinuousPhysics(pbWorld.getContinuousPhysics());
         world.setWarmStarting(pbWorld.getWarmStarting());
         world.setSubStepping(pbWorld.getSubStepping());
-        HashMap<Integer, Body> bodyMap = new HashMap<Integer, Body>();
-        HashMap<Integer, Joint> jointMap = new HashMap<Integer, Joint>();
+        HashMap<Integer, Body> bodyMap = new HashMap<>();
+        HashMap<Integer, Joint> jointMap = new HashMap<>();
         for (int i = 0; i < pbWorld.getBodiesCount(); i++)
         {
             PbBody pbBody = pbWorld.getBodies(i);
             Body body = deserializeBody(world, pbBody);
             bodyMap.put(i, body);
         }
-        // first pass, indep joints
+        // first pass, independent joints
         int cnt = 0;
         for (int i = 0; i < pbWorld.getJointsCount(); i++)
         {
@@ -147,7 +147,7 @@ public class PbDeserializer implements JbDeserializer
                 cnt++;
             }
         }
-        // second pass, dep joints
+        // second pass, dependent joints
         for (int i = 0; i < pbWorld.getJointsCount(); i++)
         {
             PbJoint pbJoint = pbWorld.getJoints(i);
@@ -176,20 +176,19 @@ public class PbDeserializer implements JbDeserializer
 
     public Body deserializeBody(World argWorld, PbBody argBody)
     {
-        PbBody b = argBody;
         BodyDef bd = new BodyDef();
-        bd.position.set(pbToVec(b.getPosition()));
-        bd.angle = b.getAngle();
-        bd.linearDamping = b.getLinearDamping();
-        bd.angularDamping = b.getAngularDamping();
-        bd.gravityScale = b.getGravityScale();
+        bd.position.set(pbToVec(argBody.getPosition()));
+        bd.angle = argBody.getAngle();
+        bd.linearDamping = argBody.getLinearDamping();
+        bd.angularDamping = argBody.getAngularDamping();
+        bd.gravityScale = argBody.getGravityScale();
         // velocities are populated after fixture addition
-        bd.bullet = b.getBullet();
-        bd.allowSleep = b.getAllowSleep();
-        bd.awake = b.getAwake();
-        bd.active = b.getActive();
-        bd.fixedRotation = b.getFixedRotation();
-        switch (b.getType())
+        bd.bullet = argBody.getBullet();
+        bd.allowSleep = argBody.getAllowSleep();
+        bd.awake = argBody.getAwake();
+        bd.active = argBody.getActive();
+        bd.fixedRotation = argBody.getFixedRotation();
+        switch (argBody.getType())
         {
         case DYNAMIC:
             bd.type = BodyType.DYNAMIC;
@@ -206,24 +205,25 @@ public class PbDeserializer implements JbDeserializer
         default:
             UnsupportedObjectException e = new UnsupportedObjectException(
                     "Unknown body type: " + argBody.getType(), Type.BODY);
-            if (ulistener == null || ulistener.isUnsupported(e))
+            if (unsupportedlistener == null
+                    || unsupportedlistener.isUnsupported(e))
             {
                 throw e;
             }
             return null;
         }
         Body body = argWorld.createBody(bd);
-        for (int i = 0; i < b.getFixturesCount(); i++)
+        for (int i = 0; i < argBody.getFixturesCount(); i++)
         {
-            deserializeFixture(body, b.getFixtures(i));
+            deserializeFixture(body, argBody.getFixtures(i));
         }
         // adding fixtures can change this, so we put this here and set it
         // directly in the body
-        body.linearVelocity.set(pbToVec(b.getLinearVelocity()));
-        body.angularVelocity = b.getAngularVelocity();
-        if (listener != null && b.hasTag())
+        body.linearVelocity.set(pbToVec(argBody.getLinearVelocity()));
+        body.angularVelocity = argBody.getAngularVelocity();
+        if (listener != null && argBody.hasTag())
         {
-            listener.processBody(body, b.getTag());
+            listener.processBody(body, argBody.getTag());
         }
         return body;
     }
@@ -238,20 +238,19 @@ public class PbDeserializer implements JbDeserializer
 
     public Fixture deserializeFixture(Body argBody, PbFixture argFixture)
     {
-        PbFixture f = argFixture;
         FixtureDef fd = new FixtureDef();
-        fd.density = f.getDensity();
-        fd.filter.categoryBits = f.getFilter().getCategoryBits();
-        fd.filter.groupIndex = f.getFilter().getGroupIndex();
-        fd.filter.maskBits = f.getFilter().getMaskBits();
-        fd.friction = f.getFriction();
-        fd.isSensor = f.getSensor();
-        fd.restitution = f.getRestitution();
-        fd.shape = deserializeShape(f.getShape());
+        fd.density = argFixture.getDensity();
+        fd.filter.categoryBits = argFixture.getFilter().getCategoryBits();
+        fd.filter.groupIndex = argFixture.getFilter().getGroupIndex();
+        fd.filter.maskBits = argFixture.getFilter().getMaskBits();
+        fd.friction = argFixture.getFriction();
+        fd.isSensor = argFixture.getSensor();
+        fd.restitution = argFixture.getRestitution();
+        fd.shape = deserializeShape(argFixture.getShape());
         Fixture fixture = argBody.createFixture(fd);
-        if (listener != null && f.hasTag())
+        if (listener != null && argFixture.hasTag())
         {
-            listener.processFixture(fixture, f.getTag());
+            listener.processFixture(fixture, argFixture.getTag());
         }
         return fixture;
     }
@@ -265,52 +264,51 @@ public class PbDeserializer implements JbDeserializer
 
     public Shape deserializeShape(PbShape argShape)
     {
-        PbShape s = argShape;
-        Shape shape = null;
-        switch (s.getType())
+        Shape shape;
+        switch (argShape.getType())
         {
         case CIRCLE:
             CircleShape c = new CircleShape();
-            c.p.set(pbToVec(s.getCenter()));
+            c.p.set(pbToVec(argShape.getCenter()));
             shape = c;
             break;
 
         case POLYGON:
             PolygonShape p = new PolygonShape();
-            p.centroid.set(pbToVec(s.getCentroid()));
-            p.count = s.getPointsCount();
+            p.centroid.set(pbToVec(argShape.getCentroid()));
+            p.count = argShape.getPointsCount();
             for (int i = 0; i < p.count; i++)
             {
-                p.vertices[i].set(pbToVec(s.getPoints(i)));
-                p.normals[i].set(pbToVec(s.getNormals(i)));
+                p.vertices[i].set(pbToVec(argShape.getPoints(i)));
+                p.normals[i].set(pbToVec(argShape.getNormals(i)));
             }
             shape = p;
             break;
 
         case EDGE:
             EdgeShape edge = new EdgeShape();
-            edge.vertex0.set(pbToVec(s.getV0()));
-            edge.vertex1.set(pbToVec(s.getV1()));
-            edge.vertex2.set(pbToVec(s.getV2()));
-            edge.vertex3.set(pbToVec(s.getV3()));
-            edge.hasVertex0 = s.getHas0();
-            edge.hasVertex3 = s.getHas3();
+            edge.vertex0.set(pbToVec(argShape.getV0()));
+            edge.vertex1.set(pbToVec(argShape.getV1()));
+            edge.vertex2.set(pbToVec(argShape.getV2()));
+            edge.vertex3.set(pbToVec(argShape.getV3()));
+            edge.hasVertex0 = argShape.getHas0();
+            edge.hasVertex3 = argShape.getHas3();
             shape = edge;
             break;
 
         case CHAIN:
         {
             ChainShape chain = new ChainShape();
-            chain.count = s.getPointsCount();
+            chain.count = argShape.getPointsCount();
             chain.vertices = new Vec2[chain.count];
             for (int i = 0; i < chain.count; i++)
             {
-                chain.vertices[i] = new Vec2(pbToVec(s.getPoints(i)));
+                chain.vertices[i] = new Vec2(pbToVec(argShape.getPoints(i)));
             }
-            chain.hasPrevVertex = s.getHas0();
-            chain.hasNextVertex = s.getHas3();
-            chain.prevVertex.set(pbToVec(s.getPrev()));
-            chain.nextVertex.set(pbToVec(s.getNext()));
+            chain.hasPrevVertex = argShape.getHas0();
+            chain.hasNextVertex = argShape.getHas3();
+            chain.prevVertex.set(pbToVec(argShape.getPrev()));
+            chain.nextVertex.set(pbToVec(argShape.getNext()));
             shape = chain;
             break;
         }
@@ -318,18 +316,19 @@ public class PbDeserializer implements JbDeserializer
         default:
         {
             UnsupportedObjectException e = new UnsupportedObjectException(
-                    "Unknown shape type: " + s.getType(), Type.SHAPE);
-            if (ulistener == null || ulistener.isUnsupported(e))
+                    "Unknown shape type: " + argShape.getType(), Type.SHAPE);
+            if (unsupportedlistener == null
+                    || unsupportedlistener.isUnsupported(e))
             {
                 throw e;
             }
             return null;
         }
         }
-        shape.radius = s.getRadius();
-        if (listener != null && s.hasTag())
+        shape.radius = argShape.getRadius();
+        if (listener != null && argShape.hasTag())
         {
-            listener.processShape(shape, s.getTag());
+            listener.processShape(shape, argShape.getTag());
         }
         return shape;
     }
@@ -346,7 +345,7 @@ public class PbDeserializer implements JbDeserializer
     public Joint deserializeJoint(World argWorld, PbJoint joint,
             Map<Integer, Body> argBodyMap, Map<Integer, Joint> jointMap)
     {
-        JointDef jd = null;
+        JointDef jd;
         switch (joint.getType())
         {
         case PRISMATIC:
@@ -480,7 +479,6 @@ public class PbDeserializer implements JbDeserializer
         case ROPE:
         {
             RopeJointDef def = new RopeJointDef();
-            jd = def;
             def.localAnchorA.set(pbToVec(joint.getLocalAnchorA()));
             def.localAnchorB.set(pbToVec(joint.getLocalAnchorB()));
             def.maxLength = joint.getMaxLength();
@@ -528,7 +526,8 @@ public class PbDeserializer implements JbDeserializer
         {
             UnsupportedObjectException e = new UnsupportedObjectException(
                     "Line joint no longer supported.", Type.JOINT);
-            if (ulistener == null || ulistener.isUnsupported(e))
+            if (unsupportedlistener == null
+                    || unsupportedlistener.isUnsupported(e))
             {
                 throw e;
             }
@@ -539,7 +538,8 @@ public class PbDeserializer implements JbDeserializer
         {
             UnsupportedObjectException e = new UnsupportedObjectException(
                     "Unknown joint type: " + joint.getType(), Type.JOINT);
-            if (ulistener == null || ulistener.isUnsupported(e))
+            if (unsupportedlistener == null
+                    || unsupportedlistener.isUnsupported(e))
             {
                 throw e;
             }

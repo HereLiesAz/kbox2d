@@ -28,14 +28,14 @@ import de.pirckheimer_gymnasium.jbox2d.collision.shapes.PolygonShape;
 import de.pirckheimer_gymnasium.jbox2d.collision.shapes.ShapeType;
 import de.pirckheimer_gymnasium.jbox2d.common.Transform;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.Fixture;
-import de.pirckheimer_gymnasium.jbox2d.pooling.IWorldPool;
+import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 
 /**
  * @author Daniel Murphy
  */
 public class PolygonContact extends Contact
 {
-    public PolygonContact(IWorldPool argPool)
+    public PolygonContact(WorldPool argPool)
     {
         super(argPool);
     }
