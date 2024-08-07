@@ -108,6 +108,9 @@ public class WeldJoint extends Joint
 
     private final Mat33 mass = new Mat33();
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_weld_joint.cpp#L41-L60
+     */
     protected WeldJoint(WorldPool argWorld, WeldJointDef def)
     {
         super(argWorld, def);
@@ -155,18 +158,27 @@ public class WeldJoint extends Joint
         this.dampingRatio = dampingRatio;
     }
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_weld_joint.cpp#L308-L311
+     */
     @Override
     public void getAnchorA(Vec2 argOut)
     {
         bodyA.getWorldPointToOut(localAnchorA, argOut);
     }
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_weld_joint.cpp#L313-L316
+     */
     @Override
     public void getAnchorB(Vec2 argOut)
     {
         bodyB.getWorldPointToOut(localAnchorB, argOut);
     }
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_weld_joint.cpp#L318-L322
+     */
     @Override
     public void getReactionForce(float invDt, Vec2 argOut)
     {
@@ -174,12 +186,18 @@ public class WeldJoint extends Joint
         argOut.mulLocal(invDt);
     }
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_weld_joint.cpp#L324-L327
+     */
     @Override
     public float getReactionTorque(float invDt)
     {
         return invDt * impulse.z;
     }
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_weld_joint.cpp#L62-L167
+     */
     @Override
     public void initVelocityConstraints(final SolverData data)
     {
@@ -282,6 +300,9 @@ public class WeldJoint extends Joint
         pool.pushMat33(1);
     }
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_weld_joint.cpp#L169-L225
+     */
     @Override
     public void solveVelocityConstraints(final SolverData data)
     {
@@ -343,6 +364,9 @@ public class WeldJoint extends Joint
         pool.pushVec2(3);
     }
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_weld_joint.cpp#L227-L306
+     */
     @Override
     public boolean solvePositionConstraints(final SolverData data)
     {

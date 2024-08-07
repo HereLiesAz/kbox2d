@@ -163,28 +163,43 @@ public class WheelJoint extends Joint
         dampingRatio = def.dampingRatio;
     }
 
+    /**
+     * @permalink
+     */
     public Vec2 getLocalAnchorA()
     {
         return localAnchorA;
     }
 
+    /**
+     * @permalink
+     */
     public Vec2 getLocalAnchorB()
     {
         return localAnchorB;
     }
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L446-L449
+     */
     @Override
     public void getAnchorA(Vec2 argOut)
     {
         bodyA.getWorldPointToOut(localAnchorA, argOut);
     }
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L451-L454
+     */
     @Override
     public void getAnchorB(Vec2 argOut)
     {
         bodyB.getWorldPointToOut(localAnchorB, argOut);
     }
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L456-L459
+     */
     @Override
     public void getReactionForce(float invDt, Vec2 argOut)
     {
@@ -194,6 +209,9 @@ public class WheelJoint extends Joint
         pool.pushVec2(1);
     }
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L461-L464
+     */
     @Override
     public float getReactionTorque(float invDt)
     {
@@ -201,7 +219,7 @@ public class WheelJoint extends Joint
     }
 
     /**
-     * @permalink
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L466-L478
      */
     public float getJointTranslation()
     {
@@ -219,7 +237,9 @@ public class WheelJoint extends Joint
         return translation;
     }
 
-    /** For serialization */
+    /**
+     * For serialization
+     */
     public Vec2 getLocalAxisA()
     {
         return localXAxisA;
@@ -230,11 +250,17 @@ public class WheelJoint extends Joint
         return bodyA.angularVelocity - bodyB.angularVelocity;
     }
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L556-L559
+     */
     public boolean isMotorEnabled()
     {
         return enableMotor;
     }
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L561-L569
+     */
     public void enableMotor(boolean flag)
     {
         bodyA.setAwake(true);
@@ -242,6 +268,9 @@ public class WheelJoint extends Joint
         enableMotor = flag;
     }
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L571-L579
+     */
     public void setMotorSpeed(float speed)
     {
         bodyA.setAwake(true);
@@ -259,6 +288,9 @@ public class WheelJoint extends Joint
         return maxMotorTorque;
     }
 
+    /**
+     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L581-L589
+     */
     public void setMaxMotorTorque(float torque)
     {
         bodyA.setAwake(true);
