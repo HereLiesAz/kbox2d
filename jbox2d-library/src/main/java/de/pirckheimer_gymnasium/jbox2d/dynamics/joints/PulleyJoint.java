@@ -51,22 +51,43 @@ public class PulleyJoint extends Joint
 {
     public static final float MIN_PULLEY_LENGTH = 2.0f;
 
+    /**
+     * The first ground anchor in the world coordinates. This point never moves.
+     */
     private final Vec2 groundAnchorA = new Vec2();
 
+    /**
+     * The second ground anchor in the world coordinates. This point never
+     * moves.
+     */
     private final Vec2 groundAnchorB = new Vec2();
 
-    private final float lengthA;
-
-    private final float lengthB;
-
-    // Solver shared
+    /**
+     * The local anchor point relative to bodyA's origin.
+     */
     private final Vec2 localAnchorA = new Vec2();
 
+    /**
+     * The local anchor point relative to bodyB's origin.
+     */
     private final Vec2 localAnchorB = new Vec2();
 
-    private final float constant;
+    /**
+     * The reference length for the segment attached to bodyA.
+     */
+    private final float lengthA;
 
+    /**
+     * The reference length for the segment attached to bodyB.
+     */
+    private final float lengthB;
+
+    /**
+     * The pulley ratio, used to simulate a block-and-tackle.
+     */
     private final float ratio;
+
+    private final float constant;
 
     private float impulse;
 

@@ -94,6 +94,21 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 public class DistanceJoint extends Joint
 {
     /**
+     * The local anchor point relative to body1's origin.
+     */
+    private final Vec2 localAnchorA;
+
+    /**
+     * The local anchor point relative to body2's origin.
+     */
+    private final Vec2 localAnchorB;
+
+    /**
+     * The equilibrium length between the anchor points.
+     */
+    private float length;
+
+    /**
      * The mass-spring-damper frequency in Hertz.
      */
     private float frequencyHz;
@@ -105,21 +120,9 @@ public class DistanceJoint extends Joint
 
     private float bias;
 
-    /**
-     * The local anchor point relative to body1's origin.
-     */
-    private final Vec2 localAnchorA;
-
-    /**
-     * The local anchor point relative to body2's origin.
-     */
-    private final Vec2 localAnchorB;
-
     private float gamma;
 
     private float impulse;
-
-    private float length;
 
     // Solver temp
     private int indexA;

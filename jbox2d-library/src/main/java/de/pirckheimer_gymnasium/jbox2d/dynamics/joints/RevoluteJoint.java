@@ -63,28 +63,56 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
  */
 public class RevoluteJoint extends Joint
 {
-    // Solver shared
+
+    /**
+     * The local anchor point relative to body1's origin.
+     */
     protected final Vec2 localAnchorA = new Vec2();
 
+    /**
+     * The local anchor point relative to body2's origin.
+     */
     protected final Vec2 localAnchorB = new Vec2();
 
-    private final Vec3 impulse = new Vec3();
+    /**
+     * The body2 angle minus body1 angle in the reference state (radians).
+     */
+    protected float referenceAngle;
+
+    /**
+     * A flag to enable joint limits.
+     */
+    private boolean enableLimit;
+
+    /**
+     * The lower angle for the joint limit (radians).
+     */
+    private float lowerAngle;
+
+    /**
+     * The upper angle for the joint limit (radians).
+     */
+    private float upperAngle;
+
+    /**
+     * A flag to enable the joint motor.
+     */
+    private boolean enableMotor;
+
+    /**
+     * The desired motor speed. Usually in radians per second.
+     */
+    private float motorSpeed;
+
+    /**
+     * The maximum motor torque used to achieve the desired motor speed. Usually
+     * in N-m.
+     */
+    private float maxMotorTorque;
 
     private float motorImpulse;
 
-    private boolean enableMotor;
-
-    private float maxMotorTorque;
-
-    private float motorSpeed;
-
-    private boolean enableLimit;
-
-    protected float referenceAngle;
-
-    private float lowerAngle;
-
-    private float upperAngle;
+    private final Vec3 impulse = new Vec3();
 
     // Solver temp
     private int indexA;

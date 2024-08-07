@@ -60,16 +60,50 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
  */
 public class WheelJoint extends Joint
 {
-    private float frequencyHz;
 
-    private float dampingRatio;
-
-    // Solver shared
+    /**
+     * The local anchor point relative to body1's origin.
+     */
     private final Vec2 localAnchorA = new Vec2();
 
+    /**
+     * The local anchor point relative to body2's origin.
+     */
     private final Vec2 localAnchorB = new Vec2();
 
+    /**
+     * The local translation axis in body1.
+     */
     private final Vec2 localXAxisA = new Vec2();
+
+    /**
+     * Enable/disable the joint motor.
+     */
+    private boolean enableMotor;
+
+    /**
+     * The maximum motor torque, usually in N-m.
+     */
+    private float maxMotorTorque;
+
+    /**
+     * The desired motor speed in radians per second.
+     */
+    private float motorSpeed;
+
+    /**
+     * Suspension frequency, zero indicates no suspension
+     */
+    private float frequencyHz;
+
+    /**
+     * Suspension damping ratio, one indicates critical damping
+     */
+    private float dampingRatio;
+
+    private final Vec2 localCenterA = new Vec2();
+
+    private final Vec2 localCenterB = new Vec2();
 
     private final Vec2 localYAxisA = new Vec2();
 
@@ -79,20 +113,10 @@ public class WheelJoint extends Joint
 
     private float springImpulse;
 
-    private float maxMotorTorque;
-
-    private float motorSpeed;
-
-    private boolean enableMotor;
-
     // Solver temp
     private int indexA;
 
     private int indexB;
-
-    private final Vec2 localCenterA = new Vec2();
-
-    private final Vec2 localCenterB = new Vec2();
 
     private float invMassA;
 

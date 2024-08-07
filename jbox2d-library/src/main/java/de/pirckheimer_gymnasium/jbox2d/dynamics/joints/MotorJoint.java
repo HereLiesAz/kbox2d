@@ -49,20 +49,35 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
  */
 public class MotorJoint extends Joint
 {
-    // Solver shared
+    /**
+     * Position of bodyB minus the position of bodyA, in bodyA's frame, in
+     * meters.
+     */
     private final Vec2 linearOffset = new Vec2();
 
+    /**
+     * The bodyB angle minus bodyA angle in radians.
+     */
     private float angularOffset;
+
+    /**
+     * The maximum motor force in N.
+     */
+    private float maxForce;
+
+    /**
+     * The maximum motor torque in N-m.
+     */
+    private float maxTorque;
+
+    /**
+     * Position correction factor in the range [0,1].
+     */
+    private float correctionFactor;
 
     private final Vec2 linearImpulse = new Vec2();
 
     private float angularImpulse;
-
-    private float maxForce;
-
-    private float maxTorque;
-
-    private float correctionFactor;
 
     // Solver temp
     private int indexA;

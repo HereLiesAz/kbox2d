@@ -47,7 +47,6 @@ package de.pirckheimer_gymnasium.jbox2d.dynamics.joints;
 
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
-//Updated to rev 56->130->142 of b2DistanceJoint.cpp/.h
 
 /**
  * Distance joint definition. This requires defining an anchor point on both
