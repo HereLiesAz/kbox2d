@@ -36,12 +36,13 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
 public class PulleyJointDef extends JointDef
 {
     /**
-     * The first ground anchor in world coordinates. This point never moves.
+     * The first ground anchor in the world coordinates. This point never moves.
      */
     public Vec2 groundAnchorA;
 
     /**
-     * The second ground anchor in world coordinates. This point never moves.
+     * The second ground anchor in the world coordinates. This point never
+     * moves.
      */
     public Vec2 groundAnchorB;
 
