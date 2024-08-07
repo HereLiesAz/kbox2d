@@ -72,9 +72,22 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
  */
 public class GearJoint extends Joint
 {
+    /**
+     * The first revolute/prismatic joint attached to the gear joint.
+     */
     private final Joint joint1;
 
+    /**
+     * The second revolute/prismatic joint attached to the gear joint.
+     */
     private final Joint joint2;
+
+    /**
+     * Gear ratio.
+     *
+     * @see GearJoint
+     */
+    private float ratio;
 
     private final JointType typeA;
 
@@ -104,8 +117,6 @@ public class GearJoint extends Joint
     private final float referenceAngleB;
 
     private final float constant;
-
-    private float ratio;
 
     private float impulse;
 

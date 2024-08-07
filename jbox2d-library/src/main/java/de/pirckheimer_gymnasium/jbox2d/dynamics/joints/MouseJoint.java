@@ -48,16 +48,27 @@ public class MouseJoint extends Joint
 
     private final Vec2 targetA = new Vec2();
 
+    /**
+     * The maximum constraint force that can be exerted to move the candidate
+     * body. Usually you will express as some multiple of the weight (multiplier
+     * * mass * gravity).
+     */
+    private float maxForce;
+
+    /**
+     * The response speed.
+     */
     private float frequencyHz;
 
+    /**
+     * The damping ratio. 0 = no damping, 1 = critical damping.
+     */
     private float dampingRatio;
 
     private float beta;
 
     // Solver shared
     private final Vec2 impulse = new Vec2();
-
-    private float maxForce;
 
     private float gamma;
 

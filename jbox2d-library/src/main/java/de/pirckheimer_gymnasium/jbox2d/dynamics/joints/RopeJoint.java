@@ -42,11 +42,20 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
  */
 public class RopeJoint extends Joint
 {
-    // Solver shared
+    /**
+     * The local anchor point relative to bodyA's origin.
+     */
     private final Vec2 localAnchorA = new Vec2();
 
+    /**
+     * The local anchor point relative to bodyB's origin.
+     */
     private final Vec2 localAnchorB = new Vec2();
 
+    /**
+     * The maximum length of the rope. Warning: this must be larger than
+     * b2_linearSlop or the joint will have no effect.
+     */
     private float maxLength;
 
     private float length;

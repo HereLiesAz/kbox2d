@@ -35,18 +35,30 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
  */
 public class FrictionJoint extends Joint
 {
+    /**
+     * The local anchor point relative to bodyA's origin.
+     */
     private final Vec2 localAnchorA;
 
+    /**
+     * The local anchor point relative to bodyB's origin.
+     */
     private final Vec2 localAnchorB;
 
     // Solver shared
     private final Vec2 linearImpulse;
 
-    private float angularImpulse;
-
+    /**
+     * The maximum friction force in N.
+     */
     private float maxForce;
 
+    /**
+     * The maximum friction torque in N-m.
+     */
     private float maxTorque;
+
+    private float angularImpulse;
 
     // Solver temp
     private int indexA;

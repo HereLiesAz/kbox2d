@@ -52,8 +52,30 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
  */
 public class WeldJoint extends Joint
 {
+    /**
+     * The local anchor point relative to body1's origin.
+     */
+    private final Vec2 localCenterA = new Vec2();
+
+    /**
+     * The local anchor point relative to body2's origin.
+     */
+    private final Vec2 localCenterB = new Vec2();
+
+    /**
+     * The body2 angle minus body1 angle in the reference state (radians).
+     */
+    private final float referenceAngle;
+
+    /**
+     * The mass-spring-damper frequency in Hertz. Rotation only. Disable
+     * softness with a value of 0.
+     */
     private float frequencyHz;
 
+    /**
+     * The damping ratio. 0 = no damping, 1 = critical damping.
+     */
     private float dampingRatio;
 
     private float bias;
@@ -62,8 +84,6 @@ public class WeldJoint extends Joint
     private final Vec2 localAnchorA;
 
     private final Vec2 localAnchorB;
-
-    private final float referenceAngle;
 
     private float gamma;
 
@@ -77,10 +97,6 @@ public class WeldJoint extends Joint
     private final Vec2 rA = new Vec2();
 
     private final Vec2 rB = new Vec2();
-
-    private final Vec2 localCenterA = new Vec2();
-
-    private final Vec2 localCenterB = new Vec2();
 
     private float invMassA;
 
@@ -257,9 +273,9 @@ public class WeldJoint extends Joint
         {
             impulse.setZero();
         }
-//    data.velocities[indexA].v.set(vA);
+        // data.velocities[indexA].v.set(vA);
         data.velocities[indexA].w = wA;
-//    data.velocities[indexB].v.set(vB);
+        // data.velocities[indexB].v.set(vB);
         data.velocities[indexB].w = wB;
         pool.pushVec2(1);
         pool.pushRot(2);
@@ -320,9 +336,9 @@ public class WeldJoint extends Joint
             wB += iB * (Vec2.cross(rB, P) + impulse.z);
             pool.pushVec3(2);
         }
-//    data.velocities[indexA].v.set(vA);
+        // data.velocities[indexA].v.set(vA);
         data.velocities[indexA].w = wA;
-//    data.velocities[indexB].v.set(vB);
+        // data.velocities[indexB].v.set(vB);
         data.velocities[indexB].w = wB;
         pool.pushVec2(3);
     }
@@ -394,9 +410,9 @@ public class WeldJoint extends Joint
             aB += iB * (Vec2.cross(rB, P) + impulse.z);
             pool.pushVec3(2);
         }
-//    data.positions[indexA].c.set(cA);
+        // data.positions[indexA].c.set(cA);
         data.positions[indexA].a = aA;
-//    data.positions[indexB].c.set(cB);
+        // data.positions[indexB].c.set(cB);
         data.positions[indexB].a = aB;
         pool.pushVec2(5);
         pool.pushRot(2);

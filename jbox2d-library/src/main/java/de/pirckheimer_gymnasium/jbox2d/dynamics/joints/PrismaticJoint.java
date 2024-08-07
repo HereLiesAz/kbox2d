@@ -112,32 +112,58 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
  */
 public class PrismaticJoint extends Joint
 {
-    // Solver shared
+    /**
+     * The local anchor point relative to body1's origin.
+     */
     protected final Vec2 localAnchorA;
 
+    /**
+     * The local anchor point relative to body2's origin.
+     */
     protected final Vec2 localAnchorB;
 
     protected final Vec2 localXAxisA;
 
     protected final Vec2 localYAxisA;
 
+    /**
+     * The constrained angle between the bodies: body2_angle - body1_angle.
+     */
     protected float referenceAngle;
+
+    /**
+     * Enable/disable the joint limit.
+     */
+    private boolean enableLimit;
+
+    /**
+     * The lower translation limit, usually in meters.
+     */
+    private float lowerTranslation;
+
+    /**
+     * The upper translation limit, usually in meters.
+     */
+    private float upperTranslation;
+
+    /**
+     * Enable/disable the joint motor.
+     */
+    private boolean enableMotor;
+
+    /**
+     * The maximum motor torque, usually in N-m.
+     */
+    private float maxMotorForce;
+
+    /**
+     * The desired motor speed in radians per second.
+     */
+    private float motorSpeed;
 
     private final Vec3 impulse;
 
     private float motorImpulse;
-
-    private float lowerTranslation;
-
-    private float upperTranslation;
-
-    private float maxMotorForce;
-
-    private float motorSpeed;
-
-    private boolean enableLimit;
-
-    private boolean enableMotor;
 
     private LimitState limitState;
 
