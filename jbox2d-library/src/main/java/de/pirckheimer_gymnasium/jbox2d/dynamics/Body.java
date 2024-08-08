@@ -39,6 +39,7 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.joints.JointEdge;
  * A rigid body. These are created via World.createBody.
  *
  * @repolink https://github.com/erincatto/box2d/blob/main/src/dynamics/b2_body.cpp
+ * @repolink https://github.com/erincatto/box2d/blob/main/include/box2d/b2_body.h
  *
  * @author Daniel Murphy
  */
@@ -545,6 +546,8 @@ public class Body
     /**
      * Get the gravity scale of the body.
      *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L610-L613
+     *
      */
     public float getGravityScale()
     {
@@ -553,6 +556,8 @@ public class Body
 
     /**
      * Set the gravity scale of the body.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L615-L618
      */
     public void setGravityScale(float gravityScale)
     {
@@ -566,6 +571,8 @@ public class Body
      *
      * @param force The world force vector, usually in Newtons (N).
      * @param point The world position of the point of application.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L743-L761
      */
     public final void applyForce(Vec2 force, Vec2 point)
     {
@@ -591,6 +598,8 @@ public class Body
      * Apply a force to the center of mass. This wakes up the body.
      *
      * @param force The world force vector, usually in Newtons (N).
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L763-L780
      */
     public final void applyForceToCenter(Vec2 force)
     {
@@ -611,6 +620,8 @@ public class Body
      * linear velocity of the center of mass. This wakes up the body.
      *
      * @param torque About the z-axis (out of the screen), usually in N-m.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L782-L799
      */
     public final void applyTorque(float torque)
     {
@@ -633,7 +644,9 @@ public class Body
      *
      * @param impulse The world impulse vector, usually in N-seconds or kg-m/s.
      * @param point The world position of the point of application.
-     * @param wake Also wake up the body
+     * @param wake Also wake up the body.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L801-L819
      */
     public final void applyLinearImpulse(Vec2 impulse, Vec2 point, boolean wake)
     {
@@ -662,6 +675,8 @@ public class Body
      * Apply an angular impulse.
      *
      * @param impulse The angular impulse in units of kg*m*m/s
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L840-L857
      */
     public void applyAngularImpulse(float impulse)
     {
@@ -1071,6 +1086,8 @@ public class Body
 
     /**
      * Is this body treated like a bullet for continuous collision detection?
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L632-L635
      */
     public final boolean isBullet()
     {
@@ -1080,6 +1097,8 @@ public class Body
     /**
      * Should this body be treated like a bullet for continuous collision
      * detection?
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L620-L630
      */
     public final void setBullet(boolean flag)
     {
@@ -1096,6 +1115,8 @@ public class Body
     /**
      * You can disable sleeping on this body. If you disable sleeping, the body
      * will be woken.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L675-L686
      */
     public void setSleepingAllowed(boolean flag)
     {
@@ -1111,7 +1132,9 @@ public class Body
     }
 
     /**
-     * Is this body allowed to sleep
+     * Is this body allowed to sleep?
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L688-L691
      */
     public boolean isSleepingAllowed()
     {
@@ -1123,6 +1146,8 @@ public class Body
      * Note that putting it to sleep will set its velocities and forces to zero.
      *
      * @param flag Set to true to wake the body, false to put it to sleep.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L637-L658
      */
     public void setAwake(boolean flag)
     {
@@ -1149,6 +1174,8 @@ public class Body
      * Get the sleeping state of this body.
      *
      * @return true if the body is awake.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L660-L663
      */
     public boolean isAwake()
     {
@@ -1210,6 +1237,8 @@ public class Body
 
     /**
      * Get the active state of the body.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L665-L668
      */
     public boolean isActive()
     {
@@ -1236,6 +1265,8 @@ public class Body
 
     /**
      * Does this body have fixed rotation?
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L670-L673
      */
     public boolean isFixedRotation()
     {
@@ -1244,6 +1275,8 @@ public class Body
 
     /**
      * Get the list of all fixtures attached to this body.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L693-L701
      */
     public final Fixture getFixtureList()
     {
@@ -1252,6 +1285,8 @@ public class Body
 
     /**
      * Get the list of all joints attached to this body.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L703-L711
      */
     public final JointEdge getJointList()
     {
@@ -1263,6 +1298,8 @@ public class Body
      *
      * @warning this list changes during the time step, and you may miss some
      *     collisions if you don't use ContactListener.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L713-L721
      */
     public final ContactEdge getContactList()
     {
@@ -1273,6 +1310,7 @@ public class Body
      * Get the next body in the world's body list.
      *
      * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L374-L376
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L723-L731
      */
     public final Body getNext()
     {
@@ -1281,6 +1319,8 @@ public class Body
 
     /**
      * Get the user data pointer that was provided in the body definition.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L733-L741
      */
     public final Object getUserData()
     {
@@ -1330,6 +1370,9 @@ public class Body
         }
     }
 
+    /**
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L859-L863
+     */
     public final void synchronizeTransform()
     {
         // xf.q.set(sweep.a);
