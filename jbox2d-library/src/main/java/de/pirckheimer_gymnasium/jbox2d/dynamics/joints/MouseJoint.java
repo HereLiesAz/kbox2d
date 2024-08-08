@@ -40,6 +40,8 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
  * testbed. If you want to learn how to use the mouse joint, look at the
  * testbed.
  *
+ * @repolink https://github.com/erincatto/box2d/blob/main/src/dynamics/b2_mouse_joint.cpp
+ *
  * @author Daniel Murphy
  */
 public class MouseJoint extends Joint

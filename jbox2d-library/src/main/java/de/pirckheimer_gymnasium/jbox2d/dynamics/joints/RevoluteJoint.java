@@ -33,17 +33,6 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec3;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.SolverData;
 import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
-//Point-to-point constraint
-//C = p2 - p1
-//Cdot = v2 - v1
-//   = v2 + cross(w2, r2) - v1 - cross(w1, r1)
-//J = [-I -r1_skew I r2_skew ]
-//Identity used:
-//w k % (rx i + ry j) = w * (-ry i + rx j)
-//Motor constraint
-//Cdot = w2 - w1
-//J = [0 0 -1 0 0 1]
-//K = invI1 + invI2
 
 /**
  * A revolute joint constrains two bodies to share a common point while they are
@@ -58,6 +47,8 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
  * "https://github.com/engine-pi/jbox2d/blob/main/misc/images/joints/revolute_joint.svg"
  * alt="revolute joint">
  * </p>
+ *
+ * @repolink https://github.com/erincatto/box2d/blob/main/src/dynamics/b2_revolute_joint.cpp
  *
  * @author Daniel Murphy
  */

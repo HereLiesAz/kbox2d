@@ -30,6 +30,8 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
  * can safely re-use body definitions. Shapes are added to a body after
  * construction.
  *
+ * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L50-L125
+ *
  * @author Daniel Murphy
  */
 public class BodyDef
@@ -37,62 +39,79 @@ public class BodyDef
     /**
      * The body type: static, kinematic, or dynamic. Note: if a dynamic body
      * would have zero mass, the mass is set to one.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L72-L74
      */
     public BodyType type;
 
     /**
-     * Use this to store application specific body data.
-     */
-    public Object userData;
-
-    /**
      * The world position of the body. Avoid creating bodies at the origin since
      * this can lead to many overlapping shapes.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L76-L78
      */
     public Vec2 position;
 
     /**
      * The world angle of the body in radians.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L80-L81
      */
     public float angle;
 
     /**
      * The linear velocity of the body in world co-ordinates.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L83-L84
      */
     public Vec2 linearVelocity;
 
     /**
      * The angular velocity of the body.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L86-L87
      */
     public float angularVelocity;
 
     /**
      * Linear damping is used to reduce the linear velocity. The damping
      * parameter can be larger than 1.0f but the damping effect becomes
-     * sensitive to the time step when the damping parameter is large.
+     * sensitive to the time step when the damping parameter is large. Units are
+     * {@code 1 / time}.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L89-L93
      */
     public float linearDamping;
 
     /**
      * Angular damping is used to reduce the angular velocity. The damping
      * parameter can be larger than 1.0f but the damping effect becomes
-     * sensitive to the time step when the damping parameter is large.
+     * sensitive to the time step when the damping parameter is large. Units are
+     * {@code 1 / time}.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L95-L99
      */
     public float angularDamping;
 
     /**
      * Set this flag to false if this body should never fall asleep. Note that
      * this increases CPU usage.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L101-L103
      */
     public boolean allowSleep;
 
     /**
-     * Is this body initially sleeping?
+     * Is this body initially awake or sleeping?
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L105-L106
      */
     public boolean awake;
 
     /**
      * Should this body be prevented from rotating? Useful for characters.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L108-L109
      */
     public boolean fixedRotation;
 
@@ -104,16 +123,31 @@ public class BodyDef
      *
      * @warning You should use this flag sparingly since it increases processing
      *     time.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L111-L115
      */
     public boolean bullet;
 
     /**
      * Does this body start out active?
+     *
+     * TODO: rename to enabled
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L117-L118
      */
     public boolean active;
 
     /**
-     * Experimental: scales the inertia tensor.
+     * Use this to store application specific body data.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L120-L121
+     */
+    public Object userData;
+
+    /**
+     * Scale the gravity applied to this body.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L123-L124
      */
     public float gravityScale;
 

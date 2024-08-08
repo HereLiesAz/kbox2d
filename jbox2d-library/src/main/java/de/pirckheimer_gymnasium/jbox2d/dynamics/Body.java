@@ -38,10 +38,13 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.joints.JointEdge;
 /**
  * A rigid body. These are created via World.createBody.
  *
+ * @repolink https://github.com/erincatto/box2d/blob/main/src/dynamics/b2_body.cpp
+ *
  * @author Daniel Murphy
  */
 public class Body
 {
+
     public static final int islandFlag = 0x0001;
 
     public static final int awakeFlag = 0x0002;
@@ -56,6 +59,12 @@ public class Body
 
     public static final int toiFlag = 0x0040;
 
+    /**
+     * The body type: static, kinematic, or dynamic. Note: if a dynamic body
+     * would have zero mass, the mass is set to one.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L72-L74
+     */
     public BodyType type;
 
     public int flags;
@@ -79,6 +88,11 @@ public class Body
 
     public final Vec2 linearVelocity = new Vec2();
 
+    /**
+     * The angular velocity of the body.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L86-L87
+     */
     public float angularVelocity;
 
     public final Vec2 force = new Vec2();
@@ -87,8 +101,14 @@ public class Body
 
     public World world;
 
+    /**
+     * The previous body in the world's body list.
+     */
     public Body prev;
 
+    /**
+     * The next body in the world's body list.
+     */
     public Body next;
 
     public Fixture fixtureList;
@@ -99,21 +119,85 @@ public class Body
 
     public ContactEdge contactList;
 
-    public float mass, invMass;
+    /**
+     * The mass.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L457
+     */
+    public float mass;
 
-    // Rotational inertia about the center of mass.
-    public float I, invI;
+    /**
+     * The inverse mass ({@code 1 / mass}).
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L457
+     */
+    public float invMass;
 
+    /**
+     * The rotational inertia about the center of mass.
+     *
+     * <p>
+     * The moment of inertia, otherwise known as the mass moment of
+     * inertia,https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L459-L460
+     * angular/rotational mass, second moment of mass, or most accurately,
+     * rotational inertia, of a rigid body is a quantity that determines the
+     * torque needed for a desired angular acceleration about a rotational axis,
+     * akin to how mass determines the force needed for a desired acceleration.
+     * </p>
+     *
+     * <a href="https://en.wikipedia.org/wiki/Moment_of_inertia">Wikipedia:
+     * Moment of inertia</a>
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L459-L460
+     */
+    public float I;
+
+    /**
+     * The inverse rotational inertia about the center of mass.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L459-L460
+     */
+    public float invI;
+
+    /**
+     * Linear damping is used to reduce the linear velocity. The damping
+     * parameter can be larger than 1.0f but the damping effect becomes
+     * sensitive to the time step when the damping parameter is large. Units are
+     * {@code 1 / time}.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L89-L93
+     */
     public float linearDamping;
 
+    /**
+     * Angular damping is used to reduce the angular velocity. The damping
+     * parameter can be larger than 1.0f but the damping effect becomes
+     * sensitive to the time step when the damping parameter is large. Units are
+     * {@code 1 / time}.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L95-L99
+     */
     public float angularDamping;
 
+    /**
+     * Scale the gravity applied to this body.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L123-L124
+     */
     public float gravityScale;
 
     public float sleepTime;
 
+    /**
+     * Use this to store application specific body data.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L120-L121
+     */
     public Object userData;
 
+    /**
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_body.cpp#L31-L104
+     */
     public Body(final BodyDef bd, World world)
     {
         assert (bd.position.isValid());
@@ -191,6 +275,8 @@ public class Body
      * @param def The fixture definition.
      *
      * @warning This function is locked during callbacks.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_body.cpp#L204-L211
      */
     public final Fixture createFixture(FixtureDef def)
     {
@@ -234,6 +320,8 @@ public class Body
      * @param density The shape density (set to zero for static bodies).
      *
      * @warning This function is locked during callbacks.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_body.cpp#L204-L211
      */
     public final Fixture createFixture(Shape shape, float density)
     {
@@ -252,6 +340,8 @@ public class Body
      * @param fixture The fixture to be removed.
      *
      * @warning This function is locked during callbacks.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_body.cpp#L213-L288
      */
     public final void destroyFixture(Fixture fixture)
     {
@@ -325,6 +415,8 @@ public class Body
      *
      * @param position The world position of the body's local origin.
      * @param angle The world rotation in radians.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_body.cpp#L420-L445
      */
     public final void setTransform(Vec2 position, float angle)
     {
@@ -629,6 +721,8 @@ public class Body
      * if the body isn't dynamic.
      *
      * @param massData The mass properties.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_body.cpp#L356-L395
      */
     public final void setMassData(MassData massData)
     {
@@ -680,6 +774,8 @@ public class Body
      * This resets the mass properties to the sum of the mass properties of the
      * fixtures. This normally does not need to be called unless you called
      * setMassData to override the mass, and you later want to reset the mass.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_body.cpp#L290-L354
      */
     public final void resetMassData()
     {
@@ -1070,6 +1166,8 @@ public class Body
      * participate in collisions, ray-casts, or queries. Joints connected to an
      * inactive body are implicitly inactive. An inactive body is still owned by
      * a World object and remains in the body list.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_body.cpp#L471-L515
      */
     public void setActive(boolean flag)
     {
@@ -1120,6 +1218,8 @@ public class Body
 
     /**
      * Set this body to have fixed rotation. This causes the mass to be reset.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_body.cpp#L517-L537
      */
     public void setFixedRotation(boolean flag)
     {
@@ -1136,20 +1236,23 @@ public class Body
 
     /**
      * Does this body have fixed rotation?
-     *
      */
     public boolean isFixedRotation()
     {
         return (flags & fixedRotationFlag) == fixedRotationFlag;
     }
 
-    /** Get the list of all fixtures attached to this body. */
+    /**
+     * Get the list of all fixtures attached to this body.
+     */
     public final Fixture getFixtureList()
     {
         return fixtureList;
     }
 
-    /** Get the list of all joints attached to this body. */
+    /**
+     * Get the list of all joints attached to this body.
+     */
     public final JointEdge getJointList()
     {
         return jointList;
@@ -1166,13 +1269,19 @@ public class Body
         return contactList;
     }
 
-    /** Get the next body in the world's body list. */
+    /**
+     * Get the next body in the world's body list.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_body.h#L374-L376
+     */
     public final Body getNext()
     {
         return next;
     }
 
-    /** Get the user data pointer that was provided in the body definition. */
+    /**
+     * Get the user data pointer that was provided in the body definition.
+     */
     public final Object getUserData()
     {
         return userData;
@@ -1197,6 +1306,9 @@ public class Body
     // djm pooling
     private final Transform pxf = new Transform();
 
+    /**
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_body.cpp#L447-L469
+     */
     protected final void synchronizeFixtures()
     {
         final Transform xf1 = pxf;
@@ -1237,6 +1349,8 @@ public class Body
     /**
      * This is used to prevent connected bodies from colliding. It may lie,
      * depending on the collideConnected flag.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_body.cpp#L397-L418
      */
     public boolean shouldCollide(Body other)
     {

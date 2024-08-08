@@ -29,12 +29,6 @@ import de.pirckheimer_gymnasium.jbox2d.common.Settings;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.SolverData;
 import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
-//C = norm(p2 - p1) - L
-//u = (p2 - p1) / norm(p2 - p1)
-//Cdot = dot(u, v2 + cross(w2, r2) - v1 - cross(w1, r1))
-//J = [-u -cross(r1, u) u cross(r2, u)]
-//K = J * invM * JT
-//= invMass1 + invI1 * cross(r1, u)^2 + invMass2 + invI2 * cross(r2, u)^2
 
 /**
  * A distance joint constrains two points on two bodies to remain at a fixed
@@ -89,22 +83,30 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
  * joint.
  * </p>
  *
+ * @repolink https://github.com/erincatto/box2d/blob/main/src/dynamics/b2_distance_joint.cpp
+ *
  * @author Daniel Murphy
  */
 public class DistanceJoint extends Joint
 {
     /**
-     * The local anchor point relative to body1's origin.
+     * The local anchor point relative to bodyA's origin.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_distance_joint.h#L52-L53
      */
     private final Vec2 localAnchorA;
 
     /**
-     * The local anchor point relative to body2's origin.
+     * The local anchor point relative to bodyB's origin.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_distance_joint.h#L55-L56
      */
     private final Vec2 localAnchorB;
 
     /**
      * The equilibrium length between the anchor points.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_distance_joint.h#L58-L59
      */
     private float length;
 
@@ -149,6 +151,9 @@ public class DistanceJoint extends Joint
 
     private float mass;
 
+    /**
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_distance_joint.cpp#L44-L74
+     */
     protected DistanceJoint(WorldPool argWorld, final DistanceJointDef def)
     {
         super(argWorld, def);
@@ -162,78 +167,9 @@ public class DistanceJoint extends Joint
         bias = 0.0f;
     }
 
-    public void setFrequency(float hz)
-    {
-        frequencyHz = hz;
-    }
-
-    public float getFrequency()
-    {
-        return frequencyHz;
-    }
-
-    public float getLength()
-    {
-        return length;
-    }
-
-    public void setLength(float argLength)
-    {
-        length = argLength;
-    }
-
-    public void setDampingRatio(float damp)
-    {
-        dampingRatio = damp;
-    }
-
-    public float getDampingRatio()
-    {
-        return dampingRatio;
-    }
-
-    @Override
-    public void getAnchorA(Vec2 argOut)
-    {
-        bodyA.getWorldPointToOut(localAnchorA, argOut);
-    }
-
-    @Override
-    public void getAnchorB(Vec2 argOut)
-    {
-        bodyB.getWorldPointToOut(localAnchorB, argOut);
-    }
-
-    public Vec2 getLocalAnchorA()
-    {
-        return localAnchorA;
-    }
-
-    public Vec2 getLocalAnchorB()
-    {
-        return localAnchorB;
-    }
-
     /**
-     * Get the reaction force given the inverse time step. Unit is N.
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_distance_joint.cpp#L76-L173
      */
-    @Override
-    public void getReactionForce(float invDt, Vec2 argOut)
-    {
-        argOut.x = impulse * u.x * invDt;
-        argOut.y = impulse * u.y * invDt;
-    }
-
-    /**
-     * Get the reaction torque given the inverse time step. Unit is N*m. This is
-     * always zero for a distance joint.
-     */
-    @Override
-    public float getReactionTorque(float invDt)
-    {
-        return 0.0f;
-    }
-
     @Override
     public void initVelocityConstraints(final SolverData data)
     {
@@ -325,6 +261,9 @@ public class DistanceJoint extends Joint
         data.velocities[indexB].w = wB;
     }
 
+    /**
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L237-L342
+     */
     @Override
     public void solveVelocityConstraints(final SolverData data)
     {
@@ -357,6 +296,9 @@ public class DistanceJoint extends Joint
         pool.pushVec2(2);
     }
 
+    /**
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_distance_joint.cpp#L268-L314
+     */
     @Override
     public boolean solvePositionConstraints(final SolverData data)
     {
@@ -399,4 +341,113 @@ public class DistanceJoint extends Joint
         pool.pushRot(2);
         return MathUtils.abs(C) < Settings.linearSlop;
     }
+
+    /**
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_distance_joint.cpp#L316-L319
+     */
+    @Override
+    public void getAnchorA(Vec2 argOut)
+    {
+        bodyA.getWorldPointToOut(localAnchorA, argOut);
+    }
+
+    /**
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_distance_joint.cpp#L321-L324
+     */
+    @Override
+    public void getAnchorB(Vec2 argOut)
+    {
+        bodyB.getWorldPointToOut(localAnchorB, argOut);
+    }
+
+    /**
+     * Get the reaction force given the inverse time step. Unit is N.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_distance_joint.cpp#L326-L330
+     */
+    @Override
+    public void getReactionForce(float invDt, Vec2 argOut)
+    {
+        argOut.x = impulse * u.x * invDt;
+        argOut.y = impulse * u.y * invDt;
+    }
+
+    /**
+     * Get the reaction torque given the inverse time step. Unit is N*m. This is
+     * always zero for a distance joint.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_distance_joint.cpp#L332-L336
+     */
+    @Override
+    public float getReactionTorque(float invDt)
+    {
+        return 0.0f;
+    }
+
+    /**
+     * Get the rest length.
+     *
+     * @return The rest length.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_distance_joint.h#L97-L98
+     */
+    public float getLength()
+    {
+        return length;
+    }
+
+    /**
+     * Set the rest length.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_distance_joint.cpp#L338-L343
+     */
+    public void setLength(float length)
+    {
+        this.length = length;
+    }
+
+    public void setFrequency(float hz)
+    {
+        frequencyHz = hz;
+    }
+
+    public float getFrequency()
+    {
+        return frequencyHz;
+    }
+
+    public void setDampingRatio(float damp)
+    {
+        dampingRatio = damp;
+    }
+
+    public float getDampingRatio()
+    {
+        return dampingRatio;
+    }
+
+    /**
+     * Get the local anchor point relative to bodyA's origin.
+     *
+     * @return The local anchor point relative to bodyA's origin.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_distance_joint.h#L91-L92
+     */
+    public Vec2 getLocalAnchorA()
+    {
+        return localAnchorA;
+    }
+
+    /**
+     * Get the local anchor point relative to bodyB's origin.
+     *
+     * @return The local anchor point relative to bodyB's origin.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_distance_joint.h#L94-L95
+     */
+    public Vec2 getLocalAnchorB()
+    {
+        return localAnchorB;
+    }
+
 }

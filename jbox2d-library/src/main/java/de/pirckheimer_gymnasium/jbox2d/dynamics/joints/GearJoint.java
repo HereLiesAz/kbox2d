@@ -30,24 +30,6 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.SolverData;
 import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
-//Gear Joint:
-//C0 = (coordinate1 + ratio * coordinate2)_initial
-//C = (coordinate1 + ratio * coordinate2) - C0 = 0
-//J = [J1 ratio * J2]
-//K = J * invM * JT
-//= J1 * invM1 * J1T + ratio * ratio * J2 * invM2 * J2T
-//
-//Revolute:
-//coordinate = rotation
-//Cdot = angularVelocity
-//J = [0 0 1]
-//K = J * invM * JT = invI
-//
-//Prismatic:
-//coordinate = dot(p - pg, ug)
-//Cdot = dot(v + cross(w, r), ug)
-//J = [ug cross(r, ug)]
-//K = J * invM * JT = invMass + invI * cross(r, ug)^2
 
 /**
  * A gear joint is used to connect two joints together. Either joint can be a
@@ -67,6 +49,8 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
  *     (which must be body1 on those joints).
  * @warning You have to manually destroy the gear joint if joint1 or joint2 is
  *     destroyed.
+ *
+ * @repolink https://github.com/erincatto/box2d/blob/main/src/dynamics/b2_gear_joint.cpp
  *
  * @author Daniel Murphy
  */

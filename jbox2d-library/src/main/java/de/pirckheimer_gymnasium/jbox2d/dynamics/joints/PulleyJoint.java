@@ -45,6 +45,8 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
  * alt="pulley joint">
  * </p>
  *
+ * @repolink https://github.com/erincatto/box2d/blob/main/src/dynamics/b2_pulley_joint.cpp
+ *
  * @author Daniel Murphy
  */
 public class PulleyJoint extends Joint

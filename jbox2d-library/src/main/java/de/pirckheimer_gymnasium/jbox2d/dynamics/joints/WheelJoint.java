@@ -30,19 +30,6 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
 import de.pirckheimer_gymnasium.jbox2d.dynamics.SolverData;
 import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
-//Linear constraint (point-to-line)
-//d = pB - pA = xB + rB - xA - rA
-//C = dot(ay, d)
-//Cdot = dot(d, cross(wA, ay)) + dot(ay, vB + cross(wB, rB) - vA - cross(wA, rA))
-//   = -dot(ay, vA) - dot(cross(d + rA, ay), wA) + dot(ay, vB) + dot(cross(rB, ay), vB)
-//J = [-ay, -cross(d + rA, ay), ay, cross(rB, ay)]
-//Spring linear constraint
-//C = dot(ax, d)
-//Cdot = = -dot(ax, vA) - dot(cross(d + rA, ax), wA) + dot(ax, vB) + dot(cross(rB, ax), vB)
-//J = [-ax -cross(d+rA, ax) ax cross(rB, ax)]
-//Motor rotational constraint
-//Cdot = wB - wA
-//J = [0 0 -1 0 0 1]
 
 /**
  * A wheel joint. This joint provides two degrees of freedom: translation along
@@ -55,6 +42,8 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
  * "https://github.com/engine-pi/jbox2d/blob/main/misc/images/joints/wheel_joint.svg"
  * alt="wheel joint">
  * </p>
+ *
+ * @repolink https://github.com/erincatto/box2d/blob/main/src/dynamics/b2_wheel_joint.cpp
  *
  * @author Daniel Murphy
  */

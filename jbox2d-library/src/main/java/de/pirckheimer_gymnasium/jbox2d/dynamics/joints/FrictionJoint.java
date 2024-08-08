@@ -31,17 +31,24 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.SolverData;
 import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
 
 /**
+ * @repolink https://github.com/erincatto/box2d/blob/main/include/box2d/b2_friction_joint.h
+ * @repolink https://github.com/erincatto/box2d/blob/main/src/dynamics/b2_friction_joint.cpp
+ *
  * @author Daniel Murphy
  */
 public class FrictionJoint extends Joint
 {
     /**
      * The local anchor point relative to bodyA's origin.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_friction_joint.h#L45-L46
      */
     private final Vec2 localAnchorA;
 
     /**
      * The local anchor point relative to bodyB's origin.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_friction_joint.h#L48-L49
      */
     private final Vec2 localAnchorB;
 
@@ -50,11 +57,15 @@ public class FrictionJoint extends Joint
 
     /**
      * The maximum friction force in N.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_friction_joint.h#L51-L52
      */
     private float maxForce;
 
     /**
      * The maximum friction torque in N-m.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_friction_joint.h#L54-L55
      */
     private float maxTorque;
 
@@ -96,11 +107,25 @@ public class FrictionJoint extends Joint
         maxTorque = def.maxTorque;
     }
 
+    /**
+     * Get the local anchor point relative to bodyA's origin.
+     *
+     * @return The local anchor point relative to bodyA's origin.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_friction_joint.h#L69-L70
+     */
     public Vec2 getLocalAnchorA()
     {
         return localAnchorA;
     }
 
+    /**
+     * Get the local anchor point relative to bodyB's origin.
+     *
+     * @return The local anchor point relative to bodyB's origin.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_friction_joint.h#L72-L73
+     */
     public Vec2 getLocalAnchorB()
     {
         return localAnchorB;
@@ -130,23 +155,43 @@ public class FrictionJoint extends Joint
         return invDt * angularImpulse;
     }
 
+    /**
+     * Set the maximum friction force in N.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_friction_joint.h#L75-L76
+     */
     public void setMaxForce(float force)
     {
         assert (force >= 0.0f);
         maxForce = force;
     }
 
+    /**
+     * Get the maximum friction force in N.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_friction_joint.h#L78-L79
+     */
     public float getMaxForce()
     {
         return maxForce;
     }
 
+    /**
+     * Set the maximum friction torque in N*m.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_friction_joint.h#L81-L82
+     */
     public void setMaxTorque(float torque)
     {
         assert (torque >= 0.0f);
         maxTorque = torque;
     }
 
+    /**
+     * Get the maximum friction torque in N*m.
+     *
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_friction_joint.h#L84-L85
+     */
     public float getMaxTorque()
     {
         return maxTorque;
@@ -223,11 +268,11 @@ public class FrictionJoint extends Joint
             linearImpulse.setZero();
             angularImpulse = 0.0f;
         }
-//    data.velocities[indexA].v.set(vA);
+        // data.velocities[indexA].v.set(vA);
         assert data.velocities[indexA].w == wA
                 || (data.velocities[indexA].w != wA);
         data.velocities[indexA].w = wA;
-//    data.velocities[indexB].v.set(vB);
+        // data.velocities[indexB].v.set(vB);
         data.velocities[indexB].w = wB;
         pool.pushRot(2);
         pool.pushVec2(1);
@@ -283,11 +328,11 @@ public class FrictionJoint extends Joint
             vB.addLocal(temp);
             wB += iB * Vec2.cross(rB, impulse);
         }
-//    data.velocities[indexA].v.set(vA);
+        // data.velocities[indexA].v.set(vA);
         assert data.velocities[indexA].w == wA
                 || (data.velocities[indexA].w != wA);
         data.velocities[indexA].w = wA;
-//    data.velocities[indexB].v.set(vB);
+        // data.velocities[indexB].v.set(vB);
         data.velocities[indexB].w = wB;
         pool.pushVec2(4);
     }
