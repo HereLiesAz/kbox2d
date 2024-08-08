@@ -67,7 +67,7 @@ public class WorldManifold
     private final Vec2 pool4 = new Vec2();
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/collision/b2_collision.cpp#L26-L90
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/collision/b2_collision.cpp#L26-L90
      */
     public final void initialize(final Manifold manifold, final Transform xfA,
             float radiusA, final Transform xfB, float radiusB)

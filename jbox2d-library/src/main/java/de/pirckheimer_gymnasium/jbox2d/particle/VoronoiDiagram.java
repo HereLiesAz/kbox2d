@@ -30,12 +30,12 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.normal.MutableStack;
 /**
  * A field representing the nearest generator from each point.
  *
- * @permalink https://github.com/google/liquidfun/blob/master/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.h
+ * @repolink https://github.com/google/liquidfun/blob/master/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.h
  */
 public class VoronoiDiagram
 {
     /**
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.h#L62-L67
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.h#L62-L67
      */
     public static class Generator
     {
@@ -45,7 +45,7 @@ public class VoronoiDiagram
     }
 
     /**
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.h#L69-L82
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.h#L69-L82
      */
     public static class VoronoiDiagramTask
     {
@@ -107,8 +107,8 @@ public class VoronoiDiagram
      *
      * @param callback A callback function object called for each node.
      *
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.h#L56-L58
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.cpp#L195-L221
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.h#L56-L58
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.cpp#L195-L221
      */
     public void getNodes(VoronoiDiagramCallback callback)
     {
@@ -142,8 +142,8 @@ public class VoronoiDiagram
      * @param center The position of the generator.
      * @param tag A tag used to identify the generator in callback functions.
      *
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.cpp#L45-L53
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.h#L35-L39
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.cpp#L45-L53
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.h#L35-L39
      */
     public void addGenerator(Vec2 center, int tag)
     {
@@ -181,8 +181,8 @@ public class VoronoiDiagram
      *
      * @param radius The interval of the diagram.
      *
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.cpp#L55-L193
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.h#L41-L45
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.cpp#L55-L193
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2VoronoiDiagram.h#L41-L45
      */
     public void generate(float radius)
     {

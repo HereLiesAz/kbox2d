@@ -119,7 +119,7 @@ public class PulleyJoint extends Joint
     private float mass;
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_pulley_joint.cpp#L39-L56
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_pulley_joint.cpp#L39-L56
      */
     protected PulleyJoint(WorldPool argWorldPool, PulleyJointDef def)
     {
@@ -236,7 +236,7 @@ public class PulleyJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_pulley_joint.cpp#L77-L165
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_pulley_joint.cpp#L77-L165
      */
     @Override
     public void initVelocityConstraints(final SolverData data)
@@ -327,7 +327,7 @@ public class PulleyJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_pulley_joint.cpp#L167-L192
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_pulley_joint.cpp#L167-L192
      */
     @Override
     public void solveVelocityConstraints(final SolverData data)
@@ -363,7 +363,7 @@ public class PulleyJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_pulley_joint.cpp#L194-L264
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_pulley_joint.cpp#L194-L264
      */
     @Override
     public boolean solvePositionConstraints(final SolverData data)

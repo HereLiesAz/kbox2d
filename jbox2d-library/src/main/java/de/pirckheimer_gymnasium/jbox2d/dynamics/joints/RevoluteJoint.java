@@ -148,7 +148,7 @@ public class RevoluteJoint extends Joint
     private LimitState limitState;
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L41-L71
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L41-L71
      */
     protected RevoluteJoint(WorldPool argWorld, RevoluteJointDef def)
     {
@@ -167,7 +167,7 @@ public class RevoluteJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L73-L165
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L73-L165
      */
     @Override
     public void initVelocityConstraints(final SolverData data)
@@ -292,7 +292,7 @@ public class RevoluteJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L167-L243
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L167-L243
      */
     @Override
     public void solveVelocityConstraints(final SolverData data)
@@ -419,7 +419,7 @@ public class RevoluteJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L245-L321
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L245-L321
      */
     @Override
     public boolean solvePositionConstraints(final SolverData data)
@@ -516,24 +516,18 @@ public class RevoluteJoint extends Joint
         return localAnchorA;
     }
 
-    /**
-     * @permalink
-     */
     public Vec2 getLocalAnchorB()
     {
         return localAnchorB;
     }
 
-    /**
-     * @permalink
-     */
     public float getReferenceAngle()
     {
         return referenceAngle;
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L323-L326
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L323-L326
      */
     @Override
     public void getAnchorA(Vec2 argOut)
@@ -542,7 +536,7 @@ public class RevoluteJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L328-L331
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L328-L331
      */
     @Override
     public void getAnchorB(Vec2 argOut)
@@ -551,7 +545,7 @@ public class RevoluteJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L333-L337
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L333-L337
      */
     @Override
     public void getReactionForce(float invDt, Vec2 argOut)
@@ -560,7 +554,7 @@ public class RevoluteJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L339-L342
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L339-L342
      */
     @Override
     public float getReactionTorque(float invDt)
@@ -569,7 +563,7 @@ public class RevoluteJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L344-L349
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L344-L349
      */
     public float getJointAngle()
     {
@@ -579,7 +573,7 @@ public class RevoluteJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L351-L356
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L351-L356
      */
     public float getJointSpeed()
     {
@@ -589,7 +583,7 @@ public class RevoluteJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L358-L361
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L358-L361
      */
     public boolean isMotorEnabled()
     {
@@ -597,7 +591,7 @@ public class RevoluteJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L363-L371
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L363-L371
      */
     public void enableMotor(boolean flag)
     {
@@ -607,7 +601,7 @@ public class RevoluteJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L373-L376
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L373-L376
      */
     public float getMotorTorque(float inv_dt)
     {
@@ -615,7 +609,7 @@ public class RevoluteJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L378-L386
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L378-L386
      */
     public void setMotorSpeed(final float speed)
     {
@@ -625,7 +619,7 @@ public class RevoluteJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L388-L396
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L388-L396
      */
     public void setMaxMotorTorque(final float torque)
     {
@@ -634,24 +628,18 @@ public class RevoluteJoint extends Joint
         maxMotorTorque = torque;
     }
 
-    /**
-     * @permalink
-     */
     public float getMotorSpeed()
     {
         return motorSpeed;
     }
 
-    /**
-     * @permalink
-     */
     public float getMaxMotorTorque()
     {
         return maxMotorTorque;
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L398-L401
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L398-L401
      */
     public boolean isLimitEnabled()
     {
@@ -659,7 +647,7 @@ public class RevoluteJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L403-L413
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L403-L413
      */
     public void enableLimit(final boolean flag)
     {
@@ -673,7 +661,7 @@ public class RevoluteJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L415-L418
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L415-L418
      */
     public float getLowerLimit()
     {
@@ -681,7 +669,7 @@ public class RevoluteJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L420-L423
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L420-L423
      */
     public float getUpperLimit()
     {
@@ -689,7 +677,7 @@ public class RevoluteJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L425-L438
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_revolute_joint.cpp#L425-L438
      */
     public void setLimits(final float lower, final float upper)
     {

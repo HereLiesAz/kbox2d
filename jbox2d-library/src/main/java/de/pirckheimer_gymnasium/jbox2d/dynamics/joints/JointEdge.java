@@ -31,7 +31,7 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.Body;
  * a doubly linked list maintained in each attached body. Each joint has two
  * joint nodes, one for each attached body.
  *
- * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_joint.h#L57-L68
+ * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_joint.h#L57-L68
  *
  * @author Daniel Murphy
  */
@@ -40,28 +40,28 @@ public class JointEdge
     /**
      * Provides quick access to the other body attached.
      *
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_joint.h#L64
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_joint.h#L64
      */
     public Body other = null;
 
     /**
      * The joint.
      *
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_joint.h#L64
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_joint.h#L64
      */
     public Joint joint = null;
 
     /**
      * The previous joint edge in the body's joint list.
      *
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_joint.h#L64
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_joint.h#L64
      */
     public JointEdge prev = null;
 
     /**
      * The next joint edge in the body's joint list.
      *
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_joint.h#L64
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_joint.h#L64
      */
     public JointEdge next = null;
 }

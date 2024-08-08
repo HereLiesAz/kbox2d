@@ -100,7 +100,7 @@ public class Sweep implements Serializable
      * @param xf The result is placed here - must not be null.
      * @param beta The normalized time in [0,1].
      *
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L688-L697
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L688-L697
      */
     public final void getTransform(final Transform xf, final float beta)
     {
@@ -120,7 +120,7 @@ public class Sweep implements Serializable
      *
      * @param alpha The new initial time.
      *
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L699-L706
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L699-L706
      */
     public final void advance(final float alpha)
     {

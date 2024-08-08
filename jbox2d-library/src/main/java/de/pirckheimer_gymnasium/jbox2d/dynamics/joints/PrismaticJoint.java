@@ -235,7 +235,7 @@ public class PrismaticJoint extends Joint
     /**
      * Get the anchor point on bodyA in world coordinates.
      *
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_joint.h#L122-L123
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_joint.h#L122-L123
      */
     @Override
     public void getAnchorA(Vec2 argOut)
@@ -246,7 +246,7 @@ public class PrismaticJoint extends Joint
     /**
      * Get the anchor point on bodyB in world coordinates.
      *
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_joint.h#L125-L126
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_joint.h#L125-L126
      */
     @Override
     public void getAnchorB(Vec2 argOut)
@@ -257,7 +257,7 @@ public class PrismaticJoint extends Joint
     /**
      * Get the reaction force on bodyB at the joint anchor in Newtons.
      *
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_joint.h#L128-L129
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_joint.h#L128-L129
      */
     @Override
     public void getReactionForce(float invDt, Vec2 argOut)

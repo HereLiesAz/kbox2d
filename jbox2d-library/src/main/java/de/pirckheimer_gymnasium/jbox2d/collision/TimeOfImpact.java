@@ -132,7 +132,7 @@ public class TimeOfImpact
      * computing the largest time at which separation is maintained.
      * </p>
      *
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/collision/b2_time_of_impact.cpp#L258-L490
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/collision/b2_time_of_impact.cpp#L258-L490
      */
     public final void timeOfImpact(TOIOutput output, TOIInput input)
     {
@@ -370,7 +370,7 @@ class SeparationFunction
     private final Transform xfb = new Transform();
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/collision/b2_time_of_impact.cpp#L48-L126
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/collision/b2_time_of_impact.cpp#L48-L126
      */
     public float initialize(final SimplexCache cache,
             final DistanceProxy proxyA, final Sweep sweepA,
@@ -457,7 +457,7 @@ class SeparationFunction
     private final Vec2 axisB = new Vec2();
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/collision/b2_time_of_impact.cpp#L129-L195
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/collision/b2_time_of_impact.cpp#L129-L195
      */
     public float findMinSeparation(int[] indexes, float t)
     {
@@ -514,7 +514,7 @@ class SeparationFunction
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/collision/b2_time_of_impact.cpp#L198-L254
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/collision/b2_time_of_impact.cpp#L198-L254
      */
     public float evaluate(int indexA, int indexB, float t)
     {

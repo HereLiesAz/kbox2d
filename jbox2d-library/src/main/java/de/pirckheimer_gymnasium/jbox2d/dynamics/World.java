@@ -83,7 +83,7 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.normal.DefaultWorldPool;
  *
  * @author Daniel Murphy
  *
- * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_world.h#L43-L346
+ * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_world.h#L43-L346
  */
 public class World
 {
@@ -157,7 +157,7 @@ public class World
      *
      * @param gravity The world gravity vector.
      *
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_world.h#L49-L51
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_world.h#L49-L51
      */
     public World(Vec2 gravity)
     {
@@ -648,7 +648,7 @@ public class World
      * @param velocityIterations For the velocity constraint solver.
      * @param positionIterations For the position constraint solver.
      *
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_world.h#L94-L101
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_world.h#L94-L101
      */
     public void step(float timeStep, int velocityIterations,
             int positionIterations)
@@ -721,7 +721,7 @@ public class World
      *
      * @see #setAutoClearForces(boolean)
      *
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_world.h#L103-L110
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_world.h#L103-L110
      */
     public void clearForces()
     {
@@ -745,7 +745,7 @@ public class World
     /**
      * Call this to draw shapes and other debug draw data.
      *
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_world.h#L112-L113
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_world.h#L112-L113
      */
     public void drawDebugData()
     {

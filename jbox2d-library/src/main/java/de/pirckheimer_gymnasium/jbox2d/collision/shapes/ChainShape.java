@@ -39,7 +39,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
  * smooth collisions. WARNING: The chain will not collide properly if there are
  * self-intersections.
  *
- * @permalink https://github.com/erincatto/box2d/blob/main/src/collision/b2_chain_shape.cpp
+ * @repolink https://github.com/erincatto/box2d/blob/main/src/collision/b2_chain_shape.cpp
  *
  * @author Daniel Murphy
  */

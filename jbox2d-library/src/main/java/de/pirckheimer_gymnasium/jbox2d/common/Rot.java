@@ -125,7 +125,7 @@ public class Rot implements Serializable
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L535-L546
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L535-L546
      */
     public static void mulUnsafe(Rot q, Rot r, Rot out)
     {
@@ -143,7 +143,7 @@ public class Rot implements Serializable
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L548-L559
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L548-L559
      */
     public static void mulTransUnsafe(Rot q, Rot r, Rot out)
     {

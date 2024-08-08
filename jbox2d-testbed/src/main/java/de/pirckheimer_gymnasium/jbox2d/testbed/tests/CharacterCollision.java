@@ -38,8 +38,6 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
 /**
  * @author Daniel Murphy
- *
- * @permalink
  */
 public class CharacterCollision extends TestbedTest
 {

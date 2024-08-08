@@ -794,7 +794,7 @@ public class ParticleSystem
     private final UpdateBodyContactsCallback ubcCallback = new UpdateBodyContactsCallback();
 
     /**
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L2608-L2708
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L2608-L2708
      */
     public void updateBodyContacts()
     {
@@ -821,7 +821,7 @@ public class ParticleSystem
     private final SolveCollisionCallback scCallback = new SolveCollisionCallback();
 
     /**
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L2752-L2852
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L2752-L2852
      */
     public void solveCollision(TimeStep step)
     {
@@ -855,7 +855,7 @@ public class ParticleSystem
     }
 
     /**
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L2973-L3095
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L2973-L3095
      */
     public void solve(TimeStep step)
     {
@@ -951,7 +951,7 @@ public class ParticleSystem
     }
 
     /**
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3195-L3258
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3195-L3258
      */
     void solvePressure(TimeStep step)
     {
@@ -1040,7 +1040,7 @@ public class ParticleSystem
     }
 
     /**
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3260-L3304
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3260-L3304
      */
     void solveDamping(TimeStep step)
     {
@@ -1101,7 +1101,7 @@ public class ParticleSystem
     }
 
     /**
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3506-L3515
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3506-L3515
      */
     public void solveWall(TimeStep step)
     {
@@ -1125,7 +1125,7 @@ public class ParticleSystem
     private final Transform tempXf2 = new Transform();
 
     /**
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3517-L3541
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3517-L3541
      */
     void solveRigid(final TimeStep step)
     {
@@ -1160,7 +1160,7 @@ public class ParticleSystem
     }
 
     /**
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3543-L3583
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3543-L3583
      */
     void solveElastic(final TimeStep step)
     {
@@ -1211,7 +1211,7 @@ public class ParticleSystem
     }
 
     /**
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3585-L3610
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3585-L3610
      */
     void solveSpring(final TimeStep step)
     {
@@ -1245,7 +1245,7 @@ public class ParticleSystem
     }
 
     /**
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3612-L3658
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3612-L3658
      */
     void solveTensile(final TimeStep step)
     {
@@ -1307,7 +1307,7 @@ public class ParticleSystem
     }
 
     /**
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3660-L3694
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3660-L3694
      */
     void solveViscous(final TimeStep step)
     {
@@ -1363,7 +1363,7 @@ public class ParticleSystem
     }
 
     /**
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3719-L3740
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3719-L3740
      */
     void solvePowder(final TimeStep step)
     {
@@ -1420,7 +1420,7 @@ public class ParticleSystem
     }
 
     /**
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3742-L3762
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3742-L3762
      */
     void solveSolid(final TimeStep step)
     {
@@ -1451,7 +1451,7 @@ public class ParticleSystem
     }
 
     /**
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3774-L3796
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3774-L3796
      */
     void solveColorMixing(final TimeStep step)
     {
@@ -1490,7 +1490,7 @@ public class ParticleSystem
     }
 
     /**
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3798-L3892
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.cpp#L3798-L3892
      */
     void solveZombie()
     {
@@ -2053,7 +2053,7 @@ public class ParticleSystem
      * @param callback A user implemented callback class.
      * @param aabb The query box.
      *
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L668-L673
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L668-L673
      */
     public void queryAABB(ParticleQueryCallback callback, final AABB aabb)
     {
@@ -2093,7 +2093,7 @@ public class ParticleSystem
      * @param point1 The ray starting point.
      * @param point2 The ray ending point.
      *
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L684-L692
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L684-L692
      */
     public void raycast(ParticleRaycastCallback callback, final Vec2 point1,
             final Vec2 point2)
@@ -2282,42 +2282,42 @@ public class ParticleSystem
     /**
      * Connection between two particles.
      *
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L120-L134
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L120-L134
      */
     public static class Pair
     {
         /**
          * Index of the respective particle making a pair.
          *
-         * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L123-L124
+         * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L123-L124
          */
         int indexA;
 
         /**
          * Index of the respective particle making a pair.
          *
-         * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L123-L124
+         * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L123-L124
          */
         int indexB;
 
         /**
          * The logical sum of the particle flags. See the b2ParticleFlag enum.
          *
-         * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L126-L127
+         * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L126-L127
          */
         int flags;
 
         /**
          * The strength of cohesion among the particles.
          *
-         * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L129-L130
+         * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L129-L130
          */
         float strength;
 
         /**
          * The initial distance of the particles.
          *
-         * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L132-L133
+         * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L132-L133
          */
         float distance;
     }
@@ -2330,35 +2330,35 @@ public class ParticleSystem
         /**
          * Index of the respective particle making triad.
          *
-         * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L139-L140
+         * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L139-L140
          */
         int indexA;
 
         /**
          * Index of the respective particle making triad.
          *
-         * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L139-L140
+         * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L139-L140
          */
         int indexB;
 
         /**
          * Index of the respective particle making triad.
          *
-         * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L139-L140
+         * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L139-L140
          */
         int indexC;
 
         /**
          * The logical sum of the particle flags.
          *
-         * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L142-L143
+         * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L142-L143
          */
         int flags;
 
         /**
          * The strength of cohesion among the particles.
          *
-         * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L145-L146
+         * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2ParticleSystem.h#L145-L146
          */
         float strength;
 

@@ -39,7 +39,7 @@ import de.pirckheimer_gymnasium.jbox2d.pooling.arrays.Vec2Array;
  * _maxPolygonVertices. In most cases you should not need many vertices for a
  * convex polygon.
  *
- * @permalink https://github.com/erincatto/box2d/blob/main/src/collision/b2_polygon_shape.cpp
+ * @repolink https://github.com/erincatto/box2d/blob/main/src/collision/b2_polygon_shape.cpp
  *
  * @author Daniel Murphy
  */

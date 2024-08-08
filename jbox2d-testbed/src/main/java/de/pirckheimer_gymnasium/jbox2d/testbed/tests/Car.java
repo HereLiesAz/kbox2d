@@ -40,7 +40,7 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedSettings;
 import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 
 /**
- * @permalink https://github.com/google/liquidfun/blob/master/liquidfun/Contributions/Tests/Car.h
+ * @repolink https://github.com/google/liquidfun/blob/master/liquidfun/Contributions/Tests/Car.h
  */
 public class Car extends TestbedTest
 {

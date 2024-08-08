@@ -145,7 +145,7 @@ public class WheelJoint extends Joint
     private float gamma;
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L44-L87
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L44-L87
      */
     protected WheelJoint(WorldPool argPool, WheelJointDef def)
     {
@@ -163,24 +163,18 @@ public class WheelJoint extends Joint
         dampingRatio = def.dampingRatio;
     }
 
-    /**
-     * @permalink
-     */
     public Vec2 getLocalAnchorA()
     {
         return localAnchorA;
     }
 
-    /**
-     * @permalink
-     */
     public Vec2 getLocalAnchorB()
     {
         return localAnchorB;
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L446-L449
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L446-L449
      */
     @Override
     public void getAnchorA(Vec2 argOut)
@@ -189,7 +183,7 @@ public class WheelJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L451-L454
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L451-L454
      */
     @Override
     public void getAnchorB(Vec2 argOut)
@@ -198,7 +192,7 @@ public class WheelJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L456-L459
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L456-L459
      */
     @Override
     public void getReactionForce(float invDt, Vec2 argOut)
@@ -210,7 +204,7 @@ public class WheelJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L461-L464
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L461-L464
      */
     @Override
     public float getReactionTorque(float invDt)
@@ -219,7 +213,7 @@ public class WheelJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L466-L478
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L466-L478
      */
     public float getJointTranslation()
     {
@@ -251,7 +245,7 @@ public class WheelJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L556-L559
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L556-L559
      */
     public boolean isMotorEnabled()
     {
@@ -259,7 +253,7 @@ public class WheelJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L561-L569
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L561-L569
      */
     public void enableMotor(boolean flag)
     {
@@ -269,7 +263,7 @@ public class WheelJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L571-L579
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L571-L579
      */
     public void setMotorSpeed(float speed)
     {
@@ -289,7 +283,7 @@ public class WheelJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L581-L589
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L581-L589
      */
     public void setMaxMotorTorque(float torque)
     {
@@ -331,7 +325,7 @@ public class WheelJoint extends Joint
     private final Vec2 d = new Vec2();
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L89-L235
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L89-L235
      */
     @Override
     public void initVelocityConstraints(SolverData data)
@@ -463,7 +457,7 @@ public class WheelJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L237-L342
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L237-L342
      */
     @Override
     public void solveVelocityConstraints(SolverData data)
@@ -530,7 +524,7 @@ public class WheelJoint extends Joint
     }
 
     /**
-     * @permalink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L344-L444
+     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/src/dynamics/b2_wheel_joint.cpp#L344-L444
      */
     @Override
     public boolean solvePositionConstraints(SolverData data)

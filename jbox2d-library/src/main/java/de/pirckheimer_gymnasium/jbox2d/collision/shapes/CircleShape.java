@@ -36,7 +36,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
 /**
  * A circle shape.
  *
- * @permalink https://github.com/erincatto/box2d/blob/main/src/collision/b2_collide_circle.cpp
+ * @repolink https://github.com/erincatto/box2d/blob/main/src/collision/b2_collide_circle.cpp
  *
  * @author Daniel Murphy
  */

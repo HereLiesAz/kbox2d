@@ -47,7 +47,7 @@ import de.pirckheimer_gymnasium.jbox2d.testbed.framework.TestbedTest;
 /**
  * @author Daniel Murphy
  *
- * @permalink https://github.com/google/liquidfun/blob/master/liquidfun/Box2D/Testbed/Tests/PolyShapes.h
+ * @repolink https://github.com/google/liquidfun/blob/master/liquidfun/Box2D/Testbed/Tests/PolyShapes.h
  */
 public class PolyShapes extends TestbedTest
 {

@@ -30,7 +30,7 @@ import de.pirckheimer_gymnasium.jbox2d.common.Color3f;
  *
  * @author Daniel Murphy
  *
- * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2Particle.h#L80-L266
+ * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2Particle.h#L80-L266
  */
 public class ParticleColor
 {
@@ -53,7 +53,7 @@ public class ParticleColor
      * @param b The color blue.
      * @param a The alpha channel (opacity).
      *
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2Particle.h#L84-L91
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2Particle.h#L84-L91
      */
     public ParticleColor(byte r, byte g, byte b, byte a)
     {
@@ -87,7 +87,7 @@ public class ParticleColor
      *
      * @return True when all four color elements equal 0.
      *
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2Particle.h#L97-L103
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2Particle.h#L97-L103
      */
     public boolean isZero()
     {
@@ -102,7 +102,7 @@ public class ParticleColor
      * @param b The color blue.
      * @param a The alpha channel (opacity).
      *
-     * @permalink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2Particle.h#L109-L117
+     * @repolink https://github.com/google/liquidfun/blob/7f20402173fd143a3988c921bc384459c6a858f2/liquidfun/Box2D/Box2D/Particle/b2Particle.h#L109-L117
      */
     public void set(byte r, byte g, byte b, byte a)
     {
