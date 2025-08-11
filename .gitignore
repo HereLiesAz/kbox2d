@@ -5,3 +5,7 @@ target/
 .project
 .classpath
 *.xml.versionsBackup
+
+# Gradle
+.gradle/
+build/
