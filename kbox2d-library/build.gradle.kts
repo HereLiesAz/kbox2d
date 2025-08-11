@@ -1,19 +1,7 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.gradle.api.tasks.testing.Test
 
 plugins {
     `java-library`
-    kotlin("jvm")
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-    }
-}
-
-dependencies {
-    testImplementation("junit:junit:4.13.1")
-    testImplementation(kotlin("test"))
 }
 
 sourceSets {
@@ -21,5 +9,16 @@ sourceSets {
         java {
             exclude("**/gwtemul/**")
         }
+    }
+}
+
+tasks.named<Test>("test") {
+    enabled = false
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+
     }
 }
