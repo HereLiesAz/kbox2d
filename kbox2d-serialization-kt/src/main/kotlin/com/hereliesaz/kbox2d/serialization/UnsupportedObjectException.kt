@@ -32,23 +32,17 @@ import java.io.Serial
  *
  * @author Daniel Murphy
  */
-class UnsupportedObjectException : RuntimeException {
+class UnsupportedObjectException(message: String?, val type: Type?, cause: Throwable?) : RuntimeException(message, cause) {
     enum class Type {
         BODY, JOINT, SHAPE, OTHER
     }
 
-    var type: Type? = null
-
-    constructor() : super()
-    constructor(argMessage: String?, argType: Type?) : super(argMessage) {
-        type = argType
-    }
-
-    constructor(argThrowable: Throwable?) : super(argThrowable)
-    constructor(argMessage: String?, argThrowable: Throwable?) : super(argMessage, argThrowable)
+    constructor() : this(null, null, null)
+    constructor(message: String?, type: Type?) : this(message, type, null)
+    constructor(cause: Throwable?) : this(cause?.toString(), null, cause)
 
     override fun getLocalizedMessage(): String {
-        return message + " [" + type + "]"
+        return "$message [$type]"
     }
 
     companion object {
