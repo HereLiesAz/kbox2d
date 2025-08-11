@@ -10,6 +10,7 @@ allprojects {
     group = "com.hereliesaz.kbox2d"
     version = "1.0.0-SNAPSHOT"
 
+
     repositories {
         mavenCentral()
     }
@@ -22,3 +23,4 @@ subprojects {
         kotlinOptions.jvmTarget = "11"
     }
 }
+
