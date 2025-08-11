@@ -19,5 +19,6 @@ tasks.named<Test>("test") {
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(17))
+
     }
 }
