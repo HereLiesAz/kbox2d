@@ -1,19 +1,22 @@
-import org.gradle.api.tasks.testing.Test
-
 plugins {
     `java-library`
+    kotlin("jvm")
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation(kotlin("stdlib"))
+
 }
 
 sourceSets {
     main {
-        java {
-            exclude("**/gwtemul/**")
-        }
+        java.srcDirs("src/main/java")
+        kotlin.srcDirs("src/main/kotlin")
     }
-}
-
-tasks.named<Test>("test") {
-    enabled = false
 }
 
 java {

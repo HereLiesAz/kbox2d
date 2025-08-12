@@ -36,7 +36,8 @@ interface JbDeserializer {
      * Sets the object listener, which allows the user to process each physics
      * object with a tag to do any sort of custom logic.
      */
-    fun setObjectListener(listener: ObjectListener)
+    fun setObjectListener(argListener: ObjectListener)
+
 
     /**
      * Sets a listener for unsupported exceptions instead of stopping the whole
