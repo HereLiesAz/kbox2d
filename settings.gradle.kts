@@ -16,6 +16,7 @@ include(":kbox2d-jni-broadphase-kt")
 include(":kbox2d-testbed-jogl-kt")
 include(
     "kbox2d-library",
+    "jbox2d-testbed-jogl"
     "kbox2d-serialization",
     "kbox2d-testbed",
     "kbox2d-testbed-javafx",
