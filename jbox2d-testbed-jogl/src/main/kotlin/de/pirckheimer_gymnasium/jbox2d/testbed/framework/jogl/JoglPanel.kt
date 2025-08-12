@@ -58,7 +58,7 @@ class JoglPanel(model: TestbedModel, private val controller: TestbedController) 
         display()
     }
 
-    override fun display(arg0: GLAutoDrawable) {
+    override fun display(drawable: GLAutoDrawable) {
         gl.gL2.glClear(GL2.GL_COLOR_BUFFER_BIT)
         controller.updateTest()
         gl.glFlush()
