@@ -75,8 +75,8 @@ class JoglPanel(model: TestbedModel, private val controller: TestbedController) 
         )
     }
 
-    override fun reshape(arg0: GLAutoDrawable, arg1: Int, arg2: Int, arg3: Int, arg4: Int) {
-        val gl2 = arg0.gl.gL2
+    override fun reshape(drawable: GLAutoDrawable, x: Int, y: Int, width: Int, height: Int) {
+        val gl2 = drawable.gl.gL2
         gl2.glMatrixMode(GL2.GL_PROJECTION)
         gl2.glLoadIdentity()
         // coordinate system origin at lower left with width and height same as
@@ -86,7 +86,7 @@ class JoglPanel(model: TestbedModel, private val controller: TestbedController) 
         gl2.glMatrixMode(GL2.GL_MODELVIEW)
         gl2.glLoadIdentity()
         gl2.glViewport(0, 0, width, height)
-        controller.updateExtents(arg3 / 2, arg4 / 2)
+        controller.updateExtents(width / 2, height / 2)
     }
 
     companion object {
