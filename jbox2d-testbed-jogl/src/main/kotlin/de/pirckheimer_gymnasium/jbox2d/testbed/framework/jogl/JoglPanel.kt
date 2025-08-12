@@ -64,7 +64,7 @@ class JoglPanel(model: TestbedModel, private val controller: TestbedController) 
         gl.glFlush()
     }
 
-    override fun dispose(arg0: GLAutoDrawable) {}
+    override fun dispose(drawable: GLAutoDrawable) {}
 
     override fun init(drawable: GLAutoDrawable) {
         gl.gL2.glLineWidth(1f)
