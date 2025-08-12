@@ -73,7 +73,6 @@ import de.pirckheimer_gymnasium.jbox2d.particle.ParticleGroupDef;
 import de.pirckheimer_gymnasium.jbox2d.particle.ParticleSystem;
 import de.pirckheimer_gymnasium.jbox2d.pooling.DynamicStack;
 import de.pirckheimer_gymnasium.jbox2d.pooling.WorldPool;
-import de.pirckheimer_gymnasium.jbox2d.pooling.arrays.Vec2Array;
 import de.pirckheimer_gymnasium.jbox2d.pooling.normal.DefaultWorldPool;
 
 /**
@@ -740,8 +739,6 @@ public class World
 
     private final Vec2 cB = new Vec2();
 
-    private final Vec2Array avs = new Vec2Array();
-
     /**
      * Call this to draw shapes and other debug draw data.
      *
@@ -829,7 +826,7 @@ public class World
                                 .getFatAABB(proxy.proxyId);
                         if (aabb != null)
                         {
-                            Vec2[] vs = avs.get(4);
+                            Vec2[] vs = pool.getVec2Array(4);
                             vs[0].set(aabb.lowerBound.x, aabb.lowerBound.y);
                             vs[1].set(aabb.upperBound.x, aabb.lowerBound.y);
                             vs[2].set(aabb.upperBound.x, aabb.upperBound.y);
@@ -1675,8 +1672,6 @@ public class World
 
     private final Vec2 v2 = new Vec2();
 
-    private final Vec2Array tlvertices = new Vec2Array();
-
     private void drawShape(Fixture fixture, Transform xf, Color3f color,
             boolean wireframe)
     {
@@ -1727,7 +1722,7 @@ public class World
             PolygonShape poly = (PolygonShape) fixture.getShape();
             int vertexCount = poly.count;
             assert (vertexCount <= Settings.maxPolygonVertices);
-            Vec2[] vertices = tlvertices.get(Settings.maxPolygonVertices);
+            Vec2[] vertices = pool.getVec2Array(Settings.maxPolygonVertices);
             for (int i = 0; i < vertexCount; ++i)
             {
                 // vertices[i] = Mul(xf, poly.vertices[i]);

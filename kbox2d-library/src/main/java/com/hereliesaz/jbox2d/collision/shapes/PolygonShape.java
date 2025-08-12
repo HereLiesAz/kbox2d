@@ -31,8 +31,6 @@ import de.pirckheimer_gymnasium.jbox2d.common.Rot;
 import de.pirckheimer_gymnasium.jbox2d.common.Settings;
 import de.pirckheimer_gymnasium.jbox2d.common.Transform;
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2;
-import de.pirckheimer_gymnasium.jbox2d.pooling.arrays.IntArray;
-import de.pirckheimer_gymnasium.jbox2d.pooling.arrays.Vec2Array;
 
 /**
  * A convex polygon shape. Polygons have a maximum number of vertices equal to
@@ -113,18 +111,6 @@ public class PolygonShape extends Shape
         return shape;
     }
 
-    /**
-     * Create a convex hull from the given array of points. The count must be in
-     * the range [3, Settings.maxPolygonVertices].
-     *
-     * @warning the points may be re-ordered, even if they form a convex
-     *     polygon.
-     * @warning collinear points are removed.
-     */
-    public final void set(final Vec2[] vertices, final int count)
-    {
-        set(vertices, count, null, null);
-    }
 
     /**
      * Create a convex hull from the given array of points. The count must be in
@@ -135,14 +121,12 @@ public class PolygonShape extends Shape
      *     polygon.
      * @warning collinear points are removed.
      */
-    public final void set(final Vec2[] verts, final int num,
-            final Vec2Array vecPool, final IntArray intPool)
+    public final void set(final Vec2[] verts, final int num)
     {
         assert (3 <= num && num <= Settings.maxPolygonVertices);
         int n = MathUtils.min(num, Settings.maxPolygonVertices);
         // Perform welding and copy vertices into local buffer.
-        Vec2[] ps = (vecPool != null) ? vecPool.get(Settings.maxPolygonVertices)
-                : new Vec2[Settings.maxPolygonVertices];
+        Vec2[] ps = new Vec2[Settings.maxPolygonVertices];
         int tempCount = 0;
         for (int i = 0; i < n; ++i)
         {
@@ -184,9 +168,7 @@ public class PolygonShape extends Shape
                 x0 = x;
             }
         }
-        int[] hull = (intPool != null)
-                ? intPool.get(Settings.maxPolygonVertices)
-                : new int[Settings.maxPolygonVertices];
+        int[] hull = new int[Settings.maxPolygonVertices];
         int m = 0;
         int ih = i0;
         while (true)
