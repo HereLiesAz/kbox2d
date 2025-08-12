@@ -1,25 +1,27 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     `java-library`
     kotlin("jvm")
 }
 
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-    }
+repositories {
+    mavenCentral()
 }
 
 dependencies {
-    testImplementation("junit:junit:4.13.1")
-    testImplementation(kotlin("test"))
+    implementation(kotlin("stdlib"))
+
 }
 
 sourceSets {
     main {
-        java {
-            exclude("**/gwtemul/**")
-        }
+        java.srcDirs("src/main/java")
+        kotlin.srcDirs("src/main/kotlin")
+    }
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+
     }
 }
