@@ -187,6 +187,8 @@ class JoglDebugDraw(private val panel: JoglPanel) : DebugDraw() {
         gl.glEnd()
         gl.glBegin(GL2.GL_LINE_LOOP)
         gl.glColor4f(color.x, color.y, color.z, 1f)
+        x = radius
+        y = 0f
         for (i in 0 until NUM_CIRCLE_POINTS) {
             gl.glVertex3f(x + cx, y + cy, 0f)
             val temp = x
