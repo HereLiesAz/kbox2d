@@ -220,9 +220,9 @@ class JoglDebugDraw(private val panel: JoglPanel) : DebugDraw() {
         val theta = 2 * MathUtils.PI / NUM_CIRCLE_POINTS
         val c = MathUtils.cos(theta)
         val s = MathUtils.sin(theta)
-        var x = radius
-        var y = 0f
         for (i in 0 until count) {
+            var x = radius
+            var y = 0f
             val center = centers[i]
             val cx = center.x
             val cy = center.y
