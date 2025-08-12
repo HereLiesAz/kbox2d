@@ -1,3 +1,4 @@
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -9,6 +10,7 @@ plugins {
 allprojects {
     group = "com.hereliesaz.kbox2d"
     version = "1.0.0-SNAPSHOT"
+
 
     repositories {
         mavenCentral()
@@ -22,3 +24,4 @@ subprojects {
         kotlinOptions.jvmTarget = "11"
     }
 }
+
