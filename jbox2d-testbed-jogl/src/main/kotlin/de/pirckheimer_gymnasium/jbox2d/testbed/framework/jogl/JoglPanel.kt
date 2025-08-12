@@ -66,7 +66,7 @@ class JoglPanel(model: TestbedModel, private val controller: TestbedController) 
 
     override fun dispose(arg0: GLAutoDrawable) {}
 
-    override fun init(arg0: GLAutoDrawable) {
+    override fun init(drawable: GLAutoDrawable) {
         gl.gL2.glLineWidth(1f)
         gl.gL2.glEnable(GL2.GL_BLEND)
         gl.gL2.glBlendFunc(
