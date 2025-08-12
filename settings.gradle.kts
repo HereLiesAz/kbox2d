@@ -1,3 +1,7 @@
+rootProject.name = "kbox2d"
+
+include(
+    "kbox2d-library",
 pluginManagement {
     repositories {
         gradlePluginPortal()
@@ -17,6 +21,7 @@ include(":kbox2d-testbed-jogl-kt")
 include(
     "kbox2d-library",
     "jbox2d-testbed-jogl"
+
     "kbox2d-serialization",
     "kbox2d-testbed",
     "kbox2d-testbed-javafx",
