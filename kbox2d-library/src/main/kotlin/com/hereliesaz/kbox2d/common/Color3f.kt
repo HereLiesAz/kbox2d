@@ -18,43 +18,50 @@
  * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
  * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * ARISING IN ANY WAY OUT OF THE USE OF this SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.hereliesaz.kbox2d.serialization
-
-import java.io.Serial
+package com.hereliesaz.kbox2d.common
 
 /**
- * Called when an object is unsupported by the serializer or deserializer.
- * Pertains to shapes, joints and other objects that might not be in some
- * versions of the engine.
+ * Similar to `javax.vecmath.Color3f` holder
  *
- * @author Daniel Murphy
+ * @author ewjordan
  */
-class UnsupportedObjectException : RuntimeException {
+class Color3f {
+    var x = 0f
+    var y = 0f
+    var z = 0f
 
-    enum class Type {
-        BODY, JOINT, SHAPE, OTHER
+    constructor() {
+        x = 0f
+        y = 0f
+        z = 0f
     }
 
-    var type: Type? = null
-
-    constructor() : super()
-    constructor(argMessage: String?, argType: Type?) : super(argMessage) {
-        type = argType
+    constructor(r: Float, g: Float, b: Float) {
+        x = r
+        y = g
+        z = b
     }
 
-    constructor(argThrowable: Throwable?) : super(argThrowable)
-    constructor(argMessage: String?, argThrowable: Throwable?) : super(argMessage, argThrowable)
+    fun set(r: Float, g: Float, b: Float) {
+        x = r
+        y = g
+        z = b
+    }
 
-    override fun getLocalizedMessage(): String {
-        return message + " [" + type + "]"
-
+    fun set(argColor: Color3f) {
+        x = argColor.x
+        y = argColor.y
+        z = argColor.z
     }
 
     companion object {
-        @Serial
-        private const val serialVersionUID = 5915827472093183385L
+        val WHITE = Color3f(1f, 1f, 1f)
+        val BLACK = Color3f(0f, 0f, 0f)
+        val BLUE = Color3f(0f, 0f, 1f)
+        val GREEN = Color3f(0f, 1f, 0f)
+        val RED = Color3f(1f, 0f, 0f)
     }
 }

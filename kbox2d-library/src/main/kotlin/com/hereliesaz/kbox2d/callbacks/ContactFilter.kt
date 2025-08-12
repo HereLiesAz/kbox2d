@@ -21,40 +21,31 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.hereliesaz.kbox2d.serialization
+package com.hereliesaz.kbox2d.callbacks
 
-import java.io.Serial
+import com.hereliesaz.kbox2d.dynamics.Filter
+import com.hereliesaz.kbox2d.dynamics.Fixture
 
 /**
- * Called when an object is unsupported by the serializer or deserializer.
- * Pertains to shapes, joints and other objects that might not be in some
- * versions of the engine.
+ * Implement this class to provide collision filtering. In other words, you can
+ * implement this class if you want finer control over contact creation.
  *
  * @author Daniel Murphy
  */
-class UnsupportedObjectException : RuntimeException {
-
-    enum class Type {
-        BODY, JOINT, SHAPE, OTHER
-    }
-
-    var type: Type? = null
-
-    constructor() : super()
-    constructor(argMessage: String?, argType: Type?) : super(argMessage) {
-        type = argType
-    }
-
-    constructor(argThrowable: Throwable?) : super(argThrowable)
-    constructor(argMessage: String?, argThrowable: Throwable?) : super(argMessage, argThrowable)
-
-    override fun getLocalizedMessage(): String {
-        return message + " [" + type + "]"
-
-    }
-
-    companion object {
-        @Serial
-        private const val serialVersionUID = 5915827472093183385L
+open class ContactFilter {
+    /**
+     * Return true if contact calculations should be performed between these two
+     * shapes.
+     *
+     * @warning for performance reasons this is only called when the AABBs begin
+     *     to overlap.
+     */
+    fun shouldCollide(fixtureA: Fixture, fixtureB: Fixture): Boolean {
+        val filterA = fixtureA.filterData
+        val filterB = fixtureB.filterData
+        if (filterA.groupIndex == filterB.groupIndex && filterA.groupIndex != 0) {
+            return filterA.groupIndex > 0
+        }
+        return (filterA.maskBits and filterB.categoryBits) != 0 && (filterA.categoryBits and filterB.maskBits) != 0
     }
 }

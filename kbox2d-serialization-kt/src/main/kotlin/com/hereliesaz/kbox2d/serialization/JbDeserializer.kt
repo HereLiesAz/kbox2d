@@ -38,6 +38,7 @@ interface JbDeserializer {
      */
     fun setObjectListener(argListener: ObjectListener)
 
+
     /**
      * Sets a listener for unsupported exceptions instead of stopping the whole
      * deserialization process by throwing and exception.

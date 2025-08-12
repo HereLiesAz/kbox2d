@@ -220,7 +220,9 @@ class PbDeserializer : JbDeserializer {
                 chain.m_count = argShape.pointsCount
                 chain.m_vertices = Array(chain.m_count) { Vec2() }
                 for (i in 0 until chain.m_count) {
+
                     chain.m_vertices!![i] = Vec2(pbToVec(argShape.getPoints(i)))
+
                 }
                 chain.m_hasPrevVertex = argShape.has0
                 chain.m_hasNextVertex = argShape.has3

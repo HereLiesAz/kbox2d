@@ -18,43 +18,32 @@
  * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
  * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * ARISING IN ANY WAY OUT OF THE USE OF this SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.hereliesaz.kbox2d.serialization
+package com.hereliesaz.kbox2d.collision
 
-import java.io.Serial
+import com.hereliesaz.kbox2d.common.Vec2
 
 /**
- * Called when an object is unsupported by the serializer or deserializer.
- * Pertains to shapes, joints and other objects that might not be in some
- * versions of the engine.
+ * Ray-cast input data. The ray extends from p1 to p1 + maxFraction * (p2 - p1).
  *
  * @author Daniel Murphy
  */
-class UnsupportedObjectException : RuntimeException {
+class RayCastInput {
+    val p1: Vec2
+    val p2: Vec2
+    var maxFraction = 0f
 
-    enum class Type {
-        BODY, JOINT, SHAPE, OTHER
+    constructor() {
+        p1 = Vec2()
+        p2 = Vec2()
+        maxFraction = 0f
     }
 
-    var type: Type? = null
-
-    constructor() : super()
-    constructor(argMessage: String?, argType: Type?) : super(argMessage) {
-        type = argType
-    }
-
-    constructor(argThrowable: Throwable?) : super(argThrowable)
-    constructor(argMessage: String?, argThrowable: Throwable?) : super(argMessage, argThrowable)
-
-    override fun getLocalizedMessage(): String {
-        return message + " [" + type + "]"
-
-    }
-
-    companion object {
-        @Serial
-        private const val serialVersionUID = 5915827472093183385L
+    fun set(rci: RayCastInput) {
+        p1.set(rci.p1)
+        p2.set(rci.p2)
+        maxFraction = rci.maxFraction
     }
 }

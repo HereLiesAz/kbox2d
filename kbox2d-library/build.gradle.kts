@@ -9,6 +9,7 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib"))
+
 }
 
 sourceSets {
@@ -21,5 +22,6 @@ sourceSets {
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(17))
+
     }
 }
