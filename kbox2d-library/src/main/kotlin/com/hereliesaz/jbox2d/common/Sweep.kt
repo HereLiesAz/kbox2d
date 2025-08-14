@@ -21,10 +21,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package de.pirckheimer_gymnasium.jbox2d.common;
+package com.hereliesaz.jbox2d.common
 
-import java.io.Serial;
-import java.io.Serializable;
+import java.io.Serializable
 
 /**
  * This describes the motion of a body/shape for TOI computation. Shapes are
@@ -34,64 +33,59 @@ import java.io.Serializable;
  *
  * @author Daniel Murphy
  */
-public class Sweep implements Serializable
-{
-    @Serial
-    private static final long serialVersionUID = 1L;
+class Sweep : Serializable {
 
     /**
      * Local center of mass position
      */
-    public final Vec2 localCenter;
+    @JvmField
+    val localCenter: Vec2 = Vec2()
 
     /**
      * Center world positions
      */
-    public final Vec2 c0, c;
+    @JvmField
+    val c0: Vec2 = Vec2()
+    @JvmField
+    val c: Vec2 = Vec2()
 
     /**
      * World angles
      */
-    public float a0, a;
+    @JvmField
+    var a0: Float = 0f
+    @JvmField
+    var a: Float = 0f
 
     /**
      * Fraction of the current time step in the range [0,1] c0 and a0 are the
      * positions at alpha0.
      */
-    public float alpha0;
+    @JvmField
+    var alpha0: Float = 0f
 
-    public String toString()
-    {
-        String s = "Sweep:\nlocalCenter: " + localCenter + "\n";
-        s += "c0: " + c0 + ", c: " + c + "\n";
-        s += "a0: " + a0 + ", a: " + a + "\n";
-        s += "alpha0: " + alpha0;
-        return s;
+    override fun toString(): String {
+        var s = "Sweep:\nlocalCenter: $localCenter\n"
+        s += "c0: $c0, c: $c\n"
+        s += "a0: $a0, a: $a\n"
+        s += "alpha0: $alpha0"
+        return s
     }
 
-    public Sweep()
-    {
-        localCenter = new Vec2();
-        c0 = new Vec2();
-        c = new Vec2();
+    fun normalize() {
+        val d = MathUtils.TWOPI * MathUtils.floor(a0 / MathUtils.TWOPI)
+        a0 -= d
+        a -= d
     }
 
-    public final void normalize()
-    {
-        float d = MathUtils.TWOPI * MathUtils.floor(a0 / MathUtils.TWOPI);
-        a0 -= d;
-        a -= d;
-    }
-
-    public final Sweep set(Sweep other)
-    {
-        localCenter.set(other.localCenter);
-        c0.set(other.c0);
-        c.set(other.c);
-        a0 = other.a0;
-        a = other.a;
-        alpha0 = other.alpha0;
-        return this;
+    fun set(other: Sweep): Sweep {
+        localCenter.set(other.localCenter)
+        c0.set(other.c0)
+        c.set(other.c)
+        a0 = other.a0
+        a = other.a
+        alpha0 = other.alpha0
+        return this
     }
 
     /**
@@ -102,17 +96,15 @@ public class Sweep implements Serializable
      *
      * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L688-L697
      */
-    public final void getTransform(final Transform xf, final float beta)
-    {
-        assert (xf != null);
-        xf.p.x = (1.0f - beta) * c0.x + beta * c.x;
-        xf.p.y = (1.0f - beta) * c0.y + beta * c.y;
-        float angle = (1.0f - beta) * a0 + beta * a;
-        xf.q.set(angle);
+    fun getTransform(xf: Transform, beta: Float) {
+        xf.p.x = (1.0f - beta) * c0.x + beta * c.x
+        xf.p.y = (1.0f - beta) * c0.y + beta * c.y
+        val angle = (1.0f - beta) * a0 + beta * a
+        xf.q.set(angle)
         // Shift to origin
-        final Rot q = xf.q;
-        xf.p.x -= q.c * localCenter.x - q.s * localCenter.y;
-        xf.p.y -= q.s * localCenter.x + q.c * localCenter.y;
+        val q = xf.q
+        xf.p.x -= q.c * localCenter.x - q.s * localCenter.y
+        xf.p.y -= q.s * localCenter.x + q.c * localCenter.y
     }
 
     /**
@@ -122,13 +114,16 @@ public class Sweep implements Serializable
      *
      * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L699-L706
      */
-    public final void advance(final float alpha)
-    {
-        assert (alpha0 < 1.0f);
-        float beta = (alpha - alpha0) / (1.0f - alpha0);
-        c0.x += beta * (c.x - c0.x);
-        c0.y += beta * (c.y - c0.y);
-        a0 += beta * (a - a0);
-        alpha0 = alpha;
+    fun advance(alpha: Float) {
+        assert(alpha0 < 1.0f)
+        val beta = (alpha - alpha0) / (1.0f - alpha0)
+        c0.x += beta * (c.x - c0.x)
+        c0.y += beta * (c.y - c0.y)
+        a0 += beta * (a - a0)
+        alpha0 = alpha
+    }
+
+    companion object {
+        private const val serialVersionUID = 1L
     }
 }

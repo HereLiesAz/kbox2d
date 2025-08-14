@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
 
-    kotlin("jvm") version "1.9.22"
+    kotlin("jvm")
     id("com.google.protobuf") version "0.9.4"
 }
 
