@@ -21,179 +21,219 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package de.pirckheimer_gymnasium.jbox2d.common;
+package com.hereliesaz.jbox2d.common
 
-import java.io.Serial;
-import java.io.Serializable;
+import java.io.Serializable
 
 /**
+ * A 3D column vector.
+ * This class represents a 3D vector with x, y, and z components.
+ *
+ * @param x the x-component of the vector, defaults to 0.
+ * @param y the y-component of the vector, defaults to 0.
+ * @param z the z-component of the vector, defaults to 0.
+ * @constructor Creates a new vector with the given components.
  * @author Daniel Murphy
  */
-public class Vec3 implements Serializable
-{
-    @Serial
-    private static final long serialVersionUID = 1L;
+data class Vec3(
+    @JvmField var x: Float = 0f,
+    @JvmField var y: Float = 0f,
+    @JvmField var z: Float = 0f
+) : Serializable {
 
-    public float x, y, z;
+    /**
+     * Creates a new vector by copying the values from another vector.
+     *
+     * @param toCopy the vector to copy from
+     */
+    constructor(toCopy: Vec3) : this(toCopy.x, toCopy.y, toCopy.z)
 
-    public Vec3()
-    {
-        x = y = z = 0f;
+    /**
+     * Sets this vector to the given values.
+     *
+     * @param x the new x-component
+     * @param y the new y-component
+     * @param z the new z-component
+     * @return this vector for chaining
+     */
+    fun set(x: Float, y: Float, z: Float): Vec3 {
+        this.x = x
+        this.y = y
+        this.z = z
+        return this
     }
 
-    public Vec3(float argX, float argY, float argZ)
-    {
-        x = argX;
-        y = argY;
-        z = argZ;
+    /**
+     * Sets this vector to be a copy of another vector.
+     *
+     * @param vec the vector to copy from
+     * @return this vector for chaining
+     */
+    fun set(vec: Vec3): Vec3 {
+        x = vec.x
+        y = vec.y
+        z = vec.z
+        return this
     }
 
-    public Vec3(Vec3 copy)
-    {
-        x = copy.x;
-        y = copy.y;
-        z = copy.z;
+    /**
+     * Adds another vector to this one and returns the result.
+     * This operation modifies this vector.
+     *
+     * @param argVec the vector to add
+     * @return this vector for chaining
+     */
+    fun addLocal(argVec: Vec3): Vec3 {
+        x += argVec.x
+        y += argVec.y
+        z += argVec.z
+        return this
     }
 
-    public Vec3 set(Vec3 vec)
-    {
-        x = vec.x;
-        y = vec.y;
-        z = vec.z;
-        return this;
+    /**
+     * Subtracts another vector from this one and returns the result.
+     * This operation modifies this vector.
+     *
+     * @param argVec the vector to subtract
+     * @return this vector for chaining
+     */
+    fun subLocal(argVec: Vec3): Vec3 {
+        x -= argVec.x
+        y -= argVec.y
+        z -= argVec.z
+        return this
     }
 
-    public Vec3 set(float argX, float argY, float argZ)
-    {
-        x = argX;
-        y = argY;
-        z = argZ;
-        return this;
+    /**
+     * Multiplies this vector by a scalar and returns the result.
+     * This operation modifies this vector.
+     *
+     * @param argScalar the scalar to multiply by
+     * @return this vector for chaining
+     */
+    fun mulLocal(argScalar: Float): Vec3 {
+        x *= argScalar
+        y *= argScalar
+        z *= argScalar
+        return this
     }
 
-    public Vec3 addLocal(Vec3 argVec)
-    {
-        x += argVec.x;
-        y += argVec.y;
-        z += argVec.z;
-        return this;
+    /**
+     * Negates this vector and returns the result.
+     * This operation modifies this vector.
+     *
+     * @return this vector for chaining
+     */
+    fun negateLocal(): Vec3 {
+        x = -x
+        y = -y
+        z = -z
+        return this
     }
 
-    public Vec3 add(Vec3 argVec)
-    {
-        return new Vec3(x + argVec.x, y + argVec.y, z + argVec.z);
+    /**
+     * Sets this vector to zero.
+     */
+    fun setZero() {
+        x = 0f
+        y = 0f
+        z = 0f
     }
 
-    public Vec3 subLocal(Vec3 argVec)
-    {
-        x -= argVec.x;
-        y -= argVec.y;
-        z -= argVec.z;
-        return this;
+    /**
+     * Returns a new vector that is the sum of this vector and another.
+     * This operation does not modify this vector.
+     */
+    operator fun plus(argVec: Vec3): Vec3 {
+        return Vec3(x + argVec.x, y + argVec.y, z + argVec.z)
     }
 
-    public Vec3 sub(Vec3 argVec)
-    {
-        return new Vec3(x - argVec.x, y - argVec.y, z - argVec.z);
+    /**
+     * Returns a new vector that is the difference of this vector and another.
+     * This operation does not modify this vector.
+     */
+    operator fun minus(argVec: Vec3): Vec3 {
+        return Vec3(x - argVec.x, y - argVec.y, z - argVec.z)
     }
 
-    public Vec3 mulLocal(float argScalar)
-    {
-        x *= argScalar;
-        y *= argScalar;
-        z *= argScalar;
-        return this;
+    /**
+     * Returns a new vector that is this vector multiplied by a scalar.
+     * This operation does not modify this vector.
+     */
+    operator fun times(argScalar: Float): Vec3 {
+        return Vec3(x * argScalar, y * argScalar, z * argScalar)
     }
 
-    public Vec3 mul(float argScalar)
-    {
-        return new Vec3(x * argScalar, y * argScalar, z * argScalar);
+    /**
+     * Returns a new vector that is the negation of this vector.
+     * This operation does not modify this vector.
+     */
+    operator fun unaryMinus(): Vec3 {
+        return Vec3(-x, -y, -z)
     }
 
-    public Vec3 negate()
-    {
-        return new Vec3(-x, -y, -z);
-    }
+    companion object {
+        private const val serialVersionUID = 1L
 
-    public Vec3 negateLocal()
-    {
-        x = -x;
-        y = -y;
-        z = -z;
-        return this;
-    }
+        /**
+         * Computes the dot product of two vectors.
+         *
+         * @param a the first vector
+         * @param b the second vector
+         * @return the dot product
+         */
+        @JvmStatic
+        fun dot(a: Vec3, b: Vec3): Float {
+            return a.x * b.x + a.y * b.y + a.z * b.z
+        }
 
-    public void setZero()
-    {
-        x = 0;
-        y = 0;
-        z = 0;
-    }
+        /**
+         * Computes the cross product of two vectors.
+         *
+         * @param a the first vector
+         * @param b the second vector
+         * @return a new vector containing the cross product
+         */
+        @JvmStatic
+        fun cross(a: Vec3, b: Vec3): Vec3 {
+            return Vec3(
+                a.y * b.z - a.z * b.y,
+                a.z * b.x - a.x * b.z,
+                a.x * b.y - a.y * b.x
+            )
+        }
 
-    public Vec3 clone()
-    {
-        return new Vec3(this);
-    }
+        /**
+         * Computes the cross product of two vectors and stores the result in the output vector.
+         *
+         * @param a the first vector
+         * @param b the second vector
+         * @param out the vector to store the result in
+         */
+        @JvmStatic
+        fun crossToOut(a: Vec3, b: Vec3, out: Vec3) {
+            val tempY = a.z * b.x - a.x * b.z
+            val tempZ = a.x * b.y - a.y * b.x
+            out.x = a.y * b.z - a.z * b.y
+            out.y = tempY
+            out.z = tempZ
+        }
 
-    public String toString()
-    {
-        return "(" + x + "," + y + "," + z + ")";
-    }
-
-    @Override
-    public int hashCode()
-    {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + Float.floatToIntBits(x);
-        result = prime * result + Float.floatToIntBits(y);
-        result = prime * result + Float.floatToIntBits(z);
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Vec3 other = (Vec3) obj;
-        if (Float.floatToIntBits(x) != Float.floatToIntBits(other.x))
-            return false;
-        if (Float.floatToIntBits(y) != Float.floatToIntBits(other.y))
-            return false;
-        return Float.floatToIntBits(z) == Float.floatToIntBits(other.z);
-    }
-
-    public static float dot(Vec3 a, Vec3 b)
-    {
-        return a.x * b.x + a.y * b.y + a.z * b.z;
-    }
-
-    public static Vec3 cross(Vec3 a, Vec3 b)
-    {
-        return new Vec3(a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z,
-                a.x * b.y - a.y * b.x);
-    }
-
-    public static void crossToOut(Vec3 a, Vec3 b, Vec3 out)
-    {
-        final float tempY = a.z * b.x - a.x * b.z;
-        final float tempZ = a.x * b.y - a.y * b.x;
-        out.x = a.y * b.z - a.z * b.y;
-        out.y = tempY;
-        out.z = tempZ;
-    }
-
-    public static void crossToOutUnsafe(Vec3 a, Vec3 b, Vec3 out)
-    {
-        assert (out != b);
-        assert (out != a);
-        out.x = a.y * b.z - a.z * b.y;
-        out.y = a.z * b.x - a.x * b.z;
-        out.z = a.x * b.y - a.y * b.x;
+        /**
+         * Computes the cross product of two vectors and stores the result in the output vector.
+         * This is an unsafe version that assumes the output vector is not the same as the input vectors.
+         *
+         * @param a the first vector
+         * @param b the second vector
+         * @param out the vector to store the result in
+         */
+        @JvmStatic
+        fun crossToOutUnsafe(a: Vec3, b: Vec3, out: Vec3) {
+            assert(out !== b)
+            assert(out !== a)
+            out.x = a.y * b.z - a.z * b.y
+            out.y = a.z * b.x - a.x * b.z
+            out.z = a.x * b.y - a.y * b.x
+        }
     }
 }

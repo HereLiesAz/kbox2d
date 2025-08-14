@@ -30,7 +30,7 @@ import com.hereliesaz.kbox2d.dynamics.World
 import com.hereliesaz.kbox2d.dynamics.joints.Joint
 
 /**
- * Serializer for jbox2d, used to serialize any aspect of the physics world
+ * Serializer for kbox2d, used to serialize any aspect of the physics world.
  *
  * @author Daniel Murphy
  */
@@ -39,65 +39,75 @@ interface JbSerializer {
      * Sets the object signer for the serializer. This allows the user to
      * specify a 'tag' for each main physics object, which is then referenced
      * later at deserialization for the user.
+     *
+     * @param signer the object signer to use
      */
     fun setObjectSigner(signer: ObjectSigner)
 
     /**
-     * Sets a listener for unsupported exception instead of stopping the whole
-     * serialization process by throwing and exception.
+     * Sets a listener for unsupported exceptions. If a listener is provided, the
+     * serializer will call the listener with the exception instead of throwing it.
+     * This allows the serialization process to continue even if some objects are not supported.
+     *
+     * @param listener the listener to use
      */
     fun setUnsupportedListener(listener: UnsupportedListener)
 
     /**
-     * Serializes the world
+     * Serializes the given [World].
      *
-     * @param world
-     * @throws UnsupportedObjectException if a physics object is
-     * unsupported by this library.
-     * @see .setUnsupportedListener
+     * @param world the world to serialize
+     * @return the result of the serialization
+     * @throws UnsupportedObjectException if a physics object is unsupported and no listener is set.
+     * @see [setUnsupportedListener]
      */
     @Throws(UnsupportedObjectException::class)
     fun serialize(world: World): SerializationResult
 
     /**
-     * Serializes a body
+     * Serializes a given [Body].
      *
-     * @param body
-     * @throws UnsupportedObjectException if a physics object is
-     * unsupported by this library.
-     * @see .setUnsupportedListener
+     * @param body the body to serialize
+     * @return the result of the serialization
+     * @throws UnsupportedObjectException if a physics object is unsupported and no listener is set.
+     * @see [setUnsupportedListener]
      */
     @Throws(UnsupportedObjectException::class)
     fun serialize(body: Body): SerializationResult
 
     /**
-     * Serializes a fixture
+     * Serializes a given [Fixture].
      *
-     * @param fixture
-     * @throws UnsupportedObjectException if a physics object
-     * is unsupported by this library.
-     * @see .setUnsupportedListener
+     * @param fixture the fixture to serialize
+     * @return the result of the serialization
+     * @throws UnsupportedObjectException if a physics object is unsupported and no listener is set.
+     * @see [setUnsupportedListener]
      */
     @Throws(UnsupportedObjectException::class)
     fun serialize(fixture: Fixture): SerializationResult
 
     /**
-     * Serializes a shape
+     * Serializes a given [Shape].
      *
-     * @param shape
-     * @throws UnsupportedObjectException if a physics object is
-     * unsupported by this library.
-     * @see .setUnsupportedListener
+     * @param shape the shape to serialize
+     * @return the result of the serialization
+     * @throws UnsupportedObjectException if a physics object is unsupported and no listener is set.
+     * @see [setUnsupportedListener]
      */
     @Throws(UnsupportedObjectException::class)
     fun serialize(shape: Shape): SerializationResult
 
     /**
-     * Serializes joints. Joints need to reference bodies and sometimes other
-     * joints.
+     * Serializes a given [Joint].
+     * Joints need to reference bodies and sometimes other joints, so this method requires maps
+     * to look up the indices of these objects.
+     *
+     * @param joint the joint to serialize
+     * @param bodyIndexMap a map from bodies to their indices
+     * @param jointIndexMap a map from joints to their indices
+     * @return the result of the serialization
      */
-    fun serialize(joint: Joint, bodyIndexMap: Map<Body, Int>,
-                  jointIndexMap: Map<Joint, Int>): SerializationResult
+    fun serialize(joint: Joint, bodyIndexMap: Map<Body, Int>, jointIndexMap: Map<Joint, Int>): SerializationResult
 
     /**
      * Interface that allows the serializer to look up tags for each object,
@@ -107,27 +117,42 @@ interface JbSerializer {
      */
     interface ObjectSigner {
         /**
-         * @return The tag for the world. Can be null.
+         * Gets the tag for the given [World].
+         *
+         * @param world the world
+         * @return the tag for the world, or null if no tag is associated
          */
         fun getTag(world: World): Long?
 
         /**
-         * @return The tag for the body. Can be null.
+         * Gets the tag for the given [Body].
+         *
+         * @param body the body
+         * @return the tag for the body, or null if no tag is associated
          */
         fun getTag(body: Body): Long?
 
         /**
-         * @return The tag for the shape. Can be null.
+         * Gets the tag for the given [Shape].
+         *
+         * @param shape the shape
+         * @return the tag for the shape, or null if no tag is associated
          */
         fun getTag(shape: Shape): Long?
 
         /**
-         * @return The tag for the fixture. Can be null.
+         * Gets the tag for the given [Fixture].
+         *
+         * @param fixture the fixture
+         * @return the tag for the fixture, or null if no tag is associated
          */
         fun getTag(fixture: Fixture): Long?
 
         /**
-         * @return The tag for the joint. Can be null.
+         * Gets the tag for the given [Joint].
+         *
+         * @param joint the joint
+         * @return the tag for the joint, or null if no tag is associated
          */
         fun getTag(joint: Joint): Long?
     }

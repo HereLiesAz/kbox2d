@@ -21,197 +21,258 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package de.pirckheimer_gymnasium.jbox2d.common;
+package com.hereliesaz.jbox2d.common
 
-import java.io.Serial;
-import java.io.Serializable;
+import java.io.Serializable
 
 /**
  * A transform contains translation and rotation. It is used to represent the
  * position and orientation of rigid frames.
  *
+ * @param position the position of the transform
+ * @param rotation the rotation of the transform
+ * @constructor Creates a new transform with the given position and rotation.
  * @author Daniel Murphy
  */
-public class Transform implements Serializable
-{
-    @Serial
-    private static final long serialVersionUID = 1L;
-
+data class Transform(
     /**
      * The translation caused by the transform
      */
-    public final Vec2 p;
-
+    @JvmField val p: Vec2 = Vec2(),
     /**
      * A matrix representing a rotation
      */
-    public final Rot q;
-
-    /**
-     * The default constructor.
-     */
-    public Transform()
-    {
-        p = new Vec2();
-        q = new Rot();
-    }
-
-    /**
-     * Initialize as a copy of another transform.
-     */
-    public Transform(final Transform xf)
-    {
-        p = xf.p.clone();
-        q = xf.q.clone();
-    }
+    @JvmField val q: Rot = Rot()
+) : Serializable {
 
     /**
      * Initialize using a position vector and a rotation matrix.
+     *
+     * @param _position the position of the transform
+     * @param _R the rotation of the transform
      */
-    public Transform(final Vec2 _position, final Rot _R)
-    {
-        p = _position.clone();
-        q = _R.clone();
-    }
+    constructor(position: Vec2, rotation: Rot) : this(position.clone(), rotation.clone())
 
     /**
      * Set this to equal another transform.
+     *
+     * @param xf the transform to copy from
+     * @return this transform for chaining
      */
-    public final Transform set(final Transform xf)
-    {
-        p.set(xf.p);
-        q.set(xf.q);
-        return this;
+    fun set(xf: Transform): Transform {
+        p.set(xf.p)
+        q.set(xf.q)
+        return this
     }
 
     /**
      * Set this based on the position and angle.
+     *
+     * @param p the position
+     * @param angle the angle in radians
      */
-    public final void set(Vec2 p, float angle)
-    {
-        this.p.set(p);
-        q.set(angle);
+    fun set(p: Vec2, angle: Float) {
+        this.p.set(p)
+        q.set(angle)
     }
 
     /** Set this to the identity transform. */
-    public final void setIdentity()
-    {
-        p.setZero();
-        q.setIdentity();
+    fun setIdentity() {
+        p.setZero()
+        q.setIdentity()
     }
 
-    public static Vec2 mul(final Transform T, final Vec2 v)
-    {
-        return new Vec2((T.q.c * v.x - T.q.s * v.y) + T.p.x,
-                (T.q.s * v.x + T.q.c * v.y) + T.p.y);
+    override fun toString(): String {
+        return "XForm:\nPosition: $p\nR: \n$q\n"
     }
 
-    public static void mulToOut(final Transform T, final Vec2 v, final Vec2 out)
-    {
-        final float tempY = (T.q.s * v.x + T.q.c * v.y) + T.p.y;
-        out.x = (T.q.c * v.x - T.q.s * v.y) + T.p.x;
-        out.y = tempY;
-    }
+    companion object {
+        private const val serialVersionUID = 1L
 
-    public static void mulToOutUnsafe(final Transform T, final Vec2 v,
-            final Vec2 out)
-    {
-        assert (v != out);
-        out.x = (T.q.c * v.x - T.q.s * v.y) + T.p.x;
-        out.y = (T.q.s * v.x + T.q.c * v.y) + T.p.y;
-    }
+        /**
+         * Multiplies a transform by a vector.
+         *
+         * @param T the transform
+         * @param v the vector
+         * @return a new vector containing the result
+         */
+        @JvmStatic
+        fun mul(T: Transform, v: Vec2): Vec2 {
+            return Vec2((T.q.c * v.x - T.q.s * v.y) + T.p.x, (T.q.s * v.x + T.q.c * v.y) + T.p.y)
+        }
 
-    public static Vec2 mulTrans(final Transform T, final Vec2 v)
-    {
-        final float px = v.x - T.p.x;
-        final float py = v.y - T.p.y;
-        return new Vec2((T.q.c * px + T.q.s * py), (-T.q.s * px + T.q.c * py));
-    }
+        /**
+         * Multiplies a transform by a vector and stores the result in the output vector.
+         *
+         * @param T the transform
+         * @param v the vector
+         * @param out the vector to store the result in
+         */
+        @JvmStatic
+        fun mulToOut(T: Transform, v: Vec2, out: Vec2) {
+            val tempY = (T.q.s * v.x + T.q.c * v.y) + T.p.y
+            out.x = (T.q.c * v.x - T.q.s * v.y) + T.p.x
+            out.y = tempY
+        }
 
-    public static void mulTransToOut(final Transform T, final Vec2 v,
-            final Vec2 out)
-    {
-        final float px = v.x - T.p.x;
-        final float py = v.y - T.p.y;
-        final float tempY = (-T.q.s * px + T.q.c * py);
-        out.x = (T.q.c * px + T.q.s * py);
-        out.y = tempY;
-    }
+        /**
+         * Multiplies a transform by a vector and stores the result in the output vector.
+         * This is an unsafe version that assumes the output vector is not the same as the input vector.
+         *
+         * @param T the transform
+         * @param v the vector
+         * @param out the vector to store the result in
+         */
+        @JvmStatic
+        fun mulToOutUnsafe(T: Transform, v: Vec2, out: Vec2) {
+            assert(v !== out)
+            out.x = (T.q.c * v.x - T.q.s * v.y) + T.p.x
+            out.y = (T.q.s * v.x + T.q.c * v.y) + T.p.y
+        }
 
-    public static void mulTransToOutUnsafe(final Transform T, final Vec2 v,
-            final Vec2 out)
-    {
-        assert (v != out);
-        final float px = v.x - T.p.x;
-        final float py = v.y - T.p.y;
-        out.x = (T.q.c * px + T.q.s * py);
-        out.y = (-T.q.s * px + T.q.c * py);
-    }
+        /**
+         * Multiplies the transpose of a transform by a vector.
+         *
+         * @param T the transform to transpose
+         * @param v the vector
+         * @return a new vector containing the result
+         */
+        @JvmStatic
+        fun mulTrans(T: Transform, v: Vec2): Vec2 {
+            val px = v.x - T.p.x
+            val py = v.y - T.p.y
+            return Vec2((T.q.c * px + T.q.s * py), (-T.q.s * px + T.q.c * py))
+        }
 
-    public static Transform mul(final Transform A, final Transform B)
-    {
-        Transform C = new Transform();
-        Rot.mulUnsafe(A.q, B.q, C.q);
-        Rot.mulToOutUnsafe(A.q, B.p, C.p);
-        C.p.addLocal(A.p);
-        return C;
-    }
+        /**
+         * Multiplies the transpose of a transform by a vector and stores the result in the output vector.
+         *
+         * @param T the transform to transpose
+         * @param v the vector
+         * @param out the vector to store the result in
+         */
+        @JvmStatic
+        fun mulTransToOut(T: Transform, v: Vec2, out: Vec2) {
+            val px = v.x - T.p.x
+            val py = v.y - T.p.y
+            val tempY = (-T.q.s * px + T.q.c * py)
+            out.x = (T.q.c * px + T.q.s * py)
+            out.y = tempY
+        }
 
-    public static void mulToOut(final Transform A, final Transform B,
-            final Transform out)
-    {
-        assert (out != A);
-        Rot.mul(A.q, B.q, out.q);
-        Rot.mulToOut(A.q, B.p, out.p);
-        out.p.addLocal(A.p);
-    }
+        /**
+         * Multiplies the transpose of a transform by a vector and stores the result in the output vector.
+         * This is an unsafe version that assumes the output vector is not the same as the input vector.
+         *
+         * @param T the transform to transpose
+         * @param v the vector
+         * @param out the vector to store the result in
+         */
+        @JvmStatic
+        fun mulTransToOutUnsafe(T: Transform, v: Vec2, out: Vec2) {
+            assert(v !== out)
+            val px = v.x - T.p.x
+            val py = v.y - T.p.y
+            out.x = (T.q.c * px + T.q.s * py)
+            out.y = (-T.q.s * px + T.q.c * py)
+        }
 
-    public static void mulToOutUnsafe(final Transform A, final Transform B,
-            final Transform out)
-    {
-        assert (out != B);
-        assert (out != A);
-        Rot.mulUnsafe(A.q, B.q, out.q);
-        Rot.mulToOutUnsafe(A.q, B.p, out.p);
-        out.p.addLocal(A.p);
-    }
+        /**
+         * Multiplies two transforms.
+         *
+         * @param A the first transform
+         * @param B the second transform
+         * @return a new transform containing the result
+         */
+        @JvmStatic
+        fun mul(A: Transform, B: Transform): Transform {
+            val C = Transform()
+            Rot.mulUnsafe(A.q, B.q, C.q)
+            Rot.mulToOutUnsafe(A.q, B.p, C.p)
+            C.p.addLocal(A.p)
+            return C
+        }
 
-    private static final Vec2 pool = new Vec2();
+        /**
+         * Multiplies two transforms and stores the result in the output transform.
+         *
+         * @param A the first transform
+         * @param B the second transform
+         * @param out the transform to store the result in
+         */
+        @JvmStatic
+        fun mulToOut(A: Transform, B: Transform, out: Transform) {
+            assert(out !== A)
+            Rot.mul(A.q, B.q, out.q)
+            Rot.mulToOut(A.q, B.p, out.p)
+            out.p.addLocal(A.p)
+        }
 
-    public static Transform mulTrans(final Transform A, final Transform B)
-    {
-        Transform C = new Transform();
-        Rot.mulTransUnsafe(A.q, B.q, C.q);
-        pool.set(B.p).subLocal(A.p);
-        Rot.mulTransUnsafe(A.q, pool, C.p);
-        return C;
-    }
+        /**
+         * Multiplies two transforms and stores the result in the output transform.
+         * This is an unsafe version that assumes the output transform is not the same as the input transforms.
+         *
+         * @param A the first transform
+         * @param B the second transform
+         * @param out the transform to store the result in
+         */
+        @JvmStatic
+        fun mulToOutUnsafe(A: Transform, B: Transform, out: Transform) {
+            assert(out !== B)
+            assert(out !== A)
+            Rot.mulUnsafe(A.q, B.q, out.q)
+            Rot.mulToOutUnsafe(A.q, B.p, out.p)
+            out.p.addLocal(A.p)
+        }
 
-    public static void mulTransToOut(final Transform A, final Transform B,
-            final Transform out)
-    {
-        assert (out != A);
-        Rot.mulTrans(A.q, B.q, out.q);
-        pool.set(B.p).subLocal(A.p);
-        Rot.mulTrans(A.q, pool, out.p);
-    }
+        private val pool = Vec2()
 
-    public static void mulTransToOutUnsafe(final Transform A, final Transform B,
-            final Transform out)
-    {
-        assert (out != A);
-        assert (out != B);
-        Rot.mulTransUnsafe(A.q, B.q, out.q);
-        pool.set(B.p).subLocal(A.p);
-        Rot.mulTransUnsafe(A.q, pool, out.p);
-    }
+        /**
+         * Multiplies the transpose of a transform by another transform.
+         *
+         * @param A the first transform (will be transposed)
+         * @param B the second transform
+         * @return a new transform containing the result
+         */
+        @JvmStatic
+        fun mulTrans(A: Transform, B: Transform): Transform {
+            val C = Transform()
+            Rot.mulTransUnsafe(A.q, B.q, C.q)
+            pool.set(B.p).subLocal(A.p)
+            Rot.mulTransUnsafe(A.q, pool, C.p)
+            return C
+        }
 
-    @Override
-    public final String toString()
-    {
-        String s = "XForm:\n";
-        s += "Position: " + p + "\n";
-        s += "R: \n" + q + "\n";
-        return s;
+        /**
+         * Multiplies the transpose of a transform by another transform and stores the result in the output transform.
+         *
+         * @param A the first transform (will be transposed)
+         * @param B the second transform
+         * @param out the transform to store the result in
+         */
+        @JvmStatic
+        fun mulTransToOut(A: Transform, B: Transform, out: Transform) {
+            assert(out !== A)
+            Rot.mulTrans(A.q, B.q, out.q)
+            pool.set(B.p).subLocal(A.p)
+            Rot.mulTrans(A.q, pool, out.p)
+        }
+
+        /**
+         * Multiplies the transpose of a transform by another transform and stores the result in the output transform.
+         * This is an unsafe version that assumes the output transform is not the same as the input transforms.
+         *
+         * @param A the first transform (will be transposed)
+         * @param B the second transform
+         * @param out the transform to store the result in
+         */
+        @JvmStatic
+        fun mulTransToOutUnsafe(A: Transform, B: Transform, out: Transform) {
+            assert(out !== A)
+            assert(out !== B)
+            Rot.mulTransUnsafe(A.q, B.q, out.q)
+            pool.set(B.p).subLocal(A.p)
+            Rot.mulTransUnsafe(A.q, pool, out.p)
+        }
     }
 }

@@ -13,8 +13,7 @@ javafx {
 dependencies {
     implementation("org.apache.commons:commons-math3:3.6.1")
     implementation(project(":kbox2d-library"))
-    implementation(project(":kbox2d-serialization"))
-    implementation(project(":kbox2d-testbed"))
+    implementation(project(":kbox2d-serialization-kt"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 }
 

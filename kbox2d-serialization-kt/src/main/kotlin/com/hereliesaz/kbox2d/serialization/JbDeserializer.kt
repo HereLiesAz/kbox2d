@@ -31,74 +31,96 @@ import com.hereliesaz.kbox2d.dynamics.joints.Joint
 import java.io.IOException
 import java.io.InputStream
 
+/**
+ * Deserializer for kbox2d, used to deserialize any aspect of the physics world.
+ *
+ * @author Daniel Murphy
+ */
 interface JbDeserializer {
     /**
      * Sets the object listener, which allows the user to process each physics
      * object with a tag to do any sort of custom logic.
-     */
-    fun setObjectListener(argListener: ObjectListener)
-
-
-    /**
-     * Sets a listener for unsupported exceptions instead of stopping the whole
-     * deserialization process by throwing and exception.
-     */
-    fun setUnsupportedListener(argListener: UnsupportedListener)
-
-    /**
-     * Deserializes a world
      *
-     * @param input
-     * @throws IOException
-     * @throws UnsupportedObjectException if a read physics object is
-     * unsupported by this library
-     * @see .setUnsupportedListener
+     * @param listener the listener to use
+     */
+    fun setObjectListener(listener: ObjectListener)
+
+    /**
+     * Sets a listener for unsupported exceptions. If a listener is provided, the
+     * deserializer will call the listener with the exception instead of throwing it.
+     * This allows the deserialization process to continue even if some objects are not supported.
+     *
+     * @param listener the listener to use
+     */
+    fun setUnsupportedListener(listener: UnsupportedListener)
+
+    /**
+     * Deserializes a [World] from the given [InputStream].
+     *
+     * @param input the input stream to read from
+     * @return the deserialized world
+     * @throws IOException if an I/O error occurs
+     * @throws UnsupportedObjectException if a read physics object is unsupported and no listener is set.
+     * @see [setUnsupportedListener]
      */
     @Throws(IOException::class, UnsupportedObjectException::class)
     fun deserializeWorld(input: InputStream): World
 
     /**
-     * Deserializes a body
+     * Deserializes a [Body] from the given [InputStream] and adds it to the given [World].
      *
-     * @throws UnsupportedObjectException if a read physics object is
-     * unsupported by this library
-     * @see .setUnsupportedListener
+     * @param world the world to add the body to
+     * @param input the input stream to read from
+     * @return the deserialized body
+     * @throws IOException if an I/O error occurs
+     * @throws UnsupportedObjectException if a read physics object is unsupported and no listener is set.
+     * @see [setUnsupportedListener]
      */
     @Throws(IOException::class, UnsupportedObjectException::class)
     fun deserializeBody(world: World, input: InputStream): Body
 
     /**
-     * Deserializes a fixture
+     * Deserializes a [Fixture] from the given [InputStream] and adds it to the given [Body].
      *
-     * @throws UnsupportedObjectException if a read physics object is
-     * unsupported by this library
-     * @see .setUnsupportedListener
+     * @param body the body to add the fixture to
+     * @param input the input stream to read from
+     * @return the deserialized fixture
+     * @throws IOException if an I/O error occurs
+     * @throws UnsupportedObjectException if a read physics object is unsupported and no listener is set.
+     * @see [setUnsupportedListener]
      */
     @Throws(IOException::class, UnsupportedObjectException::class)
     fun deserializeFixture(body: Body, input: InputStream): Fixture
 
     /**
-     * Deserializes a shape
+     * Deserializes a [Shape] from the given [InputStream].
      *
-     * @param input
-     * @throws IOException
-     * @throws UnsupportedObjectException if a read physics object is
-     * unsupported by this library
-     * @see .setUnsupportedListener
+     * @param input the input stream to read from
+     * @return the deserialized shape
+     * @throws IOException if an I/O error occurs
+     * @throws UnsupportedObjectException if a read physics object is unsupported and no listener is set.
+     * @see [setUnsupportedListener]
      */
     @Throws(IOException::class, UnsupportedObjectException::class)
     fun deserializeShape(input: InputStream): Shape
 
     /**
-     * Deserializes a joint
+     * Deserializes a [Joint] from the given [InputStream] and adds it to the given [World].
      *
-     * @throws UnsupportedObjectException if a read physics object is
-     * unsupported by this library
-     * @see .setUnsupportedListener
+     * @param world the world to add the joint to
+     * @param input the input stream to read from
+     * @param bodyMap a map from body indices to bodies
+     * @param jointMap a map from joint indices to joints
+     * @return the deserialized joint
+     * @throws IOException if an I/O error occurs
+     * @throws UnsupportedObjectException if a read physics object is unsupported and no listener is set.
+     * @see [setUnsupportedListener]
      */
     @Throws(IOException::class, UnsupportedObjectException::class)
-    fun deserializeJoint(world: World, input: InputStream,
-                         bodyMap: Map<Int, Body>, jointMap: Map<Int, Joint>): Joint
+    fun deserializeJoint(
+        world: World, input: InputStream,
+        bodyMap: Map<Int, Body>, jointMap: Map<Int, Joint>
+    ): Joint
 
     /**
      * Called for each physics object with a tag defined.
@@ -106,10 +128,39 @@ interface JbDeserializer {
      * @author Daniel Murphy
      */
     interface ObjectListener {
+        /**
+         * Called when a world is processed.
+         * @param world the world
+         * @param tag the tag associated with the world, or null if none
+         */
         fun processWorld(world: World, tag: Long?)
+
+        /**
+         * Called when a body is processed.
+         * @param body the body
+         * @param tag the tag associated with the body, or null if none
+         */
         fun processBody(body: Body, tag: Long?)
+
+        /**
+         * Called when a fixture is processed.
+         * @param fixture the fixture
+         * @param tag the tag associated with the fixture, or null if none
+         */
         fun processFixture(fixture: Fixture, tag: Long?)
+
+        /**
+         * Called when a shape is processed.
+         * @param shape the shape
+         * @param tag the tag associated with the shape, or null if none
+         */
         fun processShape(shape: Shape, tag: Long?)
+
+        /**
+         * Called when a joint is processed.
+         * @param joint the joint
+         * @param tag the tag associated with the joint, or null if none
+         */
         fun processJoint(joint: Joint, tag: Long?)
     }
 }

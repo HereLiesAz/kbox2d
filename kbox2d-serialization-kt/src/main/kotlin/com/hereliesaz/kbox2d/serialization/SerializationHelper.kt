@@ -25,8 +25,18 @@ package com.hereliesaz.kbox2d.serialization
 
 import com.hereliesaz.kbox2d.dynamics.joints.JointType
 
+/**
+ * A collection of helper functions for serialization.
+ */
 object SerializationHelper {
-    fun isIndependentJoint(argType: JointType): Boolean {
-        return argType != JointType.GEAR && argType != JointType.CONSTANT_VOLUME
+    /**
+     * Checks if a joint type is independent.
+     * Independent joints can be serialized without needing to reference other joints.
+     *
+     * @param type the joint type to check
+     * @return true if the joint type is independent, false otherwise
+     */
+    fun isIndependentJoint(type: JointType): Boolean {
+        return type != JointType.GEAR && type != JointType.CONSTANT_VOLUME
     }
 }

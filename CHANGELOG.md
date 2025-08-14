@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [v3.2.0] - Unreleased
+
+### Changed
+- Converted the core library in `kbox2d-library` to idiomatic Kotlin. This includes the `common` package with classes like `Vec2`, `Vec3`, `Mat22`, `Mat33`, `Transform`, `Rot`, `Sweep`, `MathUtils`, and `Settings`.
+- Updated the package names from `de.pirckheimer_gymnasium.jbox2d.common` to `com.hereliesaz.jbox2d.common`.
+
+### Added
+- Comprehensive KDoc documentation for the public API of the core library.
+- A new "Usage" section with a public API guide in the `README.md`.
+
+### Removed
+- Obsolete Java source files and directories from the `kbox2d-library` module.
+
 ## [v3.1.0](https://github.com/engine-pi/jbox2d/releases/tag/v3.1.0) - 2024-08-05
 
 <small>[Compare with v3.0.0](https://github.com/engine-pi/jbox2d/compare/v3.0.0...v3.1.0)</small>

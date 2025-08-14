@@ -21,159 +21,246 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package de.pirckheimer_gymnasium.jbox2d.common;
+package com.hereliesaz.jbox2d.common
 
-import java.io.Serial;
-import java.io.Serializable;
+import java.io.Serializable
 
 /**
- * Represents a rotation
+ * Represents a rotation.
+ * This class is used to represent a 2D rotation and is composed of a sine and cosine value.
  *
+ * @param angle the angle in radians
+ * @constructor Creates a new rotation from the given angle.
  * @author Daniel Murphy
  */
-public class Rot implements Serializable
-{
-    @Serial
-    private static final long serialVersionUID = 1L;
+class Rot(angle: Float? = null) : Serializable {
 
     /**
-     * sin
+     * The sine component of the rotation.
      */
-    public float s;
+    @JvmField
+    var s: Float = 0f
 
     /**
-     * cos
+     * The cosine component of the rotation.
      */
-    public float c;
+    @JvmField
+    var c: Float = 0f
 
-    public Rot()
-    {
-        setIdentity();
-    }
-
-    public Rot(float angle)
-    {
-        set(angle);
-    }
-
-    public float getSin()
-    {
-        return s;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "Rot(s:" + s + ", c:" + c + ")";
-    }
-
-    public float getCos()
-    {
-        return c;
-    }
-
-    public Rot set(float angle)
-    {
-        s = MathUtils.sin(angle);
-        c = MathUtils.cos(angle);
-        return this;
-    }
-
-    public Rot set(Rot other)
-    {
-        s = other.s;
-        c = other.c;
-        return this;
-    }
-
-    public Rot setIdentity()
-    {
-        s = 0;
-        c = 1;
-        return this;
-    }
-
-    public float getAngle()
-    {
-        return MathUtils.atan2(s, c);
-    }
-
-    public void getXAxis(Vec2 xAxis)
-    {
-        xAxis.set(c, s);
-    }
-
-    public void getYAxis(Vec2 yAxis)
-    {
-        yAxis.set(-s, c);
-    }
-
-    // @Override // annotation omitted for GWT-compatibility
-    public Rot clone()
-    {
-        Rot copy = new Rot();
-        copy.s = s;
-        copy.c = c;
-        return copy;
-    }
-
-    public static void mul(Rot q, Rot r, Rot out)
-    {
-        float tempC = q.c * r.c - q.s * r.s;
-        out.s = q.s * r.c + q.c * r.s;
-        out.c = tempC;
+    init {
+        if (angle != null) {
+            set(angle)
+        } else {
+            setIdentity()
+        }
     }
 
     /**
-     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L535-L546
+     * The sine component of the rotation.
      */
-    public static void mulUnsafe(Rot q, Rot r, Rot out)
-    {
-        assert (r != out);
-        assert (q != out);
-        out.s = q.s * r.c + q.c * r.s;
-        out.c = q.c * r.c - q.s * r.s;
-    }
+    val sin: Float
+        get() = s
 
-    public static void mulTrans(Rot q, Rot r, Rot out)
-    {
-        final float tempC = q.c * r.c + q.s * r.s;
-        out.s = q.c * r.s - q.s * r.c;
-        out.c = tempC;
+    override fun toString(): String {
+        return "Rot(s:$s, c:$c)"
     }
 
     /**
-     * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L548-L559
+     * The cosine component of the rotation.
      */
-    public static void mulTransUnsafe(Rot q, Rot r, Rot out)
-    {
-        out.s = q.c * r.s - q.s * r.c;
-        out.c = q.c * r.c + q.s * r.s;
+    val cos: Float
+        get() = c
+
+    /**
+     * Sets the rotation to the given angle.
+     *
+     * @param angle the angle in radians
+     * @return this rotation for chaining
+     */
+    fun set(angle: Float): Rot {
+        s = MathUtils.sin(angle)
+        c = MathUtils.cos(angle)
+        return this
     }
 
-    public static void mulToOut(Rot q, Vec2 v, Vec2 out)
-    {
-        float tempY = q.s * v.x + q.c * v.y;
-        out.x = q.c * v.x - q.s * v.y;
-        out.y = tempY;
+    /**
+     * Copies the values from another rotation.
+     *
+     * @param other the rotation to copy from
+     * @return this rotation for chaining
+     */
+    fun set(other: Rot): Rot {
+        s = other.s
+        c = other.c
+        return this
     }
 
-    public static void mulToOutUnsafe(Rot q, Vec2 v, Vec2 out)
-    {
-        out.x = q.c * v.x - q.s * v.y;
-        out.y = q.s * v.x + q.c * v.y;
+    /**
+     * Sets the rotation to the identity rotation (no rotation).
+     *
+     * @return this rotation for chaining
+     */
+    fun setIdentity(): Rot {
+        s = 0f
+        c = 1f
+        return this
     }
 
-    public static void mulTrans(Rot q, Vec2 v, Vec2 out)
-    {
-        final float tempY = -q.s * v.x + q.c * v.y;
-        out.x = q.c * v.x + q.s * v.y;
-        out.y = tempY;
+    /**
+     * The angle of the rotation in radians.
+     */
+    val angle: Float
+        get() = MathUtils.atan2(s, c)
+
+    /**
+     * Get the x-axis of this rotation.
+     *
+     * @param xAxis the vector to store the x-axis in
+     */
+    fun getXAxis(xAxis: Vec2) {
+        xAxis.set(c, s)
     }
 
-    public static void mulTransUnsafe(Rot q, Vec2 v, Vec2 out)
-    {
-        out.x = q.c * v.x + q.s * v.y;
-        out.y = -q.s * v.x + q.c * v.y;
+    /**
+     * Get the y-axis of this rotation.
+     *
+     * @param yAxis the vector to store the y-axis in
+     */
+    fun getYAxis(yAxis: Vec2) {
+        yAxis.set(-s, c)
+    }
+
+    /**
+     * Creates a copy of this rotation.
+     *
+     * @return a new rotation with the same values
+     */
+    public fun clone(): Rot {
+        val copy = Rot()
+        copy.s = s
+        copy.c = c
+        return copy
+    }
+
+    companion object {
+        private const val serialVersionUID = 1L
+
+        /**
+         * Multiplies two rotations.
+         *
+         * @param q the first rotation
+         * @param r the second rotation
+         * @param out the output rotation
+         */
+        @JvmStatic
+        fun mul(q: Rot, r: Rot, out: Rot) {
+            val tempC = q.c * r.c - q.s * r.s
+            out.s = q.s * r.c + q.c * r.s
+            out.c = tempC
+        }
+
+        /**
+         * Multiplies two rotations, assuming the output is not the same as the input.
+         * This is an unsafe version of [mul] that is faster but has more restrictions.
+         *
+         * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L535-L546
+         *
+         * @param q the first rotation
+         * @param r the second rotation
+         * @param out the output rotation
+         */
+        @JvmStatic
+        fun mulUnsafe(q: Rot, r: Rot, out: Rot) {
+            assert(r !== out)
+            assert(q !== out)
+            out.s = q.s * r.c + q.c * r.s
+            out.c = q.c * r.c - q.s * r.s
+        }
+
+        /**
+         * Multiplies the transpose of the first rotation by the second rotation.
+         *
+         * @param q the first rotation (will be transposed)
+         * @param r the second rotation
+         * @param out the output rotation
+         */
+        @JvmStatic
+        fun mulTrans(q: Rot, r: Rot, out: Rot) {
+            val tempC = q.c * r.c + q.s * r.s
+            out.s = q.c * r.s - q.s * r.c
+            out.c = tempC
+        }
+
+        /**
+         * Multiplies the transpose of the first rotation by the second rotation, assuming the output is not the same as the input.
+         * This is an unsafe version of [mulTrans] that is faster but has more restrictions.
+         *
+         * @repolink https://github.com/erincatto/box2d/blob/411acc32eb6d4f2e96fc70ddbdf01fe5f9b16230/include/box2d/b2_math.h#L548-L559
+         *
+         * @param q the first rotation (will be transposed)
+         * @param r the second rotation
+         * @param out the output rotation
+         */
+        @JvmStatic
+        fun mulTransUnsafe(q: Rot, r: Rot, out: Rot) {
+            out.s = q.c * r.s - q.s * r.c
+            out.c = q.c * r.c + q.s * r.s
+        }
+
+        /**
+         * Multiplies a rotation by a vector.
+         *
+         * @param q the rotation
+         * @param v the vector
+         * @param out the output vector
+         */
+        @JvmStatic
+        fun mulToOut(q: Rot, v: Vec2, out: Vec2) {
+            val tempY = q.s * v.x + q.c * v.y
+            out.x = q.c * v.x - q.s * v.y
+            out.y = tempY
+        }
+
+        /**
+         * Multiplies a rotation by a vector, assuming the output is not the same as the input.
+         * This is an unsafe version of [mulToOut] that is faster but has more restrictions.
+         *
+         * @param q the rotation
+         * @param v the vector
+         * @param out the output vector
+         */
+        @JvmStatic
+        fun mulToOutUnsafe(q: Rot, v: Vec2, out: Vec2) {
+            out.x = q.c * v.x - q.s * v.y
+            out.y = q.s * v.x + q.c * v.y
+        }
+
+        /**
+         * Multiplies the transpose of a rotation by a vector.
+         *
+         * @param q the rotation (will be transposed)
+         * @param v the vector
+         * @param out the output vector
+         */
+        @JvmStatic
+        fun mulTrans(q: Rot, v: Vec2, out: Vec2) {
+            val tempY = -q.s * v.x + q.c * v.y
+            out.x = q.c * v.x + q.s * v.y
+            out.y = tempY
+        }
+
+        /**
+         * Multiplies the transpose of a rotation by a vector, assuming the output is not the same as the input.
+         * This is an unsafe version of [mulTrans] that is faster but has more restrictions.
+         *
+         * @param q the rotation (will be transposed)
+         * @param v the vector
+         * @param out the output vector
+         */
+        @JvmStatic
+        fun mulTransUnsafe(q: Rot, v: Vec2, out: Vec2) {
+            out.x = q.c * v.x + q.s * v.y
+            out.y = -q.s * v.x + q.c * v.y
+        }
     }
 }
