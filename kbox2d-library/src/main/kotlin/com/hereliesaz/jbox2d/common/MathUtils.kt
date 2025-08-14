@@ -43,250 +43,316 @@
  * misrepresented as being the original software.
  * 3. This notice may not be removed or altered from any source distribution.
  */
-package de.pirckheimer_gymnasium.jbox2d.common;
+package com.hereliesaz.jbox2d.common
 
-import java.util.Random;
+import java.util.Random
 
 /**
- * A few math methods that don't fit very well anywhere else.
+ * A collection of math utility functions.
  *
  * @author Daniel Murphy
  */
-public class MathUtils extends PlatformMathUtils
-{
-    public static final float PI = (float) Math.PI;
-
-    public static final float TWOPI = (float) (Math.PI * 2);
-
-    public static final float INV_PI = 1f / PI;
-
-    public static final float HALF_PI = PI / 2;
-
-    public static final float QUARTER_PI = PI / 4;
-
-    public static final float THREE_HALVES_PI = TWOPI - HALF_PI;
+object MathUtils : PlatformMathUtils() {
+    const val PI = Math.PI.toFloat()
+    const val TWOPI = (Math.PI * 2).toFloat()
+    const val INV_PI = 1f / PI
+    const val HALF_PI = PI / 2
+    const val QUARTER_PI = PI / 4
+    const val THREE_HALVES_PI = TWOPI - HALF_PI
 
     /**
      * Degrees to radians conversion factor
      */
-    public static final float DEG2RAD = PI / 180;
+    const val DEG2RAD = PI / 180
 
     /**
      * Radians to degrees conversion factor
      */
-    public static final float RAD2DEG = 180 / PI;
+    const val RAD2DEG = 180 / PI
 
-    public static final float[] sinLUT = new float[Settings.SINCOS_LUT_LENGTH];
-    static
-    {
-        for (int i = 0; i < Settings.SINCOS_LUT_LENGTH; i++)
-        {
-            sinLUT[i] = (float) Math.sin(i * Settings.SINCOS_LUT_PRECISION);
+    val sinLUT = FloatArray(Settings.SINCOS_LUT_LENGTH)
+
+    init {
+        for (i in 0 until Settings.SINCOS_LUT_LENGTH) {
+            sinLUT[i] = Math.sin(i * Settings.SINCOS_LUT_PRECISION).toFloat()
         }
     }
 
-    public static float sin(float x)
-    {
-        if (Settings.SINCOS_LUT_ENABLED)
-        {
-            return sinLUT(x);
-        }
-        else
-        {
-            return (float) StrictMath.sin(x);
+    /**
+     * Calculates the sine of an angle.
+     *
+     * @param x the angle in radians
+     * @return the sine of the angle
+     */
+    fun sin(x: Float): Float {
+        return if (Settings.SINCOS_LUT_ENABLED) {
+            sinLUT(x)
+        } else {
+            StrictMath.sin(x.toDouble()).toFloat()
         }
     }
 
-    public static float sinLUT(float x)
-    {
-        x %= TWOPI;
-        if (x < 0)
-        {
-            x += TWOPI;
+    /**
+     * Calculates the sine of an angle using a lookup table.
+     *
+     * @param x the angle in radians
+     * @return the sine of the angle
+     */
+    fun sinLUT(x: Float): Float {
+        var x = x % TWOPI
+        if (x < 0) {
+            x += TWOPI
         }
-        if (Settings.SINCOS_LUT_LERP)
-        {
-            x /= Settings.SINCOS_LUT_PRECISION;
-            final int index = (int) x;
-            if (index != 0)
-            {
-                x %= index;
+        return if (Settings.SINCOS_LUT_LERP) {
+            x /= Settings.SINCOS_LUT_PRECISION
+            val index = x.toInt()
+            val newX = if (index != 0) {
+                x % index
+            } else {
+                x
             }
             // the next index is 0
-            if (index == Settings.SINCOS_LUT_LENGTH - 1)
-            {
-                return ((1 - x) * sinLUT[index] + x * sinLUT[0]);
+            if (index == Settings.SINCOS_LUT_LENGTH - 1) {
+                (1 - newX) * sinLUT[index] + newX * sinLUT[0]
+            } else {
+                (1 - newX) * sinLUT[index] + newX * sinLUT[index + 1]
             }
-            else
-            {
-                return ((1 - x) * sinLUT[index] + x * sinLUT[index + 1]);
-            }
-        }
-        else
-        {
-            return sinLUT[MathUtils.round(x / Settings.SINCOS_LUT_PRECISION)
-                    % Settings.SINCOS_LUT_LENGTH];
-        }
-    }
-
-    public static float cos(float x)
-    {
-        if (Settings.SINCOS_LUT_ENABLED)
-        {
-            return sinLUT(HALF_PI - x);
-        }
-        else
-        {
-            return (float) StrictMath.cos(x);
-        }
-    }
-
-    public static float abs(final float x)
-    {
-        if (Settings.FAST_ABS)
-        {
-            return x > 0 ? x : -x;
-        }
-        else
-        {
-            return StrictMath.abs(x);
-        }
-    }
-
-    public static float fastAbs(final float x)
-    {
-        return x > 0 ? x : -x;
-    }
-
-    public static int abs(int x)
-    {
-        int y = x >> 31;
-        return (x ^ y) - y;
-    }
-
-    public static int floor(final float x)
-    {
-        if (Settings.FAST_FLOOR)
-        {
-            return fastFloor(x);
-        }
-        else
-        {
-            return (int) StrictMath.floor(x);
-        }
-    }
-
-    public static int fastFloor(final float x)
-    {
-        int y = (int) x;
-        if (x < y)
-        {
-            return y - 1;
-        }
-        return y;
-    }
-
-    public static int ceil(final float x)
-    {
-        if (Settings.FAST_CEIL)
-        {
-            return fastCeil(x);
-        }
-        else
-        {
-            return (int) StrictMath.ceil(x);
-        }
-    }
-
-    public static int fastCeil(final float x)
-    {
-        int y = (int) x;
-        if (x > y)
-        {
-            return y + 1;
-        }
-        return y;
-    }
-
-    public static int round(final float x)
-    {
-        if (Settings.FAST_ROUND)
-        {
-            return floor(x + .5f);
-        }
-        else
-        {
-            return StrictMath.round(x);
+        } else {
+            sinLUT[round(x / Settings.SINCOS_LUT_PRECISION) % Settings.SINCOS_LUT_LENGTH]
         }
     }
 
     /**
-     * Rounds up the value to the nearest higher power^2 value.
+     * Calculates the cosine of an angle.
      *
-     * @return power^2 value
+     * @param x the angle in radians
+     * @return the cosine of the angle
      */
-    public static int ceilPowerOf2(int x)
-    {
-        int pow2 = 1;
-        while (pow2 < x)
-        {
-            pow2 <<= 1;
+    fun cos(x: Float): Float {
+        return if (Settings.SINCOS_LUT_ENABLED) {
+            sinLUT(HALF_PI - x)
+        } else {
+            StrictMath.cos(x.toDouble()).toFloat()
         }
-        return pow2;
-    }
-
-    public static float max(final float a, final float b)
-    {
-        return Math.max(a, b);
-    }
-
-    public static int max(final int a, final int b)
-    {
-        return Math.max(a, b);
-    }
-
-    public static float min(final float a, final float b)
-    {
-        return Math.min(a, b);
-    }
-
-    public static int min(final int a, final int b)
-    {
-        return Math.min(a, b);
-    }
-
-    public static float map(final float val, final float fromMin,
-            final float fromMax, final float toMin, final float toMax)
-    {
-        final float mult = (val - fromMin) / (fromMax - fromMin);
-        return toMin + mult * (toMax - toMin);
     }
 
     /**
-     * Returns the closest value to 'a' that is in between 'low' and 'high'
+     * Returns the absolute value of a float.
+     *
+     * @param x the value
+     * @return the absolute value
      */
-    public static float clamp(final float a, final float low, final float high)
-    {
-        return max(low, min(a, high));
+    fun abs(x: Float): Float {
+        return if (Settings.FAST_ABS) {
+            if (x > 0) x else -x
+        } else {
+            StrictMath.abs(x)
+        }
     }
 
-    public static Vec2 clamp(final Vec2 a, final Vec2 low, final Vec2 high)
-    {
-        final Vec2 min = new Vec2();
-        min.x = Math.min(a.x, high.x);
-        min.y = Math.min(a.y, high.y);
-        min.x = Math.max(low.x, min.x);
-        min.y = Math.max(low.y, min.y);
-        return min;
+    /**
+     * Returns the absolute value of a float using a faster method.
+     *
+     * @param x the value
+     * @return the absolute value
+     */
+    fun fastAbs(x: Float): Float {
+        return if (x > 0) x else -x
     }
 
-    public static void clampToOut(final Vec2 a, final Vec2 low, final Vec2 high,
-            final Vec2 dest)
-    {
-        dest.x = Math.min(a.x, high.x);
-        dest.y = Math.min(a.y, high.y);
-        dest.x = Math.max(low.x, dest.x);
-        dest.y = Math.max(low.y, dest.y);
+    /**
+     * Returns the absolute value of an integer.
+     *
+     * @param x the value
+     * @return the absolute value
+     */
+    fun abs(x: Int): Int {
+        val y = x shr 31
+        return (x xor y) - y
+    }
+
+    /**
+     * Returns the floor of a float.
+     *
+     * @param x the value
+     * @return the floor value
+     */
+    fun floor(x: Float): Int {
+        return if (Settings.FAST_FLOOR) {
+            fastFloor(x)
+        } else {
+            StrictMath.floor(x.toDouble()).toInt()
+        }
+    }
+
+    /**
+     * Returns the floor of a float using a faster method.
+     *
+     * @param x the value
+     * @return the floor value
+     */
+    fun fastFloor(x: Float): Int {
+        val y = x.toInt()
+        return if (x < y) {
+            y - 1
+        } else y
+    }
+
+    /**
+     * Returns the ceiling of a float.
+     *
+     * @param x the value
+     * @return the ceiling value
+     */
+    fun ceil(x: Float): Int {
+        return if (Settings.FAST_CEIL) {
+            fastCeil(x)
+        } else {
+            StrictMath.ceil(x.toDouble()).toInt()
+        }
+    }
+
+    /**
+     * Returns the ceiling of a float using a faster method.
+     *
+     * @param x the value
+     * @return the ceiling value
+     */
+    fun fastCeil(x: Float): Int {
+        val y = x.toInt()
+        return if (x > y) {
+            y + 1
+        } else y
+    }
+
+    /**
+     * Rounds a float to the nearest integer.
+     *
+     * @param x the value
+     * @return the rounded integer
+     */
+    fun round(x: Float): Int {
+        return if (Settings.FAST_ROUND) {
+            floor(x + .5f)
+        } else {
+            StrictMath.round(x)
+        }
+    }
+
+    /**
+     * Rounds up the value to the nearest higher power of 2.
+     *
+     * @return power of 2 value
+     */
+    fun ceilPowerOf2(x: Int): Int {
+        var pow2 = 1
+        while (pow2 < x) {
+            pow2 = pow2 shl 1
+        }
+        return pow2
+    }
+
+    /**
+     * Returns the maximum of two floats.
+     *
+     * @param a the first value
+     * @param b the second value
+     * @return the maximum value
+     */
+    fun max(a: Float, b: Float): Float {
+        return Math.max(a, b)
+    }
+
+    /**
+     * Returns the maximum of two integers.
+     *
+     * @param a the first value
+     * @param b the second value
+     * @return the maximum value
+     */
+    fun max(a: Int, b: Int): Int {
+        return Math.max(a, b)
+    }
+
+    /**
+     * Returns the minimum of two floats.
+     *
+     * @param a the first value
+     * @param b the second value
+     * @return the minimum value
+     */
+    fun min(a: Float, b: Float): Float {
+        return Math.min(a, b)
+    }
+
+    /**
+     * Returns the minimum of two integers.
+     *
+     * @param a the first value
+     * @param b the second value
+     * @return the minimum value
+     */
+    fun min(a: Int, b: Int): Int {
+        return Math.min(a, b)
+    }
+
+    /**
+     * Maps a value from one range to another.
+     *
+     * @param value the value to map
+     * @param fromMin the minimum of the original range
+     * @param fromMax the maximum of the original range
+     * @param toMin the minimum of the new range
+     * @param toMax the maximum of the new range
+     * @return the mapped value
+     */
+    fun map(value: Float, fromMin: Float, fromMax: Float, toMin: Float, toMax: Float): Float {
+        val mult = (value - fromMin) / (fromMax - fromMin)
+        return toMin + mult * (toMax - toMin)
+    }
+
+    /**
+     * Returns the closest value to 'a' that is in between 'low' and 'high'.
+     *
+     * @param a the value to clamp
+     * @param low the lower bound
+     * @param high the upper bound
+     * @return the clamped value
+     */
+    fun clamp(a: Float, low: Float, high: Float): Float {
+        return max(low, min(a, high))
+    }
+
+    /**
+     * Clamps a vector to be within a given range.
+     *
+     * @param a the vector to clamp
+     * @param low the lower bound
+     * @param high the upper bound
+     * @return a new vector with the clamped values
+     */
+    fun clamp(a: Vec2, low: Vec2, high: Vec2): Vec2 {
+        val min = Vec2()
+        min.x = Math.min(a.x, high.x)
+        min.y = Math.min(a.y, high.y)
+        min.x = Math.max(low.x, min.x)
+        min.y = Math.max(low.y, min.y)
+        return min
+    }
+
+    /**
+     * Clamps a vector to be within a given range and stores the result in the output vector.
+     *
+     * @param a the vector to clamp
+     * @param low the lower bound
+     * @param high the upper bound
+     * @param dest the vector to store the result in
+     */
+    fun clampToOut(a: Vec2, low: Vec2, high: Vec2, dest: Vec2) {
+        dest.x = Math.min(a.x, high.x)
+        dest.y = Math.min(a.y, high.y)
+        dest.x = Math.max(low.x, dest.x)
+        dest.y = Math.max(low.y, dest.y)
     }
 
     /**
@@ -296,114 +362,153 @@ public class MathUtils extends PlatformMathUtils
      * the same most significant 1 as x, but all 1's below it. Adding 1 to that
      * value yields the next largest power of 2.
      */
-    public static int nextPowerOfTwo(int x)
-    {
-        x |= x >> 1;
-        x |= x >> 2;
-        x |= x >> 4;
-        x |= x >> 8;
-        x |= x >> 16;
-        return x + 1;
+    fun nextPowerOfTwo(x: Int): Int {
+        var x = x
+        x = x or (x shr 1)
+        x = x or (x shr 2)
+        x = x or (x shr 4)
+        x = x or (x shr 8)
+        x = x or (x shr 16)
+        return x + 1
     }
 
-    public static boolean isPowerOfTwo(final int x)
-    {
-        return x > 0 && (x & x - 1) == 0;
+    /**
+     * Checks if a number is a power of two.
+     *
+     * @param x the number to check
+     * @return true if the number is a power of two
+     */
+    fun isPowerOfTwo(x: Int): Boolean {
+        return x > 0 && x and x - 1 == 0
     }
 
-    public static float pow(float a, float b)
-    {
-        if (Settings.FAST_POW)
-        {
-            return fastPow(a, b);
-        }
-        else
-        {
-            return (float) StrictMath.pow(a, b);
-        }
-    }
-
-    public static float atan2(final float y, final float x)
-    {
-        if (Settings.FAST_ATAN2)
-        {
-            return fastAtan2(y, x);
-        }
-        else
-        {
-            return (float) StrictMath.atan2(y, x);
+    /**
+     * Calculates the power of a number.
+     *
+     * @param a the base
+     * @param b the exponent
+     * @return `a` raised to the power of `b`
+     */
+    fun pow(a: Float, b: Float): Float {
+        return if (Settings.FAST_POW) {
+            fastPow(a, b)
+        } else {
+            StrictMath.pow(a.toDouble(), b.toDouble()).toFloat()
         }
     }
 
-    public static float fastAtan2(float y, float x)
-    {
-        if (x == 0.0f)
-        {
-            if (y > 0.0f)
-                return HALF_PI;
-            if (y == 0.0f)
-                return 0.0f;
-            return -HALF_PI;
+    /**
+     * Calculates the arc tangent of a value.
+     *
+     * @param y the y-coordinate
+     * @param x the x-coordinate
+     * @return the arc tangent
+     */
+    fun atan2(y: Float, x: Float): Float {
+        return if (Settings.FAST_ATAN2) {
+            fastAtan2(y, x)
+        } else {
+            StrictMath.atan2(y.toDouble(), x.toDouble()).toFloat()
         }
-        float atan;
-        final float z = y / x;
-        if (abs(z) < 1.0f)
-        {
-            atan = z / (1.0f + 0.28f * z * z);
-            if (x < 0.0f)
-            {
-                if (y < 0.0f)
-                    return atan - PI;
-                return atan + PI;
+    }
+
+    /**
+     * Calculates the arc tangent of a value using a faster method.
+     *
+     * @param y the y-coordinate
+     * @param x the x-coordinate
+     * @return the arc tangent
+     */
+    fun fastAtan2(y: Float, x: Float): Float {
+        if (x == 0.0f) {
+            if (y > 0.0f) return HALF_PI
+            return if (y == 0.0f) 0.0f else -HALF_PI
+        }
+        val atan: Float
+        val z = y / x
+        if (abs(z) < 1.0f) {
+            atan = z / (1.0f + 0.28f * z * z)
+            if (x < 0.0f) {
+                return if (y < 0.0f) atan - PI else atan + PI
             }
+        } else {
+            atan = HALF_PI - z / (z * z + 0.28f)
+            if (y < 0.0f) return atan - PI
         }
-        else
-        {
-            atan = HALF_PI - z / (z * z + 0.28f);
-            if (y < 0.0f)
-                return atan - PI;
+        return atan
+    }
+
+    /**
+     * Reduces an angle to be within the range of -PI to PI.
+     *
+     * @param theta the angle to reduce
+     * @return the reduced angle
+     */
+    fun reduceAngle(theta: Float): Float {
+        var theta = theta % TWOPI
+        if (abs(theta) > PI) {
+            theta -= TWOPI
         }
-        return atan;
-    }
-
-    public static float reduceAngle(float theta)
-    {
-        theta %= TWOPI;
-        if (abs(theta) > PI)
-        {
-            theta = theta - TWOPI;
+        if (abs(theta) > HALF_PI) {
+            theta = PI - theta
         }
-        if (abs(theta) > HALF_PI)
-        {
-            theta = PI - theta;
-        }
-        return theta;
+        return theta
     }
 
-    public static float randomFloat(float argLow, float argHigh)
-    {
-        return (float) Math.random() * (argHigh - argLow) + argLow;
+    /**
+     * Generates a random float between two values.
+     *
+     * @param low the lower bound
+     * @param high the upper bound
+     * @return a random float
+     */
+    fun randomFloat(low: Float, high: Float): Float {
+        return (Math.random() * (high - low) + low).toFloat()
     }
 
-    public static float randomFloat(Random r, float argLow, float argHigh)
-    {
-        return r.nextFloat() * (argHigh - argLow) + argLow;
+    /**
+     * Generates a random float between two values using a given random number generator.
+     *
+     * @param r the random number generator
+     * @param low the lower bound
+     * @param high the upper bound
+     * @return a random float
+     */
+    fun randomFloat(r: Random, low: Float, high: Float): Float {
+        return r.nextFloat() * (high - low) + low
     }
 
-    public static float sqrt(float x)
-    {
-        return (float) StrictMath.sqrt(x);
+    /**
+     * Calculates the square root of a number.
+     *
+     * @param x the number
+     * @return the square root
+     */
+    fun sqrt(x: Float): Float {
+        return StrictMath.sqrt(x.toDouble()).toFloat()
     }
 
-    public static float distanceSquared(Vec2 v1, Vec2 v2)
-    {
-        float dx = (v1.x - v2.x);
-        float dy = (v1.y - v2.y);
-        return dx * dx + dy * dy;
+    /**
+     * Calculates the squared distance between two vectors.
+     *
+     * @param v1 the first vector
+     * @param v2 the second vector
+     * @return the squared distance
+     */
+    fun distanceSquared(v1: Vec2, v2: Vec2): Float {
+        val dx = v1.x - v2.x
+        val dy = v1.y - v2.y
+        return dx * dx + dy * dy
     }
 
-    public static float distance(Vec2 v1, Vec2 v2)
-    {
-        return sqrt(distanceSquared(v1, v2));
+    /**
+     * Calculates the distance between two vectors.
+     *
+     * @param v1 the first vector
+     * @param v2 the second vector
+     * @return the distance
+     */
+    fun distance(v1: Vec2, v2: Vec2): Float {
+        return sqrt(distanceSquared(v1, v2))
     }
 }

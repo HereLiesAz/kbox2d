@@ -21,624 +21,573 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package de.pirckheimer_gymnasium.jbox2d.common;
+package com.hereliesaz.jbox2d.common
 
-import java.io.Serial;
-import java.io.Serializable;
+import java.io.Serializable
 
 /**
  * A 2-by-2 matrix. Stored in column-major order.
  *
  * @author Daniel Murphy
  */
-public class Mat22 implements Serializable
-{
-    @Serial
-    private static final long serialVersionUID = 2L;
-
-    public final Vec2 ex, ey;
+data class Mat22(
+    @JvmField val ex: Vec2 = Vec2(),
+    @JvmField val ey: Vec2 = Vec2()
+) : Serializable {
 
     /**
-     * Convert the matrix to printable format.
-     */
-    @Override
-    public String toString()
-    {
-        String s = "";
-        s += "[" + ex.x + "," + ey.x + "]\n";
-        s += "[" + ex.y + "," + ey.y + "]";
-        return s;
-    }
-
-    /**
-     * Construct zero matrixes. Note: this is NOT an identity matrix! djm fixed
-     * double allocation problem
-     */
-    public Mat22()
-    {
-        ex = new Vec2();
-        ey = new Vec2();
-    }
-
-    /**
-     * Create a matrix with given vectors as columns.
+     * Creates a matrix from four floats.
      *
-     * @param c1 Column 1 of matrix
-     * @param c2 Column 2 of matrix
+     * @param exx the x-component of the first column
+     * @param col2x the x-component of the second column
+     * @param exy the y-component of the first column
+     * @param col2y the y-component of the second column
      */
-    public Mat22(final Vec2 c1, final Vec2 c2)
-    {
-        ex = c1.clone();
-        ey = c2.clone();
-    }
+    constructor(exx: Float, col2x: Float, exy: Float, col2y: Float) : this(Vec2(exx, exy), Vec2(col2x, col2y))
 
     /**
-     * Create a matrix from four floats.
-     */
-    public Mat22(final float exx, final float col2x, final float exy,
-            final float col2y)
-    {
-        ex = new Vec2(exx, exy);
-        ey = new Vec2(col2x, col2y);
-    }
-
-    /**
-     * Set as a copy of another matrix.
+     * Sets this matrix as a copy of another matrix.
      *
-     * @param m Matrix to copy
+     * @param m the matrix to copy
+     * @return this matrix for chaining
      */
-    public final Mat22 set(final Mat22 m)
-    {
-        ex.x = m.ex.x;
-        ex.y = m.ex.y;
-        ey.x = m.ey.x;
-        ey.y = m.ey.y;
-        return this;
-    }
-
-    public final Mat22 set(final float exx, final float col2x, final float exy,
-            final float col2y)
-    {
-        ex.x = exx;
-        ex.y = exy;
-        ey.x = col2x;
-        ey.y = col2y;
-        return this;
+    fun set(m: Mat22): Mat22 {
+        ex.x = m.ex.x
+        ex.y = m.ex.y
+        ey.x = m.ey.x
+        ey.y = m.ey.y
+        return this
     }
 
     /**
-     * Return a clone of this matrix. djm fixed double allocation
-     */
-    // @Override // annotation omitted for GWT-compatibility
-    public final Mat22 clone()
-    {
-        return new Mat22(ex, ey);
-    }
-
-    /**
-     * Set as a matrix representing a rotation.
+     * Sets this matrix from four floats.
      *
-     * @param angle Rotation (in radians) that matrix represents.
+     * @param exx the x-component of the first column
+     * @param col2x the x-component of the second column
+     * @param exy the y-component of the first column
+     * @param col2y the y-component of the second column
+     * @return this matrix for chaining
      */
-    public final void set(final float angle)
-    {
-        final float c = MathUtils.cos(angle), s = MathUtils.sin(angle);
-        ex.x = c;
-        ey.x = -s;
-        ex.y = s;
-        ey.y = c;
+    fun set(exx: Float, col2x: Float, exy: Float, col2y: Float): Mat22 {
+        ex.x = exx
+        ex.y = exy
+        ey.x = col2x
+        ey.y = col2y
+        return this
     }
 
     /**
-     * Set as the identity matrix.
-     */
-    public final void setIdentity()
-    {
-        ex.x = 1.0f;
-        ey.x = 0.0f;
-        ex.y = 0.0f;
-        ey.y = 1.0f;
-    }
-
-    /**
-     * Set as the zero matrixes.
-     */
-    public final void setZero()
-    {
-        ex.x = 0.0f;
-        ey.x = 0.0f;
-        ex.y = 0.0f;
-        ey.y = 0.0f;
-    }
-
-    /**
-     * Extract the angle from this matrix (assumed to be a rotation matrix).
+     * Sets this matrix to represent a rotation.
      *
+     * @param angle the rotation angle in radians
      */
-    public final float getAngle()
-    {
-        return MathUtils.atan2(ex.y, ex.x);
+    fun set(angle: Float) {
+        val c = MathUtils.cos(angle)
+        val s = MathUtils.sin(angle)
+        ex.x = c
+        ey.x = -s
+        ex.y = s
+        ey.y = c
     }
 
     /**
-     * Set by column vectors.
+     * Sets this matrix to the identity matrix.
+     */
+    fun setIdentity() {
+        ex.x = 1.0f
+        ey.x = 0.0f
+        ex.y = 0.0f
+        ey.y = 1.0f
+    }
+
+    /**
+     * Sets this matrix to the zero matrix.
+     */
+    fun setZero() {
+        ex.x = 0.0f
+        ey.x = 0.0f
+        ex.y = 0.0f
+        ey.y = 0.0f
+    }
+
+    /**
+     * Extracts the angle from this matrix (assumed to be a rotation matrix).
      *
-     * @param c1 Column 1
-     * @param c2 Column 2
+     * @return the angle in radians
      */
-    public final void set(final Vec2 c1, final Vec2 c2)
-    {
-        ex.x = c1.x;
-        ey.x = c2.x;
-        ex.y = c1.y;
-        ey.y = c2.y;
-    }
+    val angle: Float
+        get() = MathUtils.atan2(ex.y, ex.x)
 
     /**
-     * Returns the inverted Mat22 - does NOT invert the matrix locally!
+     * Inverts this matrix.
+     * This operation modifies this matrix.
+     *
+     * @return this matrix for chaining
      */
-    public final Mat22 invert()
-    {
-        final float a = ex.x, b = ey.x, c = ex.y, d = ey.y;
-        final Mat22 B = new Mat22();
-        float det = a * d - b * c;
-        if (det != 0)
-        {
-            det = 1.0f / det;
+    fun invertLocal(): Mat22 {
+        val a = ex.x
+        val b = ey.x
+        val c = ex.y
+        val d = ey.y
+        var det = a * d - b * c
+        if (det != 0f) {
+            det = 1.0f / det
         }
-        B.ex.x = det * d;
-        B.ey.x = -det * b;
-        B.ex.y = -det * c;
-        B.ey.y = det * a;
-        return B;
+        ex.x = det * d
+        ey.x = -det * b
+        ex.y = -det * c
+        ey.y = det * a
+        return this
     }
 
-    public final Mat22 invertLocal()
-    {
-        final float a = ex.x, b = ey.x, c = ex.y, d = ey.y;
-        float det = a * d - b * c;
-        if (det != 0)
-        {
-            det = 1.0f / det;
-        }
-        ex.x = det * d;
-        ey.x = -det * b;
-        ex.y = -det * c;
-        ey.y = det * a;
-        return this;
-    }
-
-    public final void invertToOut(final Mat22 out)
-    {
-        final float a = ex.x, b = ey.x, c = ex.y, d = ey.y;
-        float det = a * d - b * c;
+    /**
+     * Computes the inverse of this matrix and stores it in the given output matrix.
+     *
+     * @param out the matrix to store the result in
+     */
+    fun invertToOut(out: Mat22) {
+        val a = ex.x
+        val b = ey.x
+        val c = ex.y
+        val d = ey.y
+        var det = a * d - b * c
         // b2Assert(det != 0.0f);
-        det = 1.0f / det;
-        out.ex.x = det * d;
-        out.ey.x = -det * b;
-        out.ex.y = -det * c;
-        out.ey.y = det * a;
+        det = 1.0f / det
+        out.ex.x = det * d
+        out.ey.x = -det * b
+        out.ex.y = -det * c
+        out.ey.y = det * a
     }
 
     /**
-     * Return the matrix composed of the absolute values of all elements. djm:
-     * fixed double allocation
+     * Sets the components of this matrix to their absolute values.
+     */
+    fun absLocal() {
+        ex.absLocal()
+        ey.absLocal()
+    }
+
+    /**
+     * Multiplies this matrix by another matrix.
+     * This operation modifies this matrix.
      *
-     * @return Absolute value matrix
+     * @param R the matrix to multiply by
+     * @return this matrix for chaining
      */
-    public final Mat22 abs()
-    {
-        return new Mat22(MathUtils.abs(ex.x), MathUtils.abs(ey.x),
-                MathUtils.abs(ex.y), MathUtils.abs(ey.y));
-    }
-
-    /* djm: added */
-    public final void absLocal()
-    {
-        ex.absLocal();
-        ey.absLocal();
+    fun mulLocal(R: Mat22): Mat22 {
+        mulToOut(R, this)
+        return this
     }
 
     /**
-     * Return the matrix composed of the absolute values of all elements.
+     * Multiplies this matrix by another matrix and stores the result in the output matrix.
      *
-     * @return Absolute value matrix
+     * @param R the matrix to multiply by
+     * @param out the matrix to store the result in
      */
-    public static Mat22 abs(final Mat22 R)
-    {
-        return R.abs();
-    }
-
-    /* djm created */
-    public static void absToOut(final Mat22 R, final Mat22 out)
-    {
-        out.ex.x = MathUtils.abs(R.ex.x);
-        out.ex.y = MathUtils.abs(R.ex.y);
-        out.ey.x = MathUtils.abs(R.ey.x);
-        out.ey.y = MathUtils.abs(R.ey.y);
+    fun mulToOut(R: Mat22, out: Mat22) {
+        val tempY1 = this.ex.y * R.ex.x + this.ey.y * R.ex.y
+        out.ex.x = this.ex.x * R.ex.x + this.ey.x * R.ex.y
+        out.ex.y = tempY1
+        val tempY2 = this.ex.y * R.ey.x + this.ey.y * R.ey.y
+        out.ey.x = this.ex.x * R.ey.x + this.ey.x * R.ey.y
+        out.ey.y = tempY2
     }
 
     /**
-     * Multiply a vector by this matrix.
+     * Multiplies this matrix by another matrix and stores the result in the output matrix.
+     * This is an unsafe version that assumes the output matrix is not the same as the input matrices.
      *
-     * @param v Vector to multiply by matrix.
+     * @param R the matrix to multiply by
+     * @param out the matrix to store the result in
+     */
+    fun mulToOutUnsafe(R: Mat22, out: Mat22) {
+        assert(out !== R)
+        assert(out !== this)
+        out.ex.x = this.ex.x * R.ex.x + this.ey.x * R.ex.y
+        out.ex.y = this.ex.y * R.ex.x + this.ey.y * R.ex.y
+        out.ey.x = this.ex.x * R.ey.x + this.ey.x * R.ey.y
+        out.ey.y = this.ex.y * R.ey.x + this.ey.y * R.ey.y
+    }
+
+    /**
+     * Multiplies the transpose of this matrix by another matrix.
+     * This operation modifies this matrix.
      *
-     * @return Resulting vector
+     * @param B the matrix to multiply by
+     * @return this matrix for chaining
      */
-    public final Vec2 mul(final Vec2 v)
-    {
-        return new Vec2(ex.x * v.x + ey.x * v.y, ex.y * v.x + ey.y * v.y);
-    }
-
-    public final void mulToOut(final Vec2 v, final Vec2 out)
-    {
-        final float tempY = ex.y * v.x + ey.y * v.y;
-        out.x = ex.x * v.x + ey.x * v.y;
-        out.y = tempY;
-    }
-
-    public final void mulToOutUnsafe(final Vec2 v, final Vec2 out)
-    {
-        assert (v != out);
-        out.x = ex.x * v.x + ey.x * v.y;
-        out.y = ex.y * v.x + ey.y * v.y;
+    fun mulTransLocal(B: Mat22): Mat22 {
+        mulTransToOut(B, this)
+        return this
     }
 
     /**
-     * Multiply another matrix by this one (this one on left). djm optimized
+     * Multiplies the transpose of this matrix by another matrix and stores the result in the output matrix.
+     *
+     * @param B the matrix to multiply by
+     * @param out the matrix to store the result in
      */
-    public final Mat22 mul(final Mat22 R)
-    {
-        /*
-         * Mat22 C = new Mat22();C.set(this.mul(R.ex), this.mul(R.ey));return C;
-         */
-        final Mat22 C = new Mat22();
-        C.ex.x = ex.x * R.ex.x + ey.x * R.ex.y;
-        C.ex.y = ex.y * R.ex.x + ey.y * R.ex.y;
-        C.ey.x = ex.x * R.ey.x + ey.x * R.ey.y;
-        C.ey.y = ex.y * R.ey.x + ey.y * R.ey.y;
-        // C.set(ex,col2);
-        return C;
-    }
-
-    public final Mat22 mulLocal(final Mat22 R)
-    {
-        mulToOut(R, this);
-        return this;
-    }
-
-    public final void mulToOut(final Mat22 R, final Mat22 out)
-    {
-        final float tempY1 = this.ex.y * R.ex.x + this.ey.y * R.ex.y;
-        out.ex.x = this.ex.x * R.ex.x + this.ey.x * R.ex.y;
-        out.ex.y = tempY1;
-        final float tempY2 = this.ex.y * R.ey.x + this.ey.y * R.ey.y;
-        out.ey.x = this.ex.x * R.ey.x + this.ey.x * R.ey.y;
-        out.ey.y = tempY2;
-    }
-
-    public final void mulToOutUnsafe(final Mat22 R, final Mat22 out)
-    {
-        assert (out != R);
-        assert (out != this);
-        out.ex.x = this.ex.x * R.ex.x + this.ey.x * R.ex.y;
-        out.ex.y = this.ex.y * R.ex.x + this.ey.y * R.ex.y;
-        out.ey.x = this.ex.x * R.ey.x + this.ey.x * R.ey.y;
-        out.ey.y = this.ex.y * R.ey.x + this.ey.y * R.ey.y;
+    fun mulTransToOut(B: Mat22, out: Mat22) {
+        val x1 = this.ex.x * B.ex.x + this.ex.y * B.ex.y
+        val y1 = this.ey.x * B.ex.x + this.ey.y * B.ex.y
+        val x2 = this.ex.x * B.ey.x + this.ex.y * B.ey.y
+        val y2 = this.ey.x * B.ey.x + this.ey.y * B.ey.y
+        out.ex.x = x1
+        out.ey.x = x2
+        out.ex.y = y1
+        out.ey.y = y2
     }
 
     /**
-     * Multiply another matrix by the transpose of this one (transpose of this
-     * one on left). djm: optimized
+     * Multiplies the transpose of this matrix by another matrix and stores the result in the output matrix.
+     * This is an unsafe version that assumes the output matrix is not the same as the input matrices.
+     *
+     * @param B the matrix to multiply by
+     * @param out the matrix to store the result in
      */
-    public final Mat22 mulTrans(final Mat22 B)
-    {
-        /*
-         * Vec2 c1 = new Vec2(Vec2.dot(this.ex, B.ex), Vec2.dot(this.ey, B.ex));
-         * Vec2 c2 = new Vec2(Vec2.dot(this.ex, B.ey), Vec2.dot(this.ey, B.ey));
-         * Mat22 C = new Mat22(); C.set(c1, c2); return C;
-         */
-        final Mat22 C = new Mat22();
-        C.ex.x = Vec2.dot(this.ex, B.ex);
-        C.ex.y = Vec2.dot(this.ey, B.ex);
-        C.ey.x = Vec2.dot(this.ex, B.ey);
-        C.ey.y = Vec2.dot(this.ey, B.ey);
-        return C;
-    }
-
-    public final Mat22 mulTransLocal(final Mat22 B)
-    {
-        mulTransToOut(B, this);
-        return this;
-    }
-
-    public final void mulTransToOut(final Mat22 B, final Mat22 out)
-    {
-        /*
-         * out.ex.x = Vec2.dot(this.ex, B.ex); out.ex.y = Vec2.dot(this.ey,
-         * B.ex); out.ey.x = Vec2.dot(this.ex, B.ey); out.ey.y =
-         * Vec2.dot(this.ey, B.ey);
-         */
-        final float x1 = this.ex.x * B.ex.x + this.ex.y * B.ex.y;
-        final float y1 = this.ey.x * B.ex.x + this.ey.y * B.ex.y;
-        final float x2 = this.ex.x * B.ey.x + this.ex.y * B.ey.y;
-        final float y2 = this.ey.x * B.ey.x + this.ey.y * B.ey.y;
-        out.ex.x = x1;
-        out.ey.x = x2;
-        out.ex.y = y1;
-        out.ey.y = y2;
-    }
-
-    public final void mulTransToOutUnsafe(final Mat22 B, final Mat22 out)
-    {
-        assert (B != out);
-        assert (this != out);
-        out.ex.x = this.ex.x * B.ex.x + this.ex.y * B.ex.y;
-        out.ey.x = this.ex.x * B.ey.x + this.ex.y * B.ey.y;
-        out.ex.y = this.ey.x * B.ex.x + this.ey.y * B.ex.y;
-        out.ey.y = this.ey.x * B.ey.x + this.ey.y * B.ey.y;
+    fun mulTransToOutUnsafe(B: Mat22, out: Mat22) {
+        assert(B !== out)
+        assert(this !== out)
+        out.ex.x = this.ex.x * B.ex.x + this.ex.y * B.ex.y
+        out.ey.x = this.ex.x * B.ey.x + this.ex.y * B.ey.y
+        out.ex.y = this.ey.x * B.ex.x + this.ey.y * B.ex.y
+        out.ey.y = this.ey.x * B.ey.x + this.ey.y * B.ey.y
     }
 
     /**
-     * Multiply a vector by the transpose of this matrix.
+     * Adds another matrix to this one.
+     * This operation modifies this matrix.
+     *
+     * @param B the matrix to add
+     * @return this matrix for chaining
      */
-    public final Vec2 mulTrans(final Vec2 v)
-    {
-        // return new Vec2(Vec2.dot(v, ex), Vec2.dot(v, col2));
-        return new Vec2((v.x * ex.x + v.y * ex.y), (v.x * ey.x + v.y * ey.y));
-    }
-
-    /*
-     * djm added
-     */
-    public final void mulTransToOut(final Vec2 v, final Vec2 out)
-    {
-        /*
-         * out.x = Vec2.dot(v, ex); out.y = Vec2.dot(v, col2);
-         */
-        final float tempX = v.x * ex.x + v.y * ex.y;
-        out.y = v.x * ey.x + v.y * ey.y;
-        out.x = tempX;
-    }
-
-    /**
-     * Add this matrix to B, return the result.
-     */
-    public final Mat22 add(final Mat22 B)
-    {
-        // return new Mat22(ex.add(B.ex), col2.add(B.ey));
-        Mat22 m = new Mat22();
-        m.ex.x = ex.x + B.ex.x;
-        m.ex.y = ex.y + B.ex.y;
-        m.ey.x = ey.x + B.ey.x;
-        m.ey.y = ey.y + B.ey.y;
-        return m;
-    }
-
-    /**
-     * Add B to this matrix locally.
-     */
-    public final Mat22 addLocal(final Mat22 B)
-    {
-        // ex.addLocal(B.ex);
-        // col2.addLocal(B.ey);
-        ex.x += B.ex.x;
-        ex.y += B.ex.y;
-        ey.x += B.ey.x;
-        ey.y += B.ey.y;
-        return this;
+    fun addLocal(B: Mat22): Mat22 {
+        ex.x += B.ex.x
+        ex.y += B.ex.y
+        ey.x += B.ey.x
+        ey.y += B.ey.y
+        return this
     }
 
     /**
      * Solve A * x = b where A = this matrix.
      *
-     * @return The vector x that solves the above equation.
+     * @param b the right-hand side vector
+     * @return the solution vector x
      */
-    public final Vec2 solve(final Vec2 b)
-    {
-        final float a11 = ex.x, a12 = ey.x, a21 = ex.y, a22 = ey.y;
-        float det = a11 * a22 - a12 * a21;
-        if (det != 0.0f)
-        {
-            det = 1.0f / det;
+    fun solve(b: Vec2): Vec2 {
+        val a11 = ex.x
+        val a12 = ey.x
+        val a21 = ex.y
+        val a22 = ey.y
+        var det = a11 * a22 - a12 * a21
+        if (det != 0.0f) {
+            det = 1.0f / det
         }
-        return new Vec2(det * (a22 * b.x - a12 * b.y),
-                det * (a11 * b.y - a21 * b.x));
+        return Vec2(det * (a22 * b.x - a12 * b.y), det * (a11 * b.y - a21 * b.x))
     }
 
-    public final void solveToOut(final Vec2 b, final Vec2 out)
-    {
-        final float a11 = ex.x, a12 = ey.x, a21 = ex.y, a22 = ey.y;
-        float det = a11 * a22 - a12 * a21;
-        if (det != 0.0f)
-        {
-            det = 1.0f / det;
+    /**
+     * Solve A * x = b where A = this matrix, and stores the result in the output vector.
+     *
+     * @param b the right-hand side vector
+     * @param out the vector to store the solution in
+     */
+    fun solveToOut(b: Vec2, out: Vec2) {
+        val a11 = ex.x
+        val a12 = ey.x
+        val a21 = ex.y
+        val a22 = ey.y
+        var det = a11 * a22 - a12 * a21
+        if (det != 0.0f) {
+            det = 1.0f / det
         }
-        final float tempY = det * (a11 * b.y - a21 * b.x);
-        out.x = det * (a22 * b.x - a12 * b.y);
-        out.y = tempY;
+        val tempY = det * (a11 * b.y - a21 * b.x)
+        out.x = det * (a22 * b.x - a12 * b.y)
+        out.y = tempY
     }
 
-    public static Vec2 mul(final Mat22 R, final Vec2 v)
-    {
-        // return R.mul(v);
-        return new Vec2(R.ex.x * v.x + R.ey.x * v.y,
-                R.ex.y * v.x + R.ey.y * v.y);
+    override fun toString(): String {
+        return "[$ex, $ey]"
     }
 
-    public static void mulToOut(final Mat22 R, final Vec2 v, final Vec2 out)
-    {
-        final float tempY = R.ex.y * v.x + R.ey.y * v.y;
-        out.x = R.ex.x * v.x + R.ey.x * v.y;
-        out.y = tempY;
-    }
+    companion object {
+        private const val serialVersionUID = 2L
 
-    public static void mulToOutUnsafe(final Mat22 R, final Vec2 v,
-            final Vec2 out)
-    {
-        assert (v != out);
-        out.x = R.ex.x * v.x + R.ey.x * v.y;
-        out.y = R.ex.y * v.x + R.ey.y * v.y;
-    }
-
-    public static Mat22 mul(final Mat22 A, final Mat22 B)
-    {
-        // return A.mul(B);
-        final Mat22 C = new Mat22();
-        C.ex.x = A.ex.x * B.ex.x + A.ey.x * B.ex.y;
-        C.ex.y = A.ex.y * B.ex.x + A.ey.y * B.ex.y;
-        C.ey.x = A.ex.x * B.ey.x + A.ey.x * B.ey.y;
-        C.ey.y = A.ex.y * B.ey.x + A.ey.y * B.ey.y;
-        return C;
-    }
-
-    public static void mulToOut(final Mat22 A, final Mat22 B, final Mat22 out)
-    {
-        final float tempY1 = A.ex.y * B.ex.x + A.ey.y * B.ex.y;
-        final float tempX1 = A.ex.x * B.ex.x + A.ey.x * B.ex.y;
-        final float tempY2 = A.ex.y * B.ey.x + A.ey.y * B.ey.y;
-        final float tempX2 = A.ex.x * B.ey.x + A.ey.x * B.ey.y;
-        out.ex.x = tempX1;
-        out.ex.y = tempY1;
-        out.ey.x = tempX2;
-        out.ey.y = tempY2;
-    }
-
-    public static void mulToOutUnsafe(final Mat22 A, final Mat22 B,
-            final Mat22 out)
-    {
-        assert (out != A);
-        assert (out != B);
-        out.ex.x = A.ex.x * B.ex.x + A.ey.x * B.ex.y;
-        out.ex.y = A.ex.y * B.ex.x + A.ey.y * B.ex.y;
-        out.ey.x = A.ex.x * B.ey.x + A.ey.x * B.ey.y;
-        out.ey.y = A.ex.y * B.ey.x + A.ey.y * B.ey.y;
-    }
-
-    public static Vec2 mulTrans(final Mat22 R, final Vec2 v)
-    {
-        return new Vec2((v.x * R.ex.x + v.y * R.ex.y),
-                (v.x * R.ey.x + v.y * R.ey.y));
-    }
-
-    public static void mulTransToOut(final Mat22 R, final Vec2 v,
-            final Vec2 out)
-    {
-        float outX = v.x * R.ex.x + v.y * R.ex.y;
-        out.y = v.x * R.ey.x + v.y * R.ey.y;
-        out.x = outX;
-    }
-
-    public static void mulTransToOutUnsafe(final Mat22 R, final Vec2 v,
-            final Vec2 out)
-    {
-        assert (out != v);
-        out.y = v.x * R.ey.x + v.y * R.ey.y;
-        out.x = v.x * R.ex.x + v.y * R.ex.y;
-    }
-
-    public static Mat22 mulTrans(final Mat22 A, final Mat22 B)
-    {
-        final Mat22 C = new Mat22();
-        C.ex.x = A.ex.x * B.ex.x + A.ex.y * B.ex.y;
-        C.ex.y = A.ey.x * B.ex.x + A.ey.y * B.ex.y;
-        C.ey.x = A.ex.x * B.ey.x + A.ex.y * B.ey.y;
-        C.ey.y = A.ey.x * B.ey.x + A.ey.y * B.ey.y;
-        return C;
-    }
-
-    public static void mulTransToOut(final Mat22 A, final Mat22 B,
-            final Mat22 out)
-    {
-        final float x1 = A.ex.x * B.ex.x + A.ex.y * B.ex.y;
-        final float y1 = A.ey.x * B.ex.x + A.ey.y * B.ex.y;
-        final float x2 = A.ex.x * B.ey.x + A.ex.y * B.ey.y;
-        final float y2 = A.ey.x * B.ey.x + A.ey.y * B.ey.y;
-        out.ex.x = x1;
-        out.ex.y = y1;
-        out.ey.x = x2;
-        out.ey.y = y2;
-    }
-
-    public static void mulTransToOutUnsafe(final Mat22 A, final Mat22 B,
-            final Mat22 out)
-    {
-        assert (A != out);
-        assert (B != out);
-        out.ex.x = A.ex.x * B.ex.x + A.ex.y * B.ex.y;
-        out.ex.y = A.ey.x * B.ex.x + A.ey.y * B.ex.y;
-        out.ey.x = A.ex.x * B.ey.x + A.ex.y * B.ey.y;
-        out.ey.y = A.ey.x * B.ey.x + A.ey.y * B.ey.y;
-    }
-
-    public static Mat22 createRotationalTransform(float angle)
-    {
-        Mat22 mat = new Mat22();
-        final float c = MathUtils.cos(angle);
-        final float s = MathUtils.sin(angle);
-        mat.ex.x = c;
-        mat.ey.x = -s;
-        mat.ex.y = s;
-        mat.ey.y = c;
-        return mat;
-    }
-
-    public static void createRotationalTransform(float angle, Mat22 out)
-    {
-        final float c = MathUtils.cos(angle);
-        final float s = MathUtils.sin(angle);
-        out.ex.x = c;
-        out.ey.x = -s;
-        out.ex.y = s;
-        out.ey.y = c;
-    }
-
-    public static Mat22 createScaleTransform(float scale)
-    {
-        Mat22 mat = new Mat22();
-        mat.ex.x = scale;
-        mat.ey.y = scale;
-        return mat;
-    }
-
-    public static void createScaleTransform(float scale, Mat22 out)
-    {
-        out.ex.x = scale;
-        out.ey.y = scale;
-    }
-
-    @Override
-    public int hashCode()
-    {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((ex == null) ? 0 : ex.hashCode());
-        result = prime * result + ((ey == null) ? 0 : ey.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Mat22 other = (Mat22) obj;
-        if (ex == null)
-        {
-            if (other.ex != null)
-                return false;
+        /**
+         * Returns a new matrix with the absolute values of the components of the given matrix.
+         *
+         * @param R the matrix to take the absolute values of
+         * @return a new matrix with the absolute values
+         */
+        @JvmStatic
+        fun abs(R: Mat22): Mat22 {
+            return Mat22(Vec2.abs(R.ex), Vec2.abs(R.ey))
         }
-        else if (!ex.equals(other.ex))
-            return false;
-        if (ey == null)
-        {
-            return other.ey == null;
+
+        /**
+         * Sets the output matrix to the absolute values of the components of the given matrix.
+         *
+         * @param R the matrix to take the absolute values of
+         * @param out the matrix to store the result in
+         */
+        @JvmStatic
+        fun absToOut(R: Mat22, out: Mat22) {
+            out.ex.x = MathUtils.abs(R.ex.x)
+            out.ex.y = MathUtils.abs(R.ex.y)
+            out.ey.x = MathUtils.abs(R.ey.x)
+            out.ey.y = MathUtils.abs(R.ey.y)
         }
-        else
-            return ey.equals(other.ey);
+
+        /**
+         * Multiplies a matrix by a vector.
+         *
+         * @param R the matrix
+         * @param v the vector
+         * @return a new vector containing the result
+         */
+        @JvmStatic
+        fun mul(R: Mat22, v: Vec2): Vec2 {
+            return Vec2(R.ex.x * v.x + R.ey.x * v.y, R.ex.y * v.x + R.ey.y * v.y)
+        }
+
+        /**
+         * Multiplies a matrix by a vector and stores the result in the output vector.
+         *
+         * @param R the matrix
+         * @param v the vector
+         * @param out the vector to store the result in
+         */
+        @JvmStatic
+        fun mulToOut(R: Mat22, v: Vec2, out: Vec2) {
+            val tempY = R.ex.y * v.x + R.ey.y * v.y
+            out.x = R.ex.x * v.x + R.ey.x * v.y
+            out.y = tempY
+        }
+
+        /**
+         * Multiplies a matrix by a vector and stores the result in the output vector.
+         * This is an unsafe version that assumes the output vector is not the same as the input vector.
+         *
+         * @param R the matrix
+         * @param v the vector
+         * @param out the vector to store the result in
+         */
+        @JvmStatic
+        fun mulToOutUnsafe(R: Mat22, v: Vec2, out: Vec2) {
+            assert(v !== out)
+            out.x = R.ex.x * v.x + R.ey.x * v.y
+            out.y = R.ex.y * v.x + R.ey.y * v.y
+        }
+
+        /**
+         * Multiplies two matrices.
+         *
+         * @param A the first matrix
+         * @param B the second matrix
+         * @return a new matrix containing the result
+         */
+        @JvmStatic
+        fun mul(A: Mat22, B: Mat22): Mat22 {
+            val C = Mat22()
+            C.ex.x = A.ex.x * B.ex.x + A.ey.x * B.ex.y
+            C.ex.y = A.ex.y * B.ex.x + A.ey.y * B.ex.y
+            C.ey.x = A.ex.x * B.ey.x + A.ey.x * B.ey.y
+            C.ey.y = A.ex.y * B.ey.x + A.ey.y * B.ey.y
+            return C
+        }
+
+        /**
+         * Multiplies two matrices and stores the result in the output matrix.
+         *
+         * @param A the first matrix
+         * @param B the second matrix
+         * @param out the matrix to store the result in
+         */
+        @JvmStatic
+        fun mulToOut(A: Mat22, B: Mat22, out: Mat22) {
+            val tempY1 = A.ex.y * B.ex.x + A.ey.y * B.ex.y
+            val tempX1 = A.ex.x * B.ex.x + A.ey.x * B.ex.y
+            val tempY2 = A.ex.y * B.ey.x + A.ey.y * B.ey.y
+            val tempX2 = A.ex.x * B.ey.x + A.ey.x * B.ey.y
+            out.ex.x = tempX1
+            out.ex.y = tempY1
+            out.ey.x = tempX2
+            out.ey.y = tempY2
+        }
+
+        /**
+         * Multiplies two matrices and stores the result in the output matrix.
+         * This is an unsafe version that assumes the output matrix is not the same as the input matrices.
+         *
+         * @param A the first matrix
+         * @param B the second matrix
+         * @param out the matrix to store the result in
+         */
+        @JvmStatic
+        fun mulToOutUnsafe(A: Mat22, B: Mat22, out: Mat22) {
+            assert(out !== A)
+            assert(out !== B)
+            out.ex.x = A.ex.x * B.ex.x + A.ey.x * B.ex.y
+            out.ex.y = A.ex.y * B.ex.x + A.ey.y * B.ex.y
+            out.ey.x = A.ex.x * B.ey.x + A.ey.x * B.ey.y
+            out.ey.y = A.ex.y * B.ey.x + A.ey.y * B.ey.y
+        }
+
+        /**
+         * Multiplies the transpose of a matrix by a vector.
+         *
+         * @param R the matrix to transpose
+         * @param v the vector
+         * @return a new vector containing the result
+         */
+        @JvmStatic
+        fun mulTrans(R: Mat22, v: Vec2): Vec2 {
+            return Vec2((v.x * R.ex.x + v.y * R.ex.y), (v.x * R.ey.x + v.y * R.ey.y))
+        }
+
+        /**
+         * Multiplies the transpose of a matrix by a vector and stores the result in the output vector.
+         *
+         * @param R the matrix to transpose
+         * @param v the vector
+         * @param out the vector to store the result in
+         */
+        @JvmStatic
+        fun mulTransToOut(R: Mat22, v: Vec2, out: Vec2) {
+            val outX = v.x * R.ex.x + v.y * R.ex.y
+            out.y = v.x * R.ey.x + v.y * R.ey.y
+            out.x = outX
+        }
+
+        /**
+         * Multiplies the transpose of a matrix by a vector and stores the result in the output vector.
+         * This is an unsafe version that assumes the output vector is not the same as the input vector.
+         *
+         * @param R the matrix to transpose
+         * @param v the vector
+         * @param out the vector to store the result in
+         */
+        @JvmStatic
+        fun mulTransToOutUnsafe(R: Mat22, v: Vec2, out: Vec2) {
+            assert(out !== v)
+            out.y = v.x * R.ey.x + v.y * R.ey.y
+            out.x = v.x * R.ex.x + v.y * R.ex.y
+        }
+
+        /**
+         * Multiplies the transpose of a matrix by another matrix.
+         *
+         * @param A the first matrix (will be transposed)
+         * @param B the second matrix
+         * @return a new matrix containing the result
+         */
+        @JvmStatic
+        fun mulTrans(A: Mat22, B: Mat22): Mat22 {
+            val C = Mat22()
+            C.ex.x = A.ex.x * B.ex.x + A.ex.y * B.ex.y
+            C.ex.y = A.ey.x * B.ex.x + A.ey.y * B.ex.y
+            C.ey.x = A.ex.x * B.ey.x + A.ex.y * B.ey.y
+            C.ey.y = A.ey.x * B.ey.x + A.ey.y * B.ey.y
+            return C
+        }
+
+        /**
+         * Multiplies the transpose of a matrix by another matrix and stores the result in the output matrix.
+         *
+         * @param A the first matrix (will be transposed)
+         * @param B the second matrix
+         * @param out the matrix to store the result in
+         */
+        @JvmStatic
+        fun mulTransToOut(A: Mat22, B: Mat22, out: Mat22) {
+            val x1 = A.ex.x * B.ex.x + A.ex.y * B.ex.y
+            val y1 = A.ey.x * B.ex.x + A.ey.y * B.ex.y
+            val x2 = A.ex.x * B.ey.x + A.ex.y * B.ey.y
+            val y2 = A.ey.x * B.ey.x + A.ey.y * B.ey.y
+            out.ex.x = x1
+            out.ex.y = y1
+            out.ey.x = x2
+            out.ey.y = y2
+        }
+
+        /**
+         * Multiplies the transpose of a matrix by another matrix and stores the result in the output matrix.
+         * This is an unsafe version that assumes the output matrix is not the same as the input matrices.
+         *
+         * @param A the first matrix (will be transposed)
+         * @param B the second matrix
+         * @param out the matrix to store the result in
+         */
+        @JvmStatic
+        fun mulTransToOutUnsafe(A: Mat22, B: Mat22, out: Mat22) {
+            assert(A !== out)
+            assert(B !== out)
+            out.ex.x = A.ex.x * B.ex.x + A.ex.y * B.ex.y
+            out.ex.y = A.ey.x * B.ex.x + A.ey.y * B.ex.y
+            out.ey.x = A.ex.x * B.ey.x + A.ex.y * B.ey.y
+            out.ey.y = A.ey.x * B.ey.x + A.ey.y * B.ey.y
+        }
+
+        /**
+         * Creates a matrix that represents a rotation.
+         *
+         * @param angle the angle of rotation in radians
+         * @return a new matrix representing the rotation
+         */
+        @JvmStatic
+        fun createRotationalTransform(angle: Float): Mat22 {
+            val mat = Mat22()
+            val c = MathUtils.cos(angle)
+            val s = MathUtils.sin(angle)
+            mat.ex.x = c
+            mat.ey.x = -s
+            mat.ex.y = s
+            mat.ey.y = c
+            return mat
+        }
+
+        /**
+         * Creates a matrix that represents a rotation and stores it in the output matrix.
+         *
+         * @param angle the angle of rotation in radians
+         * @param out the matrix to store the result in
+         */
+        @JvmStatic
+        fun createRotationalTransform(angle: Float, out: Mat22) {
+            val c = MathUtils.cos(angle)
+            val s = MathUtils.sin(angle)
+            out.ex.x = c
+            out.ey.x = -s
+            out.ex.y = s
+            out.ey.y = c
+        }
+
+        /**
+         * Creates a matrix that represents a scaling transformation.
+         *
+         * @param scale the scaling factor
+         * @return a new matrix representing the scaling
+         */
+        @JvmStatic
+        fun createScaleTransform(scale: Float): Mat22 {
+            val mat = Mat22()
+            mat.ex.x = scale
+            mat.ey.y = scale
+            return mat
+        }
+
+        /**
+         * Creates a matrix that represents a scaling transformation and stores it in the output matrix.
+         *
+         * @param scale the scaling factor
+         * @param out the matrix to store the result in
+         */
+        @JvmStatic
+        fun createScaleTransform(scale: Float, out: Mat22) {
+            out.ex.x = scale
+            out.ey.y = scale
+        }
     }
 }

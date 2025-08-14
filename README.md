@@ -1,118 +1,93 @@
-[![Maven Central](https://img.shields.io/maven-central/v/de.pirckheimer-gymnasium/jbox2d-library.svg?style=flat)](https://central.sonatype.com/artifact/de.pirckheimer-gymnasium/jbox2d-library)
-[![javadoc](https://javadoc.io/badge2/de.pirckheimer-gymnasium/jbox2d-library/javadoc.svg)](https://javadoc.io/doc/de.pirckheimer-gymnasium/jbox2d-library)
+[![Maven Central](https://img.shields.io/maven-central/v/com.hereliesaz.kbox2d/kbox2d-library.svg?style=flat)](https://central.sonatype.com/artifact/com.hereliesaz.kbox2d/kbox2d-library)
+[![javadoc](https://javadoc.io/badge2/com.hereliesaz.kbox2d/kbox2d-library/javadoc.svg)](https://javadoc.io/doc/com.hereliesaz.kbox2d/kbox2d-library)
 
 # kbox2d
 
-Why this fork? Because not spoon. Maybe chopsticks. Maybe.
+kbox2d is a pure Kotlin port of the C++ physics engines [LiquidFun](http://google.github.io/liquidfun/) and [Box2d](http://box2d.org).
 
-jbox2d has not been updated on Maven Central for a long time:
-https://central.sonatype.com/artifact/org.jbox2d/jbox2d
+This project is a fork of the original [jbox2d](https://github.com/jbox2d/jbox2d) library, which was a Java port. kbox2d has been fully converted to idiomatic Kotlin, with a focus on providing a modern, easy-to-use, and well-documented physics library for the Kotlin ecosystem.
 
-And jbox2d hasn't worked as a Kotlin library in, like, FOREVER. 
+## Features
 
+-   **Pure Kotlin:** The library is written entirely in Kotlin, providing a modern and expressive API.
+-   **Comprehensive KDoc:** The public API is fully documented with KDoc, making it easy to understand and use.
+-   **Gradle-based:** The project is built with Gradle, making it easy to integrate into your projects.
+-   **Modular:** The project is divided into several modules, allowing you to include only the parts you need.
 
-JBox2d is a Java port of the C++ physics engines
-[LiquidFun](http://google.github.io/liquidfun/) and [Box2d](http://box2d.org).
+## Modules
 
-If you've downloaded this as an archive, you should find the built java jars in
-the 'target' directories of each project.
+-   `kbox2d-library`: The core physics library.
+-   `kbox2d-serialization-kt`: Serialization tools for saving and loading worlds.
+-   `kbox2d-testbed-javafx`: A testbed for creating and running physics tests using JavaFX.
+-   `jbox2d-testbed-jogl`: The original testbed with OpenGL rendering.
 
----
+## Usage
 
-- `kbox2d-library` - this is the main physics library. The only dependency is the
-  SLF4J logging library.
-- `kbox2d-serialization` - this adds serialization tools. Requires google's
-  protocol buffer library installed to fully build
-  (http://code.google.com/p/protobuf/), but this is optional, as the generated
-  sources are included.
-- `kbox2d-testbed` - A simple framework for creating and running physics tests.
-- `kbox2d-testbed-jogl` - The testbed with OpenGL rendering.
-- `kbox2d-jni-broadphase` - Experiment with moving parts of the engine to C++. Not
-  faster.
+To use kbox2d in your project, add the following dependency to your `build.gradle.kts` file:
+
+```kotlin
+dependencies {
+    implementation("com.hereliesaz.kbox2d:kbox2d-library:1.0.0-SNAPSHOT")
+}
+```
+
+### Public API Guide
+
+Here are a few examples of how to use the core classes in kbox2d:
+
+**Creating a 2D Vector:**
+
+```kotlin
+import com.hereliesaz.jbox2d.common.Vec2
+
+// Create a zero vector
+val v1 = Vec2()
+
+// Create a vector with specific coordinates
+val v2 = Vec2(1.0f, 2.0f)
+
+// Add two vectors
+val v3 = v1 + v2
+```
+
+**Creating a 2x2 Matrix:**
+
+```kotlin
+import com.hereliesaz.jbox2d.common.Mat22
+import com.hereliesaz.jbox2d.common.Vec2
+
+// Create a matrix from two column vectors
+val col1 = Vec2(1.0f, 2.0f)
+val col2 = Vec2(3.0f, 4.0f)
+val m1 = Mat22(col1, col2)
+
+// Create a matrix from four floats
+val m2 = Mat22(1.0f, 3.0f, 2.0f, 4.0f)
+```
+
+**Creating a Transform:**
+
+```kotlin
+import com.hereliesaz.jbox2d.common.Transform
+import com.hereliesaz.jbox2d.common.Vec2
+import com.hereliesaz.jbox2d.common.Rot
+
+// Create a transform with a position and rotation
+val position = Vec2(1.0f, 1.0f)
+val rotation = Rot(0.5f) // 0.5 radians
+val xf = Transform(position, rotation)
+```
+
+For more detailed information, please refer to the KDoc documentation for each class.
 
 ## Tests / Demos
 
-https://github.com/engine-pi/jbox2d/tree/main/jbox2d-testbed/src/main/java/de/pirckheimer_gymnasium/jbox2d/testbed/tests
-
-<!-- ApplyForce
-BlobTest4
-BodyTypes
-Breakable -->
-
-BulletTest
+The original demos from jbox2d are available in the `jbox2d-testbed-jogl` and `kbox2d-testbed-javafx` modules.
 
 ![](https://raw.githubusercontent.com/engine-pi/jbox2d/main/screencasts/BulletTest.gif)
-
-<!-- Cantilever -->
-
-Car
-
 ![](https://raw.githubusercontent.com/engine-pi/jbox2d/main/screencasts/Car.gif)
-
-<!-- Chain
-CharacterCollision
-CircleStress
-CollisionFiltering
-CollisionProcessing
-CompoundShapes
-ConfinedTest
-ContinuousTest
-ConvexHull
-ConveyorBelt -->
-
-DamBreak
-
 ![](https://raw.githubusercontent.com/engine-pi/jbox2d/main/screencasts/DamBreak.gif)
-
-<!-- DistanceTest -->
-
-DominoTest
-
 ![](https://raw.githubusercontent.com/engine-pi/jbox2d/main/screencasts/Dominos.gif)
-
-<!--
-DominoTower
-DrawingParticles
-DynamicTreeTest
-EdgeShapes
-EdgeTest
-FixedPendulumTest
-FreePendulumTest
-Gears -->
-
-LiquidTimer
-
 ![](https://raw.githubusercontent.com/engine-pi/jbox2d/main/screencasts/LiquidTimer.gif)
-
-<!--
-MotorTest
-OneSidedTest
-Particles -->
-
-ParticleTypes
-
 ![](https://raw.githubusercontent.com/engine-pi/jbox2d/main/screencasts/Particles.gif)
-
-<!-- PistonTest
-PolyShapes
-PrismaticTest
-Pulleys
-PyramidTest
-RayCastTest
-RevoluteTest
-RopeTest
-SensorTest
-ShapeEditing
-SliderCrankTest
-SphereStack
-TheoJansen
-Tumbler
-VaryingFrictionTest
-VaryingRestitution
-VerticalStack -->
-
-WaveMachine
-
 ![](https://raw.githubusercontent.com/engine-pi/jbox2d/main/screencasts/WaveMachine.gif)
-
-<!-- Web -->

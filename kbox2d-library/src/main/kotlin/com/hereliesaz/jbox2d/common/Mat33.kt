@@ -21,301 +21,340 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package de.pirckheimer_gymnasium.jbox2d.common;
+package com.hereliesaz.jbox2d.common
 
-import java.io.Serial;
-import java.io.Serializable;
+import java.io.Serializable
 
 /**
  * A 3-by-3 matrix. Stored in column-major order.
  *
  * @author Daniel Murphy
  */
-public class Mat33 implements Serializable
-{
-    @Serial
-    private static final long serialVersionUID = 2L;
+data class Mat33(
+    @JvmField val ex: Vec3 = Vec3(),
+    @JvmField val ey: Vec3 = Vec3(),
+    @JvmField val ez: Vec3 = Vec3()
+) : Serializable {
 
-    public static final Mat33 IDENTITY = new Mat33(new Vec3(1, 0, 0),
-            new Vec3(0, 1, 0), new Vec3(0, 0, 1));
+    /**
+     * Creates a matrix from 9 floats.
+     *
+     * @param exx the x-component of the first column
+     * @param exy the y-component of the first column
+     * @param exz the z-component of the first column
+     * @param eyx the x-component of the second column
+     * @param eyy the y-component of the second column
+     * @param eyz the z-component of the second column
+     * @param ezx the x-component of the third column
+     * @param ezy the y-component of the third column
+     * @param ezz the z-component of the third column
+     */
+    constructor(
+        exx: Float, exy: Float, exz: Float,
+        eyx: Float, eyy: Float, eyz: Float,
+        ezx: Float, ezy: Float, ezz: Float
+    ) : this(Vec3(exx, exy, exz), Vec3(eyx, eyy, eyz), Vec3(ezx, ezy, ezz))
 
-    public final Vec3 ex, ey, ez;
-
-    public Mat33()
-    {
-        ex = new Vec3();
-        ey = new Vec3();
-        ez = new Vec3();
-    }
-
-    public Mat33(float exx, float exy, float exz, float eyx, float eyy,
-            float eyz, float ezx, float ezy, float ezz)
-    {
-        ex = new Vec3(exx, exy, exz);
-        ey = new Vec3(eyx, eyy, eyz);
-        ez = new Vec3(ezx, ezy, ezz);
-    }
-
-    public Mat33(Vec3 argCol1, Vec3 argCol2, Vec3 argCol3)
-    {
-        ex = argCol1.clone();
-        ey = argCol2.clone();
-        ez = argCol3.clone();
-    }
-
-    public void setZero()
-    {
-        ex.setZero();
-        ey.setZero();
-        ez.setZero();
-    }
-
-    public void set(float exx, float exy, float exz, float eyx, float eyy,
-            float eyz, float ezx, float ezy, float ezz)
-    {
-        ex.x = exx;
-        ex.y = exy;
-        ex.z = exz;
-        ey.x = eyx;
-        ey.y = eyy;
-        ey.z = eyz;
-        ez.x = eyx;
-        ez.y = eyy;
-        ez.z = eyz;
-    }
-
-    public void set(Mat33 mat)
-    {
-        Vec3 vec = mat.ex;
-        ex.x = vec.x;
-        ex.y = vec.y;
-        ex.z = vec.z;
-        Vec3 vec1 = mat.ey;
-        ey.x = vec1.x;
-        ey.y = vec1.y;
-        ey.z = vec1.z;
-        Vec3 vec2 = mat.ez;
-        ez.x = vec2.x;
-        ez.y = vec2.y;
-        ez.z = vec2.z;
-    }
-
-    public void setIdentity()
-    {
-        ex.x = (float) 1;
-        ex.y = (float) 0;
-        ex.z = (float) 0;
-        ey.x = (float) 0;
-        ey.y = (float) 1;
-        ey.z = (float) 0;
-        ez.x = (float) 0;
-        ez.y = (float) 0;
-        ez.z = (float) 1;
+    /**
+     * Sets this matrix to the zero matrix.
+     */
+    fun setZero() {
+        ex.setZero()
+        ey.setZero()
+        ez.setZero()
     }
 
     /**
-     * Multiply a matrix times a vector.
+     * Sets this matrix from 9 floats.
+     *
+     * @param exx the x-component of the first column
+     * @param exy the y-component of the first column
+     * @param exz the z-component of the first column
+     * @param eyx the x-component of the second column
+     * @param eyy the y-component of the second column
+     * @param eyz the z-component of the second column
+     * @param ezx the x-component of the third column
+     * @param ezy the y-component of the third column
+     * @param ezz the z-component of the third column
      */
-    public static Vec3 mul(Mat33 A, Vec3 v)
-    {
-        return new Vec3(v.x * A.ex.x + v.y * A.ey.x + v.z + A.ez.x,
-                v.x * A.ex.y + v.y * A.ey.y + v.z * A.ez.y,
-                v.x * A.ex.z + v.y * A.ey.z + v.z * A.ez.z);
-    }
-
-    public static Vec2 mul22(Mat33 A, Vec2 v)
-    {
-        return new Vec2(A.ex.x * v.x + A.ey.x * v.y,
-                A.ex.y * v.x + A.ey.y * v.y);
-    }
-
-    public static void mul22ToOut(Mat33 A, Vec2 v, Vec2 out)
-    {
-        final float tempX = A.ex.x * v.x + A.ey.x * v.y;
-        out.y = A.ex.y * v.x + A.ey.y * v.y;
-        out.x = tempX;
-    }
-
-    public static void mul22ToOutUnsafe(Mat33 A, Vec2 v, Vec2 out)
-    {
-        assert (v != out);
-        out.y = A.ex.y * v.x + A.ey.y * v.y;
-        out.x = A.ex.x * v.x + A.ey.x * v.y;
-    }
-
-    public static void mulToOut(Mat33 A, Vec3 v, Vec3 out)
-    {
-        final float tempY = v.x * A.ex.y + v.y * A.ey.y + v.z * A.ez.y;
-        final float tempZ = v.x * A.ex.z + v.y * A.ey.z + v.z * A.ez.z;
-        out.x = v.x * A.ex.x + v.y * A.ey.x + v.z * A.ez.x;
-        out.y = tempY;
-        out.z = tempZ;
-    }
-
-    public static void mulToOutUnsafe(Mat33 A, Vec3 v, Vec3 out)
-    {
-        assert (out != v);
-        out.x = v.x * A.ex.x + v.y * A.ey.x + v.z * A.ez.x;
-        out.y = v.x * A.ex.y + v.y * A.ey.y + v.z * A.ez.y;
-        out.z = v.x * A.ex.z + v.y * A.ey.z + v.z * A.ez.z;
+    fun set(
+        exx: Float, exy: Float, exz: Float,
+        eyx: Float, eyy: Float, eyz: Float,
+        ezx: Float, ezy: Float, ezz: Float
+    ) {
+        ex.x = exx
+        ex.y = exy
+        ex.z = exz
+        ey.x = eyx
+        ey.y = eyy
+        ey.z = eyz
+        ez.x = ezx
+        ez.y = ezy
+        ez.z = ezz
     }
 
     /**
-     * Solve A * x = b, where b is a column vector. This is more efficient than
-     * computing the inverse in one-shot cases.
+     * Sets this matrix to be a copy of another matrix.
+     *
+     * @param mat the matrix to copy from
      */
-    public final Vec2 solve22(Vec2 b)
-    {
-        Vec2 x = new Vec2();
-        solve22ToOut(b, x);
-        return x;
+    fun set(mat: Mat33) {
+        ex.set(mat.ex)
+        ey.set(mat.ey)
+        ez.set(mat.ez)
     }
 
     /**
-     * Solve A * x = b, where b is a column vector. This is more efficient than
-     * computing the inverse in one-shot cases.
+     * Sets this matrix to the identity matrix.
      */
-    public final void solve22ToOut(Vec2 b, Vec2 out)
-    {
-        final float a11 = ex.x, a12 = ey.x, a21 = ex.y, a22 = ey.y;
-        float det = a11 * a22 - a12 * a21;
-        if (det != 0.0f)
-        {
-            det = 1.0f / det;
-        }
-        out.x = det * (a22 * b.x - a12 * b.y);
-        out.y = det * (a11 * b.y - a21 * b.x);
-    }
-
-    // djm pooling from below
-    /**
-     * Solve A * x = b, where b is a column vector. This is more efficient than
-     * computing the inverse in one-shot cases.
-     */
-    public final Vec3 solve33(Vec3 b)
-    {
-        Vec3 x = new Vec3();
-        solve33ToOut(b, x);
-        return x;
+    fun setIdentity() {
+        ex.x = 1f
+        ex.y = 0f
+        ex.z = 0f
+        ey.x = 0f
+        ey.y = 1f
+        ey.z = 0f
+        ez.x = 0f
+        ez.y = 0f
+        ez.z = 1f
     }
 
     /**
      * Solve A * x = b, where b is a column vector. This is more efficient than
      * computing the inverse in one-shot cases.
      *
-     * @param b
-     * @param out The result.
+     * @param b the right-hand side vector
+     * @return the solution vector x
      */
-    public final void solve33ToOut(Vec3 b, Vec3 out)
-    {
-        assert (b != out);
-        Vec3.crossToOutUnsafe(ey, ez, out);
-        float det = Vec3.dot(ex, out);
-        if (det != 0.0f)
-        {
-            det = 1.0f / det;
-        }
-        Vec3.crossToOutUnsafe(ey, ez, out);
-        final float x = det * Vec3.dot(b, out);
-        Vec3.crossToOutUnsafe(b, ez, out);
-        final float y = det * Vec3.dot(ex, out);
-        Vec3.crossToOutUnsafe(ey, b, out);
-        float z = det * Vec3.dot(ex, out);
-        out.x = x;
-        out.y = y;
-        out.z = z;
+    fun solve22(b: Vec2): Vec2 {
+        val x = Vec2()
+        solve22ToOut(b, x)
+        return x
     }
 
-    public void getInverse22(Mat33 M)
-    {
-        float a = ex.x, b = ey.x, c = ex.y, d = ey.y;
-        float det = a * d - b * c;
-        if (det != 0.0f)
-        {
-            det = 1.0f / det;
+    /**
+     * Solve A * x = b, where b is a column vector. This is more efficient than
+     * computing the inverse in one-shot cases.
+     *
+     * @param b the right-hand side vector
+     * @param out the vector to store the solution in
+     */
+    fun solve22ToOut(b: Vec2, out: Vec2) {
+        val a11 = ex.x
+        val a12 = ey.x
+        val a21 = ex.y
+        val a22 = ey.y
+        var det = a11 * a22 - a12 * a21
+        if (det != 0.0f) {
+            det = 1.0f / det
         }
-        M.ex.x = det * d;
-        M.ey.x = -det * b;
-        M.ex.z = 0.0f;
-        M.ex.y = -det * c;
-        M.ey.y = det * a;
-        M.ey.z = 0.0f;
-        M.ez.x = 0.0f;
-        M.ez.y = 0.0f;
-        M.ez.z = 0.0f;
+        out.x = det * (a22 * b.x - a12 * b.y)
+        out.y = det * (a11 * b.y - a21 * b.x)
     }
 
-    // / Returns the zero matrix if singular.
-    public void getSymInverse33(Mat33 M)
-    {
-        float bx = ey.y * ez.z - ey.z * ez.y;
-        float by = ey.z * ez.x - ey.x * ez.z;
-        float bz = ey.x * ez.y - ey.y * ez.x;
-        float det = ex.x * bx + ex.y * by + ex.z * bz;
-        if (det != 0.0f)
-        {
-            det = 1.0f / det;
-        }
-        float a11 = ex.x, a12 = ey.x, a13 = ez.x;
-        float a22 = ey.y, a23 = ez.y;
-        float a33 = ez.z;
-        M.ex.x = det * (a22 * a33 - a23 * a23);
-        M.ex.y = det * (a13 * a23 - a12 * a33);
-        M.ex.z = det * (a12 * a23 - a13 * a22);
-        M.ey.x = M.ex.y;
-        M.ey.y = det * (a11 * a33 - a13 * a13);
-        M.ey.z = det * (a13 * a12 - a11 * a23);
-        M.ez.x = M.ex.z;
-        M.ez.y = M.ey.z;
-        M.ez.z = det * (a11 * a22 - a12 * a12);
+    /**
+     * Solve A * x = b, where b is a column vector. This is more efficient than
+     * computing the inverse in one-shot cases.
+     *
+     * @param b the right-hand side vector
+     * @return the solution vector x
+     */
+    fun solve33(b: Vec3): Vec3 {
+        val x = Vec3()
+        solve33ToOut(b, x)
+        return x
     }
 
-    public static void setScaleTransform(float scale, Mat33 out)
-    {
-        out.ex.x = scale;
-        out.ey.y = scale;
+    /**
+     * Solve A * x = b, where b is a column vector. This is more efficient than
+     * computing the inverse in one-shot cases.
+     *
+     * @param b the right-hand side vector
+     * @param out the vector to store the solution in
+     */
+    fun solve33ToOut(b: Vec3, out: Vec3) {
+        assert(b !== out)
+        Vec3.crossToOutUnsafe(ey, ez, out)
+        var det = Vec3.dot(ex, out)
+        if (det != 0.0f) {
+            det = 1.0f / det
+        }
+        Vec3.crossToOutUnsafe(ey, ez, out)
+        val x = det * Vec3.dot(b, out)
+        Vec3.crossToOutUnsafe(b, ez, out)
+        val y = det * Vec3.dot(ex, out)
+        Vec3.crossToOutUnsafe(ey, b, out)
+        val z = det * Vec3.dot(ex, out)
+        out.x = x
+        out.y = y
+        out.z = z
     }
 
-    @Override
-    public int hashCode()
-    {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((ex == null) ? 0 : ex.hashCode());
-        result = prime * result + ((ey == null) ? 0 : ey.hashCode());
-        result = prime * result + ((ez == null) ? 0 : ez.hashCode());
-        return result;
+    /**
+     * Get the inverse of this matrix as a 2x2.
+     * Returns the zero matrix if singular.
+     *
+     * @param M the matrix to store the result in
+     */
+    fun getInverse22(M: Mat33) {
+        val a = ex.x
+        val b = ey.x
+        val c = ex.y
+        val d = ey.y
+        var det = a * d - b * c
+        if (det != 0.0f) {
+            det = 1.0f / det
+        }
+        M.ex.x = det * d
+        M.ey.x = -det * b
+        M.ex.z = 0.0f
+        M.ex.y = -det * c
+        M.ey.y = det * a
+        M.ey.z = 0.0f
+        M.ez.x = 0.0f
+        M.ez.y = 0.0f
+        M.ez.z = 0.0f
     }
 
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Mat33 other = (Mat33) obj;
-        if (ex == null)
-        {
-            if (other.ex != null)
-                return false;
+    /**
+     * Get the symmetric inverse of this matrix as a 3x3.
+     * Returns the zero matrix if singular.
+     *
+     * @param M the matrix to store the result in
+     */
+    fun getSymInverse33(M: Mat33) {
+        val bx = ey.y * ez.z - ey.z * ez.y
+        val by = ey.z * ez.x - ey.x * ez.z
+        val bz = ey.x * ez.y - ey.y * ez.x
+        var det = ex.x * bx + ex.y * by + ex.z * bz
+        if (det != 0.0f) {
+            det = 1.0f / det
         }
-        else if (!ex.equals(other.ex))
-            return false;
-        if (ey == null)
-        {
-            if (other.ey != null)
-                return false;
+        val a11 = ex.x
+        val a12 = ey.x
+        val a13 = ez.x
+        val a22 = ey.y
+        val a23 = ez.y
+        val a33 = ez.z
+        M.ex.x = det * (a22 * a33 - a23 * a23)
+        M.ex.y = det * (a13 * a23 - a12 * a33)
+        M.ex.z = det * (a12 * a23 - a13 * a22)
+        M.ey.x = M.ex.y
+        M.ey.y = det * (a11 * a33 - a13 * a13)
+        M.ey.z = det * (a13 * a12 - a11 * a23)
+        M.ez.x = M.ex.z
+        M.ez.y = M.ey.z
+        M.ez.z = det * (a11 * a22 - a12 * a12)
+    }
+
+    companion object {
+        private const val serialVersionUID = 2L
+
+        /**
+         * The identity matrix.
+         */
+        @JvmField
+        val IDENTITY = Mat33(Vec3(1f, 0f, 0f), Vec3(0f, 1f, 0f), Vec3(0f, 0f, 1f))
+
+        /**
+         * Multiplies a matrix by a vector.
+         *
+         * @param A the matrix
+         * @param v the vector
+         * @return a new vector containing the result
+         */
+        @JvmStatic
+        fun mul(A: Mat33, v: Vec3): Vec3 {
+            return Vec3(
+                v.x * A.ex.x + v.y * A.ey.x + v.z * A.ez.x,
+                v.x * A.ex.y + v.y * A.ey.y + v.z * A.ez.y,
+                v.x * A.ex.z + v.y * A.ey.z + v.z * A.ez.z
+            )
         }
-        else if (!ey.equals(other.ey))
-            return false;
-        if (ez == null)
-        {
-            return other.ez == null;
+
+        /**
+         * Multiplies the 2x2 part of a matrix by a 2D vector.
+         *
+         * @param A the matrix
+         * @param v the vector
+         * @return a new vector containing the result
+         */
+        @JvmStatic
+        fun mul22(A: Mat33, v: Vec2): Vec2 {
+            return Vec2(A.ex.x * v.x + A.ey.x * v.y, A.ex.y * v.x + A.ey.y * v.y)
         }
-        else
-            return ez.equals(other.ez);
+
+        /**
+         * Multiplies the 2x2 part of a matrix by a 2D vector and stores the result in the output vector.
+         *
+         * @param A the matrix
+         * @param v the vector
+         * @param out the vector to store the result in
+         */
+        @JvmStatic
+        fun mul22ToOut(A: Mat33, v: Vec2, out: Vec2) {
+            val tempX = A.ex.x * v.x + A.ey.x * v.y
+            out.y = A.ex.y * v.x + A.ey.y * v.y
+            out.x = tempX
+        }
+
+        /**
+         * Multiplies the 2x2 part of a matrix by a 2D vector and stores the result in the output vector.
+         * This is an unsafe version that assumes the output vector is not the same as the input vector.
+         *
+         * @param A the matrix
+         * @param v the vector
+         * @param out the vector to store the result in
+         */
+        @JvmStatic
+        fun mul22ToOutUnsafe(A: Mat33, v: Vec2, out: Vec2) {
+            assert(v !== out)
+            out.y = A.ex.y * v.x + A.ey.y * v.y
+            out.x = A.ex.x * v.x + A.ey.x * v.y
+        }
+
+        /**
+         * Multiplies a matrix by a vector and stores the result in the output vector.
+         *
+         * @param A the matrix
+         * @param v the vector
+         * @param out the vector to store the result in
+         */
+        @JvmStatic
+        fun mulToOut(A: Mat33, v: Vec3, out: Vec3) {
+            val tempY = v.x * A.ex.y + v.y * A.ey.y + v.z * A.ez.y
+            val tempZ = v.x * A.ex.z + v.y * A.ey.z + v.z * A.ez.z
+            out.x = v.x * A.ex.x + v.y * A.ey.x + v.z * A.ez.x
+            out.y = tempY
+            out.z = tempZ
+        }
+
+        /**
+         * Multiplies a matrix by a vector and stores the result in the output vector.
+         * This is an unsafe version that assumes the output vector is not the same as the input vector.
+         *
+         * @param A the matrix
+         * @param v the vector
+         * @param out the vector to store the result in
+         */
+        @JvmStatic
+        fun mulToOutUnsafe(A: Mat33, v: Vec3, out: Vec3) {
+            assert(out !== v)
+            out.x = v.x * A.ex.x + v.y * A.ey.x + v.z * A.ez.x
+            out.y = v.x * A.ex.y + v.y * A.ey.y + v.z * A.ez.y
+            out.z = v.x * A.ex.z + v.y * A.ey.z + v.z * A.ez.z
+        }
+
+        /**
+         * Creates a matrix that represents a scaling transformation and stores it in the output matrix.
+         *
+         * @param scale the scaling factor
+         * @param out the matrix to store the result in
+         */
+        @JvmStatic
+        fun setScaleTransform(scale: Float, out: Mat33) {
+            out.ex.x = scale
+            out.ey.y = scale
+        }
     }
 }

@@ -35,13 +35,18 @@ import javafx.scene.layout.BorderPane
 import javafx.stage.Stage
 
 /**
- * The entry point for the testbed application
+ * The entry point for the testbed application.
+ * This class sets up the JavaFX application and initializes the testbed.
  *
  * @author Daniel Murphy
  */
 class TestbedMain : Application() {
-    // private static final Logger log =
-    // LoggerFactory.getLogger(TestbedMain.class);
+    /**
+     * The main entry point for the JavaFX application.
+     * This method is called after the application has been launched.
+     *
+     * @param primaryStage the primary stage for this application
+     */
     override fun start(primaryStage: Stage) {
         val model = TestbedModel()
         val controller = TestbedControllerJavaFX(
@@ -61,7 +66,7 @@ class TestbedMain : Application() {
             TestPanelJavaFX.INIT_HEIGHT.toDouble()
         )
         primaryStage.scene = scene
-        primaryStage.title = "JBox2D Testbed"
+        primaryStage.title = "kbox2d Testbed"
         primaryStage.show()
         println(System.getProperty("java.home"))
         Platform.runLater {
@@ -71,6 +76,11 @@ class TestbedMain : Application() {
     }
 
     companion object {
+        /**
+         * The main entry point for the application.
+         *
+         * @param args the command line arguments
+         */
         @JvmStatic
         fun main(args: Array<String>) {
             launch(TestbedMain::class.java, *args)

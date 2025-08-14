@@ -27,14 +27,19 @@ import javafx.animation.AnimationTimer
  * This class contains most control logic for the testbed and the update loop. It also watches the
  * model to switch tests and populates the model with some loop statistics.
  *
+ * @param model the testbed model
+ * @param behavior the update behavior
+ * @param mouseBehavior the mouse behavior
+ * @param errorHandler the error handler
+ * @constructor Creates a new testbed controller.
  * @author Daniel Murphy
  */
 class TestbedControllerJavaFX(
-    argModel: TestbedModel,
+    model: TestbedModel,
     behavior: UpdateBehavior,
     mouseBehavior: MouseBehavior,
     errorHandler: TestbedErrorHandler
-) : AbstractTestbedController(argModel, behavior, mouseBehavior, errorHandler) {
+) : AbstractTestbedController(model, behavior, mouseBehavior, errorHandler) {
 
     private val animator: AnimationTimer = object : AnimationTimer() {
         var last: Long = -1
@@ -50,10 +55,16 @@ class TestbedControllerJavaFX(
         }
     }
 
+    /**
+     * Starts the animation timer.
+     */
     override fun startAnimator() {
         animator.start()
     }
 
+    /**
+     * Stops the animation timer.
+     */
     override fun stopAnimator() {
         animator.stop()
     }
