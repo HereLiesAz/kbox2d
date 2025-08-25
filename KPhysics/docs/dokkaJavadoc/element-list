@@ -1,0 +1,17 @@
+$dokka.format:javadoc-v1
+$dokka.linkExtension:html
+$dokka.location:de.chaffic.collision/Arbiter.Companion///PointingToDeclaration/de/chaffic/collision/Arbiter.Companion.html
+$dokka.location:de.chaffic.collision/AxisAlignedBoundingBox.Companion///PointingToDeclaration/de/chaffic/collision/AxisAlignedBoundingBox.Companion.html
+$dokka.location:de.chaffic.geometry/Shape.IntersectionReturnElement///PointingToDeclaration/de/chaffic/geometry/Shape.IntersectionReturnElement.html
+$dokka.location:de.chaffic.math/Vec2.Companion///PointingToDeclaration/de/chaffic/math/Vec2.Companion.html
+de.chaffic.collision
+de.chaffic.collision.bodies
+de.chaffic.dynamics
+de.chaffic.dynamics.bodies
+de.chaffic.explosions
+de.chaffic.geometry
+de.chaffic.geometry.bodies
+de.chaffic.joints
+de.chaffic.math
+de.chaffic.rays
+
