@@ -43,9 +43,9 @@
  * misrepresented as being the original software.
  * 3. This notice may not be removed or altered from any source distribution.
  */
-package com.hereliesaz.kbox2d.collision.shapes
+package com.github.hereliesaz.kfizzix.collision.shapes
 
-import com.hereliesaz.kbox2d.common.Vec2
+import com.github.hereliesaz.kfizzix.common.Vec2
 
 /**
  * This holds the mass data computed for a shape.

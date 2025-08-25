@@ -21,13 +21,13 @@
  * ARISING IN ANY WAY OUT OF THE USE OF this SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.hereliesaz.kbox2d.collision
+package com.github.hereliesaz.kfizzix.collision
 
-import com.hereliesaz.kbox2d.common.MathUtils
-import com.hereliesaz.kbox2d.common.Rot
-import com.hereliesaz.kbox2d.common.Settings
-import com.hereliesaz.kbox2d.common.Transform
-import com.hereliesaz.kbox2d.common.Vec2
+import com.github.hereliesaz.kfizzix.common.MathUtils
+import com.github.hereliesaz.kfizzix.common.Rot
+import com.github.hereliesaz.kfizzix.common.Settings
+import com.github.hereliesaz.kfizzix.common.Transform
+import com.github.hereliesaz.kfizzix.common.Vec2
 
 /**
  * This is used to compute the current state of a contact manifold.

@@ -21,18 +21,18 @@
  * ARISING IN ANY WAY OUT OF THE USE OF this SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.hereliesaz.kbox2d.collision
+package com.github.hereliesaz.kfizzix.collision
 
-import com.hereliesaz.kbox2d.collision.shapes.ChainShape
-import com.hereliesaz.kbox2d.collision.shapes.CircleShape
-import com.hereliesaz.kbox2d.collision.shapes.EdgeShape
-import com.hereliesaz.kbox2d.collision.shapes.PolygonShape
-import com.hereliesaz.kbox2d.collision.shapes.Shape
-import com.hereliesaz.kbox2d.common.MathUtils
-import com.hereliesaz.kbox2d.common.Rot
-import com.hereliesaz.kbox2d.common.Settings
-import com.hereliesaz.kbox2d.common.Vec2
-import com.hereliesaz.kbox2d.common.Transform
+import com.github.hereliesaz.kfizzix.collision.shapes.ChainShape
+import com.github.hereliesaz.kfizzix.collision.shapes.CircleShape
+import com.github.hereliesaz.kfizzix.collision.shapes.EdgeShape
+import com.github.hereliesaz.kfizzix.collision.shapes.PolygonShape
+import com.github.hereliesaz.kfizzix.collision.shapes.Shape
+import com.github.hereliesaz.kfizzix.common.MathUtils
+import com.github.hereliesaz.kfizzix.common.Rot
+import com.github.hereliesaz.kfizzix.common.Settings
+import com.github.hereliesaz.kfizzix.common.Vec2
+import com.github.hereliesaz.kfizzix.common.Transform
 
 /**
  * This is non-static for faster pooling. To get an instance, use the

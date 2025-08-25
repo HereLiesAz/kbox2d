@@ -21,13 +21,13 @@
  * ARISING IN ANY WAY OUT OF THE USE OF this SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.hereliesaz.kbox2d.callbacks
+package com.github.hereliesaz.kfizzix.callbacks
 
-import com.hereliesaz.kbox2d.common.Color3f
-import com.hereliesaz.kbox2d.common.IViewportTransform
-import com.hereliesaz.kbox2d.common.Transform
-import com.hereliesaz.kbox2d.common.Vec2
-import com.hereliesaz.kbox2d.particle.ParticleColor
+import com.github.hereliesaz.kfizzix.common.Color3f
+import com.github.hereliesaz.kfizzix.common.IViewportTransform
+import com.github.hereliesaz.kfizzix.common.Transform
+import com.github.hereliesaz.kfizzix.common.Vec2
+import com.github.hereliesaz.kfizzix.particle.ParticleColor
 
 /**
  * Implement this abstract class to allow JBox2d to automatically draw your

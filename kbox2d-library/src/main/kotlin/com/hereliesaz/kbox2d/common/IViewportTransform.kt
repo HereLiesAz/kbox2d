@@ -21,7 +21,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF this SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.hereliesaz.kbox2d.common
+package com.github.hereliesaz.kfizzix.common
 
 /**
  * This is the viewport transform used from drawing. Use yFlip if you are

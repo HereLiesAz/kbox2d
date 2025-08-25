@@ -15,7 +15,7 @@ dependencies {
     implementation(kotlin("stdlib"))
     implementation("com.google.protobuf:protobuf-java:3.25.4")
     implementation("com.google.protobuf:protobuf-kotlin:3.25.4")
-    implementation(project(":kbox2d-library"))
+    implementation(project(":kfizzix-library"))
 }
 
 protobuf {

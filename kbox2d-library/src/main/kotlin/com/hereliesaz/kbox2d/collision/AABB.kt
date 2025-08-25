@@ -21,13 +21,13 @@
  * ARISING IN ANY WAY OUT OF THE USE OF this SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.hereliesaz.kbox2d.collision
+package com.github.hereliesaz.kfizzix.collision
 
-import com.hereliesaz.kbox2d.common.MathUtils
-import com.hereliesaz.kbox2d.common.Settings
-import com.hereliesaz.kbox2d.common.Vec2
-import com.hereliesaz.kbox2d.pooling.WorldPool
-import com.hereliesaz.kbox2d.pooling.normal.DefaultWorldPool
+import com.github.hereliesaz.kfizzix.common.MathUtils
+import com.github.hereliesaz.kfizzix.common.Settings
+import com.github.hereliesaz.kfizzix.common.Vec2
+import com.github.hereliesaz.kfizzix.pooling.WorldPool
+import com.github.hereliesaz.kfizzix.pooling.normal.DefaultWorldPool
 
 /**
  * An axis-aligned bounding box.

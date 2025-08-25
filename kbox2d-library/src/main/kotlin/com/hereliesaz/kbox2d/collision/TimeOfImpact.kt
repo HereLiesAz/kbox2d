@@ -21,17 +21,17 @@
  * ARISING IN ANY WAY OUT OF THE USE OF this SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.hereliesaz.kbox2d.collision
+package com.github.hereliesaz.kfizzix.collision
 
-import com.hereliesaz.kbox2d.collision.Distance.DistanceProxy
-import com.hereliesaz.kbox2d.collision.Distance.SimplexCache
-import com.hereliesaz.kbox2d.common.MathUtils
-import com.hereliesaz.kbox2d.common.Rot
-import com.hereliesaz.kbox2d.common.Settings
-import com.hereliesaz.kbox2d.common.Sweep
-import com.hereliesaz.kbox2d.common.Transform
-import com.hereliesaz.kbox2d.common.Vec2
-import com.hereliesaz.kbox2d.pooling.WorldPool
+import com.github.hereliesaz.kfizzix.collision.Distance.DistanceProxy
+import com.github.hereliesaz.kfizzix.collision.Distance.SimplexCache
+import com.github.hereliesaz.kfizzix.common.MathUtils
+import com.github.hereliesaz.kfizzix.common.Rot
+import com.github.hereliesaz.kfizzix.common.Settings
+import com.github.hereliesaz.kfizzix.common.Sweep
+import com.github.hereliesaz.kfizzix.common.Transform
+import com.github.hereliesaz.kfizzix.common.Vec2
+import com.github.hereliesaz.kfizzix.pooling.WorldPool
 
 /**
  * Class used for computing the time of impact. This class should not be

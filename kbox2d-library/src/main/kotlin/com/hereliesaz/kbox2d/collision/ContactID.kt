@@ -43,7 +43,7 @@
  * misrepresented as being the original software.
  * 3. This notice may not be removed or altered from any source distribution.
  */
-package com.hereliesaz.kbox2d.collision
+package com.github.hereliesaz.kfizzix.collision
 
 /**
  * Contact ids to facilitate warm starting. Note: the ContactFeatures class is

@@ -21,9 +21,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF this SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.hereliesaz.kbox2d.callbacks
+package com.github.hereliesaz.kfizzix.callbacks
 
-import com.hereliesaz.kbox2d.common.Vec2
+import com.github.hereliesaz.kfizzix.common.Vec2
 
 /**
  * @author Daniel Murphy

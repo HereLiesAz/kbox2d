@@ -21,18 +21,18 @@
  * ARISING IN ANY WAY OUT OF THE USE OF this SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.hereliesaz.kbox2d.collision.shapes
+package com.github.hereliesaz.kfizzix.collision.shapes
 
-import com.hereliesaz.kbox2d.collision.AABB
-import com.hereliesaz.kbox2d.collision.RayCastInput
-import com.hereliesaz.kbox2d.collision.RayCastOutput
-import com.hereliesaz.kbox2d.common.MathUtils
-import com.hereliesaz.kbox2d.common.Rot
-import com.hereliesaz.kbox2d.common.Settings
-import com.hereliesaz.kbox2d.common.Transform
-import com.hereliesaz.kbox2d.common.Vec2
-import com.hereliesaz.kbox2d.pooling.arrays.IntArray
-import com.hereliesaz.kbox2d.pooling.arrays.Vec2Array
+import com.github.hereliesaz.kfizzix.collision.AABB
+import com.github.hereliesaz.kfizzix.collision.RayCastInput
+import com.github.hereliesaz.kfizzix.collision.RayCastOutput
+import com.github.hereliesaz.kfizzix.common.MathUtils
+import com.github.hereliesaz.kfizzix.common.Rot
+import com.github.hereliesaz.kfizzix.common.Settings
+import com.github.hereliesaz.kfizzix.common.Transform
+import com.github.hereliesaz.kfizzix.common.Vec2
+import com.github.hereliesaz.kfizzix.pooling.arrays.IntArray
+import com.github.hereliesaz.kfizzix.pooling.arrays.Vec2Array
 
 /**
  * A convex polygon shape. Polygons have a maximum number of vertices equal to
