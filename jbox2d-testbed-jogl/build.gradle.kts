@@ -10,7 +10,7 @@ application {
 }
 
 dependencies {
-    implementation(project(":kbox2d-library"))
+    implementation(project(":kfizzix-library"))
     implementation("de.pirckheimer-gymnasium:jbox2d-serialization:3.1.0")
     implementation("de.pirckheimer-gymnasium:jbox2d-testbed:3.1.0")
     implementation("org.jogamp.gluegen:gluegen-rt-main:2.1.2")
