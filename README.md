@@ -1,11 +1,11 @@
-[![Maven Central](https://img.shields.io/maven-central/v/com.hereliesaz.kbox2d/kbox2d-library.svg?style=flat)](https://central.sonatype.com/artifact/com.hereliesaz.kbox2d/kbox2d-library)
-[![javadoc](https://javadoc.io/badge2/com.hereliesaz.kbox2d/kbox2d-library/javadoc.svg)](https://javadoc.io/doc/com.hereliesaz.kbox2d/kbox2d-library)
+[![Maven Central](https://img.shields.io/maven-central/v/com.hereliesaz.kfizzix/kfizzix-library.svg?style=flat)](https://central.sonatype.com/artifact/com.hereliesaz.kfizzix/kfizzix-library)
+[![javadoc](https://javadoc.io/badge2/com.hereliesaz.kfizzix/kfizzix-library/javadoc.svg)](https://javadoc.io/doc/com.hereliesaz.kfizzix/kfizzix-library)
 
-# kbox2d
+# kfizzix
 
-kbox2d is a pure Kotlin port of the C++ physics engines [LiquidFun](http://google.github.io/liquidfun/) and [Box2d](http://box2d.org).
+kfizzix is a pure Kotlin port of the C++ physics engines [LiquidFun](http://google.github.io/liquidfun/) and [Box2d](http://box2d.org).
 
-This project is a fork of the original [jbox2d](https://github.com/jbox2d/jbox2d) library, which was a Java port. kbox2d has been fully converted to idiomatic Kotlin, with a focus on providing a modern, easy-to-use, and well-documented physics library for the Kotlin ecosystem.
+This project is a fork of the original [jbox2d](https://github.com/jbox2d/jbox2d) library, which was a Java port. kfizzix has been fully converted to idiomatic Kotlin, with a focus on providing a modern, easy-to-use, and well-documented physics library for the Kotlin ecosystem.
 
 ## Features
 
@@ -16,29 +16,29 @@ This project is a fork of the original [jbox2d](https://github.com/jbox2d/jbox2d
 
 ## Modules
 
--   `kbox2d-library`: The core physics library.
--   `kbox2d-serialization-kt`: Serialization tools for saving and loading worlds.
--   `kbox2d-testbed-javafx`: A testbed for creating and running physics tests using JavaFX.
+-   `kfizzix-library`: The core physics library.
+-   `kfizzix-serialization-kt`: Serialization tools for saving and loading worlds.
+-   `kfizzix-testbed-javafx`: A testbed for creating and running physics tests using JavaFX.
 -   `jbox2d-testbed-jogl`: The original testbed with OpenGL rendering.
 
 ## Usage
 
-To use kbox2d in your project, add the following dependency to your `build.gradle.kts` file:
+To use kfizzix in your project, add the following dependency to your `build.gradle.kts` file:
 
 ```kotlin
 dependencies {
-    implementation("com.hereliesaz.kbox2d:kbox2d-library:1.0.0-SNAPSHOT")
+    implementation("com.hereliesaz.kfizzix:kfizzix-library:1.0.0-SNAPSHOT")
 }
 ```
 
 ### Public API Guide
 
-Here are a few examples of how to use the core classes in kbox2d:
+Here are a few examples of how to use the core classes in kfizzix:
 
 **Creating a 2D Vector:**
 
 ```kotlin
-import com.hereliesaz.jbox2d.common.Vec2
+import com.hereliesaz.kfizzix.common.Vec2
 
 // Create a zero vector
 val v1 = Vec2()
@@ -53,8 +53,8 @@ val v3 = v1 + v2
 **Creating a 2x2 Matrix:**
 
 ```kotlin
-import com.hereliesaz.jbox2d.common.Mat22
-import com.hereliesaz.jbox2d.common.Vec2
+import com.hereliesaz.kfizzix.common.Mat22
+import com.hereliesaz.kfizzix.common.Vec2
 
 // Create a matrix from two column vectors
 val col1 = Vec2(1.0f, 2.0f)
@@ -68,9 +68,9 @@ val m2 = Mat22(1.0f, 3.0f, 2.0f, 4.0f)
 **Creating a Transform:**
 
 ```kotlin
-import com.hereliesaz.jbox2d.common.Transform
-import com.hereliesaz.jbox2d.common.Vec2
-import com.hereliesaz.jbox2d.common.Rot
+import com.hereliesaz.kfizzix.common.Transform
+import com.hereliesaz.kfizzix.common.Vec2
+import com.hereliesaz.kfizzix.common.Rot
 
 // Create a transform with a position and rotation
 val position = Vec2(1.0f, 1.0f)
@@ -82,7 +82,7 @@ For more detailed information, please refer to the KDoc documentation for each c
 
 ## Tests / Demos
 
-The original demos from jbox2d are available in the `jbox2d-testbed-jogl` and `kbox2d-testbed-javafx` modules.
+The original demos from jbox2d are available in the `jbox2d-testbed-jogl` and `kfizzix-testbed-javafx` modules.
 
 ![](https://raw.githubusercontent.com/engine-pi/jbox2d/main/screencasts/BulletTest.gif)
 ![](https://raw.githubusercontent.com/engine-pi/jbox2d/main/screencasts/Car.gif)

@@ -13,12 +13,12 @@ javafx {
 dependencies {
     implementation("org.apache.commons:commons-math3:3.6.1")
     implementation(project(":kfizzix-library"))
-    implementation(project(":kbox2d-serialization-kt"))
+    implementation(project(":kfizzix-serialization-kt"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 }
 
 application {
-    mainClass.set("com.hereliesaz.kbox2d.testbed.TestbedMain")
+    mainClass.set("com.hereliesaz.kfizzix.testbed.TestbedMain")
 }
 
 tasks.withType<KotlinCompile> {
