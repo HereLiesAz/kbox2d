@@ -21,7 +21,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF this SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.hereliesaz.kbox2d.particle
+package com.github.hereliesaz.kfizzix.particle
 
 class StackQueue<T> {
     private var buffer: Array<T?>? = null

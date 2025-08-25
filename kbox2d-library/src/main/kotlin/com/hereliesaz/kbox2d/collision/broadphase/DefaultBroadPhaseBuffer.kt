@@ -21,15 +21,15 @@
  * ARISING IN ANY WAY OUT OF THE USE OF this SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.hereliesaz.kbox2d.collision.broadphase
+package com.github.hereliesaz.kfizzix.collision.broadphase
 
-import com.hereliesaz.kbox2d.callbacks.DebugDraw
-import com.hereliesaz.kbox2d.callbacks.PairCallback
-import com.hereliesaz.kbox2d.callbacks.TreeCallback
-import com.hereliesaz.kbox2d.callbacks.TreeRayCastCallback
-import com.hereliesaz.kbox2d.collision.AABB
-import com.hereliesaz.kbox2d.collision.RayCastInput
-import com.hereliesaz.kbox2d.common.Vec2
+import com.github.hereliesaz.kfizzix.callbacks.DebugDraw
+import com.github.hereliesaz.kfizzix.callbacks.PairCallback
+import com.github.hereliesaz.kfizzix.callbacks.TreeCallback
+import com.github.hereliesaz.kfizzix.callbacks.TreeRayCastCallback
+import com.github.hereliesaz.kfizzix.collision.AABB
+import com.github.hereliesaz.kfizzix.collision.RayCastInput
+import com.github.hereliesaz.kfizzix.common.Vec2
 import java.util.*
 
 /**

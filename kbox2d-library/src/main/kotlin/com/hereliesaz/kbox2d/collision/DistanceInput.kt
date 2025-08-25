@@ -21,10 +21,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF this SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.hereliesaz.kbox2d.collision
+package com.github.hereliesaz.kfizzix.collision
 
-import com.hereliesaz.kbox2d.collision.Distance.DistanceProxy
-import com.hereliesaz.kbox2d.common.Transform
+import com.github.hereliesaz.kfizzix.collision.Distance.DistanceProxy
+import com.github.hereliesaz.kfizzix.common.Transform
 
 /**
  * Input for Distance. You have to option to use the shape radii in the

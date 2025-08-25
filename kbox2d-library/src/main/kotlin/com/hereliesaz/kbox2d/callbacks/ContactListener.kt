@@ -21,10 +21,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF this SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.hereliesaz.kbox2d.callbacks
+package com.github.hereliesaz.kfizzix.callbacks
 
-import com.hereliesaz.kbox2d.collision.Manifold
-import com.hereliesaz.kbox2d.dynamics.contacts.Contact
+import com.github.hereliesaz.kfizzix.collision.Manifold
+import com.github.hereliesaz.kfizzix.dynamics.contacts.Contact
 
 /**
  * Implement this class to get contact information. You can use these results

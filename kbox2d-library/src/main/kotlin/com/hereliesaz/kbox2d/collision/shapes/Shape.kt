@@ -21,13 +21,13 @@
  * ARISING IN ANY WAY OUT OF THE USE OF this SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.hereliesaz.kbox2d.collision.shapes
+package com.github.hereliesaz.kfizzix.collision.shapes
 
-import com.hereliesaz.kbox2d.collision.AABB
-import com.hereliesaz.kbox2d.collision.RayCastInput
-import com.hereliesaz.kbox2d.collision.RayCastOutput
-import com.hereliesaz.kbox2d.common.Transform
-import com.hereliesaz.kbox2d.common.Vec2
+import com.github.hereliesaz.kfizzix.collision.AABB
+import com.github.hereliesaz.kfizzix.collision.RayCastInput
+import com.github.hereliesaz.kfizzix.collision.RayCastOutput
+import com.github.hereliesaz.kfizzix.common.Transform
+import com.github.hereliesaz.kfizzix.common.Vec2
 
 /**
  * A shape is used for collision detection. You can create a shape however you

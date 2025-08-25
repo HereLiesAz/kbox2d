@@ -21,9 +21,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF this SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.hereliesaz.kbox2d.particle
+package com.github.hereliesaz.kfizzix.particle
 
-import com.hereliesaz.kbox2d.common.Color3f
+import com.github.hereliesaz.kfizzix.common.Color3f
 
 /**
  * Small color object for each particle

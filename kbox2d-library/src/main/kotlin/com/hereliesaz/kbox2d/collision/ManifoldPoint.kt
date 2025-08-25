@@ -21,9 +21,9 @@
  * ARISING IN ANY WAY OUT of the use of this SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.hereliesaz.kbox2d.collision
+package com.github.hereliesaz.kfizzix.collision
 
-import com.hereliesaz.kbox2d.common.Vec2
+import com.github.hereliesaz.kfizzix.common.Vec2
 
 /**
  * A manifold point is a contact point belonging to a contact manifold. It holds

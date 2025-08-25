@@ -43,7 +43,7 @@
  * misrepresented as being the original software.
  * 3. This notice may not be removed or altered from any source distribution.
  */
-package com.hereliesaz.jbox2d.common
+package com.github.hereliesaz.kfizzix.common
 
 import java.util.Random
 

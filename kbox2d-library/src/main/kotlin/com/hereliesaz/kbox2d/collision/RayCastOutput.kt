@@ -21,9 +21,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF this SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.hereliesaz.kbox2d.collision
+package com.github.hereliesaz.kfizzix.collision
 
-import com.hereliesaz.kbox2d.common.Vec2
+import com.github.hereliesaz.kfizzix.common.Vec2
 
 /**
  * Ray-cast output data. The ray hits at p1 + fraction * (p2 - p1), where p1 and

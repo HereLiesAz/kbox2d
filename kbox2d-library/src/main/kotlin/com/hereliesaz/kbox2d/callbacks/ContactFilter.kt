@@ -21,10 +21,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.hereliesaz.kbox2d.callbacks
+package com.github.hereliesaz.kfizzix.callbacks
 
-import com.hereliesaz.kbox2d.dynamics.Filter
-import com.hereliesaz.kbox2d.dynamics.Fixture
+import com.github.hereliesaz.kfizzix.dynamics.Filter
+import com.github.hereliesaz.kfizzix.dynamics.Fixture
 
 /**
  * Implement this class to provide collision filtering. In other words, you can

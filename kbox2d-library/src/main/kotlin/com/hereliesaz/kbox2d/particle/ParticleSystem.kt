@@ -21,22 +21,22 @@
  * ARISING IN ANY WAY OUT OF THE USE OF this SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.hereliesaz.kbox2d.particle
+package com.github.hereliesaz.kfizzix.particle
 
-import com.hereliesaz.kbox2d.callbacks.ParticleDestructionListener
-import com.hereliesaz.kbox2d.callbacks.ParticleQueryCallback
-import com.hereliesaz.kbox2d.callbacks.ParticleRaycastCallback
-import com.hereliesaz.kbox2d.callbacks.QueryCallback
-import com.hereliesaz.kbox2d.collision.AABB
-import com.hereliesaz.kbox2d.collision.RayCastInput
-import com.hereliesaz.kbox2d.collision.RayCastOutput
-import com.hereliesaz.kbox2d.collision.shapes.Shape
-import com.hereliesaz.kbox2d.common.*
-import com.hereliesaz.kbox2d.dynamics.Body
-import com.hereliesaz.kbox2d.dynamics.Fixture
-import com.hereliesaz.kbox2d.dynamics.TimeStep
-import com.hereliesaz.kbox2d.dynamics.World
-import com.hereliesaz.kbox2d.particle.VoronoiDiagram.VoronoiDiagramCallback
+import com.github.hereliesaz.kfizzix.callbacks.ParticleDestructionListener
+import com.github.hereliesaz.kfizzix.callbacks.ParticleQueryCallback
+import com.github.hereliesaz.kfizzix.callbacks.ParticleRaycastCallback
+import com.github.hereliesaz.kfizzix.callbacks.QueryCallback
+import com.github.hereliesaz.kfizzix.collision.AABB
+import com.github.hereliesaz.kfizzix.collision.RayCastInput
+import com.github.hereliesaz.kfizzix.collision.RayCastOutput
+import com.github.hereliesaz.kfizzix.collision.shapes.Shape
+import com.github.hereliesaz.kfizzix.common.*
+import com.github.hereliesaz.kfizzix.dynamics.Body
+import com.github.hereliesaz.kfizzix.dynamics.Fixture
+import com.github.hereliesaz.kfizzix.dynamics.TimeStep
+import com.github.hereliesaz.kfizzix.dynamics.World
+import com.github.hereliesaz.kfizzix.particle.VoronoiDiagram.VoronoiDiagramCallback
 import java.lang.reflect.Array
 import java.util.*
 

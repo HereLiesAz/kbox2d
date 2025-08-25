@@ -11,7 +11,7 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    implementation(project(":kbox2d-library"))
+    implementation(project(":kfizzix-library"))
     implementation(project(":kbox2d-serialization-kt"))
     implementation("org.apache.commons:commons-math3:3.6.1")
     implementation("org.openjfx:javafx-controls:17.0.2")
