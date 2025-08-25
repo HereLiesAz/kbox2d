@@ -21,13 +21,13 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.hereliesaz.kfizzix.serialization
+package com.hereliesaz.kfizzix.serialization
 
-import com.github.hereliesaz.kfizzix.collision.shapes.Shape
-import com.github.hereliesaz.kfizzix.dynamics.Body
-import com.github.hereliesaz.kfizzix.dynamics.Fixture
-import com.github.hereliesaz.kfizzix.dynamics.World
-import com.github.hereliesaz.kfizzix.dynamics.joints.Joint
+import com.hereliesaz.kfizzix.collision.shapes.Shape
+import com.hereliesaz.kfizzix.dynamics.Body
+import com.hereliesaz.kfizzix.dynamics.Fixture
+import com.hereliesaz.kfizzix.dynamics.World
+import com.hereliesaz.kfizzix.dynamics.joints.Joint
 
 /**
  * Serializer for kbox2d, used to serialize any aspect of the physics world.

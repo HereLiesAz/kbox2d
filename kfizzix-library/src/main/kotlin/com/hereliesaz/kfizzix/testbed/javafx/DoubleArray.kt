@@ -1,4 +1,4 @@
-package com.github.hereliesaz.kfizzix.testbed.javafx
+package com.hereliesaz.kfizzix.testbed.javafx
 
 import java.util.HashMap
 

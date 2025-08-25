@@ -21,14 +21,14 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.hereliesaz.kfizzix.serialization.pb
+package com.hereliesaz.kfizzix.serialization.pb
 
-import com.github.hereliesaz.kfizzix.collision.shapes.*
-import com.github.hereliesaz.kfizzix.common.Vec2
-import com.github.hereliesaz.kfizzix.dynamics.*
-import com.github.hereliesaz.kfizzix.dynamics.joints.*
-import com.github.hereliesaz.kfizzix.serialization.*
-import com.github.hereliesaz.kfizzix.serialization.UnsupportedObjectException.Type
+import com.hereliesaz.kfizzix.collision.shapes.*
+import com.hereliesaz.kfizzix.common.Vec2
+import com.hereliesaz.kfizzix.dynamics.*
+import com.hereliesaz.kfizzix.dynamics.joints.*
+import com.hereliesaz.kfizzix.serialization.*
+import com.hereliesaz.kfizzix.serialization.UnsupportedObjectException.Type
 import org.box2d.proto.Box2D.*
 import java.io.IOException
 import java.io.OutputStream

@@ -16,14 +16,14 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.hereliesaz.kfizzix.testbed.javafx
+package com.hereliesaz.kfizzix.testbed.javafx
 
-import com.github.hereliesaz.kfizzix.callbacks.DebugDraw
-import com.github.hereliesaz.kfizzix.collision.AABB
-import com.github.hereliesaz.kfizzix.common.*
-import com.github.hereliesaz.kfizzix.particle.ParticleColor
-import com.github.hereliesaz.kfizzix.pooling.arrays.Vec2Array
-import com.github.hereliesaz.kfizzix.testbed.pooling.ColorPool
+import com.hereliesaz.kfizzix.callbacks.DebugDraw
+import com.hereliesaz.kfizzix.collision.AABB
+import com.hereliesaz.kfizzix.common.*
+import com.hereliesaz.kfizzix.particle.ParticleColor
+import com.hereliesaz.kfizzix.pooling.arrays.Vec2Array
+import com.hereliesaz.kfizzix.testbed.pooling.ColorPool
 import javafx.geometry.Rectangle2D
 import javafx.scene.canvas.GraphicsContext
 import javafx.scene.paint.Color

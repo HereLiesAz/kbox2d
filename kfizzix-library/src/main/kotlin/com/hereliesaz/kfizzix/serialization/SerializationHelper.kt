@@ -21,9 +21,9 @@
  * ARISING IN ANY WAY OUT of THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.hereliesaz.kfizzix.serialization
+package com.hereliesaz.kfizzix.serialization
 
-import com.github.hereliesaz.kfizzix.dynamics.joints.JointType
+import com.hereliesaz.kfizzix.dynamics.joints.JointType
 
 /**
  * A collection of helper functions for serialization.

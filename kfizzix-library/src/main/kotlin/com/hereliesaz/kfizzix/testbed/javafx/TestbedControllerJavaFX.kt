@@ -16,11 +16,11 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.hereliesaz.kfizzix.testbed.javafx
+package com.hereliesaz.kfizzix.testbed.javafx
 
-import com.github.hereliesaz.kfizzix.testbed.framework.AbstractTestbedController
-import com.github.hereliesaz.kfizzix.testbed.framework.TestbedErrorHandler
-import com.github.hereliesaz.kfizzix.testbed.framework.TestbedModel
+import com.hereliesaz.kfizzix.testbed.framework.AbstractTestbedController
+import com.hereliesaz.kfizzix.testbed.framework.TestbedErrorHandler
+import com.hereliesaz.kfizzix.testbed.framework.TestbedModel
 import javafx.animation.AnimationTimer
 
 /**

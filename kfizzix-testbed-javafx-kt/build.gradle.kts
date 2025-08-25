@@ -12,16 +12,16 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib"))
     implementation(project(":kfizzix-library"))
-    implementation(project(":kbox2d-serialization-kt"))
+    implementation(project(":kfizzix-serialization-kt"))
     implementation("org.apache.commons:commons-math3:3.6.1")
     implementation("org.openjfx:javafx-controls:17.0.2")
     implementation("org.openjfx:javafx-fxml:17.0.2")
 }
 
 application {
-    mainClass.set("com.hereliesaz.kbox2d.testbed.javafx.TestbedMain")
+    mainClass.set("com.hereliesaz.kfizzix.testbed.javafx.TestbedMain")
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "17"
 }

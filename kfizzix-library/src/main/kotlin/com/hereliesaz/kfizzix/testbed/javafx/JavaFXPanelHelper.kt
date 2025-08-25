@@ -1,11 +1,11 @@
-package com.github.hereliesaz.kfizzix.testbed.javafx
+package com.hereliesaz.kfizzix.testbed.javafx
 
 import com.google.common.collect.Lists
-import com.github.hereliesaz.kfizzix.common.Vec2
-import com.github.hereliesaz.kfizzix.testbed.framework.AbstractTestbedController
-import com.github.hereliesaz.kfizzix.testbed.framework.TestbedCamera.ZoomType
-import com.github.hereliesaz.kfizzix.testbed.framework.TestbedModel
-import com.github.hereliesaz.kfizzix.testbed.framework.TestbedTest
+import com.hereliesaz.kfizzix.common.Vec2
+import com.hereliesaz.kfizzix.testbed.framework.AbstractTestbedController
+import com.hereliesaz.kfizzix.testbed.framework.TestbedCamera.ZoomType
+import com.hereliesaz.kfizzix.testbed.framework.TestbedModel
+import com.hereliesaz.kfizzix.testbed.framework.TestbedTest
 import javafx.scene.Node
 import javafx.scene.input.KeyCode
 import javafx.scene.input.MouseButton
