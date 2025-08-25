@@ -9,7 +9,7 @@ plugins {
 }
 
 allprojects {
-    group = "com.hereliesaz.kbox2d"
+    group = "com.hereliesaz.kfizzix"
     version = "1.0.0-SNAPSHOT"
 
 
